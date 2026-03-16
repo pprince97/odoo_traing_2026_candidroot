@@ -1,0 +1,2 @@
+# odoo_traing_2026_candidroot
+Training
