@@ -1,0 +1,41 @@
+<odoo>
+    <record id="mail_activity_plan_template_view_form" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.product.custom</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="before">
+                <page name="new_page" string="Page">
+                    <group>
+                        <group string="Selections">
+                            <field name="type_selection"/>
+                            <field name="is_multipart" invisible="type_selection == 'accessory'"/>
+                        </group>
+                        <group string="Product Specs" invisible="is_multipart or (type_selection == 'accessory')">
+                            <field name="material_id"/>
+                            <field name="surface_finish_id"/>
+                            <field name="uv_printing_id"/>
+                            <field name="colour_shade_id"/>
+                        </group>
+                        <group string="costing">
+                            <field name="cost" widget="monetary" invisible="type_selection == 'accessory'"/>
+                            <field name="accessories_cost" widget="monetary" invisible="type_selection == 'accessory'"/>
+                            <field name="total_cost" widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Subproducts &amp; Accessories" invisible="type_selection == 'accessory'">
+                            <field name="product_line_ids">
+                                <list editable="top">
+                                    <field name="product_selection_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price" sum="Total" widget="monetary"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
