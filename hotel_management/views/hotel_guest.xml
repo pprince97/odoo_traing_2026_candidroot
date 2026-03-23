@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hotel_guest_list">
+            <field name="name">hotel_management.list</field>
+            <field name="model">hotel.guest</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="guest_name"/>
+                    <field name="age"/>
+                    <field name="discount"/>
+                    <field name="gender"/>
+                    <field name="is_vip"/>
+                    <field name="date_of_birth"/>
+                    <field name="check_in_time"/>
+                    <field name="remark"/>
+                    <field name="id_proof"/>
+                    <field name="guest_photo"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hotel_guest_search">
+            <field name="name">hotel_management.search</field>
+            <field name="model">hotel.guest</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="guest_name"/>
+                    <field name="age"/>
+                    <field name="date_of_birth"/>
+                    <field name="is_vip"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hotel_guest_form">
+            <field name="name">hotel_management_form</field>
+            <field name="model">hotel.guest</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <header>
+                        <button name="clear_guest_with_booking"
+                                string="command_one_to_many"
+                                type="object"
+                                confirm="Are you still sure you want to continue?"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="guest_name"/>
+                                <field name="age"/>
+                                <field name="discount"/>
+                                <field name="gender"/>
+                            </group>
+                            <group>
+                                <field name="is_vip"/>
+                                <field name="date_of_birth"/>
+                                <field name="check_in_time"/>
+<!--                                Many2One Many guest have One Room-->
+                                <field name="room_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="guest_remark" string="About Guest">
+                                <group>
+                                    <field name="remark"/>
+                                </group>
+                            </page>
+                            <page name="guest_proof" string="Guest Proof">
+                                <group>
+                                    <field name="id_proof"/>
+                                    <field name="guest_photo"/>
+                                </group>
+                            </page>
+
+<!--                            One2Many one guest to Many bookings-->
+                            <page name="bookings" string="Bookings">
+                                <group>
+                                    <field name="booking_ids"  context="{'default_is_paid': True}">
+                                        <list>
+                                            <field name="booking_reference"/>
+                                            <field name="number_of_nights"/>
+                                            <field name="total_amount"/>
+                                            <field name="booking_status"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hotel_guest_action">
+            <field name="name">Guest Details Form</field>
+            <field name="res_model">hotel.guest</field>
+            <field name="view_mode">list,form,search</field>
+        </record>
+
+        <menuitem name="Hotel Management System" id="hotel_menu_root"/>
+
+        <menuitem name="Guest" id="hotel_guest_menu" parent="hotel_menu_root"
+                  action="hotel_guest_action"/>
+
+    </data>
+</odoo>
