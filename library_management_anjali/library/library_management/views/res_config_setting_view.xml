@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_custom" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <div>
+                        <block title="Test" id="test">
+                            <setting id="test_setting" help="Calculating Fine Amount Per day while students Return Books to Library">
+                                <field name="fine_amount_per_dayy"/>
+                            </setting>
+                        </block>
+                    </div>
+                </xpath>
+            </field>
+    </record>
+</odoo>

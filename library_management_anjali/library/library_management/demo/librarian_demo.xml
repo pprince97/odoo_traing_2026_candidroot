@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="librarian_demo1" model="res.partner" context="{'librarian':True}">
+        <field name="name">Pooja</field>
+        <field name="phone">1234567890</field>
+        <field name="email">pooja123@gmail.com</field>
+        <field name="gender">female</field>
+    </record>
+    <record id="librarian_demo2" model="res.partner" context="{'librarian':True}">
+        <field name="name">Riya</field>
+        <field name="phone">1234512345</field>
+        <field name="email">riya123@gmail.com</field>
+        <field name="gender">female</field>
+    </record>
+    <record id="librarian_demo3" model="res.partner" context="{'librarian':True}">
+        <field name="name">Jayesh</field>
+        <field name="phone">1234554321</field>
+        <field name="email">jayesh123@gmail.com</field>
+        <field name="gender">male</field>
+    </record>
+</odoo>

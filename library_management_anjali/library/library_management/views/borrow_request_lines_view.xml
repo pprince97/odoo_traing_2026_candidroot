@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="library_management_borrow_request_lines_list">
+        <field name="name">library.borrow.request.lines.list</field>
+        <field name="model">library.borrow.request.lines</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id"/>
+                <field name="quantity"/>
+                <field name="amount"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="total_amount"/>
+                <field name="issue_days"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="library_management_borrow_request_lines_form">
+        <field name="name">library.borrow.request.lines.form</field>
+        <field name="model">library.borrow.request.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_id"/>
+                            <field name="quantity"/>
+                            <field name="amount"/>
+                            <field name="fine_amount"/>
+                            <field name="total_amount"/>
+                        </group>
+                        <group>
+                            <field name="issue_date"/>
+                            <field name="return_date"/>
+                            <field name="issue_days"/>
+<!--                            <field name="fine_amount_config" invisible="1"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="library_management_borrow_request_lines_action">
+        <field name="name">Borrow Request Lines</field>
+        <field name="res_model">library.borrow.request.lines</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

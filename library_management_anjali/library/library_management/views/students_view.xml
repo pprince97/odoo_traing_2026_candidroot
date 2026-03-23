@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="library_management_students_list">
+        <field name="name">library.management.student.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="gender"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="library_management_students_form">
+        <field name="name">library.management.student.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="student_borrow_request"
+                            icon="fa-star"
+                            groups="library_management.group_project_librarian">
+                            <field string="Student Borrow Request" name="student_borrow_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="email" required="1"/>
+                            <field name="gender"/>
+                            <field name="student_code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_management_students_kanban" model="ir.ui.view">
+        <field name="name">library.management.student.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban color="color">
+                <field name="color"/>
+                <field name="type"/>
+                <field name="is_company"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="avatar_128" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-cover'}" alt="Contact image" invisible="type != 'contact'"/>
+                            <field name="avatar_128" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-contain p-2'}" alt="Contact image" invisible="type == 'contact'"/>
+                        </aside>
+                        <main class="ps-2 ps-md-0">
+                            <field name="name" invisible="not name" class="fw-bold"/>
+                            <field name="type" invisible="name" class="fw-bold"/>
+                            <div t-if="record.gender.raw_value">
+                                <field name="gender"/>
+                            </div>
+                            <div t-if="record.email.raw_value" class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-envelope text-primary" title="Email"/>
+                                <field name="email"/>
+                            </div>
+                            <div t-if="record.phone.raw_value">
+                                <i class="fa fa-fw me-1 fa-phone text-primary" title="Phone"/>
+                                <field name="phone"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="library_management_students_action">
+        <field name="name">Students</field>
+        <field name="res_model">res.partner</field>
+        <field name="context">{'student':True}</field>
+        <field name="domain">[('student_code','ilike','S%')]</field>
+         <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('library_management_students_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('library_management_students_form')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('library_management_students_kanban')})]"/>
+    </record>
+
+    <menuitem name="Students" id="library_management_students" parent="library_management_root"
+              action="library_management_students_action" sequence="2"/>
+</odoo>

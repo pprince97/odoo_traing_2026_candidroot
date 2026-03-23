@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="library_management_books_list">
+        <field name="name">library.management.student.list</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="available_copies"/>
+                <field name="stock"/>
+                <field name="borrow_price"/>
+                <field name="maximum_day"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="library_management_books_form">
+        <field name="name">library.management.student.form</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        string="Published"
+                        name="published_books"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state in ['published']"/>
+                    <button
+                        string="Unpublished"
+                        name="unpublished_books"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state in ['unpublished']"/>
+                        <field name="state" widget="statusbar" statusbar_visible="published,unpublished"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="book_borrow_request"
+                            icon="fa-star">
+                            <field string="Librarian Borrow Request" name="book_borrow_count" widget="statinfo"/>
+                        </button>
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="available_book"
+                            icon="fa-book">
+                            <field string="Available Book" name="available_book_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="available_copies" force_save="1"/>
+                            <field name="stock"/>
+                        </group>
+                        <group>
+                            <field name="currency_id"/>
+                            <field name="borrow_price"/>
+                            <field name="maximum_day"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </page>
+                        <page name="cover_image" string="Cover Image">
+                            <group>
+                                <field name="cover_image" widget="image" class="oe_avatar" options="{'img_class': 'object-fit-cover'}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="library_management_books_kanban">
+        <field name="name">library.management.student.kanban</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="barcode"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="cover_image" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-cover'}" alt="Contact image" />
+                        </aside>
+                        <main class="ps-2 ps-md-0">
+                            <div class="row mb-1">
+                                <div t-if="record.name.value" class="col-5 text-muted">
+                                    <strong>Name :</strong>
+                                </div>
+                                <div class="col-7 text-start">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div t-if="record.barcode.value" class="col-5 text-muted">
+                                    <strong>Barcode :</strong>
+                                </div>
+                                <div class="col-7 text-start">
+                                    <strong><field name="barcode"/></strong>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div t-if="record.borrow_price.value" class="col-5 text-muted">
+                                    <strong>Borrow Price :</strong>
+                                </div>
+                                <div class="col-7 text-start">
+                                    <strong><field name="borrow_price"/></strong>
+                                </div>
+                            </div>
+                        </main>
+                    </t>
+<!--                    <t t-name="card">-->
+<!--                        <div t-attf-class="oe_kanban_global_click p-2">-->
+<!--                            <main>-->
+<!--                                <div class="row mb-1">-->
+<!--                                    <div t-if="record.name.value" class="col-5 text-muted">-->
+<!--                                        <strong>Name :</strong>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-7 text-start">-->
+<!--                                        <strong><field name="name"/></strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="row mb-1">-->
+<!--                                    <div t-if="record.barcode.value" class="col-5 text-muted">-->
+<!--                                        <strong>Barcode :</strong>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-7 text-start">-->
+<!--                                        <strong><field name="barcode"/></strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="row mb-1">-->
+<!--                                    <div t-if="record.borrow_price.value" class="col-5 text-muted">-->
+<!--                                        <strong>Borrow Price :</strong>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-7 text-start">-->
+<!--                                        <strong><field name="borrow_price"/></strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </main>-->
+<!--                        </div>-->
+<!--                    </t>-->
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="library_management_books_action">
+        <field name="name">Books</field>
+        <field name="res_model">library.books</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <menuitem name="Library Management" id="library_management_root"/>
+    <menuitem name="Books" id="library_management_books" parent="library_management_root"
+              action="library_management_books_action" groups="library_management.group_project_librarian" sequence="1"/>
+</odoo>

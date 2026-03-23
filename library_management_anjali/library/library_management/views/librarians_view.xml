@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="library_management_librarians_list">
+        <field name="name">library.management.librarian.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="gender"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="library_management_librarians_form">
+        <field name="name">library.management.librarian.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                            class="oe_stat_button"
+                            type="object"
+                            name="librarian_borrow_request"
+                            icon="fa-star">
+                            <field string="Librarian Borrow Request" name="librarian_borrow_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="email" required="1"/>
+                            <field name="gender"/>
+                            <field name="librarian_code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_management_librarians_kanban" model="ir.ui.view">
+        <field name="name">library.management.librarians.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban color="color">
+                <field name="color"/>
+                <field name="type"/>
+                <field name="is_company"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="avatar_128" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-cover'}" alt="Contact image" invisible="type != 'contact'"/>
+                            <field name="avatar_128" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-contain p-2'}" alt="Contact image" invisible="type == 'contact'"/>
+                        </aside>
+                        <main class="ps-2 ps-md-0">
+                            <field name="name" invisible="not name" class="fw-bold"/>
+                            <field name="type" invisible="name" class="fw-bold"/>
+                            <div t-if="record.gender.raw_value">
+                                <field name="gender"/>
+                            </div>
+                            <div t-if="record.email.raw_value" class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-envelope text-primary" title="Email"/>
+                                <field name="email"/>
+                            </div>
+                            <div t-if="record.phone.raw_value">
+                                <i class="fa fa-fw me-1 fa-phone text-primary" title="Phone"/>
+                                <field name="phone"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="library_management_librarians_action1">
+        <field name="name">Librarians</field>
+        <field name="res_model">res.partner</field>
+        <field name="context">{'librarian':True,'create':False}</field>
+        <field name="domain">[('librarian_code','ilike','L%'),('user_id','=',uid)]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('library_management_librarians_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('library_management_librarians_form')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('library_management_librarians_kanban')})]"/>
+    </record>
+    <record model="ir.actions.act_window" id="library_management_librarians_action2">
+        <field name="name">Librarians</field>
+        <field name="res_model">res.partner</field>
+        <field name="context">{'librarian':True}</field>
+        <field name="domain">[('librarian_code','ilike','L%')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('library_management_librarians_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('library_management_librarians_form')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('library_management_librarians_kanban')})]"/>
+    </record>
+
+    <menuitem name="Librarians" id="library_management_librarians1" parent="library_management_root"
+              action="library_management_librarians_action1" groups="library_management.group_project_librarian_menu" sequence="3"/>
+    <menuitem name="Librarians" id="library_management_librarians2" parent="library_management_root"
+              action="library_management_librarians_action2" groups="library_management.group_project_admin" sequence="3"/>
+</odoo>

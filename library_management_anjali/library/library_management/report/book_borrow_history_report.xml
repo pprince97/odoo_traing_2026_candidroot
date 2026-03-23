@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_borrow_history_document">
+        <t t-call="web.external_layout">
+            <div>
+                <br/>
+                <h2>Borrow History Report</h2>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Start Date : </strong> <span t-field="doc.start_date"/> <br/>
+                        <strong>End Date : </strong> <span t-field="doc.end_date"/> <br/>
+                        <strong>Is Return : </strong> <span t-field="doc.is_return_date"/> <br/>
+                    </div>
+                    <div class="col-6">
+                        <strong>Students : </strong> <span t-field="doc.student_ids"/> <br/>
+                        <strong>Books : </strong> <span t-field="doc.book_ids"/> <br/>
+                    </div>
+                </div>
+                <br/>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-start">Book</th>
+                            <th class="text-center">Student</th>
+                            <th class="text-center">Librarian</th>
+                            <th class="text-center">Issue Date</th>
+                            <th class="text-center">Return Date</th>
+                            <th class="text-center">Issue Days</th>
+                            <th class="text-end">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs.action_get_report()" t-as="borrow">
+                            <tr>
+                                <td class="text-start"><span t-field="borrow.book_id"/></td>
+                                <td class="text-end"><span t-field="borrow.borrow_request_id.student_id"/></td>
+                                <td class="text-end"><span t-field="borrow.borrow_request_id.librarian_id"/></td>
+                                <td class="text-center"><span t-field="borrow.issue_date"/></td>
+                                <td class="text-center"><span t-field="borrow.return_date"/></td>
+                                <td class="text-center"><span t-field="borrow.issue_days"/></td>
+                                <td class="text-end"><span t-field="borrow.total_amount"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_borrow_history">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="library_management.report_borrow_history_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="book_borrow_history_report_print" model="ir.actions.report">
+        <field name="name">Borrow History Report</field>
+        <field name="model">book.borrow.history.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management.report_borrow_history</field>
+        <field name="report_file">library_management.report_borrow_history</field>
+        <field name="print_report_name">'Report'</field>
+        <field name="binding_model_id" ref="model_book_borrow_history_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

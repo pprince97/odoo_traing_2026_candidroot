@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="library_management_borrow_request_line_demo1" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_books_demo1"/>
+        <field name="quantity">5</field>
+        <field name="issue_date">2026-03-01</field>
+        <field name="return_date">2026-03-05</field>
+        <field name="borrow_request_id" ref="library_management.library_management_borrow_request_demo1"/>
+    </record>
+    <record id="library_management_borrow_request_line_demo2" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_books_demo2"/>
+        <field name="quantity">3</field>
+        <field name="issue_date">2026-03-06</field>
+        <field name="return_date">2026-03-10</field>
+        <field name="borrow_request_id" ref="library_management.library_management_borrow_request_demo2"/>
+    </record>
+    <record id="library_management_borrow_request_line_demo3" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_books_demo3"/>
+        <field name="quantity">2</field>
+        <field name="issue_date">2026-03-11</field>
+        <field name="return_date">2026-03-15</field>
+        <field name="borrow_request_id" ref="library_management.library_management_borrow_request_demo3"/>
+    </record>
+</odoo>

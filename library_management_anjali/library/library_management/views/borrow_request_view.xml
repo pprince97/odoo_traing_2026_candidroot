@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="library_management_borrow_request_list">
+        <field name="name">library.borrow.request.list</field>
+        <field name="model">library.borrow.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_number"/>
+                <field name="student_id"/>
+                <field name="librarian_id"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="library_management_borrow_request_form">
+        <field name="name">library.borrow.request.form</field>
+        <field name="model">library.borrow.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        string="Issued"
+                        name="issued_books"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state in ['issued','returned','cancelled']"
+                        groups="library_management.group_project_librarian"/>
+                    <button
+                        string="Returned"
+                        name="returned_books"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state in ['returned', 'cancelled','draft']"
+                        groups="library_management.group_project_librarian"/>
+                    <button
+                        string="Cancelled"
+                        name="cancelled_books"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state in ['cancelled','issued','returned']"
+                        groups="library_management.group_project_librarian"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,issued,returned,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="serial_number" readonly="1"/>
+                            <field name="student_id" readonly="state != 'draft'"/>
+                            <field name="librarian_id" readonly="1"/>
+                            <field name="cancelled_date" invisible="state != 'cancelled'"/>
+                            <field name="cancellation_reason" invisible="state != 'cancelled'"/>
+                        </group>
+                        <group>
+                            <field name="issue_date" readonly="1"/>
+                            <field name="return_date" readonly="1"/>
+                            <field name="fine_amount_config" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="borrow_request_ids" string="Borrow Request Lines">
+                            <field name="borrow_request_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="book_id"/>
+                                    <field name="quantity"/>
+                                    <field name="issue_date"/>
+                                    <field name="return_date"/>
+                                    <field name="issue_days"/>
+                                    <field name="amount"/>
+                                    <field name="fine_amount"/>
+                                    <field name="total_amount"/>
+                                </list>
+                            </field>
+                            <group>
+                                <group class=" oe_subtotal_footer">
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="fine_amount" string="Fine Amount"/>
+                                    </span>
+                                    <field name="fine_amount" widget="timesheet_uom" nolabel="1"/>
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="total_amount" string="Total Amount"/>
+                                    </span>
+                                    <field name="total_amount" widget="timesheet_uom" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="library_management_borrow_request_action">
+        <field name="name">Borrow Request</field>
+        <field name="res_model">library.borrow.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Borrow Request" id="library_management_borrow_request" parent="library_management_root"
+              action="library_management_borrow_request_action" sequence="4"/>
+</odoo>

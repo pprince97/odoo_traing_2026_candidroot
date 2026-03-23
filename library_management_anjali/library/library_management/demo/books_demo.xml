@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="library_management_books_demo1" model="library.books">
+        <field name="name">Bhagawat Gita</field>
+        <field name="barcode">1234567890</field>
+        <field name="stock">15</field>
+        <field name="borrow_price">100</field>
+        <field name="maximum_day">30</field>
+        <field name="description">Bhagawat Gita Demo</field>
+    </record>
+    <record id="library_management_books_demo2" model="library.books">
+        <field name="name">Mahabharat</field>
+        <field name="barcode">1234512345</field>
+        <field name="stock">10</field>
+        <field name="borrow_price">50</field>
+        <field name="maximum_day">20</field>
+        <field name="description">Mahabharat Demo</field>
+    </record>
+    <record id="library_management_books_demo3" model="library.books">
+        <field name="name">Ramayan</field>
+        <field name="barcode">1234554321</field>
+        <field name="stock">12</field>
+        <field name="borrow_price">30</field>
+        <field name="maximum_day">25</field>
+        <field name="description">Ramayan Demo</field>
+    </record>
+    <record id="library_management_books_demo4" model="library.books">
+        <field name="name">English</field>
+        <field name="barcode">6789067890</field>
+        <field name="stock">50</field>
+        <field name="borrow_price">20</field>
+        <field name="maximum_day">15</field>
+        <field name="description">English Demo</field>
+    </record>
+    <record id="library_management_books_demo5" model="library.books">
+        <field name="name">Maths</field>
+        <field name="barcode">6789009876</field>
+        <field name="stock">40</field>
+        <field name="borrow_price">10</field>
+        <field name="maximum_day">18</field>
+        <field name="description">Maths Demo</field>
+    </record>
+</odoo>

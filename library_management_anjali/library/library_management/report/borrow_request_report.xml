@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_borrow_request_document">
+        <t t-call="web.external_layout">
+            <div>
+                <br/>
+                <h2>Borrow Request Report</h2>
+                <span t-field="doc.serial_number"/>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Student Name : </strong> <span t-field="doc.student_id"/> <br/>
+                    </div>
+                    <div class="col-6">
+                        <strong>Librarian Name : </strong> <span t-field="doc.librarian_id"/> <br/>
+                    </div>
+                </div>
+                <br/>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-start">Book</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Issue Date</th>
+                            <th class="text-center">Return Date</th>
+                            <th class="text-center">Issue Days</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Fine Amount</th>
+                            <th class="text-end">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.borrow_request_ids" t-as="borrow">
+                            <tr>
+                                <td class="text-start"><span t-field="borrow.book_id"/></td>
+                                <td class="text-center"><span t-field="borrow.quantity"/></td>
+                                <td class="text-center"><span t-field="borrow.issue_date"/></td>
+                                <td class="text-center"><span t-field="borrow.return_date"/></td>
+                                <td class="text-center"><span t-field="borrow.issue_days"/></td>
+                                <td class="text-center"><span t-field="borrow.amount"/></td>
+                                <td class="text-center"><span t-field="borrow.fine_amount"/></td>
+                                <td class="text-end"><span t-field="borrow.total_amount"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+                <div class="row">
+                    <div class="col-6"/>
+                    <div class="col-6">
+                        <table class="table">
+                            <tr style="border-top: 2px solid black;">
+                                <td><strong>Total Amount:</strong></td>
+                                <td class="text-end">
+                                    <strong><span t-field="doc.total_amount"/></strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_borrow_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="library_management.report_borrow_request_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="borrow_request_report_print" model="ir.actions.report">
+        <field name="name">Borrow Request Report</field>
+        <field name="model">library.borrow.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management.report_borrow_request</field>
+        <field name="report_file">library_management.report_borrow_request</field>
+        <field name="print_report_name">'Report - %s' %(object.serial_number)</field>
+        <field name="binding_model_id" ref="model_library_borrow_request"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

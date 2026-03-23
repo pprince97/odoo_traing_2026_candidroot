@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="book_borrow_history_wizard" model="ir.ui.view">
+        <field name="name">book.borrow.history.wizard.form</field>
+        <field name="model">book.borrow.history.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="is_return_date"/>
+                    </group>
+                    <group>
+                        <field name="student_ids" widget="many2many_tags"/>
+                        <field name="book_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Print Report" name="action_print_report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-primary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="library_management_book_history_wizard_action">
+        <field name="name">Book History</field>
+        <field name="res_model">book.borrow.history.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Reporting" id="library_management_reporting" parent="library_management_root"/>
+    <menuitem name="Book History" id="library_management_reporting_book_history" parent="library_management.library_management_reporting"
+                  action="library_management.library_management_book_history_wizard_action"
+                  groups="library_management.group_project_admin"/>
+</odoo>
