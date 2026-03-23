@@ -349,21 +349,21 @@
 <!--        </xpath>-->
 <!--    </template>-->
 
-    <template id="footer_borrow_request" inherit_id="website.layout">
-        <xpath expr="//div[@id='footer']" position="replace">
-            <div id="footer_borrow" class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;">
-                <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Container">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-5 pt24 pb24">
-                                <h1> My custom footer </h1>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </xpath>
-    </template>
+<!--    <template id="footer_borrow_request" inherit_id="website.layout">-->
+<!--        <xpath expr="//div[@id='footer']" position="replace">-->
+<!--            <div id="footer_borrow" class="oe_structure oe_structure_solo border text-break" style="&#45;&#45;box-border-left-width: 0px; &#45;&#45;box-border-right-width: 0px;">-->
+<!--                <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Container">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-lg-5 pt24 pb24">-->
+<!--                                <h1> My custom footer </h1>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </section>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--    </template>-->
 
     <template id="portal_borrow_request_menu" inherit_id="portal.portal_breadcrumbs">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
@@ -398,13 +398,18 @@
     <record id="menu_book" model="website.menu">
         <field name="name">Book</field>
         <field name="url">/book</field>
-        <field name="parent_id" ref="website.main_menu"/>
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
         <field name="sequence" type="int">200</field>
     </record>
-    <record id="menu_book_book1" model="website.menu">
-        <field name="name">Book1</field>
-        <field name="url">/book/book1</field>
-        <field name="parent_id" ref="menu_book"/>
-        <field name="sequence" type="int">10</field>
+    <record id="menu_library" model="website.menu">
+        <field name="name">Library</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">300</field>
+    </record>
+    <record id="menu_library1" model="website.menu">
+        <field name="name">Library1</field>
+        <field name="url">/</field>
+        <field name="parent_id" ref="library_management.menu_library"/>
+        <field name="sequence" type="int">500</field>
     </record>
 </odoo>
