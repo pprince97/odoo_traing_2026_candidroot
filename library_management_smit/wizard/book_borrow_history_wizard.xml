@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="book_borrow_history_wizard_view_form" model="ir.ui.view">
+            <field name="name">book.borrowed.history.wizard.view.form</field>
+            <field name="model">book.borrow.history.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="Reason For Cancellation">
+                            <field name="start_date"/>
+                            <field name="end_date" force_save="1"/>
+                            <field name="is_return_date" force_save="1"/>
+                            <field name="student_ids" widget="many2many_tags"/>
+                            <field name="book_ids" widget="many2many_tags"/>
+                            <field name="library_book_borrow_lines_ids" widget="many2many_tags" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="print_book_borrow_history" string="Print" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+
+    <record id="action_book_borrow_history" model="ir.actions.act_window">
+        <field name="name">Book Borrow History</field>
+        <field name="res_model">book.borrow.history.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

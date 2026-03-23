@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="library_book_borrow_list_view">
+            <field name="name">library.book.borrow.list.view</field>
+            <field name="model">library.book.borrow</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="serial_number"/>
+                    <field name="student_id"/>
+                    <field name="librarian_id"/>
+                    <field name="borrow_req_ids" widget="many2many_tags"/>
+                    <field name="state"/>
+                    <field name="total_amount"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="library_book_borrow_form_view">
+            <field name="name">library.book.borrow.form.view</field>
+            <field name="model">library.book.borrow</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <button name="action_issue_books" type="object" string="Issue"
+                                    class="btn-primary" invisible="state in ['issued']"/>
+                            <button name="action_return_books" type="object" string="Return" class="btn-primary"
+                                    invisible="state in ['draft','returned','cancelled']"/>
+                            <button name="action_cancel_books" type="object" string="Cancel" class="btn-primary"
+                                    invisible="state in ['issued','returned','cancelled']"/>
+                            <field name="state" widget="statusbar" statusbar_visible="issued,returned,draft"/>
+                        </header>
+
+                        <group string="Book Borrow Details">
+                            <field name="student_id" readonly="state in ['issued', 'returned', 'cancelled']"
+                                   domain="[('is_student', '=', True)]"/>
+                            <field name="librarian_id"/>
+                            <field name="issue_date" readonly="state in ['issued', 'returned', 'cancelled']"/>
+                            <field name="return_date" readonly="state in ['issued', 'returned', 'cancelled']"/>
+                            <field name="fine_amount" readonly="state in ['issued', 'returned', 'cancelled']"/>
+                            <field name="total_amount" readonly="state in ['issued', 'returned', 'cancelled']"/>
+                            <field name="extra_days" readonly="state in ['issued', 'returned', 'cancelled']"/>
+                            <field name="cancelled_date" invisible="state in ['issued', 'returned', 'draft']"
+                                   readonly="state in ['draft', 'issued', 'returned', 'cancelled']"/>
+                            <field name="cancellation_reason"
+                                   readonly="state in ['issued', 'returned', 'cancelled', 'draft']"
+                                   invisible="state in ['issued','returned','draft']"/>
+                        </group>
+                        <notebook>
+                            <page string="Borrow Req Lines">
+                                <field name="borrow_req_ids" readonly="state in ['issued', 'returned', 'cancelled']">
+                                    <list editable="top">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="book_id"/>
+                                        <field name="quantity"/>
+                                        <field name="amount_per_day"/>
+                                        <field name="issue_date_book"/>
+                                        <field name="return_date_book"/>
+                                        <field name="fine_amount_book"/>
+                                        <field name="issue_days"/>
+                                        <field name="total_amount" sum="Total" widget="monetary"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_borrow_request">
+            <field name="name">Borrow Request Action</field>
+            <field name="res_model">library.book.borrow</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

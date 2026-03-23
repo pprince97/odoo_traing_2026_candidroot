@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <menuitem name="Library Management" id="menu_root"/>
+
+        <menuitem name="Books" id="menu_book" action="action_book" parent="library_management_smit.menu_root"
+                  groups="library_group_librarian"/>
+        <menuitem name="Students" id="menu_student" action="action_student" parent="library_management_smit.menu_root"
+                  groups="library_group_student"/>
+        <menuitem name="Reporting" id="menu_reporting" parent="library_management_smit.menu_root"
+                  groups="library_group_admin"/>
+        <menuitem name="Librarian" id="menu_librarian" action="action_librarian"
+                  parent="library_management_smit.menu_root" groups="library_group_librarian"/>
+        <menuitem name="Borrow Request" id="menu_borrow_request" action="action_borrow_request"
+                  parent="library_management_smit.menu_root"/>
+        <menuitem name="Reporting" id="menu_reporting" parent="library_management_smit.menu_root"/>
+        <menuitem name="Book History" id="menu_book_history" action="action_book_borrow_history"
+                  parent="library_management_smit.menu_reporting"/>
+
+    </data>
+</odoo>

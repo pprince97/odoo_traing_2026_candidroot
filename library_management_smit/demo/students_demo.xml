@@ -1,0 +1,46 @@
+<odoo>
+
+    <data noupdate="1">
+        <record id="student1" model="res.users">
+            <field name="name">Smit Patel</field>
+            <field name="email">smit@gmail.com</field>
+            <field name="phone">9999999999</field>
+            <field name="gender">male</field>
+            <field name="is_student">True</field>
+            <field name="login">smit@gmail.com</field>
+        </record>
+        <record id="student2" model="res.users">
+            <field name="name">Man Patel</field>
+            <field name="email">man@gmail.com</field>
+            <field name="phone">9999999999</field>
+            <field name="gender">male</field>
+            <field name="is_student">True</field>
+            <field name="login">man@gmail.com</field>
+        </record>
+        <record id="student3" model="res.users">
+            <field name="name">Sankit Patel</field>
+            <field name="email">sankit@gmail.com</field>
+            <field name="phone">9999999999</field>
+            <field name="gender">male</field>
+            <field name="is_student">True</field>
+            <field name="login">sankit@gmail.com</field>
+        </record>
+        <record id="student4" model="res.users">
+            <field name="name">Raj Patel</field>
+            <field name="email">raj@gmail.com</field>
+            <field name="phone">9999999999</field>
+            <field name="gender">male</field>
+            <field name="is_student">True</field>
+            <field name="login">raj@gmail.com</field>
+        </record>
+        <record id="student5" model="res.users">
+            <field name="name">Sahil Patel</field>
+            <field name="email">sahil@gmail.com</field>
+            <field name="phone">9999999999</field>
+            <field name="gender">male</field>
+            <field name="is_student">True</field>
+            <field name="login">sahil@gmail.com</field>
+        </record>
+    </data>
+
+</odoo>

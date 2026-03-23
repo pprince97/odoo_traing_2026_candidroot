@@ -1,0 +1,107 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="book_kanban_view">
+            <field name="name">library.book.kanban.view</field>
+            <field name="model">library.book</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <aside class="o_kanban_aside_full">
+                                <t>
+                                    <div class="position-relative w-100 h-auto m-0">
+                                        <field name="cover_image" alt="Book Cover image" class="h-100" widget="image"
+                                               options="{'img_class': 'object-fit-contain'}"/>
+                                    </div>
+                                </t>
+                            </aside>
+                            <main class="ps-2">
+                                <div class="mb-1">
+                                    <field name="name" class="mb-0 fw-bold fs-5"/>
+                                </div>
+                                <div class="text-truncate">
+                                    <field name="barcode"/>
+                                </div>
+                                <span>Available Copies: <field name="available_copies"/></span>
+                                <field name="category_ids" widget="many2many_tags"/>
+
+                                <footer>
+                                    <field name="description"/>
+                                </footer>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="book_form_view">
+            <field name="name">library.book.form.view</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button icon="fa-edit">
+                                <field name="available_books_count" widget="statinfo"/>
+                            </button>
+                            <button name="action_borrowed_history" type="object"
+                                    class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="book_borrowed_count"/></span>
+                                    <span class="o_stat_text">Book Borrowed Count</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group string="Book Details">
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="currency_id"/>
+                            <field name="description"/>
+                            <field name="state"/>
+                            <field name="category_ids" widget="many2many_tags"/>
+
+                        </group>
+                        <group string="Inventory Details">
+                            <field name="available_copies"/>
+                            <field name="stock"/>
+                            <field name="borrow_price"/>
+                            <field name="max_day_limit"/>
+                        </group>
+                        <notebook>
+                            <page string="Book Image">
+                                <group>
+                                    <list>
+                                        <field name="cover_image" filename="filename"/>
+                                        <field name="filename" invisible="1"/>
+                                        <button name="action_book_history" string="History" type="object" class="btn-primary"/>
+                                    </list>
+                                </group>
+                            </page>
+                            <page string="Book History">
+                                <group>
+                                    <field name="book_image_history_ids">
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="image"/>
+                                            <field name="change_date"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_book">
+            <field name="name">Book Action</field>
+            <field name="res_model">library.book</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+
+    </data>
+</odoo>

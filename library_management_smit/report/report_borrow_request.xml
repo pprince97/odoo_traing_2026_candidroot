@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_request_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Borrow Request</h2>
+
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                <strong>Serial Number</strong>
+                            </th>
+                            <th colspan="4">
+                                <strong>Student</strong>
+                            </th>
+                            <th colspan="4">
+                                <strong>Librarian</strong>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span t-field="rec.serial_number"/>
+                            </td>
+                            <td colspan="4">
+                                <span t-field="rec.student_id.name"/>
+                            </td>
+                            <td colspan="4">
+                                <span t-field="rec.librarian_id.name"/>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                <strong>Book</strong>
+                            </th>
+                            <th>
+                                <strong>Quantity</strong>
+                            </th>
+                            <th>
+                                <strong>Issue Date</strong>
+                            </th>
+                            <th>
+                                <strong>Return Date</strong>
+                            </th>
+                            <th>
+                                <strong>Fine Amount</strong>
+                            </th>
+                            <th>
+                                <strong>Issue days</strong>
+                            </th>
+                            <th>
+                                <strong>Total Amount</strong>
+                            </th>
+                        </tr>
+                        <tr t-foreach="rec.borrow_req_ids" t-as="line">
+                            <td>
+                                <span t-field="line.book_id.name"/>
+                            </td>
+                            <td>
+                                <span t-field="line.quantity"/>
+                            </td>
+                            <td>
+                                <span t-field="line.issue_date_book"/>
+                            </td>
+                            <td>
+                                <span t-field="line.return_date_book"/>
+                            </td>
+                            <td>
+                                <span t-field="line.fine_amount_book"/>
+                            </td>
+                            <td>
+                                <span t-field="line.issue_days"/>
+                            </td>
+                            <td>
+                                <span t-field="line.total_amount"/>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="report_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="rec">
+                <t t-call="library_management_smit.report_request_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_borrow_request" model="ir.actions.report">
+        <field name="name">Borrow Request Report</field>
+        <field name="model">library.book.borrow</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_smit.report_request</field>
+        <field name="report_file">library_management_smit.report_request</field>
+        <field name="print_report_name">'requests'</field>
+        <field name="binding_model_id" ref="model_library_book_borrow"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

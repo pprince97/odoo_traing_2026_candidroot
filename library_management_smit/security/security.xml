@@ -1,0 +1,36 @@
+<odoo noupdate="1">
+
+    <record model="ir.module.category" id="module_category_library">
+        <field name="name">Library</field>
+        <field name="sequence">21</field>
+    </record>
+
+    <record model="res.groups.privilege" id="library_privilege">
+        <field name="name">Library</field>
+        <field name="category_id" ref="library_management_smit.module_category_library"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="library_group_student" model="res.groups">
+        <field name="name">Student</field>
+        <field name="sequence">1</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="privilege_id" ref="library_privilege"/>
+    </record>
+
+    <record id="library_group_librarian" model="res.groups">
+        <field name="name">Librarian</field>
+        <field name="sequence">2</field>
+        <field name="implied_ids" eval="[(4, ref('library_group_student'))]"/>
+        <field name="privilege_id" ref="library_privilege"/>
+    </record>
+
+    <record id="library_group_admin" model="res.groups">
+        <field name="name">Library Admin</field>
+        <field name="sequence">3</field>
+        <field name="privilege_id" ref="library_privilege"/>
+        <field name="implied_ids" eval="[(4, ref('library_group_librarian'))]"/>
+        <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

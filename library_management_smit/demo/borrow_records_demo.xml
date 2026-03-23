@@ -1,0 +1,18 @@
+<odoo>
+
+    <data noupdate="1">
+        <record id="borrow1" model="library.book.borrow">
+            <field name="student_id" ref="library_management_smit.student1"/>
+            <field name="state">draft</field>
+        </record>
+        <record id="borrow2" model="library.book.borrow">
+            <field name="student_id" ref="library_management_smit.student2"/>
+            <field name="state">issued</field>
+        </record>
+        <record id="borrow3" model="library.book.borrow">
+            <field name="student_id" ref="library_management_smit.student3"/>
+            <field name="state">returned</field>
+        </record>
+    </data>
+
+</odoo>

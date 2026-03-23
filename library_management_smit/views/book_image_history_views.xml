@@ -1,0 +1,23 @@
+<odoo>
+
+    <record model="ir.ui.view" id="book_list_view">
+        <field name="name">book.image.history.list.view</field>
+        <field name="model">book.image.history</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="image"/>
+                <field name="change_date"/>
+                <field name="book_id"/>
+            </list>
+        </field>
+
+    </record>
+
+    <record model="ir.actions.act_window" id="action_book_history">
+        <field name="name">Book History Action</field>
+        <field name="res_model">book.image.history</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

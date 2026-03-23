@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Borrow request rules -->
+    <record id="borrow_request_personal_student_rule" model="ir.rule">
+        <field name="name">Student Personal Borrow Requests</field>
+        <field ref="model_library_book_borrow" name="model_id"/>
+        <field name="domain_force">[('student_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('library_management_smit.library_group_student'))]"/>
+    </record>
+
+    <record id="borrow_request_personal_librarian_rule" model="ir.rule">
+        <field name="name">Librarian Personal Borrow Requests</field>
+        <field ref="model_library_book_borrow" name="model_id"/>
+        <field name="domain_force">['|',('librarian_id','=',user.id),('librarian_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('library_management_smit.library_group_librarian')),(4, ref('base.group_erp_manager'))]"/>
+    </record>
+
+    <record id="borrow_request_admin_rule" model="ir.rule">
+        <field name="name">Personal Borrow Requests Admin</field>
+        <field ref="model_library_book_borrow" name="model_id"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('library_management_smit.library_group_admin'))]"/>
+    </record>
+
+    <!-- Librarian Rule-->
+    <record id="student_own_user_rule" model="ir.rule">
+        <field name="name">Student Own User</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="domain_force">[('id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('library_management_smit.library_group_student'))]"/>
+    </record>
+    <record id="librarian_rule_view_self" model="ir.rule">
+        <field name="name">Librarian Own User View</field>
+        <field ref="base.model_res_users" name="model_id"/>
+        <field name="domain_force">['|',('is_student','=',True),('id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('library_management_smit.library_group_librarian'))]"/>
+    </record>
+<!--    <record id="librarian_rule_view_self" model="ir.rule">-->
+<!--        <field name="name">Librarian Own User View</field>-->
+<!--        <field ref="base.model_res_users" name="model_id"/>-->
+<!--        <field name="domain_force">[('id','=',user.id)]</field>-->
+<!--        <field name="groups" eval="[(4, ref('library_management_smit.library_group_librarian')),(4, ref('base.group_erp_manager'))]"/>-->
+<!--    </record>-->
+    <record id="librarian_rule_view_admin" model="ir.rule">
+        <field name="name">Admin All Librarian View</field>
+        <field ref="base.model_res_users" name="model_id"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('library_management_smit.library_group_admin'))]"/>
+    </record>
+
+</odoo>
