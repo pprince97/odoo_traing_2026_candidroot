@@ -1,44 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="header_borrow_request" inherit_id="website.layout">
-        <xpath expr="//header" position="replace">
-            <!-- Always keep the 'header' tag so Odoo JS knows where the header is -->
-            <header id="header_borrow" class="o_main_header">
-                <div class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;">
-                    <div class="container text-center p-3">
-                        <div class="row">
-                            <h6> My custom header </h6>
-                        </div>
-                    </div>
-
-                    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-                        <div class="container">
-                            <ul class="nav navbar-nav mx-auto">
-                                <t t-foreach="website.menu_id.child_id" t-as="submenu">
-                                    <li class="nav-item">
-                                        <a t-att-href="submenu.url"
-                                           t-attf-class="nav-link #{'active' if submenu.url == request.httprequest.path else ''}">
-                                            <span t-field="submenu.name"/>
-                                        </a>
-                                    </li>
-                                </t>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-        </xpath>
-    </template>
-
-
-    <template id="custom_footer_content" inherit_id="website.layout">
-        <xpath expr="//div[@id='footer']" position="replace">
-            <div class="col-lg-12 text-center p-3">
-                <p>Custom Library Footer</p>
-            </div>
-        </xpath>
-    </template>
-
 
     <template id="books_template">
         <t t-call="website.layout">
@@ -147,11 +108,4 @@
 <!--        </t>-->
         </t>
     </template>
-
-    <record id="book_menu" model="website.menu">
-        <field name="name">Books</field>
-        <field name="url">/books</field>
-        <field name="parent_id" ref="website.main_menu"/>
-        <field name="sequence">20</field>
-    </record>
 </odoo>
