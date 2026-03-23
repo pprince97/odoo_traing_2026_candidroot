@@ -1,0 +1,393 @@
+<odoo>
+    <data>
+        <template id="rental_create" name="Rental Create">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Rental User Create Successfully</h1>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="rental" name="Rental">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Rental Form</h1>
+                        </div>
+                    </section>
+                    <section class="pt8 pb8">
+                        <div class="container w-75 mx-auto">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">Open modal
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/rental/create" method="post">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Name</label>
+                                                    <input type="text" name="name" required="required"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email</label>
+                                                    <input type="text" name="email" required="required"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Phone</label>
+                                                    <input type="text" name="phone" required="required"
+                                                           class="form-control"/>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Send message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="pt8 pb8">
+                        <div class="container mt-5">
+                            <div class="row container w-75 mx-auto">
+                                <form action="/rental/create" method="post" data-success-mode="redirect"
+                                      data-success-page="/contactus-thank-you">
+                                    <div class="mb-3">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" name="name" required="required" class="form-control"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" name="email" required="required" class="form-control"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" name="phone" required="required" class="form-control"/>
+                                    </div>
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="faqs" name="FAQS">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="pt8 pb8">
+
+                        <div class="container">
+                            <h1 class="pt16 h2-fs" style="color: #008f8c;">FAQS</h1>
+                            <table class="small table table-bordered text-center">
+                                <thead class="highlight">
+                                    <tr>
+                                        <th scope="col" style="width: 10%">#</th>
+                                        <th scope="col" style="width: 35%">Question</th>
+                                        <th scope="col" style="width: 20%">Category</th>
+                                        <th scope="col" style="width: 35%">Short Answer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>How can I create an account?</td>
+                                        <td>Account</td>
+                                        <td>Click on Sign Up and fill in your details.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>How do I reset my password?</td>
+                                        <td>Security</td>
+                                        <td>Use the “Forgot Password” option on login.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Where can I view my orders?</td>
+                                        <td>Orders</td>
+                                        <td>Go to your dashboard and open “My Orders”.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Can I cancel my order?</td>
+                                        <td>Orders</td>
+                                        <td>Yes, before it is shipped from our warehouse.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>What payment methods are accepted?</td>
+                                        <td>Payments</td>
+                                        <td>We accept cards, UPI, and net banking.</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>How do I contact support?</td>
+                                        <td>Support</td>
+                                        <td>Use the Contact Us page or email support.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mb-0 py-2 col-12 s_website_form_submit s_website_form_no_submit_label text-start"
+                                 data-name="Submit Button">
+                                <div style="width: 200px;" class="s_website_form_label"/>
+                                <a class="btn btn-lg btn-primary o_translate_inline" href="/contactus">Start Now
+                                    <span class="fa fa-angle-right ms-2"></span>
+                                </a>
+                            </div>
+
+
+                            <p>
+                                Cookies are small bits of text sent by our servers to your computer or device when you
+                                access our services.
+                                They are stored in your browser and later sent back to our servers so that we can
+                                provide contextual content.
+                                Without cookies, using the web would be a much more frustrating experience.
+                                We use them to support your activities on our website. For example, your session (so you
+                                don't have to login again) or your shopping cart.
+                                <br/>
+                                Cookies are also used to help us understand your preferences based on previous or
+                                current activity on our website (the pages you have
+                                visited), your language and country, which enables us to provide you with improved
+                                services.
+                                We also use cookies to help us compile aggregate data about site traffic and site
+                                interaction so that we can offer
+                                better site experiences and tools in the future.
+                            </p>
+                            <p>
+                                Here is an overview of the cookies that may be stored on your device when you visit our
+                                website:
+                            </p>
+                            <div class="table-responsive">
+                                <table class="small table table-bordered text-center">
+                                    <thead class="table-light highlight">
+                                        <tr>
+                                            <th scope="col" style="width: 20%">Category of Cookie</th>
+                                            <th scope="col" style="width: 50%; min-width: 200px;">Service</th>
+                                            <th scope="col" style="width: 30%">Examples</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p>Session &amp; Security<br/>(essential)
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    Authenticate users, protect user data and allow the website to
+                                                    deliver the services users expects,
+                                                    such as maintaining the content of their cart, or allowing file
+                                                    uploads.
+                                                </p>
+                                                <p>The website will not work properly if you reject or discard those
+                                                    cookies.
+                                                </p>
+                                            </td>
+                                            <td>
+                                                session_id (Odoo)
+                                                <br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Preferences<br/>(essential)
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>Remember information about the preferred look or behavior of the
+                                                    website, such as your preferred language or region.
+                                                </p>
+                                                <p>Your experience may be degraded if you discard those cookies, but the
+                                                    website will still work.
+                                                </p>
+                                            </td>
+                                            <td>
+                                                frontend_lang (Odoo)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Interaction History<br/>(optional)
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    Used to collect information about your interactions with the
+                                                    website, the pages you've seen,
+                                                    and any specific marketing campaign that brought you to the website.
+                                                </p>
+                                                <p>We may not be able to provide the best service to you if you reject
+                                                    those cookies, but the website will work.
+                                                </p>
+                                            </td>
+                                            <td>
+                                                im_livechat_previous_operator (Odoo)
+                                                <br/>
+                                                utm_campaign (Odoo)
+                                                <br/>
+                                                utm_source (Odoo)
+                                                <br/>
+                                                utm_medium (Odoo)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Advertising &amp; Marketing<br/>(optional)
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    Used to make advertising more engaging to users and more valuable to
+                                                    publishers and advertisers,
+                                                    such as providing more relevant ads when you visit other websites
+                                                    that display ads or to improve reporting on ad campaign performance.
+                                                </p>
+                                                <p>Note that some third-party services may install additional cookies on
+                                                    your browser in order to identify you.
+                                                </p>
+                                                <p>
+                                                    You may opt-out of a third-party's use of cookies by visiting the <a
+                                                        class="o_translate_inline"
+                                                        href="https://optout.networkadvertising.org/?c=1"
+                                                        rel="nofollow">Network Advertising Initiative opt-out page</a>.
+                                                    The website will still work if you reject or discard those cookies.
+                                                </p>
+                                            </td>
+                                            <td>
+                                                __gads (Google)
+                                                <br/>
+                                                __gac (Google)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Analytics<br/>(optional)
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    Understand how visitors engage with our website, via Google
+                                                    Analytics.
+                                                    Learn more about
+                                                    <a class="o_translate_inline"
+                                                       href="https://support.google.com/analytics/answer/11397207?hl=en">
+                                                        Analytics cookies and privacy information.
+                                                    </a>
+                                                </p>
+                                                <p>The website will still work if you reject or discard those cookies.
+                                                </p>
+                                            </td>
+                                            <td>
+                                                _ga (Google)
+                                                <br/>
+                                                _gat (Google)
+                                                <br/>
+                                                _gid (Google)
+                                                <br/>
+                                                _gac_* (Google)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>
+                                You can choose to have your computer warn you each time a cookie is being sent, or you
+                                can choose to turn off all cookies.
+                                Each browser is a little different, so look at your browser's Help menu to learn the
+                                correct way to modify your cookies.
+                            </p>
+                            <p>We do not currently support Do Not Track signals, as there is no industry standard for
+                                compliance.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <t t-foreach="rental_orders" t-as="rental_order">
+                                    <div>
+                                        <span t-esc="rental_order.rental_number"/>
+                                        <span t-esc="rental_order.customer_id.name"/>
+                                        <span t-esc="rental_order.total_amount"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </t>
+        </template>
+
+        <!--        page        -->
+        <!--        <record id="faqs_page" model="website.page">-->
+        <!--            <field name="url">/faqs</field>-->
+        <!--            <field name="is_published">True</field>-->
+        <!--            <field name="view_id" ref="faqs"/>-->
+        <!--            <field name="track">True</field>-->
+        <!--            <field name="website_meta_description">This is the faqs page of the website</field>-->
+        <!--        </record>-->
+
+        <!--        menu        -->
+        <record id="menu_faqs" model="website.menu">
+            <field name="name">FAQS</field>
+            <field name="url">/faqs</field>
+            <!--            <field name="page_id" ref="rental_management_sankit.faqs_page"/>-->
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">70</field>
+        </record>
+
+        <record id="menu_rental" model="website.menu">
+            <field name="name">Rental</field>
+            <field name="url">#</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">75</field>
+        </record>
+
+        <record id="menu_customer" model="website.menu">
+            <field name="name">Add Customer</field>
+            <field name="url">/rental</field>
+            <field name="parent_id" ref="menu_rental"/>
+            <field name="sequence" type="int">65</field>
+        </record>
+
+<!--        <record id="menu_shop" model="website.menu">-->
+<!--            <field name="name">Shop</field>-->
+<!--            <field name="parent_id" ref="website.main_menu"/>-->
+<!--            <field name="sequence" type="int">80</field>-->
+<!--        </record>-->
+<!--        <record id="menu_test_shop" model="website.menu">-->
+<!--            <field name="name">Sub Menu</field>-->
+<!--            <field name="url">/rental</field>-->
+<!--            <field name="parent_id" ref="rental_management_sankit.menu_shop"/>-->
+<!--            <field name="sequence" type="int">80</field>-->
+<!--        </record>-->
+    </data>
+</odoo>

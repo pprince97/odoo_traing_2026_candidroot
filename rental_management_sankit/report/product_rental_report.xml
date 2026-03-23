@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_rental_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Product Rental</h2>
+
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th><strong>Customer Name</strong></th>
+                            <th><strong>Rental Number</strong></th>
+                            <th><strong>Rental Date</strong></th>
+                            <th><strong>Total Amount</strong></th>
+                            <th><strong>Status</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t>
+                            <tr>
+                                <td>
+                                    <span t-field="rec.customer_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.rental_number"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.rent_start_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.total_amount"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.state"/>
+                                </td>
+
+                            </tr>
+
+<!--                            <tr>-->
+<!--                                <td colspan="1">-->
+<!--                                    <strong>Issue Date</strong>-->
+<!--                                    <div>-->
+<!--                                        <t t-foreach="rec.borrow_request_lines_ids" t-as="part">-->
+<!--                                            <div t-field="part.issue_date"/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td colspan="1">-->
+<!--                                    <strong>Return Date</strong>-->
+<!--                                    <div>-->
+<!--                                        <t t-foreach="rec.borrow_request_lines_ids" t-as="part">-->
+<!--                                            <div t-field="part.return_date"/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td colspan="1">-->
+<!--                                    <strong>Final Amount Pay</strong>-->
+<!--                                    <div>-->
+<!--                                        <t t-foreach="rec.borrow_request_lines_ids" t-as="part">-->
+<!--                                            <div t-field="part.total_amount"/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td colspan="1">-->
+<!--                                    <strong>Issue Days</strong>-->
+<!--                                    <div>-->
+<!--                                        <t t-foreach="rec.borrow_request_lines_ids" t-as="part">-->
+<!--                                            <div t-field="part.issue_days"/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td colspan="1">-->
+<!--                                    <strong>Librarian</strong>-->
+<!--                                    <div>-->
+<!--                                        <t t-foreach="rec.borrow_request_lines_ids" t-as="part">-->
+<!--                                            <div t-field="part.librarians_id"/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+
+<!--                            </tr>-->
+                        </t>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="report_rental">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="rec">
+                <t t-call="rental_management_sankit.report_rental_document"/>
+            </t>
+            <!--            <t t-foreach="rec.timesheet_ids" t-as="part">-->
+            <!--                <t t-esc="part['spend_hours']"/>-->
+            <!--            </t>-->
+            <!--            <t t-if="actions" t-foreach="actions" t-as="action">-->
+            <!--            <a t-att-href="action['url']">-->
+            <!--                <t t-esc="action['title']"/>-->
+            <!--            </a>-->
+            <!--            </t>-->
+        </t>
+    </template>
+
+    <record id="action_product_rental_report" model="ir.actions.report">
+        <field name="name">Product Rental Report</field>
+        <field name="model">rental.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">rental_management_sankit.report_rental</field>
+        <field name="report_file">rental_management_sankit.report_rental</field>
+        <field name="print_report_name">'rental'</field>
+        <field name="binding_model_id" ref="model_rental_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

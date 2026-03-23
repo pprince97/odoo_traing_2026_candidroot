@@ -1,0 +1,140 @@
+<odoo>
+    <data>
+
+        <template id="rental_order_form" name="Rental Order">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Rental Order Form</h1>
+                        </div>
+                    </section>
+                    <div class="container my-5">
+                        <div class="row container w-75 mx-auto">
+                            <form action="/rental_order/create" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label">Customer Name</label>
+                                    <select name="customer_id" class="form-control">
+                                        <t t-foreach="request.env['res.partner'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Rent Start Date</label>
+                                    <input type="date" name="rent_start_date" required="required" class="form-control"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Rent End Date</label>
+                                    <input type="date" name="rent_end_date" required="required" class="form-control"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Total Amount</label>
+                                    <input type="number" name="total_amount" required="required" class="form-control"/>
+                                </div>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="rental_order" name="Rental Order">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Rental Order</h1>
+                        </div>
+
+                    </section>
+
+
+                    <div class="container my-5">
+                        <div class="mb-1 py-1 col-12 text-start"
+                             data-name="Submit Button">
+                            <div style="width: 100px;"/>
+                            <a class="btn btn-lg btn-primary o_translate_inline" href="/rental_order/form">Create
+                            </a>
+                        </div>
+                        <table class="small table table-bordered text-center">
+                            <thead class="highlight">
+                                <tr>
+                                    <th scope="col" style="width: 10%">ID</th>
+                                    <th scope="col">Rental Number</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">End Date</th>
+                                    <th scope="col">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="rental_orders" t-as="rental_order">
+                                    <tr>
+                                        <th scope="row">
+                                            <span t-esc="rental_order.id"/>
+                                        </th>
+                                        <td>
+                                            <span t-esc="rental_order.rental_number"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.customer_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.rent_start_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.rent_end_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.total_amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </t>
+            <!--            <t t-call="rental_management_sankit.my_inherit_view">-->
+            <!--            <t t-set="my_inherit_view"-->
+            <!--               t-value="rental_management_sankit.my_inherit_view"/>-->
+        </template>
+
+        <!--    <template id="my_inherit_view" inherit_id="website.layout" name="Custom Website Footer">-->
+        <!--        <xpath expr="//form[@id='contactus_form']" position="after">-->
+        <!--            <p>This is a custom addition to the.</p>-->
+        <!--        </xpath>-->
+        <!--    </template>-->
+
+        <template id="my_inherit_view" inherit_id="website.contactus" name="Custom Website Footer">
+            <xpath expr="//form[@id='contactus_form']" position="before">
+                <!--        <xpath expr="//div[hasclass('container')]" position="before">-->
+                <p class="text-muted">This is inherit note.</p>
+            </xpath>
+        </template>
+
+        <record id="menu_rental_order" model="website.menu">
+            <field name="name">Rental Order</field>
+            <field name="url">/rental_order</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">80</field>
+        </record>
+    </data>
+</odoo>

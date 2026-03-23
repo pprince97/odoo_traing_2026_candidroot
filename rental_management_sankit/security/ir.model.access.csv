@@ -1,0 +1,7 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_product_serial_number,product_serial_number,model_product_serial_number,,1,1,1,1
+access_rental_order,rental_order,model_rental_order,,1,1,1,1
+access_product_order,product_order,model_product_order,,1,1,1,1
+
+
+access_rental_wizard,rental_wizard,model_rental_wizard,,1,1,1,1

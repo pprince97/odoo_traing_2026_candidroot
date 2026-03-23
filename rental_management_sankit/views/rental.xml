@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_rental_number" model="ir.sequence">
+        <field name="name">Rental Seq</field>
+        <field name="code">rental.seq</field>
+        <field name="prefix">RN/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="rental_order_view_list" model="ir.ui.view">
+        <field name="name">Rental Order</field>
+        <field name="model">rental.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="rental_number" readonly="1"/>
+                <field name="customer_id"/>
+                <field name="rent_start_date"/>
+                <field name="rent_end_date"/>
+                <field name="total_amount"/>
+                <field name="order_ids"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="product_bill_wizard_form1" model="ir.actions.act_window">
+        <field name="name">Create Bill</field>
+        <field name="res_model">rental.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="rental_management_sankit.product_bill_wizard_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="rental_order_view_form" model="ir.ui.view">
+        <field name="name">Rental Order</field>
+        <field name="model">rental.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(rental_management_sankit.product_bill_wizard_form1)d" type="action"
+                            class="btn-primary"
+                            string="Create Bill"/>
+                    <button
+                            name="rent_state"
+                            string="Rent"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['rent','returned','invoiced','partially_invoiced', 'cancelled']"
+                    />
+                    <button
+                            name="returned_state"
+                            string="Return"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','returned','invoiced','partially_invoiced', 'cancelled']"
+                    />
+                    <button
+                            name="invoiced_state"
+                            string="Invoice"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','rent','invoiced', 'cancelled']"
+                    />
+                    <button
+                            name="partially_invoiced_state"
+                            string="Partially Invoice"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','rent','invoiced','partially_invoiced', 'cancelled']"
+                    />
+                    <button
+                            name="draft_state"
+                            string="Cancel"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,rent,returned,partially_invoiced,invoiced,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="rental_number" readonly="1"/>
+                            <field name="customer_id"/>
+                            <field name="rent_start_date"/>
+                            <field name="rent_end_date"/>
+                        </group>
+                        <group>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Info">
+<!--                            <field name="product_ids"-->
+<!--                                    context="{-->
+<!--                                    'form_view_ref':'rental_management_sankit.product_configuration_view_form',-->
+<!--                                    'list_view_ref':'rental_management_sankit.product_configuration_view_list'}"/>-->
+
+                            <field name="order_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="rental_order_action_window" model="ir.actions.act_window">
+        <field name="name">Rental Order</field>
+        <field name="res_model">rental.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <menuitem id="rental_order_number_menu"
+              name="Rental"
+              parent="rental_menu_root"
+              action="rental_order_action_window"/>
+</odoo>

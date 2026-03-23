@@ -1,0 +1,20 @@
+<odoo>
+    <record id="product_bill_wizard_form_view" model="ir.ui.view">
+        <field name="name">product.bill.form.view</field>
+        <field name="model">rental.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="rental_id"/>
+                        <field name="rent_start_date" widget="daterange" options="{'end_date_field':'rent_end_date'}"/>
+                        <field name="order_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button type="object" string="Create Bill" name="generate_product_bill_using_date"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

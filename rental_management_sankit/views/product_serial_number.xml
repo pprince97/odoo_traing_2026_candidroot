@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_product_serial_number" model="ir.sequence">
+        <field name="name">Product Serial Seq</field>
+        <field name="code">product.seq</field>
+        <field name="prefix">PS/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="product_serial_number_view_list" model="ir.ui.view">
+        <field name="name">Product Serial Number</field>
+        <field name="model">product.serial.number</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_number"/>
+                <field name="ref"/>
+                <field name="product_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="product_serial_number_view_form" model="ir.ui.view">
+        <field name="name">Product Serial Number</field>
+        <field name="model">product.serial.number</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="serial_number"/>
+                        <field name="ref"/>
+                        <field name="available"/>
+                        <!--                    <field name="product_id"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="product_serial_number_action_window" model="ir.actions.act_window">
+        <field name="name">Product Serial Number</field>
+        <field name="res_model">product.serial.number</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="product_serial_number_menu"
+              name="Serial Number"
+              parent="rental_menu_root"
+              action="product_serial_number_action_window"/>
+</odoo>

@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <template id="portal_my_home_rental" name="Rental" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <div id="portal_alert_category" position="inside">
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="icon" t-value="'/account/static/src/img/bill.svg'"/>
+                        <t t-set="title">Rental Order</t>
+                        <t t-set="url" t-value="'/rental_order'"/>
+                        <t t-set="text">Create, show rental order</t>
+                        <t t-set="config_card" t-value="True"/>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+        <template id="footer_custom" inherit_id="website.layout" name="Default" active="True">
+            <xpath expr="//div[@id='footer']" position="replace">
+                <div id="footer" class="py-3">
+                    <ul class="nav justify-content-center border-bottom">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link px-2 text-body-secondary">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/contactus" class="nav-link px-2 text-body-secondary">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/faqs" class="nav-link px-2 text-body-secondary">FAQs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/rental_order" class="nav-link px-2 text-body-secondary">Rental Order</a>
+                        </li>
+                    </ul>
+                    <p class="text-center text-body-secondary m-0">© 2025 Company, Inc</p>
+                </div>
+            </xpath>
+            <xpath expr="//footer//div[hasclass('o_footer_copyright')]" position="replace">
+            </xpath>
+        </template>
+<!--        <template id="header_custom" inherit_id="web.frontend_layout" name="Default" active="True">-->
+<!--            <xpath expr="//header" position="inside">-->
+<!--                CandidRoot Solution-->
+<!--            </xpath>-->
+<!--        </template>-->
+    </data>
+</odoo>
+
+
