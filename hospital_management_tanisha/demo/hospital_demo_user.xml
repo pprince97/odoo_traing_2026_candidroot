@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="partner_patient_demo" model="res.partner">
+        <field name="name">Demo Patient1</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="company_name">DemoPatient1 Company</field>
+        <field name="street">123 ABC Avenue</field>
+        <field name="city">Ahmedabad</field>
+        <field name="state_id" model="res.country.state" search="[('code','=','OR')]"/>
+        <field name="zip">321456</field>
+        <field name="country_id" ref="base.us"/>
+        <field name="tz">Europe/Brussels</field>
+        <field name="email">demo.patient1@example.com</field>
+        <field name="phone">(123)-456-7890</field>
+    </record>
+
+    <record id="user_patient_demo" model="res.users">
+        <field name="partner_id" ref="hospital_management_tanisha.partner_patient_demo"/>
+        <field name="login">demo patient1</field>
+        <field name="password">demo_patient1</field>
+        <field name="signature" type="html">
+            <div>Mr Demo Patient1</div>
+        </field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="group_ids"
+               eval="[Command.set([ref('hospital_management_tanisha.group_hospital_patient'),ref('base.group_user')])]"/>
+    </record>
+
+    <record id="partner_patient_demo" model="res.partner">
+        <field name="user_id" ref="hospital_management_tanisha.user_patient_demo"/>
+    </record>
+
+    <record id="partner_admin_demo" model="res.partner">
+        <field name="name">Demo Admin1</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="company_name">DemoAdmin1 Company</field>
+        <field name="street">123 ABC Avenue</field>
+        <field name="city">Ahmedabad</field>
+        <field name="state_id" model="res.country.state" search="[('code','=','OR')]"/>
+        <field name="zip">321456</field>
+        <field name="country_id" ref="base.us"/>
+        <field name="tz">Europe/Brussels</field>
+        <field name="email">demo.admin1@example.com</field>
+        <field name="phone">(123)-456-7890</field>
+    </record>
+
+    <record id="user_admin_demo" model="res.users">
+        <field name="partner_id" ref="hospital_management_tanisha.partner_admin_demo"/>
+        <field name="login">demo admin1</field>
+        <field name="password">demo_admin1</field>
+        <field name="signature" type="html">
+            <div>Mr Demo Admin1</div>
+        </field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="group_ids"
+               eval="[Command.set([ref('hospital_management_tanisha.group_hospital_patient'),ref('base.group_system')])]"/>
+    </record>
+
+    <record id="partner_admin_demo" model="res.partner">
+        <field name="user_id" ref="hospital_management_tanisha.user_admin_demo"/>
+    </record>
+
+</odoo>

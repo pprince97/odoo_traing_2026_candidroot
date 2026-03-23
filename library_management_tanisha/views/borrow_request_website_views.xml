@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="borrow_request_form_template" name="Book">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="pt40 pb40">
+                    <div class="container">
+                        <h4>Fill up the form to borrow the book/books.</h4>
+                        <section>
+                            <div class="container">
+                                <form id="book_page_form" action="/borrow-request-form" method="post"
+                                      enctype="multipart/form-data">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mt-3">
+                                                <label for="student">Student *</label>
+                                                <select id="student" type="char" name="student"
+                                                            class="from-select form-control"
+                                                            style="width: 400px">
+                                                    <t t-foreach="students" t-as="student">
+                                                        <option><span t-field="student.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="librarian">Librarian *</label>
+                                                <select id="librarian" type="char" name="librarian"
+                                                            class="from-select form-control"
+                                                            style="width: 400px">
+                                                    <t t-foreach="librarians" t-as="librarian">
+                                                        <option><span t-field="librarian.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="issue_date">Issue date *</label>
+                                                <input id="issue_date" type="date" class="form-control" name="issue_date" style="width: 400px"/>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="return_date">Return date *</label>
+                                                <input id="return_date" type="date" class="form-control" name="return_date" style="width: 400px"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mt-3">
+                                                <label for="state">State *</label>
+                                                <select id="state" name="state"
+                                                            class="from-select form-control"
+                                                            style="width: 400px">
+                                                        <option value="draft">Draft</option>
+                                                        <option value="issued">Issued</option>
+                                                        <option value="returned">Returned</option>
+                                                        <option value="canceled">Canceled</option>
+                                                    </select>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="fine_amount">Fine amount *</label>
+                                                <input id="fine_amount" type="number" class="form-control" name="fine_amount" style="width: 400px"/>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="total_amount">Total amount *</label>
+                                                <input id="total_amount" type="number" class="form-control" name="total_amount" style="width: 400px"/>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <label for="borrow_request_line_ids">Borrow Request Lines *</label>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Book</th>
+                                                        <th>Quantity</th>
+                                                        <th>Amount per unit per day</th>
+                                                        <th>Issue date</th>
+                                                        <th>Return date</th>
+                                                        <th>Fine amount</th>
+                                                        <th>Total amount</th>
+                                                        <th>Issue days</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select id="book" type="char" name="line_book"
+                                                                    class="from-select form-control"
+                                                                    style="width: 400px">
+                                                                <t t-foreach="books" t-as="book">
+                                                                    <option><span t-field="book.name"/></option>
+                                                                </t>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="line_quantity" required=""/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="amount_per_unit_per_day" readonly="1"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date" class="form-control" name="line_issue_date" required=""/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date" class="form-control" name="line_return_date" required=""/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="fine_amount" readonly="1"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="total_amount" readonly="1"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="issue_days" readonly="1"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                            <a href="/library-borrow-request" class="btn btn-primary">Show Borrow Requests</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="borrow_request_website_template" name="Borrow Request">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h3>Borrow Requests</h3>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a href="/borrow-request" class="btn btn-primary">New Borrow Request</a>
+                    </div>
+                </div>
+                <div class="row p-3 d-flex justify-content-between">
+                    <t t-foreach="borrow_requests" t-as="borrow">
+                        <div class="col-md-3 border border-dark">
+                            <div>
+                                <t t-set="borrow_id" t-value="borrow.id"/>
+                                <h5>Serial number:
+                                    <a href="#" data-bs-toggle="modal"
+                                       t-attf-data-bs-target="#borrow_request_modal_#{borrow.id}">
+                                        <span t-field="borrow.serial_no"/>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div>
+                                <t t-if="borrow.student_id">
+                                    Student:
+                                    <span t-field="borrow.student_id"/>
+                                </t>
+                            </div>
+                            <div>
+                                <t t-if="borrow.librarian_id">
+                                    Librarian:
+                                    <span t-field="borrow.librarian_id"/>
+                                </t>
+                            </div>
+                            <div>
+                                <t t-if="borrow.state">
+                                    State:
+                                    <span t-field="borrow.state"/>
+                                </t>
+                            </div>
+                            <div>
+                                <t t-if="borrow.borrow_request_line_ids">
+                                    Borrow Request Lines:
+                                    <span t-out="len(borrow.borrow_request_line_ids)"/>
+                                </t>
+                            </div>
+                        </div>
+                        <div role="dialog" class="modal fade" t-attf-id="borrow_request_modal_#{borrow.id}"
+                             aria-hidden="True">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">
+                                            <u>
+                                                <span t-field="borrow.serial_no"/>
+                                            </u>
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"/>
+                                    </div>
+                                    <div class="modal-body">
+                                        <t t-set="borrow_request" t-value="borrow"/>
+                                        <t t-call="library_management_tanisha.borrow_request_line_template"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="borrow_request_line_template" name="Borrow Request Line">
+        <div class="container">
+            <div style="font-size: 18px;">
+                <t t-if="borrow_request.student_id">
+                    <strong>Student :</strong>
+                    <span t-field="borrow_request.student_id"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.librarian_id">
+                    <strong>Librarian :</strong>
+                    <span t-field="borrow_request.librarian_id"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.state">
+                    <strong>State :</strong>
+                    <span t-field="borrow_request.state"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.issue_date">
+                    <strong>Issue date :</strong>
+                    <span t-field="borrow_request.issue_date"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.return_date">
+                    <strong>Return date :</strong>
+                    <span t-field="borrow_request.return_date"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.fine_amount">
+                    <strong>Fine amount :</strong>
+                    <span t-field="borrow_request.fine_amount"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.total_amount">
+                    <strong>Total amount :</strong>
+                    <span t-field="borrow_request.total_amount"/>
+                    <br/>
+                </t>
+                <br/>
+                <t t-if="borrow_request.borrow_request_line_ids">
+                    <strong>Borrow Request Lines :</strong>
+                    <br/>
+                    <div class="container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Quantity</th>
+                                    <th>Amount per unit per day</th>
+                                    <th>Issue date</th>
+                                    <th>Return date</th>
+                                    <th>Fine amount</th>
+                                    <th>Total amount</th>
+                                    <th>Issue days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="borrow_request.borrow_request_line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-if="line.book_id">
+                                                <span t-field="line.book_id"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.quantity">
+                                                <span t-field="line.quantity"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.amount_per_unit_per_day">
+                                                <span t-field="line.amount_per_unit_per_day"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.issue_date">
+                                                <span t-field="line.issue_date"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.return_date">
+                                                <span t-field="line.return_date"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.fine_amount">
+                                                <span t-field="line.fine_amount"/>
+                                            </t>
+                                            <t t-else="">
+                                                0.00
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.total_amount">
+                                                <span t-field="line.total_amount"/>
+                                            </t>
+                                            <t t-else="">
+                                                0.00
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.issue_days">
+                                                <span t-field="line.issue_days"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <data noupdate="1">
+
+        <record id="library_borrow_request_website_menu" model="website.menu">
+            <field name="name">Borrow Request</field>
+            <field name="url">/library-borrow-request</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+
+    </data>
+
+</odoo>

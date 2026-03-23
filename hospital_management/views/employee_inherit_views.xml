@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="employee_inherit_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr="//field[@name='version_id']" position="after">-->
+            <!--                <button string="Approve Doctor"-->
+            <!--                        name="approve_doctor"-->
+            <!--                        type="object"-->
+            <!--                        class="oe_highlight"/>-->
+            <!--                <button string="Open Patients List"-->
+            <!--                        name="patient_list"-->
+            <!--                        type="object"-->
+            <!--                        class="oe_highlight"/>-->
+            <!--            </xpath>-->
+            <xpath expr="//div[@name='button_box']" position="inside">
+<!--                <button name="approve_doctor"-->
+<!--                        type="object"-->
+<!--                        class="oe_stat_button"-->
+<!--                        icon="fa-address-book">-->
+<!--                    <field name="doctor_count" widget="statinfo" string="Approve Doctor"/>-->
+<!--                </button>-->
+                <button name="hospital_management.patient_list"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-address-book">
+                    <field name="patient_count" widget="statinfo" string="Open Patients List"/>
+                </button>
+            </xpath>
+            <xpath expr="//page[@name='work_information']" position="inside">
+                <group name="hospital_information" string="Hospital Information">
+                    <field name="is_medical_staff"/>
+                    <field name="license_no" widget="image_url" options="{'size': [100,100]}"/>
+                    <field name="consult_fee"/>
+                    <field name="joining_datetime"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='resume']" position="inside">
+                <group>
+                    <field name="specialization"/>
+                    <field name="exp_years"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']" position="inside">
+                <group name="doctor" string="Doctor">
+                    <field name="sign_img" widget="image"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='payroll_information']" position="inside">
+                <group name="doctor_notes" string="Doctor Notes">
+                    <field name="notes_html"/>
+                    <field name="patient_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

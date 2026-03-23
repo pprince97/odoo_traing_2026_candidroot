@@ -1,0 +1,629 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* library_management_tanisha
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-12 13:26+0000\n"
+"PO-Revision-Date: 2026-03-12 13:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid ""
+"<br/>\n"
+"                End Date:"
+msgstr "સમાપ્તિ તારીખ:"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid ""
+"<br/>\n"
+"                Librarian:"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid ""
+"<br/>\n"
+"                Student:"
+msgstr "વિદ્યાર્થી"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.librarian_kanban_view
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.student_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-envelope\" title=\"Email\"/>"
+msgstr ""
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.librarian_kanban_view
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.student_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.librarian_kanban_view
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.student_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-user\" title=\"Gender\"/>"
+msgstr ""
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Book</span>"
+msgstr "પુસ્તક"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "<span>Fine Amount Pay</span>"
+msgstr "દંડની રકમ ચૂકવો"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Fine Amount</span>"
+msgstr "દંડની રકમ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Issue Date</span>"
+msgstr "આપવાની તારીખ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Issue Days</span>"
+msgstr "આપવાના દિવસો"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "<span>Librarian</span>"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Quantity</span>"
+msgstr "જથ્થો"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Return Date</span>"
+msgstr "પરત કરવાની તારીખ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "<span>Student</span>"
+msgstr "વિદ્યાર્થી"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<span>Total</span>"
+msgstr "કુલ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "<strong>Total Amount:</strong>"
+msgstr "કુલ રકમ:"
+
+#. module: library_management_tanisha
+#: model:res.groups,name:library_management_tanisha.group_library_admin
+msgid "Admin"
+msgstr "સંચાલક"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__amount_per_unit_per_day
+msgid "Amount per unit per day"
+msgstr "પ્રતિ નંગ દીઠ રકમ પ્રતિ દિવસ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.book_form_view
+msgid "Available Books"
+msgstr "ઉપલબ્ધ પુસ્તકો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__available_copies_string
+msgid "Available Copies String"
+msgstr "ઉપલબ્ધ નકલો શબ્દમાળા"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__available_copies
+msgid "Available copies"
+msgstr "ઉપલબ્ધ નકલો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__barcode
+msgid "Barcode"
+msgstr "બારકોડ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__book_id
+msgid "Book"
+msgstr "પુસ્તક"
+
+#. module: library_management_tanisha
+#: model:ir.actions.act_window,name:library_management_tanisha.book_history_wizard_action
+msgid "Book Borrow History"
+msgstr "પુસ્તક ઉધાર ઇતિહાસ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__book_history_id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_users__book_history_id
+msgid "Book Borrow history"
+msgstr "પુસ્તક ઉધાર ઇતિહાસ"
+
+#. module: library_management_tanisha
+#: model:ir.actions.report,name:library_management_tanisha.book_history_report
+msgid "Book History Report"
+msgstr "પુસ્તક ઇતિહાસ અહેવાલ"
+
+#. module: library_management_tanisha
+#: model:ir.model,name:library_management_tanisha.model_book_history_wizard
+msgid "Book History Wizard"
+msgstr "પુસ્તક ઇતિહાસ વિઝાર્ડ"
+
+#. module: library_management_tanisha
+#: model:ir.actions.act_window,name:library_management_tanisha.book_menu_action
+#: model:ir.model,name:library_management_tanisha.model_library_book
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__book_ids
+#: model:ir.ui.menu,name:library_management_tanisha.book_menu
+msgid "Books"
+msgstr "પુસ્તકો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__borrow_history_ids
+#: model:ir.ui.menu,name:library_management_tanisha.book_history_menu
+msgid "Books History"
+msgstr "પુસ્તકોનો ઇતિહાસ"
+
+#. module: library_management_tanisha
+#. odoo-python
+#: code:addons/library_management_tanisha/models/borrow_request_lines.py:0
+msgid "Books out of stock!!!!"
+msgstr "પુસ્તકોનો સ્ટોક ખતમ!!!!"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "Books:"
+msgstr "પુસ્તકો:"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__borrow_history_ids
+msgid "Borrow Books"
+msgstr "ઉછીના પુસ્તકો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__borrow_price
+msgid "Borrow Price (per day)"
+msgstr "ઉધાર કિંમત (દિવસ દીઠ)"
+
+#. module: library_management_tanisha
+#: model:ir.model,name:library_management_tanisha.model_library_borrow_request
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__borrow_request_id
+msgid "Borrow Request"
+msgstr "ઉધાર વિનંતી"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__borrow_request_line_ids
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__borrow_request_line_ids
+msgid "Borrow Request Line"
+msgstr "ઉધાર વિનંતી રેખા"
+
+#. module: library_management_tanisha
+#: model:ir.model,name:library_management_tanisha.model_library_borrow_request_lines
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__borrow_request_line_ids
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.borrow_request_form_view
+msgid "Borrow Request Lines"
+msgstr "ઉધાર વિનંતી રેખાઓ"
+
+#. module: library_management_tanisha
+#: model:ir.actions.report,name:library_management_tanisha.borrow_request_receipt
+msgid "Borrow Request Receipt"
+msgstr "ઉધાર વિનંતીની રસીદ"
+
+#. module: library_management_tanisha
+#: model:ir.actions.act_window,name:library_management_tanisha.borrow_request_menu_action
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__borrow_request_ids
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_users__borrow_request_ids
+#: model:ir.ui.menu,name:library_management_tanisha.borrow_request_menu
+msgid "Borrow Requests"
+msgstr "ઉધાર વિનંતીઓ"
+
+#. module: library_management_tanisha
+#: model:ir.actions.act_window,name:library_management_tanisha.borrow_request_lines_menu_action
+msgid "Borrow Requests Lines"
+msgstr "ઉધાર વિનંતીઓની રેખાઓ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.student_form_view
+msgid "Borrowed Book History"
+msgstr "પુસ્તક ઉધાર ઇતિહાસ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.librarian_form_view
+msgid "Borrowed Requests"
+msgstr "ઉછીની વિનંતીઓ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_borrow_request__state__canceled
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.borrow_request_form_view
+msgid "Canceled"
+msgstr "રદ કરેલ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__canceled_date
+msgid "Canceled date"
+msgstr "રદ કરેલ તારીખ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__cancellation_reason
+msgid "Cancellation Reason"
+msgstr "રદ કરવાનું કારણ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__cancellation_reason
+msgid "Cancellation reason"
+msgstr "રદ કરવાનું કારણ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__category
+msgid "Category"
+msgstr "શ્રેણી"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__category__comic
+msgid "Comic"
+msgstr "કોમિક"
+
+#. module: library_management_tanisha
+#: model:ir.model,name:library_management_tanisha.model_res_config_settings
+msgid "Config Settings"
+msgstr "રૂપરેખા સેટિંગ્સ"
+
+#. module: library_management_tanisha
+#: model:ir.model,name:library_management_tanisha.model_res_partner
+msgid "Contact"
+msgstr "સંપર્ક"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__cover_image
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.book_form_view
+msgid "Cover Image"
+msgstr "કવર છબી"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__create_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__create_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__create_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__create_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__create_uid
+msgid "Created by"
+msgstr "દ્વારા બનાવવામાં આવેલ છે"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__create_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__create_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__create_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__create_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__create_date
+msgid "Created on"
+msgstr "ના રોજ બનાવ્યું"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__description
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.book_form_view
+msgid "Description"
+msgstr "વર્ણન"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__display_name
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__display_name
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__display_name
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__display_name
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__display_name
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__display_name
+msgid "Display Name"
+msgstr "પ્રદર્શન નામ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_borrow_request__state__draft
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.borrow_request_form_view
+msgid "Draft"
+msgstr "ડ્રાફ્ટ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__end_date
+msgid "End Date"
+msgstr "સમાપ્તિ તારીખ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__res_partner__gender__female
+msgid "Female"
+msgstr "સ્ત્રી"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.fine_amount_res_config_settings_form_view
+msgid "Fine Amount:"
+msgstr "દંડની રકમ:"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__fine_amount
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__fine_amount
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_config_settings__fine_amount
+msgid "Fine amount"
+msgstr "દંડની રકમ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.fine_amount_res_config_settings_form_view
+msgid "Fine amount for Books"
+msgstr "પુસ્તકો માટે દંડની રકમ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__currency_id
+msgid "Foreign Currency"
+msgstr "વિદેશી ચલણ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__gender
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_users__gender
+msgid "Gender"
+msgstr "જાતિ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__category__history
+msgid "History"
+msgstr "ઈતિહાસ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.book_form_view
+msgid "History of Borrowed"
+msgstr "ઉધાર લીધેલનો ઇતિહાસ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_config_settings__id
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__id
+msgid "ID"
+msgstr "ઓળખ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__is_librarian
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_users__is_librarian
+msgid "Is Librarian"
+msgstr "ગ્રંથપાલ છે"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "Is Return:"
+msgstr "પરત છે:"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_partner__is_student
+#: model:ir.model.fields,field_description:library_management_tanisha.field_res_users__is_student
+msgid "Is Student"
+msgstr "વિદ્યાર્થી છે"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__is_return_date
+msgid "Is return date? "
+msgstr "પરત કરવાની તારીખ છે? "
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__issue_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__issue_date
+msgid "Issue date"
+msgstr "આપવાની તારીખ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__issue_days
+msgid "Issue days"
+msgstr "આપવાના દિવસો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_borrow_request__state__issued
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.borrow_request_form_view
+msgid "Issued"
+msgstr "આપેલ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__category__knowledge
+msgid "Knowledge"
+msgstr "જ્ઞાન"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__write_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__write_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__write_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__write_uid
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__write_uid
+msgid "Last Updated by"
+msgstr "દ્વારા છેલ્લે અપડેટ કરવામાં આવ્યું હતું"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__write_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__write_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__write_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__write_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_request_cancel_wizard__write_date
+msgid "Last Updated on"
+msgstr "છેલ્લે અપડેટ થયેલ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__librarian_id
+#: model:res.groups,name:library_management_tanisha.group_library_librarian
+msgid "Librarian"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_tanisha
+#: model:ir.actions.act_window,name:library_management_tanisha.librarian_menu_action
+#: model:ir.ui.menu,name:library_management_tanisha.librarian_menu
+msgid "Librarians"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_tanisha
+#: model:res.groups.privilege,name:library_management_tanisha.library_management_groups_privilege
+msgid "Library"
+msgstr "પુસ્તકાલય"
+
+#. module: library_management_tanisha
+#: model:ir.module.category,name:library_management_tanisha.library_management_groups_category
+#: model:ir.ui.menu,name:library_management_tanisha.library_root_menu
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.fine_amount_res_config_settings_form_view
+msgid "Library Management"
+msgstr "પુસ્તકાલય વ્યવસ્થાપન"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__res_partner__gender__male
+msgid "Male"
+msgstr "પુરુષ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__max_day_limit
+msgid "Maximum Day Limit"
+msgstr "મહત્તમ દિવસ મર્યાદા"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__name
+msgid "Name"
+msgstr "નામ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__category__novel
+msgid "Novel"
+msgstr "નવલકથા"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.book_history_wizard_form
+msgid "Print"
+msgstr "છાપો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__state__published
+msgid "Published"
+msgstr "પ્રકાશિત"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__quantity
+msgid "Quantity"
+msgstr "જથ્થો"
+
+#. module: library_management_tanisha
+#: model:ir.ui.menu,name:library_management_tanisha.reporting_menu
+msgid "Reporting"
+msgstr "રિપોર્ટિંગ"
+
+#. module: library_management_tanisha
+#: model:ir.model,name:library_management_tanisha.model_request_cancel_wizard
+msgid "Request Cancel Wizard"
+msgstr "વિનંતી રદ કરવાની વિઝાર્ડ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__return_date
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__return_date
+msgid "Return date"
+msgstr "પરત તારીખ"
+
+#. module: library_management_tanisha
+#. odoo-python
+#: code:addons/library_management_tanisha/models/borrow_request_lines.py:0
+msgid "Return date is greater than max day limit!!!!"
+msgstr "પરત કરવાની તારીખ મહત્તમ દિવસ મર્યાદા કરતાં વધુ છે!!!!"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_borrow_request__state__returned
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.borrow_request_form_view
+msgid "Returned"
+msgstr "પરત ફર્યા"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__category__science
+msgid "Science"
+msgstr "વિજ્ઞાન"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.report_generated_receipt
+msgid "Serial Number:"
+msgstr "સીરીયલ નંબર:"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__serial_no
+msgid "Serial number"
+msgstr "સીરીયલ નંબર"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__start_date
+msgid "Start Date"
+msgstr "પ્રારંભ તારીખ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "Start Date:"
+msgstr "પ્રારંભ તારીખ:"
+
+#. module: library_management_tanisha
+#. odoo-python
+#: code:addons/library_management_tanisha/wizard/book_history_wizard.py:0
+msgid "Start date must be less than End Date"
+msgstr "શરૂઆતની તારીખ સમાપ્તિ તારીખ કરતાં ઓછી હોવી જોઈએ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__state
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__state
+msgid "State"
+msgstr "સ્થિતિ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_book__stock
+msgid "Stock"
+msgstr "માલ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__category__story
+msgid "Story"
+msgstr "વાર્તા"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__student_id
+#: model:res.groups,name:library_management_tanisha.group_library_student
+msgid "Student"
+msgstr "વિદ્યાર્થી"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.generate_book_history
+msgid "Student:"
+msgstr "વિદ્યાર્થી:"
+
+#. module: library_management_tanisha
+#: model:ir.actions.act_window,name:library_management_tanisha.student_menu_action
+#: model:ir.model.fields,field_description:library_management_tanisha.field_book_history_wizard__student_ids
+#: model:ir.ui.menu,name:library_management_tanisha.student_menu
+msgid "Students"
+msgstr "વિદ્યાર્થીઓ"
+
+#. module: library_management_tanisha
+#: model_terms:ir.ui.view,arch_db:library_management_tanisha.cancel_request_wizard_form
+msgid "Submit"
+msgstr "સબમિટ કરો"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request__total_amount
+#: model:ir.model.fields,field_description:library_management_tanisha.field_library_borrow_request_lines__total_amount
+msgid "Total amount"
+msgstr "કુલ રકમ"
+
+#. module: library_management_tanisha
+#: model:ir.model.fields.selection,name:library_management_tanisha.selection__library_book__state__unpublished
+msgid "Unpublished"
+msgstr "અપ્રકાશિત"

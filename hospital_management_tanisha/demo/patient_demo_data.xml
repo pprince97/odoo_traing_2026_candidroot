@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="patient_demo_data1" model="res.partner">
+        <field name="patient_id">P0000</field>
+        <field name="name">Demo Patient</field>
+        <field name="dob">2012-12-12</field>
+        <field name="street">Demo Address</field>
+        <field name="phone">1234567890</field>
+        <field name="email">demoemail@gmail.com</field>
+    </record>
+
+</odoo>

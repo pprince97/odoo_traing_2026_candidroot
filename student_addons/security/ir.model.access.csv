@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+student_addons.access_student_object,access_student_object,student_addons.model_student_object,,1,1,1,1

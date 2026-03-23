@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="hospital_list_view" model="ir.ui.view">
+        <field name="name">hospital_management.list</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="address" width="50px"/>
+                <field name="contact" width="50px"/>
+                <field name="is_active" width="50px"/>
+                <field name="doctor_ids" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hospital_form_view" model="ir.ui.view">
+        <field name="name">hospital_management.form</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <form string="Hospital Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="contact"/>
+                            <field name="is_active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Image">
+                            <field name="photo" widget="image"/>
+                        </page>
+                        <page string="About hospital">
+                            <field name="about"/>
+                        </page>
+                        <page string="Doctors">
+                            <field name="doctor_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_search_view" model="ir.ui.view">
+        <field name="name">hospital_management.search</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="address"/>
+                <filter name="is_active" domain="[('is_active','=',True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hospital_pivot_view" model="ir.ui.view">
+        <field name="name">hospital_management.pivot</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="name"/>
+                <field name="name"/>
+                <field name="contact"/>
+                <field name="is_active"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="hospital_menu_action" model="ir.actions.act_window">
+        <field name="name">Hospital Menu</field>
+        <field name="res_model">hospital.hospital</field>
+        <field name="view_mode">list,form,search,pivot</field>
+    </record>
+
+    <menuitem id="hospital_menu" name="Hospital" parent="hospital_base_menu" action="hospital_menu_action"/>
+
+</odoo>

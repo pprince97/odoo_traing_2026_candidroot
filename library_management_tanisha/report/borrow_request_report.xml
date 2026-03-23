@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_generated_receipt">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="rec">
+                Serial Number:
+                <span t-field="rec.serial_no"/>
+                <br/>
+                Student:
+                <span t-field="rec.student_id"/>
+                <br/>
+                Librarian:
+                <span t-field="rec.librarian_id"/>
+                <br/>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>Book</span>
+                            </th>
+                            <th>
+                                <span>Quantity</span>
+                            </th>
+                            <th>
+                                <span>Issue Date</span>
+                            </th>
+                            <th>
+                                <span>Return Date</span>
+                            </th>
+                            <th>
+                                <span>Fine Amount</span>
+                            </th>
+                            <th>
+                                <span>Issue Days</span>
+                            </th>
+                            <th>
+                                <span>Total</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="rec.borrow_request_line_ids" t-as="r">
+                            <tr>
+                                <td>
+                                    <span t-field="r.book_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.quantity"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.issue_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.return_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.fine_amount"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.issue_days"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.total_amount"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <hr style="width:25%; margin-left:auto; margin-right:0; height:5px; border-top: 4px solid black;"/>
+                <div class="o_total text-end">
+                    <strong>Total Amount:</strong>
+                    <strong t-field="rec.total_amount"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_borrow_request">
+        <t t-call="web.html_container">
+            <t t-call="library_management_tanisha.report_generated_receipt"/>
+        </t>
+    </template>
+
+    <record id="borrow_request_receipt" model="ir.actions.report">
+        <field name="name">Borrow Request Receipt</field>
+        <field name="model">library.borrow.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_tanisha.report_borrow_request</field>
+        <field name="report_file">library_management_tanisha.report_borrow_request</field>
+        <field name="binding_model_id" ref="library_management_tanisha.model_library_borrow_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
+

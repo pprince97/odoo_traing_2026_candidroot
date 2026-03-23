@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="doctor_demo_data1" model="res.partner">
+        <field name="doctor_id">D0000</field>
+        <field name="name">Demo Doctor</field>
+        <field name="street">Demo Address</field>
+        <field name="phone">1234567890</field>
+        <field name="email">demoemail@gmail.com</field>
+        <field name="experience_year">10</field>
+        <field name="speciality_description">demo speciality</field>
+    </record>
+
+    <record id="doctor_demo_data2" model="res.partner">
+        <field name="doctor_id">D1000</field>
+        <field name="name">Demo Doctor Department</field>
+        <field name="street">Demo Address Department</field>
+        <field name="phone">2134567890</field>
+        <field name="email">demodepartmentemail@gmail.com</field>
+        <field name="experience_year">11</field>
+        <field name="speciality_description">demo speciality department</field>
+        <field name="department_id" ref="hospital_management_tanisha.department_demo_data1"/>
+        <field name="hospital_ids" eval="[(6, 0, [ref('hospital_management_tanisha.hospital_demo_data1')])]"/>
+        <field name="appointment_ids" eval="[(6, 0, [ref('hospital_management_tanisha.appointment_demo_data1')])]"/>
+    </record>
+
+</odoo>

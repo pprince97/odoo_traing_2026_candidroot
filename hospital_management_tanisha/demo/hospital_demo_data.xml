@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="hospital_demo_data1" model="hospital.hospital">
+        <field name="name">Demo Hospital</field>
+        <field name="address">Demo Hospital Address</field>
+        <field name="phone">9876543210</field>
+        <field name="email">demohospital@gmail.com</field>
+        <field name="registration_no">demo123</field>
+        <field name="description">this is demo hospital</field>
+    </record>
+</odoo>

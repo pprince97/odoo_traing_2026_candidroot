@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <!-- Groups Category -->
+    <record model="ir.module.category" id="hospital_management_groups_category">
+        <field name="name">Hospital Management</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <!-- Groups Privilege -->
+    <record model="res.groups.privilege" id="hospital_management_groups_privilege">
+        <field name="name">Hospital</field>
+        <field name="sequence">2</field>
+        <field name="category_id" ref="hospital_management_tanisha.hospital_management_groups_category"/>
+    </record>
+
+    <!-- Groups -->
+    <record id="group_hospital_patient" model="res.groups">
+        <field name="name">Patient</field>
+        <field name="sequence">3</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="privilege_id" ref="hospital_management_groups_privilege"/>
+    </record>
+
+    <record id="group_hospital_doctor" model="res.groups">
+        <field name="name">Doctor</field>
+        <field name="sequence">4</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="privilege_id" ref="hospital_management_groups_privilege"/>
+    </record>
+
+    <record id="group_hospital_receptionist" model="res.groups">
+        <field name="name">Receptionist</field>
+        <field name="sequence">5</field>
+        <field name="implied_ids" eval="[(4, ref('hospital_management_tanisha.group_hospital_doctor'))]"/>
+        <field name="privilege_id" ref="hospital_management_groups_privilege"/>
+    </record>
+
+    <record id="group_hospital_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="sequence">6</field>
+        <field name="implied_ids" eval="[(4, ref('hospital_management_tanisha.group_hospital_receptionist'))]"/>
+        <field name="privilege_id" ref="hospital_management_groups_privilege"/>
+    </record>
+
+    <!--  Appointments  -->
+    <record id="hospital_patient_own_appointments" model="ir.rule">
+        <field name="name">Patient Own Appointments</field>
+        <field name="model_id" ref="hospital_management_tanisha.model_hospital_appointment"/>
+        <field name="domain_force">['|',('patient_id.name','=',user.name),('patient_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management_tanisha.group_hospital_patient'))]"/>
+    </record>
+
+    <record id="hospital_doctor_own_appointments" model="ir.rule">
+        <field name="name">Doctor Own Appointments</field>
+        <field name="model_id" ref="hospital_management_tanisha.model_hospital_appointment"/>
+        <field name="domain_force">['|',('doctor_id.name','=',user.name),('doctor_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management_tanisha.group_hospital_doctor'))]"/>
+    </record>
+
+    <record id="hospital_manager_all_appointments" model="ir.rule">
+        <field name="name">Manager All Appointments</field>
+        <field name="model_id" ref="hospital_management_tanisha.model_hospital_appointment"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management_tanisha.group_hospital_manager')),(4, ref('hospital_management_tanisha.group_hospital_receptionist'))]"/>
+    </record>
+
+    <!--  Patients  -->
+<!--    <record id="hospital_patient_own_records" model="ir.rule">-->
+<!--        <field name="name">Patient Own Records</field>-->
+<!--        <field name="model_id" ref="hospital_management_tanisha.model_res_partner"/>-->
+<!--        <field name="domain_force">['|',('name','=',user.name),('name','=',False)]</field>-->
+<!--        <field name="groups" eval="[(4, ref('hospital_management_tanisha.group_hospital_patient'))]"/>-->
+<!--    </record>-->
+
+    <!--  Doctors  -->
+<!--    <record id="hospital_patient_all_doctors" model="ir.rule">-->
+<!--        <field name="name">Doctor All Records</field>-->
+<!--        <field name="model_id" ref="hospital_management_tanisha.model_res_partner"/>-->
+<!--        <field name="domain_force">[(1,'=',1)]</field>-->
+<!--        <field name="groups" eval="[(4, ref('hospital_management_tanisha.group_hospital_patient'))]"/>-->
+<!--    </record>-->
+
+</odoo>

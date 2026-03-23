@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="patient_list_view" model="ir.ui.view">
+        <field name="name">hospital_management.list</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="is_active" width="50px"/>
+                <field name="age" width="50px"/>
+                <field name="dob" width="50px"/>
+                <field name="gender" width="50px"/>
+                <field name="address" width="50px" force_save="1"/>
+                <field name="symptoms" width="50px"/>
+                <field name="priority" width="50px"/>
+                <field name="report_file" width="50px"/>
+                <field name="report_name" width="50px"/>
+                <field name="reference_field" width="50px"/>
+                <field name="doctor_emp_id" width="50px"/>
+                <field name="partner_id" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="model_patient_google_url_action1" model="ir.actions.act_url">
+        <field name="name">Google URL</field>
+        <field name="url">https://www.google.com</field>
+        <field name="target">new</field>
+    </record>
+
+<!--    <record id="model_patient_url_action" model="ir.actions.act_url">-->
+<!--        <field name="name">Patient 4</field>-->
+<!--        <field name="url" eval="/odoo/action-208/+f'{appointment_id}'"/>-->
+<!--        <field name="target">self</field>-->
+<!--    </record>-->
+
+    <record id="patient_form_view" model="ir.ui.view">
+        <field name="name">hospital_management.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient Form View">
+                <header>
+                    <button name="admit_patient"
+                            string="Admit Patient"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button name="create_appointment"
+                            string="Create Appointment"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button name="discharge"
+                            string="Discharge"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button name="%(model_patient_google_url_action1)d"
+                            string="Google URL"
+                            type="action"
+                            class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+<!--                            <field name="name" widget="domain" options="{'model':'hospital.patient', 'foldable':True, 'in_dialog':True}"/>-->
+                            <field name="name"/>
+                            <field name="is_active"/>
+                            <field name="age"/>
+                            <field name="dob"/>
+                            <field name="gender" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="address" force_save="1"/>
+                            <field name="symptoms" widget="text"/>
+                            <field name="priority"/>
+                            <field name="reference_field"/>
+<!--                            <field name="appointment_id"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="reports" string="Reports">
+                            <group>
+                                <field name="report_file"/>
+                                <field name="report_name"/>
+                            </group>
+                        </page>
+                        <page name="doctor" string="Doctor">
+                            <field name="doctor_emp_id">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="partner" string="Partner">
+                            <group>
+                                <field name="partner_id" required="0" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="patient_search_view" model="ir.ui.view">
+        <field name="name">hospital_management.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="is_active" domain="[('is_active','=',True)]"/>
+                <filter name="age" domain="[('age','&gt;',20)]"/>
+                <filter name="gender" domain="[('gender','=','female')]"/>
+                <field name="symptoms"/>
+                <filter name="priority" domain="[('priority','=','high')]"/>
+                <field name="report_name"/>
+                <filter name="reference_field" domain="[('reference_field','=','partner')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="patient_kanban_view" model="ir.ui.view">
+        <field name="name">hospital_management.kanban</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <div>
+                            <div>
+                                <field class="fw-bold fs-5" name="name"/>
+                                <br/>
+                                <field name="dob" class="ms-2 text-muted"/>
+                                <br/>
+                                <field name="age" class="ms-2 text-muted"/>
+                            </div>
+                            <small>Gender:
+                                <field name="gender"/>
+                            </small>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="patient_pivot_view" model="ir.ui.view">
+        <field name="name">hospital_management.pivot</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <pivot string="Patient Analysis " sample="1">
+                <field name="priority" type="col"/>
+                <field name="gender" type="row"/>
+                <field name="age" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="patient_graph_view" model="ir.ui.view">
+        <field name="name">hospital_management.graph</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <graph string="Patient Analysis" type="line" sample="1">
+                <field name="gender"/>
+                <field name="age" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="patient_calendar_view" model="ir.ui.view">
+        <field name="name">hospital_management.calendar</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <calendar string="Patient Actions" date_start="dob" color="is_active">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="model_patient_address_action" model="ir.actions.server">
+        <field name="name">Check Server Action</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.patient_address_server_action()</field>
+    </record>
+
+    <record id="patient_menu_action" model="ir.actions.act_window">
+        <field name="name">Patient Menu</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">list,form,search,kanban,pivot,graph,calendar</field>
+    </record>
+    <menuitem id="patient_menu" name="Patient" parent="hospital_base_menu" action="patient_menu_action"/>
+</odoo>

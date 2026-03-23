@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="appointment_demo_data1" model="hospital.appointment">
+        <field name="hospital_id" ref="hospital_management_tanisha.hospital_demo_data1"/>
+        <field name="patient_id" ref="hospital_management_tanisha.patient_demo_data1"/>
+    </record>
+</odoo>

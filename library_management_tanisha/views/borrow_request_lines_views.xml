@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="borrow_request_lines_list_view" model="ir.ui.view">
+        <field name="name">library.borrow.request.lines.list</field>
+        <field name="model">library.borrow.request.lines</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id"/>
+                <field name="quantity"/>
+                <field name="amount_per_unit_per_day"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="total_amount"/>
+                <field name="issue_days"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="borrow_request_lines_form_view" model="ir.ui.view">
+        <field name="name">library.borrow.request.lines.form</field>
+        <field name="model">library.borrow.request.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_id"/>
+                            <field name="quantity"/>
+                            <field name="issue_date"/>
+                            <field name="return_date"/>
+                        </group>
+                        <group>
+                            <field name="amount_per_unit_per_day" readonly="1"/>
+                            <field name="fine_amount"/>
+                            <field name="total_amount"/>
+                            <field name="issue_days"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="borrow_request_lines_menu_action" model="ir.actions.act_window">
+        <field name="name">Borrow Requests Lines</field>
+        <field name="res_model">library.borrow.request.lines</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>

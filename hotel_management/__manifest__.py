@@ -1,0 +1,22 @@
+{
+    'name': 'Hotel Management',
+    'version': '1.3',
+    'category': 'Uncategorized',
+    'summary': 'This is summary',
+    'description': "This is hotel management and we have rooms for guests and advance booking services.",
+    'depends': ['base','mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/hotel_base_views.xml',
+        'views/hotel_model_views.xml',
+        'views/room_model_views.xml',
+        'views/guest_model_views.xml',
+        'views/booking_model_views.xml',
+        'views/service_model_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'author': 'Hotel',
+    'website':'https://www.hotel.com',
+    'license': 'LGPL-3',
+}

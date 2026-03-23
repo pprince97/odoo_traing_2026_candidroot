@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+demo_addons.access_demo_object,access_demo_object,demo_addons.model_demo_object,,1,1,1,1

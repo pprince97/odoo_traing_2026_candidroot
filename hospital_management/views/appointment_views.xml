@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="appointment_list_view" model="ir.ui.view">
+        <field name="name">hospital_management.list</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="app_date" width="50px"/>
+                <field name="status" width="50px"/>
+                <field name="token_no" width="50px"/>
+                <field name="fees" width="50px"/>
+                <field name="paid" width="50px"/>
+                <field name="description" width="50px"/>
+                <field name="prescription" width="50px"/>
+                <field name="attachment" width="50px"/>
+                <field name="followup_date" width="50px"/>
+                <field name="duration_minute" width="50px"/>
+                <field name="is_emergency" width="50px"/>
+                <field name="doctor_id" width="50px"/>
+                <field name="patient_id" width="50px"/>
+                <!--                <field name="currency_id" width="50px"/>-->
+                <!--                <field name="fees_monetary" width="50px" widget="monetary"/>-->
+            </list>
+        </field>
+    </record>
+
+    <record id="appointment_form_view" model="ir.ui.view">
+        <field name="name">hospital_management.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Form View">
+                <header>
+                    <button name="confirm_appointment"
+                            string="Confirm Appointment"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['confirm','done','cancel']"/>
+                    <button name="mark_done"
+                            string="Mark Done"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['draft','cancel','done']"/>
+                    <button name="cancel"
+                            string="Cancel"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['cancel']"/>
+                    <button name="draft"
+                            string="Draft"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['draft','done']"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,confirm,done,cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+<!--                            <field name="status" widget="badge" decoration-danger="status == 'cancel'"-->
+<!--                                   decoration-warning="status == 'draft'" decoration-success="status == 'confirm'"/>-->
+                            <field name="status" widget="selection_badge_with_filter" options="{'size': 'sm', 'allowed_selection_field': 'name'}"/>
+                            <field name="name"/>
+                            <field name="app_date"/>
+                            <field name="status"/>
+                            <field name="token_no"/>
+                            <field name="followup_date"/>
+                        </group>
+                        <group>
+                            <field name="fees" widget="timesheet_uom" sum="Total"/>
+                            <field name="paid"/>
+                            <field name="duration_minute"/>
+                            <field name="is_emergency"/>
+                            <!--                            <field name="currency_id"/>-->
+                            <!--                            <field name="fees_monetary" widget="monetary"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" widget="char"/>
+                        </page>
+                        <page name="prescription" string="Prescription">
+                            <field name="prescription"/>
+                        </page>
+                        <page name="attachment" string="Attachment">
+                            <field name="attachment"/>
+                        </page>
+                        <page name="doctor" string="Doctor">
+                            <field name="doctor_id"/>
+                        </page>
+                        <page name="patient" string="Patient">
+                            <field name="patient_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_search_view" model="ir.ui.view">
+        <field name="name">hospital_management.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="app_date"/>
+                <filter name="status" domain="[('status', '=', 'confirm')]"/>
+                <field name="followup_date"/>
+                <filter name="duration_minute" domain="[('duration_minute', '&lt;', 60)]"/>
+                <filter name="is_emergency" domain="[('is_emergency', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="appointment_kanban_view" model="ir.ui.view">
+        <field name="name">hospital_management.kanban</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <div>
+                            <div>
+                                <field class="fw-bold fs-5" name="name"/>
+                                <br/>
+                                <field name="status" class="ms-2 text-muted"/>
+                                <br/>
+                                <field name="app_date" class="ms-2 text-muted"/>
+                            </div>
+                            <small>Duration:
+                                <field name="duration_minute"/>
+                                minutes
+                            </small>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="appointment_pivot_view" model="ir.ui.view">
+        <field name="name">hospital_management.pivot</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <pivot string="Appointment Analysis " sample="1">
+                <field name="status" type="col"/>
+                <field name="is_emergency" type="row"/>
+                <field name="fees" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="appointment_graph_view" model="ir.ui.view">
+        <field name="name">hospital_management.graph</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <graph string="Appointment Analysis" type="line" sample="1">
+                <field name="status"/>
+                <field name="duration_minute" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="appointment_calendar_view" model="ir.ui.view">
+        <field name="name">hospital_management.calendar</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointment Actions" date_start="app_date" color="is_emergency">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_appointments_action" model="ir.actions.act_window">
+        <field name="name">Appointment Menu</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="appointment_menu_action" model="ir.actions.act_window">
+        <field name="name">Appointment Menu</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list,form,search,kanban,pivot,graph,calendar</field>
+    </record>
+    <menuitem id="appointment_menu" name="Appointment" parent="hospital_base_menu" action="appointment_menu_action"/>
+</odoo>

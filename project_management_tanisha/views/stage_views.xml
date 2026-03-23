@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="stage_list_view" model="ir.ui.view">
+        <field name="name">project.stage.list</field>
+        <field name="model">project.stage</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="project_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="stage_form_view" model="ir.ui.view">
+        <field name="name">project.stage.form</field>
+        <field name="model">project.stage</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_ids" widget="many2many_tags"/>
+                        <field name="fold"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stage_menu_action" model="ir.actions.act_window">
+        <field name="name">Stages</field>
+        <field name="res_model">project.stage</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="stage_menu" name="Stages" parent="project_root_menu" action="stage_menu_action" sequence="2"/>
+
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <record id="fine_amount_res_config_settings_form_view" model="ir.ui.view">
+        <field name="name">res.config.settings.form.fine_amount</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='contacts_settings']" position="after">
+                <div>
+                    <block title="Library Management" class="fine_amount" name="fine_amount_block">
+                        <setting id="fine_amount_setting_menu" string="Fine amount for Books">
+                            Fine Amount:
+                            <field name="fine_amount"/>
+                        </setting>
+                    </block>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

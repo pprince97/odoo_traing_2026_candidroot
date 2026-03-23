@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="hotel_guest_list" model="ir.ui.view">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.guest</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="guest_name"/>
+                <field name="age"/>
+                <field name="booking_ids"/>
+                <field name="room_ids"/>
+                <field name="discount"/>
+                <field name="gender"/>
+                <field name="is_vip"/>
+                <field name="dob"/>
+                <field name="check_in_time"/>
+                <field name="remark"/>
+                <field name="id_proof"/>
+                <field name="guest_photo"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="hotel_guest_form" model="ir.ui.view">
+        <field name="name">hotel_management.form</field>
+        <field name="model">hotel.guest</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="guest_name"/>
+                            <field name="age"/>
+                            <field name="discount"/>
+                            <field name="gender"/>
+                        </group>
+
+                        <group>
+                            <field name="is_vip"/>
+                            <field name="dob"/>
+                            <field name="check_in_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Remark">
+                            <field name="remark"/>
+                        </page>
+                        <page string="ID Proof and Photo">
+                            <group>
+
+                                <field name="id_proof"/>
+                                <field name="guest_photo" widget="image"/>
+                            </group>
+                        </page>
+                        <page string="Bookings" name="bookings">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_reference"/>
+                                    <field name="no_of_nights"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Rooms" name="rooms">
+                            <field name="room_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="room_no"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hotel_guest_search" model="ir.ui.view">
+        <field name="name">hotel_management.select</field>
+        <field name="model">hotel.guest</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="guest_name"/>
+                <field name="age"/>
+                <field name="discount"/>
+                <field name="gender"/>
+                <field name="is_vip"/>
+                <field name="check_in_time"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="hotel_guest_action" model="ir.actions.act_window">
+
+        <field name="name">Guest Menu</field>
+        <field name="res_model">hotel.guest</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+    <menuitem id="hotel_guest_menu" name="Guest" parent="hotel_menu"
+              action="hotel_guest_action"/>
+
+</odoo>

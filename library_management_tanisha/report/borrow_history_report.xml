@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="generate_book_history">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="rec">
+                Start Date:
+                <span t-field="rec.start_date"/>
+                <br/>
+                End Date:
+                <span t-field="rec.end_date"/>
+                <br/>
+                <t t-if="rec.student_ids">
+                    Student:
+                    <span t-if="rec.student_ids" t-field="rec.student_ids"/>
+                    <br/>
+                </t>
+                <t t-if="rec.book_ids">
+                    Books:
+                    <span t-field="rec.book_ids"/>
+                    <br/>
+                </t>
+                Is Return:
+                <span t-field="rec.is_return_date"/>
+                <br/>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>Book</span>
+                            </th>
+                            <th>
+                                <span>Student</span>
+                            </th>
+                            <th>
+                                <span>Issue Date</span>
+                            </th>
+                            <th>
+                                <span>Return Date</span>
+                            </th>
+                            <th>
+                                <span>Fine Amount Pay</span>
+                            </th>
+                            <th>
+                                <span>Issue Days</span>
+                            </th>
+                            <th>
+                                <span>Librarian</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="rec.borrow_request_line_ids" t-as="r">
+                            <tr>
+                                <td>
+                                    <span t-field="r.book_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.borrow_request_id.student_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.issue_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.return_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.fine_amount"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.issue_days"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.borrow_request_id.librarian_id"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </t>
+    </template>
+
+    <template id="generated_report_history">
+        <t t-call="web.html_container">
+            <t t-call="library_management_tanisha.generate_book_history"/>
+        </t>
+    </template>
+
+    <record id="book_history_report" model="ir.actions.report">
+        <field name="name">Book History Report</field>
+        <field name="model">book.history.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_tanisha.generated_report_history</field>
+        <field name="report_file">library_management_tanisha.generated_report_history</field>
+        <field name="binding_model_id" ref="library_management_tanisha.model_book_history_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
+

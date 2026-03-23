@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="hotel_service_list" model="ir.ui.view">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.service</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="service_name"/>
+                <field name="service_type"/>
+                <field name="booking_ids"/>
+                <field name="hotel_ids"/>
+                <field name="price"/>
+                <field name="quantity"/>
+                <field name="is_chargeable"/>
+                <field name="service_date"/>
+                <field name="service_time"/>
+                <field name="description"/>
+                <field name="attachment"/>
+                <field name="service_image"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="hotel_service_form" model="ir.ui.view">
+        <field name="name">hotel_management.form</field>
+        <field name="model">hotel.service</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="service_name"/>
+                            <field name="service_type"/>
+                            <field name="price"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="is_chargeable"/>
+                            <field name="service_date"/>
+                            <field name="service_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </page>
+                        <page string="Attachment and Service Image">
+                            <group>
+                                <field name="attachment"/>
+                                <field name="service_image" widget="image"/>
+                            </group>
+                        </page>
+                        <page string="Bookings" name="bookings">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_reference"/>
+                                    <field name="no_of_nights"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Hotels" name="hotels">
+                            <field name="hotel_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="total_rooms"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hotel_service_search" model="ir.ui.view">
+        <field name="name">hotel_management.select</field>
+        <field name="model">hotel.service</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="service_name"/>
+                <field name="service_type"/>
+                <field name="price"/>
+                <field name="is_chargeable"/>
+                <field name="service_date"/>
+                <field name="service_time"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="hotel_service_action" model="ir.actions.act_window">
+        <field name="name">Service Menu</field>
+        <field name="res_model">hotel.service</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hotel_service_menu" name="Service" parent="hotel_menu"
+              action="hotel_service_action"/>
+
+</odoo>

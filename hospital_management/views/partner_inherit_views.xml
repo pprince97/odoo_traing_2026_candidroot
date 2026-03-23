@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="partner_inherit_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='warning_tax']" position="before">
+                <header>
+                    <button string="Generate Patient Code"
+                            name="gen_patient_code"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="is_patient==False"/>
+                    <button string="View Appointments"
+                            name="%(hospital_management.view_appointments_action)d"
+                            type="action"
+                            class="oe_highlight"/>
+                    <button string="Check Context"
+                            name="%(hospital_management.view_appointments_action)d"
+                            type="action"
+                            class="oe_highlight"
+                            context="{'default_height':150}"/>
+
+                </header>
+            </xpath>
+            <xpath expr="//page[@name='contact_addresses']" position="inside">
+                <group>
+                    <field name="emer_conid"/>
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='misc']" position="after">
+                <group name="visit_information" string="Visit Information">
+                    <field name="last_visit_date"/>
+                    <field name="next_visit_datetime"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page name="personal_details" string="Personal Details">
+                    <group>
+                        <group>
+                            <field name="is_patient"/>
+                            <field name="is_doctor"/>
+                            <field name="patient_code"/>
+                            <field name="risk_level"/>
+                        </group>
+                        <group>
+                            <field name="blood_grp"/>
+                            <field name="height"/>
+                            <field name="weight"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='internal_notes']" position="inside">
+                <group>
+                    <field name="med_history"/>
+                    <field name="ins_doc"/>
+                    <field name="ins_filename"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

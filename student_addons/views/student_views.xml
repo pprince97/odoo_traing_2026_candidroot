@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+
+        <record id="student_tree" model="ir.ui.view">
+            <field name="name">student.addons.list</field>
+            <field name="model">student.object</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="roll_no"/>
+                    <field name="age"/>
+                    <field name="div"/>
+                    <field name="mentor_name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="student_form" model="ir.ui.view">
+            <field name="name">student.addons.form</field>
+            <field name="model">student.object</field>
+            <field name="arch" type="xml">
+                <form string="Student Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="roll_no"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="div"/>
+                                <field name="mentor_name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="student_addons_action" model="ir.actions.act_window">
+            <field name="name">student.addons.window</field>
+            <field name="res_model">student.object</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem name="Student" id="student_menu" action="student_addons.student_addons_action"/>
+
+<!--        <menuitem name="StuChild1" id="stu_child1_menu" parent="student_addons.student_menu_root"-->
+<!--        action="student_addons.student_addons_action"/>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="department_demo_data1" model="hospital.department">
+        <field name="name">Demo Department</field>
+    </record>
+</odoo>

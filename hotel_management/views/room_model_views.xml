@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="hotel_room_list" model="ir.ui.view">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="room_no"/>
+                <field name="hotel_ids"/>
+                <field name="guest_ids"/>
+                <field name="price_per_night"/>
+                <field name="room_type"/>
+                <field name="is_available"/>
+                <field name="maintenance_date"/>
+                <field name="last_cleaned"/>
+                <field name="notes"/>
+                <field name="room_document"/>
+                <field name="room_images"/>
+            </list>
+        </field>
+    </record>
+
+
+
+    <record id="hotel_room_form" model="ir.ui.view">
+        <field name="name">hotel_management.form</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <form string="Room Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="room_no"/>
+                            <field name="price_per_night"/>
+                            <field name="room_type"/>
+                        </group>
+                        <group>
+                            <field name="is_available"/>
+                            <field name="maintenance_date"/>
+                            <field name="last_cleaned"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Room Document and Images">
+                            <group>
+                                <field name="room_document"/>
+                                <field name="room_images" widget="image"/>
+                            </group>
+                        </page>
+                        <page string="Hotels" name="hotels">
+                            <field name="hotel_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="total_rooms"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Guests" name="guests">
+                            <field name="guest_ids">
+                                <list>
+                                    <field name="guest_name"/>
+                                    <field name="age"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+
+    <record id="hotel_room_search" model="ir.ui.view">
+        <field name="name">hotel_management.select</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="room_no"/>
+                <field name="price_per_night"/>
+                <field name="room_type"/>
+                <field name="is_available"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hotel_room_action" model="ir.actions.act_window">
+        <field name="name">Room Menu</field>
+        <field name="res_model">hotel.room</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hotel_room_menu" name="Room" parent="hotel_menu"
+              action="hotel_room_action"/>
+
+</odoo>

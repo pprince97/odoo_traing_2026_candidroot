@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="gym_base_menu" name="Gym Management"/>
+    <menuitem id="member_menu" name="Member" parent="gym_base_menu"/>
+</odoo>

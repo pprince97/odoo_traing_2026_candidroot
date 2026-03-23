@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="book_kanban_view" model="ir.ui.view">
+        <field name="name">library.book.kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="cover_image" class="w-100 h-auto m-0" widget="image"
+                                   options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                        </aside>
+                        <main class="ps-2">
+                            <div t-if="record.name.raw_value" class="text-truncate">
+                                <field class="fw-bold fs-5" name="name"/>
+                            </div>
+                            <div t-if="record.barcode.raw_value" class="text-truncate">
+                                <field name="barcode" class="ms-2 text-muted"/>
+                            </div>
+                            <div t-if="record.state.raw_value" class="text-truncate">
+                                <field name="state" class="ms-2 text-muted"/>
+                            </div>
+                            <div t-if="record.category.raw_value" class="text-truncate">
+                                <field name="category" class="ms-2 text-muted"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="book_form_view" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="history_borrowed"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                                string="History of Borrowed"
+                        />
+                        <button type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                        >
+                            <field string="Available Books" name="available_copies_string" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="state" widget="radio" options="{'horizontal': True}"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="available_copies"/>
+                            <field name="stock" readonly="state in ['unpublished']"/>
+                            <field name="borrow_price"/>
+                            <field name="max_day_limit"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="book_description" string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page name="book_image" string="Cover Image">
+                            <field name="cover_image" widget="image"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="book_menu_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem name="Library Management" id="library_root_menu"/>
+
+    <menuitem name="Books" id="book_menu" parent="library_root_menu" action="book_menu_action" sequence="2"
+              groups="library_management_tanisha.group_library_librarian"/>
+
+    <menuitem name="Reporting" id="reporting_menu" parent="library_root_menu" sequence="5"
+              groups="library_management_tanisha.group_library_admin"/>
+
+    <menuitem name="Books History" id="book_history_menu" parent="reporting_menu" action="book_history_wizard_action"/>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <data noupdate="1">
+        <record id="library_borrow_request_seq" model="ir.sequence">
+            <field name="name">Borrow Request Sequence</field>
+            <field name="code">borrow.request.seq</field>
+            <field name="prefix">R</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

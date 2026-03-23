@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="task_list_view" model="ir.ui.view">
+        <field name="name">project.tanisha.task.list</field>
+        <field name="model">project.tanisha.task</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="manager_id"/>
+                <field name="assign_ids" widget="many2many_tags"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="customer_id"/>
+                <field name="stage_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="task_form_view" model="ir.ui.view">
+        <field name="name">project.tanisha.task.form</field>
+        <field name="model">project.tanisha.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="stage_id" widget="statusbar" domain="[('project_ids','in',project_id)]" options="{'fold_field': 'fold'}"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button"
+                                type="object"
+                                name="show_bills"
+                                icon="fa-list"
+                        >
+                            <field string="Show bills" name="bill_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="project_id"/>
+                        </group>
+                        <group>
+                            <field name="manager_id"/>
+                            <field name="assign_ids" domain="[('id','in',assigns)]" widget="many2many_tags"/>
+                            <field name="customer_id"/>
+                            <field name="stage_id" domain="[('project_ids','in',project_id)]"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="timesheets" string="Timesheets">
+                            <field name="timesheet_ids">
+                                <list editable="top">
+                                    <field name="assign_id" domain="[('id','in',assigns)]"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="description"/>
+                                    <field name="spent_hour" widget="timesheet_uom"/>
+                                </list>
+                            </field>
+                            <group>
+                                <group class="oe_subtotal_footer" name="total_hours">
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="total_hours" string="Total Hours"/>
+                                    </span>
+                                    <strong>
+                                        <field name="total_hours" widget="timesheet_uom" nolabel="1"/>
+                                    </strong>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="task_menu_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.tanisha.task</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="task_menu" name="Tasks" parent="project_root_menu" action="task_menu_action" sequence="3"/>
+
+</odoo>

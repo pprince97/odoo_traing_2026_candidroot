@@ -1,0 +1,28 @@
+{
+    'name': 'Project Management',
+    'version': '1.0',
+    'category': 'Uncategorized',
+    'summary': 'Project Management Module',
+    'description': "This is Project Management created by Tanisha",
+    'website': 'https://www.projectmanagement.com',
+    'demo': [
+        'demo/stage_demo_data.xml',
+    ],
+    'depends': ['base','hr_timesheet','account'],
+    'data': [
+        'security/project_security.xml',
+        'security/ir.model.access.csv',
+        'wizard/generate_bill_views.xml',
+        'report/generate_bill_report.xml',
+        'views/project_base_views.xml',
+        'views/project_views.xml',
+        'views/stage_views.xml',
+        'views/hour_rate_views.xml',
+        'views/task_views.xml',
+        'views/timesheet_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'author': 'Tanisha',
+    'license': 'LGPL-3',
+}

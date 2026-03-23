@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="bill_wizard_form_viewt" model="ir.ui.view">
+        <field name="name">project.bill.wizard.form</field>
+        <field name="model">project.bill.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="choice" widget="radio" options="{'horizontal': True}"/>
+                        <field name="start_date" invisible="choice == 'taskwise'"/>
+                        <field name="end_date" invisible="choice == 'taskwise'"/>
+                        <field name="task_ids" widget="many2many_tags"  invisible="choice == 'datewise'" domain="[('project_id','=',project_id),('stage_id','=',%(project_management_tanisha.stage_demo_data2)d)]"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="generate_bill"
+                            string="Generate bill"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                    <button name="generate_bill_and_report"
+                            string="Generate bill and Report"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

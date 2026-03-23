@@ -1,0 +1,20 @@
+{
+    'name': 'Rental Management',
+    'version': '1.0',
+    'category': 'Uncategorized',
+    'summary': 'Rental Management Module',
+    'description': "This is Rental Management created by Tanisha",
+    'website': 'https://www.rentalmanagement.com',
+    'depends': ['base','sale_management','stock','contacts'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/rental_serial_sequence.xml',
+        'views/product_config_views.xml',
+        'views/customer_views.xml',
+        'views/rental_order_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'author': 'Tanisha',
+    'license': 'LGPL-3',
+}

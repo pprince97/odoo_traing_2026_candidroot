@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="timesheet_list_view" model="ir.ui.view">
+        <field name="name">project.timesheet.list</field>
+        <field name="model">project.timesheet</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="assign_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="description"/>
+                <field name="spent_hour" widget="timesheet_uom"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="timesheet_form_view" model="ir.ui.view">
+        <field name="name">project.timesheet.form</field>
+        <field name="model">project.timesheet</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="assign_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="description"/>
+                        <field name="spent_hour" widget="timesheet_uom"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="timesheet_menu_action" model="ir.actions.act_window">
+        <field name="name">Timesheets</field>
+        <field name="res_model">project.timesheet</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="timesheet_menu" name="Timesheets" parent="project_root_menu" action="timesheet_menu_action"
+              sequence="4"/>
+
+</odoo>

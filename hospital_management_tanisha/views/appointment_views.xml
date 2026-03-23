@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="appointment_list_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.list</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hospital_id" width="50px"/>
+                <field name="patient_id" width="50px"/>
+                <field name="department_id" width="50px"/>
+                <field name="doctor_id" width="50px"/>
+                <field name="appointment_date" width="50px"/>
+                <field name="patient_address" width="50px"/>
+                <field name="patient_dob" width="50px"/>
+                <field name="patient_age" width="50px"/>
+                <field name="patient_mobile" width="50px"/>
+                <field name="patient_email" width="50px"/>
+                <field name="status" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="appointment_form_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Form">
+                <header>
+                    <button name="new_status"
+                            string="New"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['cancelled','done']"
+                    />
+                    <button name="in_progress_status"
+                            string="In Progress"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['new']"
+                    />
+                    <button name="done_status"
+                            string="Done"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['in_progress']"
+                    />
+                    <button name="cancelled_status"
+                            string="Cancelled"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['new','in_progress']"
+                    />
+                    <field name="status" widget="statusbar" statusbar_visible="new,in_progress,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="show_appointments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                        >
+                            <field name="appointment_count" string="Appointments" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Appointment Details">
+                            <field name="hospital_id" options="{'no_create': True}"/>
+                            <field name="patient_id"/>
+                            <field name="department_id" options="{'no_create': True}" domain="[('hospital_ids.id','=',hospital_id)]"/>
+                            <field name="doctor_id" options="{'no_create': True}" domain="[('department_id.id','=',department_id)]"/>
+                            <field name="appointment_date"/>
+                            <field name="status"/>
+                        </group>
+                        <group string="Patient Details">
+                            <field name="patient_address"/>
+                            <field name="patient_dob"/>
+                            <field name="patient_age" force_save="1"/>
+                            <field name="patient_mobile"/>
+                            <field name="patient_email"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_search_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.list</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="filter_no_share" string="Today's Appointment" domain="[('appointment_date','=','today')]"/>
+<!--                <filter string="Patient Own Appointment" name="patient_own_appointment" domain="[]"-->
+<!--                    context="{'group_by': 'patient_id'}" groups="hospital_management_tanisha.group_hospital_patient"/>-->
+            </search>
+        </field>
+    </record>
+
+    <record id="appointment_menu_action" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_no_share': 1}</field>
+<!--        <field name="context">{'search_default_patient_own_appointment': 1}</field>-->
+    </record>
+
+    <menuitem id="appointment_menu" name="Appointment" parent="hospital_root" action="appointment_menu_action"/>
+</odoo>

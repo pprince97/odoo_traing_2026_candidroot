@@ -1,0 +1,156 @@
+<odoo>
+
+    <record id="school_list" model="ir.ui.view">
+        <field name="name">school_management.list</field>
+        <field name="model">school.school</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="area"/>
+                <field name="student_ids"/>
+                <field name="class_ids"/>
+                <field name="teacher_ids"/>
+                <field name="subject_ids"/>
+                <field name="admission_ids"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="school_form" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.school</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_new_adm"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                            <field name="new_count" widget="statinfo" string="New Admission"/>
+                        </button>
+                        <button name="action_view_prog_adm"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                            <field name="pro_count" widget="statinfo" string="In Progress Admission"/>
+                        </button>
+                        <button name="action_view_con_adm"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o">
+                            <field name="con_count" widget="statinfo" string="Confirm Admission"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="area"/>
+                    </group>
+                    <notebook>
+                        <page string="Students" name="students">
+                            <field name="student_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="roll_no"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Classes" name="classes">
+                            <field name="class_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="class_strength"/>
+                                    <field name="is_active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Teachers" name="teachers">
+                            <field name="teacher_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="employee_code"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Subjects" name="subjects">
+                            <field name="subject_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="subject_code"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Admissions" name="admissions">
+                            <field name="admission_ids">
+                                <list editable="bottom">
+                                    <field name="stu_name"/>
+                                    <field name="gender"/>
+                                    <field name="standard"/>
+                                    <field name="stu_photo"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="school_form_view" model="ir.ui.view">
+         <field name="name">school_management.form</field>
+         <field name="model">school.school</field>
+         <field name="arch" type="xml">
+             <form string="School Form View From Student">
+                 <sheet>
+                     <group>
+                         <field name="name"/>
+                         <field name="area"/>
+                     </group>
+                 </sheet>
+             </form>
+         </field>
+    </record>
+<!--    <record id="school_kanban_view" model="ir.ui.view">-->
+<!--         <field name="name">school_management.kanban</field>-->
+<!--         <field name="model">school.school</field>-->
+<!--         <field name="arch" type="xml">-->
+<!--             <kanban string="School Kanban View From Student">-->
+<!--                 <templates>-->
+<!--                    <t t-name="card" class="row g-0">-->
+<!--                        <field name="name" class="col-6 fw-bold"/>-->
+<!--                        <div class="col-6">-->
+<!--                            <field name="area" class="float-end"/>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </templates>-->
+<!--             </kanban>-->
+<!--         </field>-->
+<!--    </record>-->
+<!--    <record id="school_kanban_view1" model="ir.ui.view">-->
+<!--         <field name="name">school_management.kanban</field>-->
+<!--         <field name="model">school.school</field>-->
+<!--         <field name="arch" type="xml">-->
+<!--             <kanban string="School Kanban View From Student">-->
+<!--                 <templates>-->
+<!--                    <t t-name="card" class="row g-0">-->
+<!--                        <field name="name" class="col-6 fw-bold"/>-->
+<!--                        <div class="col-6">-->
+<!--                            <field name="area" class="float-end"/>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </templates>-->
+<!--             </kanban>-->
+<!--         </field>-->
+<!--    </record>-->
+    <record id="school_action" model="ir.actions.act_window">
+
+        <field name="name">Schools</field>
+        <field name="res_model">school.school</field>
+        <field name="view_mode">list,form,kanban</field>
+
+    </record>
+
+    <menuitem name="School" id="school_school_menu" parent="school_menu" action="school_action"/>
+
+</odoo>

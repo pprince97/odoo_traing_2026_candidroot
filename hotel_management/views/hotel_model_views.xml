@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="hotel_hotel_list" model="ir.ui.view">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.hotel</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="total_rooms" width="50px"/>
+                <field name="room_ids" width="50px"/>
+                <field name="booking_ids" width="50px"/>
+                <field name="service_ids" width="50px"/>
+                <field name="rating" width="50px"/>
+                <field name="category" width="50px"/>
+                <field name="is_active" width="50px"/>
+                <field name="opening_date" width="50px"/>
+                <field name="description" width="50px"/>
+                <field name="license" width="50px"/>
+                <field name="image" width="50px"/>
+            </list>
+        </field>
+
+    </record>
+
+
+    <record id="hotel_hotel_form" model="ir.ui.view">
+
+        <field name="name">hotel_management.form</field>
+        <field name="model">hotel.hotel</field>
+        <field name="arch" type="xml">
+            <form string="Hotel Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="total_rooms"/>
+                            <field name="rating"/>
+                        </group>
+                        <group>
+                            <field name="category"/>
+                            <field name="is_active"/>
+                            <field name="opening_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="License and Image">
+                            <group>
+                                <field name="license"/>
+                                <field name="image" widget="image"/>
+                            </group>
+                        </page>
+                        <page string="Bookings" name="bookings">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_reference"/>
+                                    <field name="no_of_nights"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Services" name="services">
+                            <field name="service_ids">
+                                <list>
+                                    <field name="service_name"/>
+                                    <field name="service_type"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+
+    <record id="hotel_hotel_search" model="ir.ui.view">
+        <field name="name">hotel_management.select</field>
+        <field name="model">hotel.hotel</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="rating"/>
+                <field name="category"/>
+                <field name="is_active"/>
+            </search>
+        </field>
+
+    </record>
+
+    <record id="hotel_hotel_action" model="ir.actions.act_window">
+        <field name="name">Hotel Menu</field>
+        <field name="res_model">hotel.hotel</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Hotel" id="hotel_hotel_menu" parent="hotel_menu"
+              action="hotel_hotel_action"/>
+</odoo>

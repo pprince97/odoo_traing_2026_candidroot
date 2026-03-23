@@ -1,0 +1,21 @@
+{
+    'name': 'Hospital Management',
+    'version': '1.3',
+    'category': 'Hidden',
+    'summary': 'Hospital Management System',
+    'description': "This is Hospital Management",
+    'website': 'https://www.hospitalmanagement.com',
+    'depends': ['base','account_payment'],
+    'data': [
+        'security/ir.model.access.csv',
+        # 'views/base_views.xml',
+        # 'views/hospital_views.xml',
+        # 'views/doctor_views.xml',
+        # 'views/patient_views.xml',
+        # 'views/appointment_views.xml',
+        # 'views/payment_views.xml',
+    ],
+    'installable': True,
+    'author': 'Hospital',
+    'license': 'LGPL-3',
+}

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_product_material,access_product_material,model_product_material,,1,1,1,1
+
+access_product_surface_finishing,access_product_surface_finishing,model_product_surface_finishing,,1,1,1,1
+
+access_product_uvprinting,access_product_uvprinting,model_product_uvprinting,,1,1,1,1
+
+access_product_color_shade,access_product_color_shade,model_product_color_shade,,1,1,1,1
+
+access_product_variant_lines,access_product_variant_lines,model_product_variant_lines,,1,1,1,1
+

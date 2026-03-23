@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="book_demo_data1" model="library.book" context="{'default_state': 'published', 'default_category': 'knowledge'}">
+        <field name="name">Book1</field>
+        <field name="barcode">ABC123</field>
+        <field name="description">Description of Book1</field>
+        <field name="available_copies">20</field>
+        <field name="stock">20</field>
+        <field name="cover_image" type="base64" file="library_management_tanisha/static/img/demo_image.jpeg"/>
+        <field name="borrow_price">10.5</field>
+        <field name="max_day_limit">10</field>
+    </record>
+
+    <record id="book_demo_data2" model="library.book" context="{'default_state': 'published', 'default_category': 'novel'}">
+        <field name="name">Book2</field>
+        <field name="barcode">DEF234</field>
+        <field name="description">Description of Book2</field>
+        <field name="available_copies">26</field>
+        <field name="stock">26</field>
+        <field name="cover_image" type="base64" file="library_management_tanisha/static/img/demo_image.jpeg"/>
+        <field name="borrow_price">15</field>
+        <field name="max_day_limit">8</field>
+    </record>
+
+    <record id="book_demo_data3" model="library.book" context="{'default_state': 'unpublished', 'default_category': 'science'}">
+        <field name="name">Book3</field>
+        <field name="barcode">GHI345</field>
+        <field name="description">Description of Book3</field>
+        <field name="available_copies">5</field>
+        <field name="stock">5</field>
+        <field name="cover_image" type="base64" file="library_management_tanisha/static/img/demo_image.jpeg"/>
+        <field name="borrow_price">8.5</field>
+        <field name="max_day_limit">15</field>
+    </record>
+
+    <record id="book_demo_data4" model="library.book" context="{'default_state': 'published', 'default_category': 'comic'}">
+        <field name="name">Book4</field>
+        <field name="barcode">JKL456</field>
+        <field name="description">Description of Book4</field>
+        <field name="available_copies">15</field>
+        <field name="stock">15</field>
+        <field name="cover_image" type="base64" file="library_management_tanisha/static/img/demo_image.jpeg"/>
+        <field name="borrow_price">12</field>
+        <field name="max_day_limit">10</field>
+    </record>
+
+    <record id="book_demo_data5" model="library.book" context="{'default_state': 'unpublished', 'default_category': 'story'}">
+        <field name="name">Book5</field>
+        <field name="barcode">MNO567</field>
+        <field name="description">Description of Book5</field>
+        <field name="available_copies">22</field>
+        <field name="stock">22</field>
+        <field name="cover_image" type="base64" file="library_management_tanisha/static/img/demo_image.jpeg"/>
+        <field name="borrow_price">7.5</field>
+        <field name="max_day_limit">20</field>
+    </record>
+</odoo>

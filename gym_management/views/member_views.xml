@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="trainer_list_view" model="ir.ui.view">
+        <field name="name">gym.member.list</field>
+        <field name="model">gym.member</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="gender" width="50px"/>
+                <field name="email" width="50px"/>
+                <field name="dob" width="50px"/>
+                <field name="mobile_no" width="50px"/>
+                <field name="address" width="50px"/>
+                <field name="height" width="50px"/>
+                <field name="weight" width="50px"/>
+                <field name="specialist" width="50px"/>
+                <field name="is_available" width="50px"/>
+                <field name="when_available" width="50px"/>
+                <field name="exp_years" width="50px"/>
+                <field name="photo" width="50px"/>
+                <field name="bio" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="trainee_list_view" model="ir.ui.view">
+        <field name="name">gym.member.list</field>
+        <field name="model">gym.member</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="gender" width="50px"/>
+                <field name="email" width="50px"/>
+                <field name="dob" width="50px"/>
+                <field name="mobile_no" width="50px"/>
+                <field name="address" width="50px"/>
+                <field name="height" width="50px"/>
+                <field name="weight" width="50px"/>
+                <field name="is_sub_mem" width="50px"/>
+                <field name="fitness_goal" width="50px"/>
+                <field name="shift" width="50px"/>
+                <field name="photo" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="trainer_form_view" model="ir.ui.view">
+        <field name="name">gym.member.form</field>
+        <field name="model">gym.member</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+<!--                        <field name="member" default="{'member':'trainer'}" invisible="1"/>-->
+                        <field name="member"/>
+                        <field name="name"/>
+                        <field name="gender" widget="radio"/>
+                        <field name="email" widget="email"/>
+                        <field name="dob"/>
+                        <field name="mobile_no" widget="phone"/>
+                        <field name="address"/>
+                    </group>
+                    <group>
+                        <field name="height"/>
+                        <field name="weight"/>
+                        <field name="specialist"/>
+                        <field name="is_available"/>
+                        <field name="when_available"/>
+                        <field name="exp_years"/>
+<!--                        <field name="dummy" options="{'rounding':5}"/>-->
+                    </group>
+                </group>
+                <notebook>
+                    <page name="photo" string="Photo">
+                        <label for="photo" string="Photo" class="me-3"/>
+                        <field name="photo" widget="image"/>
+                    </page>
+                    <page name="bio" string="Bio">
+                        <field name="bio"/>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_patient_google_url_action1" model="ir.actions.act_url">
+        <field name="name">Google URL</field>
+        <field name="url">https://www.google.com</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="trainee_form_view" model="ir.ui.view">
+        <field name="name">gym.member.form</field>
+        <field name="model">gym.member</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(model_patient_google_url_action1)d"
+                            string="Google URL"
+                            type="action"
+                            class="oe_highlight"
+                            confirm="Are you sure ?"/>
+                </header>
+                <group>
+                    <group>
+<!--                        <field name="member" default="{'member':'trainee'}" invisible="1"/>-->
+                        <field name="member"/>
+                        <field name="name"/>
+                        <field name="gender" widget="radio"/>
+                        <field name="email" widget="email"/>
+                        <field name="dob"/>
+                        <field name="mobile_no" widget="phone"/>
+                        <field name="address"/>
+                    </group>
+                    <group>
+                        <field name="height"/>
+                        <field name="weight"/>
+                        <field name="is_sub_mem"/>
+                        <field name="fitness_goal"/>
+                        <field name="shift"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="photo" string="Photo">
+                        <label for="photo" string="Photo" class="me-3"/>
+                        <field name="photo" widget="image"/>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="trainer_search_view" model="ir.ui.view">
+        <field name="name">gym.member.search</field>
+        <field name="model">gym.member</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+<!--                <field name="male" filter_domain="[('gender','=',self)]"/>-->
+                <field name="when_available" filter_domain="[('when_available','=',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="trainer_menu_action" model="ir.actions.act_window">
+        <field name="name">Trainer Menu</field>
+        <field name="res_model">gym.member</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_member':'trainer'}</field>
+        <field name="domain">[('member','=','trainer')]</field>
+        <field name="search_view_id" ref="trainer_search_view"/>
+    </record>
+
+    <record id="trainer_menu_list_action" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="trainer_list_view"/>
+        <field name="act_window_id" ref="trainer_menu_action"/>
+    </record>
+
+    <record id="trainer_menu_form_action" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="trainer_form_view"/>
+        <field name="act_window_id" ref="trainer_menu_action"/>
+    </record>
+
+    <record id="trainee_menu_action" model="ir.actions.act_window">
+        <field name="name">Trainee Menu</field>
+        <field name="res_model">gym.member</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_member':'trainee'}</field>
+        <field name="domain">[('member','=','trainee')]</field>
+<!--        <field name="search_view_id" ref="trainee_search_view"/>-->
+    </record>
+
+    <record id="trainee_menu_list_action" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="trainee_list_view"/>
+        <field name="act_window_id" ref="trainee_menu_action"/>
+    </record>
+
+    <record id="trainee_menu_form_action" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="trainee_form_view"/>
+        <field name="act_window_id" ref="trainee_menu_action"/>
+    </record>
+
+    <menuitem id="trainer_menu" name="Trainer" parent="member_menu" action="trainer_menu_action"/>
+    <menuitem id="trainee_menu" name="Trainee" parent="member_menu" action="trainee_menu_action"/>
+</odoo>

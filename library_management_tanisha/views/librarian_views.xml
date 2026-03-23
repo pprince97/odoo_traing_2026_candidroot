@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="librarian_kanban_view" model="ir.ui.view">
+        <field name="name">res.partner.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <main>
+                            <div t-if="record.name.raw_value" class="text-truncate">
+                                <field class="fw-bold fs-5" name="name"/>
+                            </div>
+                            <div t-if="record.email.raw_value" class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-envelope" title="Email"/>
+                                <field name="email" class="ms-2 text-muted"/>
+                            </div>
+                            <div t-if="record.phone.raw_value" class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-phone" title="Phone"/>
+                                <field name="phone" class="ms-2 text-muted"/>
+                            </div>
+                            <div t-if="record.gender.raw_value" class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-user" title="Gender"/>
+                                <field name="gender" class="ms-2 text-muted"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="librarian_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="borrowed_requests"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                                string="Borrowed Requests"
+                        >
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="email" required="1"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="gender" widget="radio" options="{'horizontal': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="librarian_menu_action" model="ir.actions.act_window">
+        <field name="name">Librarians</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="context">{'default_is_librarian': True}</field>
+        <field name="domain">[('is_librarian', '=', True)]</field>
+    </record>
+
+    <record id="librarian_kanban_action" model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="librarian_kanban_view"/>
+        <field name="act_window_id" ref="librarian_menu_action"/>
+    </record>
+
+    <record id="librarian_form_action" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="librarian_form_view"/>
+        <field name="act_window_id" ref="librarian_menu_action"/>
+    </record>
+
+    <menuitem name="Librarians" id="librarian_menu" parent="library_root_menu" action="librarian_menu_action" sequence="3" groups="library_management_tanisha.group_library_librarian"/>
+
+</odoo>

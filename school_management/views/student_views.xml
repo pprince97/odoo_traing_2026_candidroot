@@ -1,0 +1,195 @@
+<odoo>
+
+    <record id="student_list" model="ir.ui.view">
+         <field name="name">school_management.list</field>
+         <field name="model">school.student</field>
+         <field name="arch" type="xml">
+             <list>
+                 <field name="name"/>
+                 <field name="roll_no"/>
+                 <field name="roll_no"/>
+                 <field name="class_id"/>
+                 <field name="teacher_ids"/>
+                 <field name="subject_ids"/>
+                 <field name="school_id"/>
+                 <field name="percentage"/>
+                 <field name="gender"/>
+                 <field name="is_active_student"/>
+                 <field name="dob"/>
+                 <field name="admission_date_time"/>
+                 <field name="remarks"/>
+                 <field name="id_proof"/>
+                 <field name="photo"/>
+             </list>
+         </field>
+    </record>
+
+<!--    <record id="student_child2_list" model="ir.ui.view">-->
+<!--         <field name="name">school_management.list</field>-->
+<!--         <field name="model">school.student</field>-->
+<!--         <field name="arch" type="xml">-->
+<!--             <list>-->
+<!--                 <field name="name"/>-->
+<!--                 <field name="roll_no"/>-->
+<!--                 <field name="class_id"/>-->
+<!--                 <field name="teacher_ids"/>-->
+<!--                 <field name="subject_ids"/>-->
+<!--                 <field name="school_id"/>-->
+<!--             </list>-->
+<!--         </field>-->
+<!--    </record>-->
+
+    <record id="student_form" model="ir.ui.view">
+         <field name="name">school_management.form</field>
+         <field name="model">school.student</field>
+         <field name="arch" type="xml">
+             <form string="Student Form View">
+                 <sheet>
+                     <group>
+                         <group>
+                             <field name="name"/>
+                             <field name="roll_no"/>
+                             <field name="percentage"/>
+                             <field name="gender"/>
+                             <field name="is_active_student" widget="boolean_toggle"/>
+                         </group>
+                         <group>
+                             <field name="dob"/>
+                             <field name="admission_date_time"/>
+                             <field name="remarks"/>
+                             <field name="id_proof"/>
+                             <field name="photo" widget="contact_image" options="{'size': [50,50]}"/>
+                         </group>
+                     </group>
+                     <notebook>
+                         <page string="Class" name="class">
+                             <field name="class_id"/>
+                         </page>
+                         <page string="Teachers" name="teachers">
+                             <field name="teacher_ids">
+                                 <list>
+                                     <field name="name"/>
+                                     <field name="employee_code"/>
+                                 </list>
+                             </field>
+                         </page>
+                         <page string="Subjects" name="subjects">
+                             <field name="subject_ids" >
+                                 <list>
+                                     <field name="name"/>
+                                     <field name="subject_code"/>
+                                 </list>
+                             </field>
+                         </page>
+                         <page string="School" name="school">
+                             <field name="school_id" context="{'form_view_ref': 'school_management.school_form_view'}"/>
+<!--                             <field name="school_id" options="{'no_create':True}" context="{'kanban_view_ref': 'school_management.school_kanban_view1'}"/>-->
+                         </page>
+                     </notebook>
+                 </sheet>
+             </form>
+         </field>
+    </record>
+
+<!--    <record id="student_child2_form" model="ir.ui.view">-->
+<!--         <field name="name">school_management.form</field>-->
+<!--         <field name="model">school.student</field>-->
+<!--         <field name="arch" type="xml">-->
+<!--             <form string="Student Form View">-->
+<!--                 <sheet>-->
+<!--                     <group>-->
+<!--                         <group>-->
+<!--                             <field name="name"/>-->
+<!--                         </group>-->
+<!--                         <group>-->
+<!--                             <field name="roll_no"/>-->
+<!--                         </group>-->
+<!--                     </group>-->
+<!--                     <notebook>-->
+<!--                         <page string="Class" name="class">-->
+<!--                             <field name="class_id">-->
+<!--                                 <list>-->
+<!--                                     <field name="name"/>-->
+<!--                                 </list>-->
+<!--                             </field>-->
+
+<!--                         </page>-->
+<!--                         <page string="Teachers" name="teachers">-->
+<!--                             <field name="teacher_ids">-->
+<!--                                 <list>-->
+<!--                                     <field name="name"/>-->
+<!--                                     <field name="employee_code"/>-->
+<!--                                 </list>-->
+<!--                             </field>-->
+<!--                         </page>-->
+<!--                         <page string="Subjects" name="subjects">-->
+<!--                             <field name="subject_ids">-->
+<!--                                 <list>-->
+<!--                                     <field name="name"/>-->
+<!--                                     <field name="subject_code"/>-->
+<!--                                 </list>-->
+<!--                             </field>-->
+<!--                         </page>-->
+<!--                         <page string="School" name="school">-->
+<!--                             <field name="school_id">-->
+<!--                                 <list>-->
+<!--                                     <field name="name"/>-->
+<!--                                 </list>-->
+<!--                             </field>-->
+<!--                         </page>-->
+<!--                     </notebook>-->
+<!--                 </sheet>-->
+
+<!--             </form>-->
+<!--         </field>-->
+<!--    </record>-->
+
+    <record id="student_action" model="ir.actions.act_window">
+           <field name="name">Students</field>
+           <field name="res_model">school.student</field>
+           <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Student" id="school_student_menu" parent="school_menu" action="student_action"/>
+
+<!--    <record id="student_child1_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Student Child1 Menu</field>-->
+<!--        <field name="res_model">school.student</field>-->
+<!--        <field name="view_mode">list,form</field>-->
+<!--    </record>-->
+
+<!--    <record id="student_child1_list_action" model="ir.actions.act_window.view">-->
+<!--        <field name="view_mode">list</field>-->
+<!--        <field name="view_id" ref="student_child1_list"/>-->
+<!--        <field name="act_window_id" ref="student_child1_action"/>-->
+<!--    </record>-->
+
+<!--    <record id="student_child1_form_action" model="ir.actions.act_window.view">-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="student_child1_form"/>-->
+<!--        <field name="act_window_id" ref="student_child1_action"/>-->
+<!--    </record>-->
+
+<!--    <record id="student_child2_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Student Child2 Menu</field>-->
+<!--        <field name="res_model">school.student</field>-->
+<!--        <field name="view_mode">list,form</field>-->
+<!--    </record>-->
+
+<!--    <record id="student_child2_list_action" model="ir.actions.act_window.view">-->
+<!--        <field name="view_mode">list</field>-->
+<!--        <field name="view_id" ref="student_child2_list"/>-->
+<!--        <field name="act_window_id" ref="student_child2_action"/>-->
+<!--    </record>-->
+
+<!--    <record id="student_child2_form_action" model="ir.actions.act_window.view">-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="student_child2_form"/>-->
+<!--        <field name="act_window_id" ref="student_child2_action"/>-->
+<!--    </record>-->
+
+
+<!--        <menuitem name="Student Child1" id="student_child1_menu" action="student_child1_action" parent="school_student_menu"/>-->
+<!--        <menuitem name="Student Child2" id="student_child2_menu" action="student_child2_action" parent="school_student_menu"/>-->
+
+</odoo>

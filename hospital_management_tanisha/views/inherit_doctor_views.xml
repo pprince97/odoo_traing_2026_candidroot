@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="doctor_list_view" model="ir.ui.view">
+        <field name="name">res.partner.inherit.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="doctor_id" width="50px"/>
+                <field name="name" width="50px"/>
+                <field name="street" width="50px" string="Address"/>
+                <field name="phone" width="50px" string="Mobile"/>
+                <field name="email" width="50px"/>
+                <field name="department_id" width="50px" widget="many2one_tags"/>
+                <field name="experience_year" width="50px"/>
+                <field name="speciality_description" width="50px"/>
+                <field name="hospital_ids" width="50px" widget="many2many_tags"/>
+                <field name="appointment_ids" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="doctor_form_view" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="doctor_appointments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                        >
+                            <field name="appointment_count" string="Appointments" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" readonly="0"/>
+                            <field name="street" string="Address"/>
+                            <field name="phone" string="Mobile"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="department_id" options="{'no_create': True}"/>
+                            <field name="experience_year"/>
+                            <field name="hospital_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="speciality_description" string="Speciality/Description">
+                            <field name="speciality_description"/>
+                        </page>
+                        <page name="appointments" string="Appointments">
+                            <field name="appointment_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="doctor_menu_action" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'doctor': True}</field>
+        <field name="domain">[('doctor_id','ilike','D%')]</field>
+    </record>
+
+    <record id="doctor_list_action" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="doctor_list_view"/>
+        <field name="act_window_id" ref="doctor_menu_action"/>
+    </record>
+
+    <record id="doctor_form_action" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="doctor_form_view"/>
+        <field name="act_window_id" ref="doctor_menu_action"/>
+    </record>
+
+    <menuitem id="doctor_menu" name="Doctor" parent="hospital_root" action="doctor_menu_action"/>
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="product_variant_form_view" model="ir.ui.view">
+        <field name="name">product.variant.inherit.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="after">
+                <page name="parts_specification" string="Parts Specification">
+                    <group string="Product Type" invisible="categ_id == %(product_management.product_category_accessory)d">
+                        <field name="multi_parts"/>
+                    </group>
+                    <group>
+                        <group string="Product Information" invisible="multi_parts or categ_id == %(product_management.product_category_accessory)d">
+                            <field name="material_id"/>
+                            <field name="surface_finishing_id"/>
+                            <field name="uv_printing_id"/>
+                            <field name="color_shade_id"/>
+                        </group>
+                        <group string="Product Costs">
+                            <field name="product_cost" widget="monetary" invisible="categ_id == %(product_management.product_category_accessory)d"/>
+                            <field name="accessories_cost" widget="monetary" invisible="categ_id == %(product_management.product_category_accessory)d"/>
+                            <field name="total_cost" widget="monetary" readonly="categ_id != %(product_management.product_category_accessory)d"/>
+                        </group>
+                    </group>
+                    <group string="Products" invisible="not multi_parts">
+                        <field name="product_line_ids" string="Products">
+                            <list editable="top">
+                                <field name="sub_product_id" string="Name" domain="[('id','!=',product_id)]"/>
+                                <field name="cost" widget="monetary"/>
+                                <field name="quantity"/>
+                                <field name="total" widget="monetary"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Accessories" invisible="multi_parts or categ_id == %(product_management.product_category_accessory)d">
+                        <field name="product_line_ids" string="Accessories">
+                            <list editable="top">
+                                <field name="sub_product_id" string="Name" domain="[('categ_id','=',%(product_management.product_category_accessory)d)]"/>
+                                <field name="cost" widget="monetary"/>
+                                <field name="quantity"/>
+                                <field name="total" widget="monetary"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

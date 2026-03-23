@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="patient_list_view" model="ir.ui.view">
+        <field name="name">hospital_management.list</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="app_datetime" width="50px"/>
+                <field name="name" width="50px"/>
+                <field name="age" width="50px"/>
+                <field name="gender" width="50px"/>
+                <field name="phone" width="50px"/>
+                <field name="blood_grp" width="50px"/>
+                <field name="disease" width="50px"/>
+                <field name="ward" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="patient_form_view" model="ir.ui.view">
+        <field name="name">hospital_management.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="app_datetime"/>
+                            <field name="name"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="phone"/>
+                            <field name="blood_grp"/>
+                            <field name="is_handicap"/>
+                        </group>
+                        <group>
+                            <field name="disease"/>
+                            <field name="ward"/>
+                            <field name="is_diabetic"/>
+                            <field name="have_insurance"/>
+                            <field name="allergy"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Medical history">
+                            <group>
+                                <field name="med_history"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="patient_search_view" model="ir.ui.view">
+        <field name="name">hospital_management.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="gender"/>
+                <filter name="is_handicap" domain="[('is_handicap','=',True)]"/>
+                <filter name="is_diabetic" domain="[('is_diabetic','=',True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="patient_menu_action" model="ir.actions.act_window">
+        <field name="name">Patient Menu</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <menuitem id="patient_menu" name="Patient" parent="hospital_base_menu" action="patient_menu_action"/>
+
+</odoo>

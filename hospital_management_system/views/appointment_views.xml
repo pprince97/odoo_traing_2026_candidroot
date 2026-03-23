@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="appointment_list_view" model="ir.ui.view">
+        <field name="name">hospital_management.list</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="app_datetime"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="appointment_form_view" model="ir.ui.view">
+        <field name="name">hospital_management.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Form">
+                <sheet>
+                    <group>
+                        <field name="app_datetime"/>
+                        <field name="doctor_id"/>
+                        <field name="patient_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_search_view" model="ir.ui.view">
+        <field name="name">hospital_management.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="appointment_menu_action" model="ir.actions.act_window">
+        <field name="name">appointment Menu</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <menuitem id="appointment_menu" name="Appointment" parent="hospital_base_menu" action="appointment_menu_action"/>
+
+</odoo>

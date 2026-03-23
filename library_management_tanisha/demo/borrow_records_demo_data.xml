@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="librarian_demo_data1" model="res.partner" context="{'default_is_librarian': True}">
+        <field name="name">Librarian1</field>
+        <field name="email">librarian1@gmail.com</field>
+        <field name="phone">9876543210</field>
+    </record>
+
+    <record id="librarian_demo_data2" model="res.partner" context="{'default_is_librarian': True}">
+        <field name="name">Librarian2</field>
+        <field name="email">librarian2@gmail.com</field>
+        <field name="phone">8765432109</field>
+    </record>
+
+    <record id="librarian_demo_data3" model="res.partner" context="{'default_is_librarian': True}">
+        <field name="name">Librarian3</field>
+        <field name="email">librarian3@gmail.com</field>
+        <field name="phone">7654321098</field>
+    </record>
+
+    <record id="borrow_record_line_data1" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_tanisha.book_demo_data2"/>
+        <field name="quantity">5</field>
+        <field name="amount_per_unit_per_day">15</field>
+        <field name="issue_date">2026-03-25</field>
+        <field name="return_date">2026-03-31</field>
+    </record>
+
+    <record id="borrow_record_line_data2" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_tanisha.book_demo_data4"/>
+        <field name="quantity">3</field>
+        <field name="amount_per_unit_per_day">12</field>
+        <field name="issue_date">2026-03-02</field>
+        <field name="return_date">2026-03-10</field>
+    </record>
+
+    <record id="borrow_record_line_data3" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_tanisha.book_demo_data1"/>
+        <field name="quantity">10</field>
+        <field name="amount_per_unit_per_day">10.5</field>
+        <field name="issue_date">2026-02-16</field>
+        <field name="return_date">2026-02-24</field>
+        <field name="fine_amount">14</field>
+        <field name="total_amount">119</field>
+    </record>
+
+    <record id="borrow_record_data1" model="library.borrow.request">
+        <field name="student_id" ref="library_management_tanisha.student_demo_data1"/>
+        <field name="librarian_id" ref="library_management_tanisha.librarian_demo_data1"/>
+        <field name="borrow_request_line_ids" eval="[(6, 0, [ref('library_management_tanisha.borrow_record_line_data1')])]"/>
+    </record>
+
+    <record id="borrow_record_data2" model="library.borrow.request" context="{'default_state': 'issued'}">
+        <field name="student_id" ref="library_management_tanisha.student_demo_data2"/>
+        <field name="librarian_id" ref="library_management_tanisha.librarian_demo_data2"/>
+        <field name="issue_date">2026-02-02</field>
+        <field name="borrow_request_line_ids" eval="[(6, 0, [ref('library_management_tanisha.borrow_record_line_data2')])]"/>
+    </record>
+
+    <record id="borrow_record_data3" model="library.borrow.request" context="{'default_state': 'returned'}">
+        <field name="student_id" ref="library_management_tanisha.student_demo_data3"/>
+        <field name="librarian_id" ref="library_management_tanisha.librarian_demo_data3"/>
+        <field name="issue_date">2026-02-03</field>
+        <field name="return_date">2026-02-28</field>
+        <field name="fine_amount">14</field>
+        <field name="total_amount">119</field>
+        <field name="borrow_request_line_ids" eval="[(6, 0, [ref('library_management_tanisha.borrow_record_line_data3')])]"/>
+    </record>
+
+</odoo>

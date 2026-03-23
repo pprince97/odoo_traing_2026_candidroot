@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="hospital_list_view" model="ir.ui.view">
+        <field name="name">hospital.hospital.list</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="address" width="50px"/>
+                <field name="phone" width="50px"/>
+                <field name="email" width="50px"/>
+                <field name="registration_no" width="50px"/>
+                <field name="department_ids" width="50px" widget="many2many_tags"/>
+                <field name="doctor_ids" width="50px" widget="one2many"/>
+                <field name="patient_ids" width="50px" widget="many2many_tags"/>
+                <field name="appointment_ids" width="50px" widget="one2many"/>
+                <field name="description" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hospital_form_view" model="ir.ui.view">
+        <field name="name">hospital.hospital.form</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <form string="Hospital Form">
+                <header>
+                    <button name="create_department"
+                            string="Create Department"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                            <field name="phone" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="email" widget="email"/>
+                            <field name="registration_no"/>
+                            <field name="department_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page name="doctors" string="Doctors">
+                            <field name="doctor_ids">
+                                <list>
+                                    <field name="doctor_id"/>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
+                                    <field name="department_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="patients" string="Patients">
+                            <field name="patient_ids">
+                                <list>
+                                    <field name="patient_id"/>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="appointments" string="Appointments">
+                            <field name="appointment_ids">
+                                <list>
+                                    <field name="patient_id"/>
+                                    <field name="department_id"/>
+                                    <field name="doctor_id"/>
+                                    <field name="appointment_date"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_menu_action" model="ir.actions.act_window">
+        <field name="name">Hospitals</field>
+        <field name="res_model">hospital.hospital</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hospital_menu" name="Hospital" parent="hospital_root" action="hospital_menu_action"/>
+</odoo>

@@ -1,0 +1,101 @@
+<odoo>
+    <record id="admission_list" model="ir.ui.view">
+        <field name="name">school_management.list</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="adm_date_time"/>
+                <field name="stu_name"/>
+                <field name="fa_gua_name"/>
+                <field name="mother_name"/>
+                <field name="gender"/>
+                <field name="stu_dob"/>
+                <field name="blood_group"/>
+                <field name="fa_gua_mo_no"/>
+                <field name="address"/>
+                <field name="standard"/>
+                <field name="pre_school"/>
+                <field name="percentage"/>
+                <field name="stu_photo"/>
+                <field name="school_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="admission_form" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <form string="Admission Form">
+                <header>
+                    <button string="In Progress"
+                            name="inprogress_stage"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="stage in ['inprogress','confirm']"/>
+                    <button string="Confirm"
+                            name="confirm_stage"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="stage in ['confirm','new']"/>
+                    <button string="New"
+                            name="new_stage"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="stage in ['new','inprogress']"/>
+                    <field name="stage" widget="statusbar" statusbar_visible="new,inprogress,confirm"/>
+                    <button string="Button Action"
+                            name="%(school_admission_action)d"
+                            type="action"
+                            class="oe_stat_button"/>
+                    <button string="State Browse"
+                            name="admission_browse"
+                            type="object"
+                            class="oe_highlight"
+                            />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="adm_date_time"/>
+                            <field name="stu_name"/>
+                            <field name="fa_gua_name"/>
+                            <field name="mother_name"/>
+                            <field name="gender"/>
+                            <field name="stu_dob"/>
+                        </group>
+                        <group>
+                            <field name="blood_group"/>
+                            <field name="fa_gua_mo_no"/>
+                            <field name="address"/>
+                            <field name="standard"/>
+                            <field name="pre_school"/>
+                            <field name="percentage"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Student Photo" name="student_photo">
+                            <field name="stu_photo" widget="image"/>
+                        </page>
+                        <page string="School" name="school">
+                            <field name="school_id" options="{'no_edit': True, 'no_create': True}">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="area"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="school_admission_action" model="ir.actions.act_window">
+        <field name="name">Admission Menu</field>
+        <field name="res_model">school.admission</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Admission" id="school_admission_menu" parent="school_menu" action="school_admission_action"/>
+</odoo>

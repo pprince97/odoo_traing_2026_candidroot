@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="doctor_list_view" model="ir.ui.view">
+        <field name="name">hospital_management.list</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="50px"/>
+                <field name="phone" width="50px"/>
+                <field name="exp_years" width="50px"/>
+                <field name="hospital_id" width="50px"/>
+                <field name="department" width="50px"/>
+                <field name="status" width="50px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="doctor_form_view" model="ir.ui.view">
+        <field name="name">hospital_management.form</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <form string="Hospital Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="gender"/>
+                            <field name="dob"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="address"/>
+                            <field name="exp_years"/>
+                            <field name="department"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Image">
+                            <field name="photo" widget="image"/>
+                        </page>
+                        <page string="Document">
+                            <field name="document"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="doctor_search_view" model="ir.ui.view">
+        <field name="name">hospital_management.search</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="department"/>
+                <filter name="status" domain="[('status','=','available')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="doctor_menu_action" model="ir.actions.act_window">
+        <field name="name">Doctor Menu</field>
+        <field name="res_model">hospital.doctor</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <menuitem id="doctor_menu" name="Doctor" parent="hospital_base_menu" action="doctor_menu_action"/>
+
+</odoo>

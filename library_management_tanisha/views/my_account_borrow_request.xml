@@ -1,0 +1,15 @@
+<odoo>
+    <template id="my_account_borrow_reuqest" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[@id='portal_vendor_category']" position="after">
+            <div id="portal_borrow_request">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/web/static/img/rfq.svg'"/>
+                    <t t-set="title">Borrow Requests</t>
+                    <t t-set="url" t-value="'/library-borrow-request'"/>
+                    <t t-set="text">See, Create Borrow requests</t>
+                    <t t-set="placeholder_count" t-value="'bill_count'"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
