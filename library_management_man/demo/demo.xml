@@ -1,0 +1,83 @@
+<odoo>
+    <record id="library_book_1" model="library.book">
+        <field name="name">Rich Dad Poor Dad</field>
+        <field name="available_copies">50</field>
+        <field name="stock">50</field>
+        <field name="borrow_price">10</field>
+        <field name="maximum_day_limit">10</field>
+    </record>
+
+    <record id="library_book_2" model="library.book">
+        <field name="name">EGO</field>
+        <field name="available_copies">10</field>
+        <field name="stock">10</field>
+        <field name="borrow_price">20</field>
+        <field name="maximum_day_limit">20</field>
+    </record>
+
+    <record id="library_book_3" model="library.book">
+        <field name="name">Ramayana</field>
+        <field name="available_copies">500</field>
+        <field name="stock">5000</field>
+        <field name="borrow_price">30</field>
+        <field name="maximum_day_limit">30</field>
+    </record>
+
+    <record id="library_book_4" model="library.book">
+        <field name="name">MahaBharat</field>
+        <field name="available_copies">500</field>
+        <field name="stock">5000</field>
+        <field name="borrow_price">40</field>
+        <field name="maximum_day_limit">10</field>
+    </record>
+
+    <record id="library_book_5" model="library.book">
+        <field name="name">Engineering Mathematics</field>
+        <field name="available_copies">500</field>
+        <field name="stock">5000</field>
+        <field name="borrow_price">50</field>
+        <field name="maximum_day_limit">30</field>
+    </record>
+
+    <record id="library_student_1" model="res.partner" >
+        <field name="student_code">LS00001</field>
+        <field name="name">Man Patel</field>
+        <field name="email">manpatel1711@gmail.com</field>
+        <field name="phone">9979417360</field>
+        <field name="gender">male</field>
+    </record>
+
+    <record id="library_student_2" model="res.partner">
+        <field name="student_code">LS00002</field>
+        <field name="name">Om Patel</field>
+        <field name="email">Om@gmail.com</field>
+        <field name="phone">9512760633</field>
+        <field name="gender">male</field>
+    </record>
+
+    <record id="library_student_3" model="res.partner">
+        <field name="student_code">LS00003</field>
+        <field name="name">krupanshi Patel</field>
+        <field name="email">krup@gmail.com</field>
+        <field name="phone">9865323265</field>
+        <field name="gender">female</field>
+
+    </record>
+
+    <record id="library_student_4" model="res.partner">
+        <field name="student_code">LS00004</field>
+        <field name="name">S.k Patel</field>
+        <field name="email">sardhav@gmail.com</field>
+        <field name="phone">9898989898</field>
+        <field name="gender">male</field>
+    </record>
+
+    <record id="library_student_5" model="res.partner">
+        <field name="student_code">LS00005</field>
+        <field name="name">Nisarg Patel</field>
+        <field name="email">nisarg@gmail.com</field>
+        <field name="phone">7897897878</field>
+        <field name="gender">male</field>
+    </record>
+
+</odoo>

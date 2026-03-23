@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="book_borrow_history_wizard" model="ir.ui.view">
+            <field name="name">Book History Wizard</field>
+            <field name="model">book.borrow.history</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                           <field name="start_date"/>
+                           <field name="end_date"/>
+                           <field name="is_return_date"/>
+                           <field name="student_ids" widget="many2many_tags" domain="[('student_code','!=', False)]"/>
+                           <field name="books_ids" widget="many2many_tags"/>
+                            <footer>
+                                <button name="book_borrow_history" string="Book Borrow History" type="object" class="oe_highlight"
+                                        confirm="Please Check the Filled Details is Correct."/>
+                                <button name="borrow_request_cancel_wizard" string="Borrow Request Cancel Wizard" type="object" class="oe_highlight"/>
+                            </footer>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="wizard_action">
+            <field name="name">Wizard History</field>
+            <field name="res_model">book.borrow.history</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+
+<!--            <field name="view_id" ref="library_management_man.book_borrow_history_wizard"/>-->
+        </record>
+
+
+        <menuitem name="Reporting" id="library_report_menu" parent="library_menu_root"/>
+
+        <menuitem name="Books History" id="library_book_report_history_menu" parent="library_report_menu"
+                  action="wizard_action"
+        />
+
+    </data>
+</odoo>

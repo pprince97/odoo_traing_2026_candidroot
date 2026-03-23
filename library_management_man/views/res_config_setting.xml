@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res_config_settings_library</field>
+        <field name="model">res.config.settings</field>
+        <!--        <field name="priority" eval="0"/>-->
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div id="fine_amount_id">
+                    <block title="Fine Amount" name="fine_amount_settings">
+                        <setting id="fine_amount_settings_char">
+                            <field name="fine_amount_value" plceholder="Enter the Fine Amount"/>
+                        </setting>
+                    </block>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

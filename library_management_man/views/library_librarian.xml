@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="library_librarian_list_1" model="ir.ui.view">
+            <field name="name">library_librarian.list_1</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <list create="0">
+                    <field name="librarian_code"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="gender"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="library_librarian_form_1" model="ir.ui.view">
+            <field name="name">library_librarian.form_1</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form name="form_view">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" string="Borrow Request"
+                                    widget="statinfo" icon="fa-star" name="borrow_request">
+                                <field name="request_ids" string="Borrow Request"
+                                       widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="librarian_code"/>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="gender"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="request" string="Borrows Request">
+                                <field name="request_ids" domain="[('student_id','=', name)]"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="library_librarian_kanban_1" model="ir.ui.view">
+            <field name="name">library_librarian.kanban_1</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <templates>
+                        <t t-name="card">
+                            <field class="fw-bold" name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="library_librarian_action_1">
+            <field name="name">Librarian Details</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form,kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('library_librarian_list_1')}),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('library_librarian_kanban_1')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('library_librarian_form_1')})]"/>
+            <field name="context">{'is_librarian': 'librarian'}</field>
+            <field name="domain">[('librarian_code', '!=', False)]</field>
+        </record>
+
+        <menuitem name="Librarians" id="library_librarian_menu_1" parent="library_menu_root"
+                  action="library_librarian_action_1" groups="library_management_man.group_library_librarian"/>
+
+        <record id="library_librarian_list_2" model="ir.ui.view">
+            <field name="name">library_librarian.list_2</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="librarian_code"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="gender"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="library_librarian_form_2" model="ir.ui.view">
+            <field name="name">library_librarian.form_2</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form name="form_view">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" string="Borrow Request"
+                                    widget="statinfo" icon="fa-star" name="borrow_request">
+                                <field name="request_ids" string="Borrow Request"
+                                       widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="librarian_code"/>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="gender"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="request" string="Borrows Request">
+                                <field name="request_ids" domain="[('student_id','=', name)]"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="library_librarian_kanban_2" model="ir.ui.view">
+            <field name="name">library_librarian.kanban_2</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <templates>
+                        <t t-name="card">
+                            <field class="fw-bold" name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="library_librarian_action_2">
+            <field name="name">Librarian Details</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form,kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('library_librarian_list_2')}),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('library_librarian_kanban_2')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('library_librarian_form_2')})]"/>
+            <field name="context">{'is_librarian': 'librarian'}</field>
+            <field name="domain">[('librarian_code', '!=', False)]</field>
+        </record>
+
+
+        <menuitem name="Librarians" id="library_librarian_menu_2" parent="library_menu_root"
+                  action="library_librarian_action_2"
+                  groups="library_management_man.group_library_admin"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,637 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* library_management_man
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-13 12:46+0000\n"
+"PO-Revision-Date: 2026-03-13 12:46+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: library_management_man
+#: model:ir.actions.report,print_report_name:library_management_man.library_book_borrow_history_report_action
+msgid "'Book Borrow History Report - %s' %(object.start_date)"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.report,print_report_name:library_management_man.library_borrow_request_report_action
+msgid "'Request Report - %s' %(object.serial_number)"
+msgstr ""
+
+#. module: library_management_man
+#: model:res.groups,name:library_management_man.group_library_admin
+msgid "Admin"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__amount_per_unit
+msgid "Amount Per Unit"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_book_form
+msgid "Available Books"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__available_copies
+msgid "Available Copies"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__book_id
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Book"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_wizard
+msgid "Book Borrow History"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.report,name:library_management_man.library_book_borrow_history_report_action
+msgid "Book Borrow History PDF"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Book Borrow History Report"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_book_borrow_history
+msgid "Book borrow history"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_book_category
+msgid "Book category"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__books_ids
+#: model:ir.ui.menu,name:library_management_man.library_book_menu
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Books"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.act_window,name:library_management_man.library_book_action
+msgid "Books Details"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.ui.menu,name:library_management_man.library_book_report_history_menu
+msgid "Books History"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__borrow_lines_ids
+msgid "Borrow Lines"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__borrow_price
+msgid "Borrow Price"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__borrow_request_id
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__borrow_request_id
+#: model:ir.ui.menu,name:library_management_man.library_borrow_request_menu
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_librarian_form_1
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_librarian_form_2
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "Borrow Request"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_wizard
+msgid "Borrow Request Cancel Wizard"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.act_window,name:library_management_man.library_borrow_request_action
+msgid "Borrow Request Details"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.ui.menu,name:library_management_man.library_borrow_request_line_menu
+msgid "Borrow Request Line"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.act_window,name:library_management_man.library_borrow_request_line_action
+msgid "Borrow Request Line Details"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__borrow_request_line_ids
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_borrow_request_form
+msgid "Borrow Request Lines"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__borrow_request_line_ids
+#: model:ir.model.fields,field_description:library_management_man.field_res_users__borrow_request_line_ids
+msgid "Borrow Requests"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__borrow_request_lines_ids
+msgid "Borrow Requests Lines"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_librarian_form_1
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_librarian_form_2
+msgid "Borrows Request"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.cancellation_request_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__library_borrow_request__state__canceled
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_borrow_request_form
+msgid "Canceled"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__canceled_date
+msgid "Canceled Date"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__cancellation_reason
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__cancellation_reason
+msgid "Cancellation Reason"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_cancellation_request
+msgid "Cancellation Request"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__category_id
+msgid "Category"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_res_config_settings
+msgid "Config Settings"
+msgstr "कॉन्फ़िगरेशन सेटिंग"
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_res_partner
+msgid "Contact"
+msgstr "संपर्क"
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__cover_image
+msgid "Cover Image"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__create_uid
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__create_uid
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__create_uid
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__create_uid
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__create_uid
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__create_date
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__create_date
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__create_date
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__create_date
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__create_date
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__book_currency
+msgid "Currency"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__description
+msgid "Description"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_ir_ui_menu__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__display_name
+msgid "Display Name"
+msgstr "डिस्प्ले का नाम"
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.cancellation_request_wizard
+msgid "Done"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__library_borrow_request__state__draft
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_borrow_request_form
+msgid "Draft"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__end_date
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "End date"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Final Amount Pay"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__fine_amount
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__fine_amount
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__fine_amount
+#: model:ir.model.fields,field_description:library_management_man.field_res_config_settings__fine_amount_value
+#: model_terms:ir.ui.view,arch_db:library_management_man.res_config_settings_view_form
+msgid "Fine Amount"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__gender
+#: model:ir.model.fields,field_description:library_management_man.field_res_users__gender
+msgid "Gender"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "History Table"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_student_form
+msgid "History of Book Borrowed"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_book_form
+msgid "History of Borrowed"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__id
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__id
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__id
+#: model:ir.model.fields,field_description:library_management_man.field_ir_ui_menu__id
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__id
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__id
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__id
+#: model:ir.model.fields,field_description:library_management_man.field_res_config_settings__id
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__id
+msgid "ID"
+msgstr "आईडी"
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__image_name
+msgid "Image Name"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Is Return"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__issue_date
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Issue Date"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Issue Days"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__library_borrow_request__state__issued
+msgid "Issued"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__issue_date
+msgid "Issued Date"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__issue_days
+msgid "Issued Days"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__write_uid
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__write_uid
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__write_uid
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__write_uid
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__write_uid
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__write_date
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__write_date
+#: model:ir.model.fields,field_description:library_management_man.field_cancellation_request__write_date
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__write_date
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__write_date
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__librarian_id
+#: model:res.groups,name:library_management_man.group_library_librarian
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Librarian"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.act_window,name:library_management_man.library_librarian_action_1
+#: model:ir.actions.act_window,name:library_management_man.library_librarian_action_2
+msgid "Librarian Details"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.ui.menu,name:library_management_man.library_librarian_menu_1
+#: model:ir.ui.menu,name:library_management_man.library_librarian_menu_2
+msgid "Librarians"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_library_book
+msgid "Library Book"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_library_borrow_request_line
+msgid "Library Borrow Request Line"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__librarian_code
+#: model:ir.model.fields,field_description:library_management_man.field_res_users__librarian_code
+msgid "Library Code"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.module.category,name:library_management_man.module_category_library_management
+#: model:ir.ui.menu,name:library_management_man.library_menu_root
+msgid "Library Management"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_library_borrow_request
+msgid "Library borrow request"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__maximum_day_limit
+msgid "Maximum Day Limit"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model,name:library_management_man.model_ir_ui_menu
+msgid "Menu"
+msgstr "मेन्यू"
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_category__name
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__name
+msgid "Name"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_wizard
+msgid "Please Check the Filled Details is Correct."
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__library_book__state__published
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_book_form
+msgid "Published"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__remaining_copies
+msgid "Remaining Copies"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.ui.menu,name:library_management_man.library_report_menu
+msgid "Reporting"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.report,name:library_management_man.library_borrow_request_report_action
+msgid "Request PDF"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__request_ids
+#: model:ir.model.fields,field_description:library_management_man.field_res_users__request_ids
+msgid "Requests"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__return_date
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Return Date"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__is_return_date
+msgid "Return date"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__library_borrow_request__state__returned
+msgid "Returned"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__return_date
+msgid "Returned Date"
+msgstr ""
+
+#. module: library_management_man
+#: model:res.groups.privilege,name:library_management_man.res_groups_privilege_library
+msgid "Roles"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__serial_number
+msgid "Serial Number"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__start_date
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Start date"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__state
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__state
+msgid "State"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_book__stock
+msgid "Stock"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__student_id
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__student_id
+msgid "Student"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_res_partner__student_code
+#: model:ir.model.fields,field_description:library_management_man.field_res_users__student_code
+msgid "Student Code"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.act_window,name:library_management_man.library_student_action
+msgid "Student Details"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_book_borrow_history__student_ids
+#: model:ir.ui.menu,name:library_management_man.library_student_menu
+#: model:res.groups,name:library_management_man.group_library_student
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "Students"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request__total_amount
+#: model:ir.model.fields,field_description:library_management_man.field_library_borrow_request_line__total_amount
+msgid "Total Amount"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__library_book__state__unpublished
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_book_form
+msgid "Unpublished"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.actions.act_window,name:library_management_man.wizard_action
+msgid "Wizard History"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "book_id"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__res_partner__gender__female
+msgid "female"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "fine_amount"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "issue_date"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "issue_days"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_borrow_request_form
+msgid "issued"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "librarian_id"
+msgstr ""
+
+#. module: library_management_man
+#: model:ir.model.fields.selection,name:library_management_man.selection__res_partner__gender__male
+msgid "male"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "quantity"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "return_date"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.library_borrow_request_form
+msgid "returned"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "serial_number"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.book_borrow_history_external
+msgid "student"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "student_id"
+msgstr ""
+
+#. module: library_management_man
+#: model_terms:ir.ui.view,arch_db:library_management_man.request_report_book
+msgid "total_amount"
+msgstr ""

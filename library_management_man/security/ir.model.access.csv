@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_library_book_student,library_book,model_library_book,library_management_man.group_library_student,1,0,0,0
+access_library_book_librarian,library_book,model_library_book,library_management_man.group_library_librarian,1,1,1,1
+
+access_library_borrow_request_student,library_borrow_request,model_library_borrow_request,library_management_man.group_library_student,1,0,0,0
+access_library_borrow_request_librarian,library_borrow_request,model_library_borrow_request,library_management_man.group_library_librarian,1,1,1,1
+
+access_library_borrow_request_line,library_borrow_request_line,model_library_borrow_request_line,,1,1,1,1
+
+access_book_borrow_history,book_borrow_history,model_book_borrow_history,library_management_man.group_library_admin,1,1,1,1
+access_cancellation_request,cancellation_request,model_cancellation_request,,1,1,1,1
+access_book_category,book_category,model_book_category,,1,1,1,1
+
+access_library_librarian_student,library_librarian,base.model_res_partner,library_management_man.group_library_student,1,0,0,0
+access_library_librarian_librarian,library_librarian,base.model_res_partner,library_management_man.group_library_librarian,1,1,1,1
+access_library_librarian_admin,library_librarian,base.model_res_partner,library_management_man.group_library_admin,1,1,1,1

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="library_student_list" model="ir.ui.view">
+            <field name="name">library_student.list</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="student_code"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="gender"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="library_student_form" model="ir.ui.view">
+            <field name="name">library_student.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form name="form_view">
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button type="object" string="History of Book Borrowed"
+                                    widget="statinfo" icon="fa-star" name="history_of_borrow_book"
+                                    groups="library_management_man.group_library_librarian">
+                                <field name="borrow_request_line_ids" string="History of Book Borrowed" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_code"/>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="gender"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="library_student_kanban" model="ir.ui.view">
+            <field name="name">library_student.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <templates>
+                        <t t-name="card">
+                            <field class="fw-bold" name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="library_student_action">
+            <field name="name">Student Details</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form,kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('library_student_list')}),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('library_student_kanban')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('library_student_form')})]"/>
+            <field name="context">{'is_student': 'student'}</field>
+            <field name="domain">[('student_code', '!=', False)]</field>
+        </record>
+
+
+        <menuitem name="Students" id="library_student_menu" parent="library_menu_root"
+                  action="library_student_action"
+        />
+
+    </data>
+</odoo>

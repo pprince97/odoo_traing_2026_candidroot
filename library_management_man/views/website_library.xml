@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="website_book_menu_view" name="Book Menu View">
+            <t t-call="website.layout">
+                <section class="container py-5">
+                    <div class="row justify-content-center">
+                        <h3 class="mb-4 text-center">Welcome to Library Management Book Departments</h3>
+                        <form action="/book/form" method="get">
+                            <p class="my-3">
+                                <button type="submit" class="btn btn-primary">New</button>
+                            </p>
+                        </form>
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Barcode</th>
+                                    <th>Currency</th>
+                                    <th>Category</th>
+                                    <th>Available Copies</th>
+                                    <th>Fine Amount</th>
+                                    <th>Stock</th>
+                                    <th>Borrow Price</th>
+                                    <th>Maximum Day Limit</th>
+                                    <!--                                    <th>Cover Image</th>-->
+                                </tr>
+                            </thead>
+                            <tboady>
+                                <t t-foreach="books" t-as="book">
+                                    <tr>
+                                        <td>
+                                            <span t-field="book.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.barcode"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.book_currency"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.category_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.available_copies"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.fine_amount"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.stock"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.borrow_price"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="book.maximum_day_limit"/>
+                                        </td>
+                                        <!--                                        <td>-->
+                                        <!--                                            <span t-field="book.cover_image"/>-->
+                                        <!--                                        </td>-->
+                                    </tr>
+                                </t>
+                            </tboady>
+                        </table>
+                    </div>
+                </section>
+            </t>
+        </template>
+
+        <template id="book_form_view" name="Book Form">
+            <t t-call="website.layout">
+                <section class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-5">
+                            <div class="card shadow rounded-3 border-0">
+                                <div class="card-body p-4">
+                                    <h3 class="mb-4 text-center">Create New Book</h3>
+                                    <form action="/book/create" method="post">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" name="name" required="required" class="form-control"/>
+                                        </div>
+                                        <!--                                        <div class="mb-3">-->
+                                        <!--                                            <label class="form-label">Barcode</label>-->
+                                        <!--                                            <input type="text" name="barcode" class="form-control"/>-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="mb-4">-->
+                                        <!--                                            <label class="form-label">Currency</label>-->
+                                        <!--                                            <input type="text" name="book_currency" class="form-control"/>-->
+                                        <!--                                        </div>-->
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency</label>
+                                            <select name="book_currency" required="required" class="form-select">
+                                                <option value="">Select a Currency</option>
+                                                <t t-foreach="request.env['res.currency'].sudo().search([])" t-as="cat">
+                                                    <option t-att-value="cat.id">
+                                                        <t t-esc="cat.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Category</label>
+                                            <select name="category_id" required="required" class="form-select">
+                                                <option value="">Select a Category</option>
+                                                <t t-foreach="request.env['book.category'].sudo().search([])"
+                                                   t-as="cat">
+                                                    <option t-att-value="cat.id">
+                                                        <t t-esc="cat.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Available Copies</label>
+                                            <input type="number" name="available_copies" class="form-control"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label">Fine Amount</label>
+                                            <input type="number" name="fine_amount" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Stock</label>
+                                            <input type="number" name="stock" required="required" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Borrow Price</label>
+                                            <input type="number" name="borrow_price" class="form-control"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label">Maximum Day Limit</label>
+                                            <input type="number" name="maximum_day_limit" class="form-control"/>
+                                        </div>
+                                        <!--                                        <div class="mb-4">-->
+                                        <!--                                            <label class="form-label">Cover Image</label>-->
+                                        <!--                                            <input type="image" name="cover_image" class="form-control"/>-->
+                                        <!--                                        </div>-->
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </t>
+        </template>
+
+        <template id="inherit_contact_us_view" inherit_id="website.contactus" name="Contact Us Inherit">
+            <xpath expr="//div[hasclass('col-lg-7')]" position="after">
+                <div class="my-3">
+                    <p>This is the inherited view on the Contact Us page.</p>
+                </div>
+            </xpath>
+            <xpath expr="//div//p[hasclass('lead')]" position="after">
+                <div class="my-3">
+                    <p>This is the inherited view on the Contact Us page.</p>
+                </div>
+            </xpath>
+        </template>
+
+
+        <template id="portal_my_home_books" name="Library / Books" customize_show="True"
+                  inherit_id="portal.portal_my_home" priority="20">
+            <div id="portal_client_category" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/sale/static/src/img/bag.svg'"/>
+                    <t t-set="title">Your Books</t>
+                    <t t-set="url" t-value="'/books'"/>
+                    <t t-set="text">Follow, view or pay your books</t>
+                    <t t-set="placeholder_count" t-value="'order_count'"/>
+                </t>
+            </div>
+        </template>
+
+        <template id="inherit_home_page" inherit_id="website.homepage" name="Home Inherit">
+            <xpath expr="//div[@id='wrap']" position="inside">
+                <div class="my-3">
+                    <p style="text-align: center;">This Is the My Own Home Page</p>
+                </div>
+            </xpath>
+        </template>
+
+        <record id="book_menu" model="website.menu">
+            <field name="name">Books</field>
+            <field name="url">/books</field>
+            <!--                        <field name="page_id" ref="rental_management_man.career_page"/>-->
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+    </data>
+</odoo>
+
