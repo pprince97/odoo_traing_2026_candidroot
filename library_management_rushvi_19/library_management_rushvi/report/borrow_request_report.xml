@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_borrow_requests_document">
+        <t t-call="web.external_layout">
+            <div class="row">
+                <div class="col-6">
+                    <strong>Serial Number:</strong>
+                    <span t-field="doc.serial_number"/>
+                    <br/>
+                    <strong>Student Name:</strong>
+                    <span t-field="doc.student_id"/>
+                     <br/>
+                    <strong>Librarian Name:</strong>
+                    <span t-field="doc.librarian_id"/>
+                </div>
+            </div>
+            <br/>
+            <h3>Borrow Requests</h3>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th class="text-start">Book</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Per Day Charge</th>
+                        <th class="text-center">Issue Date</th>
+                        <th class="text-center">Return Date</th>
+                        <th class="text-center">Issue days</th>
+                        <th class="text-center">Fine Amount</th>
+                        <th class="text-end">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="doc.borrow_request_line_ids" t-as="line">
+                        <tr>
+                            <td class="text-start">
+                                <span t-field="line.book_id"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.quantity"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.amount"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.issue_date"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.return_date"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.issue_days"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.fine_amount"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-field="line.total_amount"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6"/>
+                <div class="col-6">
+                <hr/>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><strong>Total Amount:</strong></td>
+                            <td class="text-end"><span t-field="doc.total_amount"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_borrow_requests">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="library_management_rushvi.report_borrow_requests_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_borrow_request" model="ir.actions.report">
+        <field name="name">Borrow Requests</field>
+        <field name="model">library.borrow.requests</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_rushvi.report_borrow_requests</field>
+        <field name="report_file">library_management_rushvi.report_borrow_requests</field>
+        <field name="binding_model_id" ref="model_library_borrow_requests"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

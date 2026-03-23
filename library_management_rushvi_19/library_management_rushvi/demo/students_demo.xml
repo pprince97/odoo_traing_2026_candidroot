@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="student_demo1" model="res.partner" context="{'default_is_student':True}">
+        <field name="name">Manisha</field>
+        <field name="phone">999232921</field>
+        <field name="email">s23@gmail.com</field>
+        <field name="gender">female</field>
+    </record>
+
+    <record id="student_demo2" model="res.partner" context="{'default_is_student':True}">
+        <field name="name">Mohan</field>
+        <field name="phone">989232921</field>
+        <field name="email">s24@gmail.com</field>
+        <field name="gender">male</field>
+    </record>
+
+    <record id="student_demo3" model="res.partner" context="{'default_is_student':True}">
+        <field name="name">Manika</field>
+        <field name="phone">999732921</field>
+        <field name="email">s25@gmail.com</field>
+        <field name="gender">female</field>
+    </record>
+
+    <record id="student_demo4" model="res.partner" context="{'default_is_student':True}">
+        <field name="name">Moksh</field>
+        <field name="phone">990232921</field>
+        <field name="email">s26@gmail.com</field>
+        <field name="gender">male</field>
+    </record>
+
+    <record id="student_demo5" model="res.partner" context="{'default_is_student':True}">
+        <field name="name">Monika</field>
+        <field name="phone">999232921</field>
+        <field name="email">s27@gmail.com</field>
+        <field name="gender">female</field>
+    </record>
+</odoo>

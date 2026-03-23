@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_library_borrow_request_lines_list" model="ir.ui.view">
+        <field name="name">library.borrow.request.lines.list</field>
+        <field name="model">library.borrow.request.lines</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id" domain="[('state','!=','unpublished'),('available_copies','&gt;',0)]"/>
+                <field name="quantity"/>
+                <field name="amount"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="issue_days"/>
+                <field name="fine_amount"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+    </record>
+</odoo>

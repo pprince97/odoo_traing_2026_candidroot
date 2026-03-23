@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_library_books_kanban" model="ir.ui.view">
+        <field name="name">library.books.kanban</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="cover_image"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <aside class="o_kanban_aside_full">
+                                <div>
+                                    <field name="cover_image" widget="image" options="{'img_class': 'object-fit-contain p-2'}"/>
+                                </div>
+                            </aside>
+                            <main class="ps-2 ps-md-0">
+                            <div class="row">
+                                <div t-if="record.name.value">
+                                    <strong>Name:</strong>
+                                    <strong><field name="name"/></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div t-if="record.barcode.value">
+                                    <strong>Barcode:</strong>
+                                    <strong><field name="barcode"/></strong>
+                                </div>
+                            </div>
+                            </main>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_library_books_form" model="ir.ui.view">
+        <field name="name">library.books.form</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="book_state_issued"
+                            invisible="state in ['published']"
+                            class="oe_highlight"
+                            string="Published"/>
+
+                    <button type="object"
+                            name="book_state_unpublished"
+                            invisible="state in ['unpublished']"
+                            class="oe_highlight"
+                            string="Unpublished"/>
+                    <field name="state" widget="statusbar" statusbar_visible="unpublished,published"/>
+                </header>
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button string="Available Books"
+                            name="available_copies_btn1"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-star">
+                            <field name="available_copies_btn" string="Available Books" widget="statinfo"/>
+                        </button>
+                         <button string="Borrow History"
+                                name="redirect_borrow_request_lines"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-star">
+                                <field name="borrow_history_count" string="Borrow History" widget="statinfo"/>
+                            </button>
+                        </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="currency"/>
+                            <field name="category"/>
+                            <field name="cover_image" widget="image" class="oe_avatar" options="{'img_class': 'object-fit-cover'}"/>
+                        </group>
+                        <group>
+                            <field name="stock"/>
+                            <field name="available_copies" force_save="True"/>
+                            <field name="borrow_price"/>
+                            <field name="maximum_day_limit"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_libirary_books" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.books</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem name="Library Management" id="library_menu_root"/>
+    <menuitem name="Books" id="menuitem_library_books"
+              parent="library_menu_root"
+              action="action_libirary_books"
+              groups="library_management_rushvi.group_library_librarian"
+                sequence="10"/>
+
+    <menuitem name="Reporting" id="hospital_management_reporting_menuitem"
+              parent="library_management_rushvi.library_menu_root"
+                groups="library_management_rushvi.group_library_librarian"
+                sequence="50"/>
+    <menuitem name="Book History" id="hospital_management_book_history_menuitem"
+              parent="library_management_rushvi.hospital_management_reporting_menuitem"
+              action="library_management_rushvi.action_reporting_books_history_wizard"/>
+</odoo>

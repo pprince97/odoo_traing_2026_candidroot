@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="borrow_request_demo1" model="library.borrow.requests">
+<!--        <field name="serial_number">BR-00001</field>-->
+        <field name="student_id" ref="library_management_rushvi.student_demo1"/>
+        <field name="librarian_id" ref="library_management_rushvi.librarian_demo1"/>
+        <field name="state">draft</field>
+        <field name="issue_date">2026-02-21</field>
+    </record>
+
+    <record id="borrow_request_demo2" model="library.borrow.requests">
+<!--        <field name="serial_number">BR-00002</field>-->
+        <field name="student_id" ref="library_management_rushvi.student_demo2"/>
+        <field name="librarian_id" ref="library_management_rushvi.librarian_demo1"/>
+        <field name="state">issued</field>
+        <field name="issue_date">2026-02-28</field>
+    </record>
+
+    <record id="borrow_request_demo3" model="library.borrow.requests">
+<!--        <field name="serial_number">BR-00003</field>-->
+        <field name="student_id" ref="library_management_rushvi.student_demo3"/>
+        <field name="librarian_id" ref="library_management_rushvi.librarian_demo1"/>
+        <field name="state">returned</field>
+        <field name="issue_date">2026-02-28</field>
+        <field name="return_date">2026-03-25</field>
+    </record>
+
+</odoo>

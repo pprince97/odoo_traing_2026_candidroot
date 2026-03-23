@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="borrow_line_demo1" model="library.borrow.request.lines">
+        <field name="book_id" ref="books_demo1"/>
+        <field name="quantity">3</field>
+        <field name="issue_date">2026-03-12</field>
+        <field name="return_date">2026-03-25</field>
+        <field name="borrow_request_id" ref="library_management_rushvi.borrow_request_demo1"/>
+    </record>
+
+    <record id="borrow_line_demo2" model="library.borrow.request.lines">
+        <field name="book_id" ref="books_demo2"/>
+        <field name="quantity">2</field>
+        <field name="issue_date">2026-03-02</field>
+        <field name="return_date">2026-03-25</field>
+        <field name="borrow_request_id" ref="library_management_rushvi.borrow_request_demo1"/>
+    </record>
+
+    <record id="borrow_line_demo3" model="library.borrow.request.lines">
+        <field name="book_id" ref="books_demo3"/>
+        <field name="quantity">5</field>
+        <field name="issue_date">2026-03-03</field>
+        <field name="return_date">2026-03-25</field>
+        <field name="borrow_request_id" ref="library_management_rushvi.borrow_request_demo2"/>
+    </record>
+
+    <record id="borrow_line_demo6" model="library.borrow.request.lines">
+        <field name="book_id" ref="books_demo1"/>
+        <field name="quantity">2</field>
+        <field name="issue_date">2026-03-03</field>
+        <field name="return_date">2026-03-25</field>
+        <field name="borrow_request_id" ref="library_management_rushvi.borrow_request_demo2"/>
+    </record>
+
+    <record id="borrow_line_demo4" model="library.borrow.request.lines">
+        <field name="book_id" ref="books_demo4"/>
+        <field name="quantity">4</field>
+        <field name="issue_date">2026-03-03</field>
+        <field name="return_date">2026-03-25</field>
+        <field name="borrow_request_id" ref="library_management_rushvi.borrow_request_demo2"/>
+    </record>
+
+    <record id="borrow_line_demo5" model="library.borrow.request.lines">
+        <field name="book_id" ref="books_demo5"/>
+        <field name="quantity">3</field>
+        <field name="issue_date">2026-03-03</field>
+        <field name="return_date">2026-03-25</field>
+        <field name="borrow_request_id" ref="library_management_rushvi.borrow_request_demo3"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="books_demo1" model="library.books">
+        <field name="name">Pride And Prejudice</field>
+        <field name="barcode">3123129</field>
+        <field name="description">Description For Pride And Prejudice</field>
+        <field name="stock">15</field>
+        <field name="available_copies">15</field>
+        <field name="borrow_price">15</field>
+        <field name="maximum_day_limit">10</field>
+        <field name="state">unpublished</field>
+    </record>
+
+    <record id="books_demo2" model="library.books">
+        <field name="name">Too Good To Be True</field>
+        <field name="barcode">12335123</field>
+        <field name="description">Description For Too Good To Be True</field>
+        <field name="stock">25</field>
+<!--        <field name="available_copies">25</field>-->
+        <field name="borrow_price">10</field>
+        <field name="maximum_day_limit">4</field>
+        <field name="state">published</field>
+
+    </record>
+
+    <record id="books_demo3" model="library.books">
+        <field name="name">The Power Of Subconscious Mind</field>
+         <field name="barcode">123232123</field>
+        <field name="description">Description For The Power Of Subconscious Mind</field>
+        <field name="stock">20</field>
+        <field name="borrow_price">16</field>
+        <field name="maximum_day_limit">5</field>
+        <field name="state">published</field>
+
+    </record>
+
+    <record id="books_demo4" model="library.books">
+        <field name="name">Rich Dad Poor Dad</field>
+         <field name="barcode">123321223</field>
+        <field name="description">Description For Rich Dad Poor Dad</field>
+        <field name="stock">20</field>
+        <field name="borrow_price">12</field>
+        <field name="maximum_day_limit">7</field>
+        <field name="state">published</field>
+    </record>
+
+    <record id="books_demo5" model="library.books">
+        <field name="name">The Psychology of Money</field>
+         <field name="barcode">12332163</field>
+        <field name="description">Description For The Psychology of Money</field>
+        <field name="stock">40</field>
+        <field name="borrow_price">18</field>
+        <field name="maximum_day_limit">8</field>
+        <field name="state">unpublished</field>
+    </record>
+</odoo>

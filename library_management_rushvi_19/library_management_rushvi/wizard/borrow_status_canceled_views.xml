@@ -1,0 +1,21 @@
+<odoo>
+    <record id="view_wizard_borrow_status_canceled" model="ir.ui.view">
+        <field name="name">view.borrow.status.canceled</field>
+        <field name="model">wizard.borrow.status.canceled</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="canceled_reason"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button type="object"
+                            name="write_cancellation_reason"
+                            string="Submit"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

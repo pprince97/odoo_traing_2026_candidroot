@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_library_students_kanban" model="ir.ui.view">
+        <field name="name">library.students.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban color="color">
+                <field name="color"/>
+                <field name="type"/>
+                <field name="is_company"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="avatar_128" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-cover'}" alt="Contact image" invisible="type != 'contact'"/>
+                            <field name="avatar_128" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-contain p-2'}" alt="Contact image" invisible="type == 'contact'"/>
+                        </aside>
+                        <main class="ps-2 ps-md-0">
+                            <field name="name" invisible="not name" class="fw-bold"/>
+                            <field name="type" invisible="name" class="fw-bold"/>
+                            <div t-if="record.gender.raw_value">
+                                <field name="gender"/>
+                            </div>
+                            <div t-if="record.email.raw_value" class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-envelope text-primary" title="Email"/>
+                                <field name="email"/>
+                            </div>
+                            <div t-if="record.phone.raw_value">
+                                <i class="fa fa-fw me-1 fa-phone text-primary" title="Phone"/>
+                                <field name="phone"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+        
+        <record id="view_library_students_form" model="ir.ui.view">
+        <field name="name">library.students.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button string="Borrow Requests"
+                            name="view_borrow_requests_students"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-star"
+                            groups="library_management_rushvi.group_library_librarian">
+                                <field name="borrow_request_student_count" string="Borrow Requests" widget="statinfo"/>
+                            </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="gender"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_libirary_students" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">res.partner</field>
+        <field name="context">{'default_is_student':True}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_library_students_kanban')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_library_students_form')})]"/>
+        <field name="domain">[('is_student','=',True)]</field>
+    </record>
+
+    <menuitem name="Students" id="menuitem_library_students"
+              parent="library_menu_root"
+              action="action_libirary_students"
+                groups="library_management_rushvi.group_library_student"
+    sequence="40"/>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <record id="wizard_reporting_books_history" model="ir.ui.view">
+        <field name="name">view.borrow.status.canceled</field>
+        <field name="model">wizard.reporting.books.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="is_return_date" groups="library_management_rushvi.group_library_admin"/>
+                        </group>
+                        <group>
+                            <field name="students_ids" widget="many2many_tags" domain="[('is_student','=',True)]"/>
+                            <field name="books_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button type="object"
+                            name="generate_history_report"
+                            string="Generate Report"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_reporting_books_history_wizard" model="ir.actions.act_window">
+        <field name="name">Books History</field>
+        <field name="res_model">wizard.reporting.books.history</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_reporting_books_history"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

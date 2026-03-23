@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="librarian_demo1" model="res.partner">
+        <field name="name">Rohan</field>
+        <field name="phone">999232921</field>
+        <field name="email">l23@gmail.com</field>
+        <field name="gender">male</field>
+        <field name="is_librarian">True</field>
+    </record>
+</odoo>

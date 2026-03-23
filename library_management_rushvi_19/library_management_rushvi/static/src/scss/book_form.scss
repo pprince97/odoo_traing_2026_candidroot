@@ -1,0 +1,31 @@
+.custom-book-form {
+    border: 1px solid #e9ecef;
+    background-color: #ffffff;
+
+    // Nesting: Target labels inside the form
+    .form-label {
+        color: $primary;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    // Style the file upload area
+    .image-upload-wrapper {
+        border: 2px dashed #ced4da;
+        transition: border-color 0.2s;
+        &:hover {
+            border-color: $primary;
+        }
+    }
+
+    // Special styling for the price input group
+    .input-group-text {
+        background-color: #f8f9fa;
+        color: #495057;
+    }
+}
+.icon_hoon_me {
+    height: 50;
+    width: 50;
+
+}

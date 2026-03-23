@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_library_borrow_requests_list" model="ir.ui.view">
+        <field name="name">library.borrow.requests.list</field>
+        <field name="model">library.borrow.requests</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_number"/>
+                <field name="student_id"/>
+                <field name="librarian_id"/>
+                <field name="state"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_library_borrow_requests_form" model="ir.ui.view">
+        <field name="name">library.borrow.requests.form</field>
+        <field name="model">library.borrow.requests</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="request_state_issued"
+                            invisible="state in ['issued','canceled','returned']"
+                            class="oe_highlight"
+                            string="Issued"
+                            groups="library_management_rushvi.group_library_librarian"/>
+
+                    <button type="object"
+                            name="request_state_returned"
+                            invisible="state in ['draft','canceled','returned']"
+                            class="oe_highlight"
+                            string="Returned"
+                            groups="library_management_rushvi.group_library_librarian"/>
+
+                     <button type="object"
+                            name="request_state_canceled"
+                            invisible="state in ['issued','canceled','returned']"
+                            class="oe_highlight"
+                            string="Canceled"
+                            groups="library_management_rushvi.group_library_librarian"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,issued,returned,canceled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="serial_number" readonly="1"/>
+                            <field name="student_id" domain="[('is_student','=',True)]" readonly="state not in ['draft']"/>
+                            <field name="librarian_id" domain="[('is_librarian','=',True)]" readonly="state not in ['draft']"/>
+                            <field name="issue_date" readonly="1"/>
+                            <field name="return_date" force_save="True" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="fine_amount" readonly="state not in ['draft']"/>
+                            <field name="total_amount" readonly="state not in ['draft']"/>
+                            <field name="canceled_date" invisible="state not in ['canceled']" readonly="state not in ['draft']"/>
+                            <field name="cancellation_reason" invisible="state not in ['canceled']" force_save="True" readonly="state not in ['draft']"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="borrow_request_lines" string="Borrow Request Lines">
+                            <field name="borrow_request_line_ids" readonly="state not in ['draft']">
+                                <list editable="bottom">
+                                    <field name="book_id" domain="[('state','!=','unpublished'),('available_copies','&gt;',0)]"/>
+                                    <field name="quantity"/>
+                                    <field name="amount"/>
+                                    <field name="issue_date"/>
+                                    <field name="return_date"/>
+                                    <field name="issue_days"/>
+                                    <field name="fine_amount"/>
+                                    <field name="total_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_libirary_borrow_requests" model="ir.actions.act_window">
+        <field name="name">Borrow Request</field>
+        <field name="res_model">library.borrow.requests</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Borrow Requests" id="menuitem_library_borrow_requests"
+              parent="library_menu_root"
+              action="action_libirary_borrow_requests"
+              sequence="20"/>
+</odoo>

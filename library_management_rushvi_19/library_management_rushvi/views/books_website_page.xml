@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="header_borrow_request" inherit_id="website.layout">
+        <xpath expr="//header" position="replace">
+            <!-- Always keep the 'header' tag so Odoo JS knows where the header is -->
+            <header id="header_borrow" class="o_main_header">
+                <div class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;">
+                    <div class="container text-center p-3">
+                        <div class="row">
+                            <h6> My custom header </h6>
+                        </div>
+                    </div>
+
+                    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+                        <div class="container">
+                            <ul class="nav navbar-nav mx-auto">
+                                <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                                    <li class="nav-item">
+                                        <a t-att-href="submenu.url"
+                                           t-attf-class="nav-link #{'active' if submenu.url == request.httprequest.path else ''}">
+                                            <span t-field="submenu.name"/>
+                                        </a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+        </xpath>
+    </template>
+
+
+    <template id="custom_footer_content" inherit_id="website.layout">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div class="col-lg-12 text-center p-3">
+                <p>Custom Library Footer</p>
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="books_template">
+        <t t-call="website.layout">
+            <t t-if="user.has_group('library_management_rushvi.group_library_librarian') or user.has_group('library_management_rushvi.group_library_admin')">
+                <div class="container my-5">
+                    <div class="card shadow-sm border-0 custom-book-form">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0">Add New Library Book</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form action="/books/create" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <div class="row g-4">
+                                    <!-- Column 1: Image Upload -->
+                                    <div class="col-md-4 border-end">
+                                        <label class="form-label fw-bold">Cover Image</label>
+                                        <div class="image-upload-wrapper text-center p-3 border rounded bg-light">
+                                            <i class="oi oi-camera d-block mb-2 fs-2 text-muted"/>
+                                            <input type="file" name="cover_image" class="form-control" accept="image/*"/>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <label class="form-label fw-bold">Description</label>
+                                            <textarea name="description" class="form-control" rows="5" placeholder="Brief summary of the book..."/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2: Data Fields -->
+                                    <div class="col-md-8">
+                                        <div class="row g-3">
+                                            <!-- Book Name -->
+                                            <div class="col-12">
+                                                <label class="form-label fw-bold">Book Name <span class="text-danger">*</span></label>
+                                                <input type="text" name="name" class="form-control form-control-lg" required="1" t-att-value="post.get('name') if post else ''"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold">Barcode <span class="text-danger">*</span></label>
+                                                <input type="text" name="barcode" class="form-control" required="1" t-att-value="post.get('barcode') if post else ''"
+                                                t-att-autofocus="'autofocus' if error_msg else None"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold">Category</label>
+                                                <input type="text" name="category" class="form-control" placeholder="e.g. Fiction, Science" t-att-value="post.get('category') if post else ''"/>
+                                            </div>
+
+                                            <!-- Stock and Limits -->
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-bold">Total Stock <span class="text-danger">*</span></label>
+                                                <input type="number" name="stock" class="form-control" required="1" min="1" t-att-value="post.get('stock') if post else 0"/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label class="form-label fw-bold">Max Days Limit <span class="text-danger">*</span></label>
+                                                <input type="number" name="maximum_day_limit" class="form-control" required="1" t-att-value="post.get('maximum_day_limit') if post else 0"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold">Borrow Price/Day <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">$</span>
+                                                    <input type="number" step="0.01" name="borrow_price" class="form-control" required="1" t-att-value="post.get('borrow_price') if post else 0"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold">Currency</label>
+                                                <select name="currency" class="form-select">
+                                                    <t t-foreach="request.env['res.currency'].sudo().search([])" t-as="curr">
+                                                        <option t-att-value="curr.id" t-att-selected="curr.name == 'USD'"><t t-esc="curr.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 mt-4">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" name="state" value="published" id="stateCheck"  t-att-value="post.get('state') if post else ''"/>
+                                                    <label class="form-check-label fw-bold" for="stateCheck">Publish immediately?</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5 text-end">
+                                    <a href="/books" class="btn btn-link text-muted me-3">Cancel</a>
+                                    <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm">Save Book to Library</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+<!--        <t t-if="not user.has_group('library_management_rushvi.group_library_librarian') or not user.has_group('library_management_rushvi.group_library_admin')">-->
+        <div class="mt-5 container">
+                <h3>All Books</h3>
+                <table class="table">
+                    <thead>
+                        <td><b>Book Name</b></td>
+                        <td><b>Book Barcode</b></td>
+                    </thead>
+                    <t t-foreach="books" t-as="book">
+                        <tr>
+                            <td><t t-esc="book.name"/></td>
+                            <td><t t-esc="book.barcode"/></td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+<!--        </t>-->
+        </t>
+    </template>
+
+    <record id="book_menu" model="website.menu">
+        <field name="name">Books</field>
+        <field name="url">/books</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">20</field>
+    </record>
+</odoo>
