@@ -13,12 +13,13 @@
                             <h1>Rental Order Form</h1>
                         </div>
                     </section>
+
                     <div class="container my-5">
                         <div class="row container w-75 mx-auto">
                             <form action="/rental_order/create" method="post">
                                 <div class="mb-3">
                                     <label class="form-label">Customer Name</label>
-                                    <select name="customer_id" class="form-control">
+                                    <select name="customer_id" class="form-control" multiple="multiple">
                                         <t t-foreach="request.env['res.partner'].sudo().search([])" t-as="record">
                                             <option t-att-value="record.id">
                                                 <t t-esc="record.name"/>
@@ -38,6 +39,32 @@
                                     <label class="form-label">Total Amount</label>
                                     <input type="number" name="total_amount" required="required" class="form-control"/>
                                 </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="tag_ids[]">Tags</label>
+                                    <select name="tag_ids" id="tag_ids"
+                                            class="form-control" multiple="multiple">
+                                        <t t-foreach="request.env['res.partner.category'].sudo().search([])" t-as="tag">
+                                            <option t-att-value="tag.id">
+                                                <t t-esc="tag.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <select class="form-multi-select" id="multiple-select-tag" multiple="multiple" data-coreui-selection-type="tags" data-coreui-search="true">
+                                  <option value="0">Angular</option>
+                                  <option value="1">Bootstrap</option>
+                                  <option value="2">React.js</option>
+                                  <option value="3">Vue.js</option>
+                                  <optgroup label="backend">
+                                    <option value="4">Django</option>
+                                    <option value="5">Laravel</option>
+                                    <option value="6">Node.js</option>
+                                  </optgroup>
+                                </select>
+
+                                <!--                                This is Edit-->
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -136,5 +163,66 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">80</field>
         </record>
+
+
+        <record id="menu_education_hub" model="website.menu">
+            <field name="name">Education Hub</field>
+            <field name="url">#</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">20</field>
+            <field name="is_mega_menu">True</field>
+            <field name="mega_menu_content" type="html">
+                <section class="py-4 light-background">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h6>Learning</h6>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="#">Courses</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Tutorials</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Certifications</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6>Resources</h6>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="#">Blogs</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Docs</a>
+                                    </li>
+                                    <li>
+                                        <a href="/faqs">FAQs</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6>Community</h6>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="#">Events</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Webinars</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Forums</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </field>
+        </record>
+
+
     </data>
 </odoo>

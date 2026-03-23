@@ -16,6 +16,8 @@ class RentalOrder(models.Model):
 
     order_ids = fields.One2many('product.order', 'rental_id', string='Order')
 
+    tag_ids = fields.Many2many('res.partner.category',string="Tags")
+
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),

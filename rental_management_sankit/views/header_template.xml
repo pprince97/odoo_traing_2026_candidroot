@@ -1,24 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <template id="custom_website_header" inherit_id="website.layout" priority="20">
-    <!-- Example: Replace social media icons section -->
-<!--    <xpath expr="////div[hasclass('o_header_social')]"-->
-<!--           position="replace">-->
-<!--      <div class="o_header_social">-->
-<!--        &lt;!&ndash; Add your own icons or links here &ndash;&gt;-->
-<!--        <a href="https://facebook.com" target="_blank">FB</a>-->
-<!--        <a href="https://linkedin.com" target="_blank">LinkedIn</a>-->
-<!--        <a href="https://instagram.com" target="_blank">Insta</a>-->
-<!--      </div>-->
-<!--    </xpath>-->
+    <template id="custom_website_header" inherit_id="website.layout" priority="20">
+        <!-- Example: Replace social media icons section -->
+        <!--    <xpath expr="////div[hasclass('o_header_social')]"-->
+        <!--           position="replace">-->
+        <!--      <div class="o_header_social">-->
+        <!--        &lt;!&ndash; Add your own icons or links here &ndash;&gt;-->
+        <!--        <a href="https://facebook.com" target="_blank">FB</a>-->
+        <!--        <a href="https://linkedin.com" target="_blank">LinkedIn</a>-->
+        <!--        <a href="https://instagram.com" target="_blank">Insta</a>-->
+        <!--      </div>-->
+        <!--    </xpath>-->
 
-    <!-- Example: Add a phone number above the menu -->
-    <xpath expr="//header" position="before">
-      <div class="my-top-bar text-center py-1 bg-warning text-dark">
-        <span>📞 +91 4541561316 | ✉️ sankitvarmora@gmail.com</span>
-      </div>
-    </xpath>
-  </template>
+        <!-- Example: Add a phone number above the menu -->
+            <xpath expr="//header" position="before">
+              <div class="my-top-bar text-center py-1 bg-warning text-dark">
+                <span>📞 +91 4541561316 | ✉️ sankitvarmora@gmail.com</span>
+              </div>
+            </xpath>
+
+<!--        Replace The Header-->
+
+<!--        <xpath expr="//header" position="replace">-->
+<!--            <div class="container">-->
+<!--                <header class="site-header">-->
+<!--                    <div class="site-identity">-->
+<!--                        <h1>-->
+<!--                            <a href="#">CandidRoot Solution</a>-->
+<!--                        </h1>-->
+<!--                    </div>-->
+<!--                    <nav class="site-navigation">-->
+<!--                        <ul class="nav">-->
+<!--                            <li>-->
+<!--                                <a href="#">About</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="#">News</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/contactus">Contact</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </header>-->
+<!--            </div>-->
+<!--        </xpath>-->
+
+    </template>
 </odoo>
-
-<!--//div[hasclass('o_header_social')]-->

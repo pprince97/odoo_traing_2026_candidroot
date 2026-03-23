@@ -25,6 +25,10 @@
     'assets': {
         'web.assets_frontend': [
             'rental_management_sankit/static/src/css/website_detail.css',
+            # "rental_management_sankit/static/src/css/selector.css",
+            # "rental_management_sankit/static/src/js/selector.js",
+            # "rental_management_sankit/static/src/js/selector.js",
+            # "rental_management_sankit/static/src/js/jquery.js",
         ]
     },
 

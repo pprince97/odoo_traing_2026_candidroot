@@ -49,16 +49,23 @@ class WebsiteDetail(http.Controller):
     @http.route('/rental_order/form', type='http', auth='public', website=True)
     def rental_order_form(self, **kwargs):
         """rental order form"""
+        # products = request.env['product.product'].sudo().search([])
+        # data = {
+        #     'products': products,
+        # }
         return request.render('rental_management_sankit.rental_order_form', {})
 
     @http.route('/rental_order/create', type='http', auth='public', methods=['POST'], website=True)
     def rental_order_create_page(self, **post):
+        tag_ids = request.httprequest.form.getlist('tag_ids[]')
+        # tag_ids = list(map(int, tag_ids)) if tag_ids else []
         """rental order  page"""
         request.env['rental.order'].sudo().create({
             'customer_id': post.get('customer_id'),
             'rent_start_date': post.get('rent_start_date'),
             'rent_end_date': post.get('rent_end_date'),
             'total_amount': post.get('total_amount'),
+            'tag_ids': [(6, 0, [int(t) for t in tag_ids])] if tag_ids else False,
         })
         return request.render('website.contactus_thanks')
     #
