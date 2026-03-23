@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="rental_report_wizard_view" model="ir.ui.view">
+        <field name="name">rental.report.Wizard.View</field>
+        <field name="model">rental.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                    <footer>
+                        <button
+                                type="object"
+                                name="wizard_rental_report"
+                                string="Print Report"
+                                class="btn-primary"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

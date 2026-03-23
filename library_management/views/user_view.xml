@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="user_action" model="ir.actions.act_window">
+        <field name="name">User</field>
+        <field name="res_model">library.user</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Member" id="library_member" parent="library_root" />
+    <menuitem name="Employee" id="library_employee" parent="library_member" action="user_action"/>
+    <menuitem name="User" id="library_user" parent="library_member" action="user_action"/>
+</odoo>

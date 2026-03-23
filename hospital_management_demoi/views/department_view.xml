@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="department_inherit_view_list" model="ir.ui.view">
+        <field name="name">department.inherit.list</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='manager_id']" position="attributes">
+                <attribute name="invisible" >1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='manager_id']" position="after">
+                <field name="department_floor"/>
+                <field name="department_phone"/>
+                <field name="is_active"/>
+                <field name="description"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="replace">
+                <field name="capacity"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record model="ir.actions.act_window" id="department_action">-->
+<!--        <field name="name">Department</field>-->
+<!--        <field name="res_model">hr.department</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--    </record>-->
+
+<!--    <menuitem name="Department" id="department" parent="hospital_root" action="department_action"/>-->
+
+</odoo>

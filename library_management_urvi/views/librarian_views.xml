@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="librarian_form_view_admin" model="ir.ui.view">
+        <field name="name">library.librarian.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                type="object"
+                                icon="fa-list"
+                                name="show_librarian_borrow_request"
+                                class="btn-primary">
+                            <field name="librarian_borrow_request_count" string="Borrow Request" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="email" widget="email"/>
+                            <field name="gender" widget="radio" options="{'horizontal':true}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="librarian_form_view_librarian" model="ir.ui.view">
+        <field name="name">library.librarian.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                type="object"
+                                icon="fa-list"
+                                name="show_librarian_borrow_request"
+                                class="btn-primary">
+                            <field name="librarian_borrow_request_count" string="Borrow Request" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="email" widget="email"/>
+                            <field name="gender" widget="radio" options="{'horizontal':true}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="librarian_kanban_view_admin">
+        <field name="name">library.librarian.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <t>
+                                <field name="avatar_128" class="w-100 h-auto m-0" widget="image"
+                                       options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                            </t>
+                        </aside>
+                        <main class="ps-2">
+                            <div class="mb-1">
+                                <field name="name" class="mb-0 fw-bold fs-5"/>
+                            </div>
+                            <div class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-envelope text-primary" title="Email"/>
+                                <field name="email"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-fw me-1 fa-phone text-primary" title="Phone"/>
+                                <field name="phone"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-fw me-1 fa-key text-primary" title="Gender"/>
+                                <field name="gender"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="librarian_kanban_view_librarian">
+        <field name="name">library.librarian.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <kanban create="0">
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <t>
+                                <field name="avatar_128" class="w-100 h-auto m-0" widget="image"
+                                       options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                            </t>
+                        </aside>
+                        <main class="ps-2">
+                            <div class="mb-1">
+                                <field name="name" class="mb-0 fw-bold fs-5"/>
+                            </div>
+                            <div class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-envelope text-primary" title="Email"/>
+                                <field name="email"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-fw me-1 fa-phone text-primary" title="Phone"/>
+                                <field name="phone"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-fw me-1 fa-key text-primary" title="Gender"/>
+                                <field name="gender"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="librarian_action_admin" model="ir.actions.act_window">
+        <field name="name">Librarian</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('librarian_kanban_view_admin')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('librarian_form_view_admin')})]"/>
+        <field name="context">{'default_library_role':'librarian'}</field>
+        <field name="domain">[('library_role','=','librarian')]</field>
+    </record>
+
+    <record id="librarian_action_librarian" model="ir.actions.act_window">
+        <field name="name">Librarian</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('librarian_kanban_view_librarian')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('librarian_form_view_librarian')})]"/>
+        <field name="context">{'default_library_role':'librarian'}</field>
+        <field name="domain">[('library_role','=','librarian'),('user_ids','in',uid)]</field>
+    </record>
+
+    <menuitem id="library_librarian_admin" name="Librarians" parent="library_root" action="librarian_action_admin"
+              groups="library_management_urvi.group_library_admin" sequence="3"/>
+    <menuitem id="library_librarian_librarian" name="Librarians" parent="library_root" action="librarian_action_librarian"
+              groups="library_management_urvi.group_library_hide_librarian" sequence="4"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+

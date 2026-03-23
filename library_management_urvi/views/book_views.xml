@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="book_form_view" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                type="object"
+                                icon="fa-list"
+                                class="btn-primary">
+                            <field name="available" string="Available Books" widget="statinfo"/>
+                        </button>
+                        <button
+                                type="object"
+                                icon="fa-list"
+                                name="borrow_book_history"
+                                class="btn-primary">
+                            <field name="borrow_book_history_count" string="Borrow History" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="currency_id"/>
+                            <field name="state" widget="radio" options="{'horizontal': true}"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="available"/>
+                            <field name="copies"/>
+                            <field name="borrow_price"/>
+                            <field name="maximum_day_limit"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="info" string="Detail Information">
+                            <group>
+                                <field name="description"/>
+                                <field name="image" widget="image"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="book_kanban_view">
+        <field name="name">library.book.kanban</field>
+        <field name="model">library.book</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <t>
+                                <field name="image" class="w-100 h-100 m-0" widget="image"
+                                       options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                            </t>
+
+                        </aside>
+                        <main class="ps-2">
+                            <div class="mb-1">
+                                <field name="name" class="mb-0 fw-bold fs-5"/>
+                            </div>
+                            <div class="text-truncate">
+                                <i class="fa fa-fw me-1 fa-key text-primary" title="barcode"/>
+                                <field name="barcode"/>
+                            </div>
+                            <div>
+                                Category:
+                                <field name="category"/>
+                            </div>
+                            <div>
+                                Available:
+                                <field name="available"/>
+                                copy
+                            </div>
+                            <div>
+                                Price:
+                                <field name="borrow_price"/>
+                            </div>
+                            <div>
+                                <field name="state" widget="label_selection"
+                                       options="{'classes': {'unpublished': 'warning', 'published': 'success'}}"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="book_action" model="ir.actions.act_window">
+        <field name="name">Book</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem id="library_book" name="Book" parent="library_root" action="book_action" groups="library_management_urvi.group_library_librarian,library_management_urvi.group_library_admin" sequence="2"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

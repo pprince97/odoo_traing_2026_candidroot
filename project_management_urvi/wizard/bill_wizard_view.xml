@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bill_wizard_view" model="ir.ui.view">
+        <field name="name">bill.Wizard.View</field>
+        <field name="model">project.bill.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="choice" widget="radio" options="{'horizontal':'1'}"/>
+                        <field name="task_ids" invisible="choice == 'date_wise'" widget="many2many_tags" domain="[('task_stage','=',%(project_management_urvi.stage_demo_done)d),('project_id','=',project_id),('id','not in',task_ids)]"/>
+                        <field name="start_date_bill" invisible="choice == 'task_wise'"/>
+                        <field name="end_date_bill" invisible="choice == 'task_wise'"/>
+                    </group>
+                    <footer>
+                        <button
+                                type="object"
+                                name="wizard_create_bill"
+                                string="Create Bill"
+                                class="btn-primary"
+                        />
+                        <button
+                                type="object"
+                                name="create_and_print"
+                                string="Create and Print Bill"
+                                class="btn-primary"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

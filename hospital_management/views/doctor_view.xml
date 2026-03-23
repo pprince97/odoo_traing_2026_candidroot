@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="doctor_list_view" model="ir.ui.view">
+        <field name="name">doctor.list</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+<!--                <field name="employee_id"/>-->
+                <field name="department"/>
+                <field name="available" widget="boolean_toggle"/>
+                <field name="room_no"/>
+                <field name="max_patients"/>
+                <field name="doctor_image" widget="image"/>
+                                <field name="appointment_ids"/>
+<!--                <field name="skill_ids"/>-->
+                <field name="bio"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="doctor_form_view" model="ir.ui.view">
+        <field name="name">doctor.form</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            string="Toggle Availability"
+                            name="toggle_availability"
+                            type="object"
+                            class="oe_highlight ms-2 me-2"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="department"/>
+                            <field name="available" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+<!--                            <field name="employee_id"/>-->
+                            <field name="create_date" widget="date"/>
+                            <field name="room_no"/>
+                            <field name="max_patients"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="personal_info" string="Personal Info">
+                            <group>
+                                <field name="doctor_image" widget="image"/>
+                                <field name="bio"/>
+                            </group>
+                        </page>
+                        <page name="appointment" string="Appointments">
+                                            <field name="appointment_ids"/>
+                        </page>
+                        <page name="skills" string="Skills">
+<!--                            <field name="skill_ids"/>-->
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="doctor_search_view" model="ir.ui.view">
+        <field name="name">doctor.search</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <search string="Doctor Search">
+                <field name="name"/>
+                <field name="bio"/>
+                <filter string="Available Doctors" name="available" domain="[('available', '==', 'True')]"/>
+                <filter string="OPD Department" name="department" domain="[('department', '==', 'opd')]"/>
+                <filter string="surgery Doctor" name="department" domain="[('department','==','surgery')]"/>
+                <filter string="ICU Department" name="department" domain="[('department','==','icu')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="doctor_kanban_view" model="ir.ui.view">
+        <field name="name">doctor.kanban</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <div>
+                            <div>
+                                <field class="fw-bold fs-5" name="name"/>
+                                <br/>
+                                <field name="room_no" class="ms-2 text-muted"/>
+                            </div>
+                            <small>Department:
+                                <field name="department"/>
+                            </small>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="doctor_pivot_view" model="ir.ui.view">
+        <field name="name">doctor.pivot</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <pivot string="doctor Records">
+                <field name="name" type="row"/>
+                <field name="department"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="doctor_graph_view" model="ir.ui.view">
+        <field name="name">doctor.graph</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <graph string="Employee Records" type="bar" sample="1">
+                <field name="name" type="row"/>
+                <field name="department"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="doctor_calendar_views" model="ir.ui.view">
+        <field name="name">doctor.calendar</field>
+        <field name="model">hospital.doctor</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Doctor Calendar" date_start="d_start">
+                <field name="name"/>
+                <field name="department"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="doctor_action" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="res_model">hospital.doctor</field>
+        <field name="view_mode">list,form,search,kanban,pivot,graph,calendar</field>
+    </record>
+
+    <menuitem name="Doctor" id="hospital_doctor" parent="hospital_root" action="doctor_action"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

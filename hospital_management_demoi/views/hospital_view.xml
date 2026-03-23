@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hospital_list">
+        <field name="name">hospital.list</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hospital_name" width="100px"/>
+                <field name="hospital_phone" width="100px"/>
+                <field name="hospital_website" width="100px"/>
+                <field name="is_active" width="100px"/>
+                <field name="hospital_address" width="100px"/>
+                <field name="department_ids" width="100px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hospital_form" model="ir.ui.view">
+        <field name="name">hospital.form</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="hospital_name" width="100px"/>
+                            <field name="hospital_phone" width="100px"/>
+                            <field name="is_active" width="100px"/>
+                        </group>
+                        <group>
+                            <field name="hospital_website" width="100px"/>
+                            <field name="hospital_address" width="100px"/>
+                            <field name="department_ids" width="100px"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_search" model="ir.ui.view">
+        <field name="name">hospital.select</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <search string="Hospital Search">
+                <field name="hospital_name"/>
+                <field name="hospital_address"/>
+                <filter string="Hospital Active" name="is_active" domain="[('is_active', '==', 'True')]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="hospital_action">
+        <field name="name">Hospital</field>
+        <field name="res_model">hospital.hospital</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <menuitem name="Hospital Management" id="hospital_root"/>
+    <menuitem name="Hospitals" id="hospitals" parent="hospital_root" action="hospital_action"/>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_inherit_view_list" model="ir.ui.view">
+        <field name="name">inherit.res.partner.list</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('o_address_format')]" position="after">
+                    <field name="student_id"/>
+                    <field name="student_address"/>
+                    <field name="student_roll_no" />
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="student_dob" />
+                    <field name="subject_ids" widget="many2many_tags"/>
+                </xpath>
+        </field>
+    </record>
+</odoo>

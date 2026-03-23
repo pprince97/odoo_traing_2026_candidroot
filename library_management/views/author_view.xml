@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="author_action" model="ir.actions.act_window">
+        <field name="name">Author</field>
+        <field name="res_model">library.author</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem name="Author" id="library_author" parent="library_root" action="author_action" />
+</odoo>

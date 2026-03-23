@@ -1,0 +1,74 @@
+<odoo>
+    <record model="ir.ui.view" id="custom_tree2">
+        <field name="name">school_management.list</field>
+        <field name="model">school.class</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="class_length"/>
+                <field name="average_score"/>
+                <field name="section"/>
+                <field name="is_active"/>
+                <field name="start_date"/>
+                <field name="description"/>
+                <field name="timetable"/>
+                <field name="class_image" widget="image"/>
+                <field name="student_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="custom_form2" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.class</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="class_length"/>
+                            <field name="average_score"/>
+                            <field name="section"/>
+                            <field name="timetable"/>
+                        </group>
+                        <group>
+                            <field name="is_active" widget="boolean_toggle"/>
+                            <field name="start_date"/>
+                            <field name="description"/>
+                            <field name="class_image" widget="image"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="students" string="Students">
+                            <field name="student_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="schools" string="Schools">
+                            <field name="school_ids" >
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="class_action">
+        <field name="name">Class</field>
+        <field name="res_model">school.class</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Class" id="school_class" parent="school_management.school_menu"
+              action="school_management.class_action"/>
+
+
+</odoo>

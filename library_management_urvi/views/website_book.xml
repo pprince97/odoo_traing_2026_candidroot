@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_create_book" name="Book Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4 mb-4">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <!--                        <form id="book_form" action="/book/submit" method="post" enctype="multipart/form-data"-->
+                        <!--                              class="s_website_form">-->
+                        <form action="/book/submit" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <h1 class="text-center">Register a New Book</h1>
+
+                            <div class="mb-3">
+                                <label for="name">Book Title</label>
+                                <input type="text" name="name" class="form-control s_website_form_input" required="1"/>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="barcode">Barcode</label>
+                                    <input type="text" name="barcode" class="form-control s_website_form_input"
+                                           required="1"/>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="category">Category</label>
+                                    <select name="category" class="form-select">
+                                        <option value="mystery">Mystery</option>
+                                        <option value="horror">Horror</option>
+                                        <option value="romantic">Romantic</option>
+                                        <option value="science">Science</option>
+                                        <option value="history">History</option>
+                                        <option value="biography">Biography</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description">Description</label>
+                                <textarea name="description" class="form-control s_website_form_input" rows="3"
+                                          required="1"/>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="copies">Copies</label>
+                                    <input type="number" name="copies" class="form-control s_website_form_input"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="borrow_price">Price per Day</label>
+                                    <input type="number" step="0.01" name="borrow_price"
+                                           class="form-control s_website_form_input"
+                                           required="1"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="maximum_day_limit">Day Limit</label>
+                                    <input type="number" name="maximum_day_limit"
+                                           class="form-control s_website_form_input"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label for="maximum_day_limit">State</label>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <input type="radio" name="state" value="unpublished"/>
+                                    Unpublished
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <input type="radio" name="state" value="published"/>
+                                    Published
+                                </div>
+                            </div>
+                            <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom s_website_form_required"
+                                 data-type="image" data-name="Field">
+                                <label class="s_website_form_label" style="width: 200px" for="cover_image_b">
+                                    <span class="s_website_form_label_content">Cover Image</span>
+                                </label>
+                                <input id="cover_image_b" type="file" class="form-control s_website_form_input"
+                                       name="image"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register Book</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>library.book</value>
+        <value eval="[
+                    'name',
+                    'barcode',
+                    'description',
+                    'borrow_price',
+                    'copies',
+                    'category',
+                    'maximum_day_limit',
+                    'image'
+                ]"/>
+    </function>
+
+    <!-- Template to display the list of books -->
+    <template id="template_view_all_books" name="My Books">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h1 class="mb-4 ms-0">Library Books</h1>
+                    </div>
+                    <div class="col-md-6 mb-3 text-end">
+                        <a href="/create/book" role="button" class="btn btn-primary s_website_form_send">Register Book
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <t t-foreach="books" t-as="book">
+                        <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <div t-if="book.image" class="card-img-top text-center mt-2"
+                                     style="height: 150px; overflow: hidden;">
+                                    <img t-att-src="image_data_uri(book.image)"
+                                         class="img-fluid"
+                                         style="max-height: 100%;"
+                                         alt="Book Image"/>
+                                </div>
+                                <div t-else=""
+                                     class="card-img-top text-center mt-2 bg-light d-flex align-items-center justify-content-center"
+                                     style="height: 150px;">
+                                    <i class="fa fa-book fa-3x text-muted"/>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-esc="book.name"/>
+                                        <!-- State Badge -->
+                                        <span t-if="book.state == 'published'" class="badge bg-success float-end">
+                                            Published
+                                        </span>
+                                        <span t-if="book.state == 'unpublished'" class="badge bg-warning float-end">
+                                            Unpublished
+                                        </span>
+                                    </h5>
+                                    <p class="card-text text-muted">
+                                        <small>Barcode:
+                                            <t t-esc="book.barcode"/>
+                                        </small>
+                                        <br/>
+                                        <small>Category:
+                                            <span t-field="book.category"/>
+                                        </small>
+                                    </p>
+                                    <p class="card-text">
+                                        <t t-esc="book.description[:100]"/>
+                                        <t t-if="len(book.description) > 100">...</t>
+                                    </p>
+                                </div>
+
+                                <div class="card-footer bg-white border-top-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h5 mb-0 font-weight-bold">
+                                            <small class="text-muted">Price</small>:
+                                            <span t-field="book.borrow_price"
+                                                  t-options='{"widget": "monetary", "display_currency": book.currency_id}'/>
+                                            <small class="text-muted">/ day</small>
+                                        </span>
+                                        <span class="badge bg-primary">
+                                            <t t-esc="book.available"/>
+                                            Available
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="template_public_view" name="Blog Template">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Book</h1>
+                    </div>
+                </section>
+
+                <div class="container d-block text-center">
+                    <h2 class="mt0">Welcome to your <b>Book Page</b>!
+                    </h2>
+                    <p class="lead d-none d-md-block">Please <b>Login</b> to see the Records
+                    </p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="menu_blog" model="website.menu">
+        <field name="name">Book</field>
+        <field name="url">/book</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">40</field>
+        <field name="group_ids" eval="[(4, ref('library_management_urvi.group_library_librarian')),
+        (4, ref('library_management_urvi.group_library_admin'))]"/>
+    </record>
+
+</odoo>

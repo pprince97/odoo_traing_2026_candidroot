@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="doctor_list_view" model="ir.ui.view">
+        <field name="name">hospital.doctor.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="doctor_id"/>
+                <field name="name"/>
+                <field name="city" string="Address"/>
+                <field name="phone" widget="phone"/>
+                <field name="email" widget="email"/>
+                <field name="department_id"/>
+                <field name="experience"/>
+                <field name="comment" string="Speciality"/>
+                <field name="hospital_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="doctor_form_view" model="ir.ui.view">
+        <field name="name">hospital.doctor.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                type="object"
+                                name="view_appointment_doctor"
+                                icon="fa-list"
+                                class="btn-primary">
+                            <field name="da_counts" string="Appointments" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="doctor_id"/>
+                            <field name="name" string="Doctor Name"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="email" widget="email"/>
+                        </group>
+                        <group>
+                            <!--                            <field name="address"/>-->
+                            <span class="o_form_label o_td_label o_address_type" name="address_name">
+                                <field name="type_address_label" invisible="is_company" readonly="1" class="fw-bold"/>
+                                <span invisible="not is_company">Address</span>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" placeholder="State" class="o_address_state"
+                                       options="{'no_open': True, 'no_quick_create': True}"
+                                       context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <div name="partner_address_country" class="d-flex justify-content-between">
+                                    <field name="country_id" placeholder="Country" class="o_address_country"
+                                           options='{"no_open": True, "no_create": True}'/>
+                                </div>
+                            </div>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="descriptive_info" string="Descriptive Info">
+                            <group>
+                                <field name="experience"/>
+                                <field name="comment" string="Speciality"/>
+                            </group>
+                        </page>
+                        <page name="hospital" string="Hospitals">
+                            <field name="hospital_ids">
+                                <list>
+                                    <field name="hospital_name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="doctor_action" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <!--        <field name="search_view_id" ref="doctor_search_view"/>-->
+                <field name="context">{'doctor':1}</field>
+        <field name="domain">[('doctor_id','like','D%')]</field>
+    </record>
+
+    <record id="action_doctor_list" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="doctor_list_view"/>
+        <field name="act_window_id" ref="doctor_action"/>
+    </record>
+
+    <record id="action_doctor_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="doctor_form_view"/>
+        <field name="act_window_id" ref="doctor_action"/>
+    </record>
+
+
+    <menuitem id="hospital_doctor" name="Doctors" parent="hospital_root" action="doctor_action"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

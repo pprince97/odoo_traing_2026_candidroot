@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="rental_order_list_view" model="ir.ui.view">
+        <field name="name">rental.order.list</field>
+        <field name="model">rental.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="rental_id"/>
+                <field name="customer_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="days"/>
+                <field name="total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rental_order_form_view" model="ir.ui.view">
+        <field name="name">rental.order.form</field>
+        <field name="model">rental.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            string="Rent"
+                            name="rent_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['draft']"
+                    />
+                    <button
+                            string="Return"
+                            name="return_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['rent']"
+                    />
+                    <button
+                            string="Invoice"
+                            name="invoice_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['returned']"
+                    />
+                    <button
+                            string="Cancel"
+                            name="cancel_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['draft']"
+                    />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,rent,returned,invoiced,partially_invoiced,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="rental_id"/>
+                            <field name="customer_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="days"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="rental_products" string="Rental Products">
+                            <field name="rental_order_line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="serial_ids" widget="many2many_tags" readonly="not product_id"
+                                           domain="[('product_id','=',product_id),('id','not in',used_serial_ids)]"/>
+                                    <field name="rent" readonly="1" widget="monetary"/>
+                                    <field name="quantity"/>
+                                    <field name="total_rent" widget="monetary"/>
+                                </list>
+                            </field>
+                            <group>
+                                <group class=" oe_subtotal_footer">
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="total" string="Total Rent:"/>
+                                    </span>
+                                    <field name="total" widget="monetary" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="order_action" model="ir.actions.act_window">
+        <field name="name">Order</field>
+        <field name="res_model">rental.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="rental_order" name="Order" parent="rental_root" action="order_action" sequence="3"/>
+</odoo>

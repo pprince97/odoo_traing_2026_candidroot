@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="hotel_list">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.hotel</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" width="100px"/>
+                <field name="total_rooms" width="100px"/>
+                <field name="rating" width="100px"/>
+                <field name="category" width="100px"/>
+                <field name="is_active" width="100px"/>
+                <field name="opening_date" width="100px"/>
+                <field name="description" width="100px"/>
+                <field name="license_document" width="100px"/>
+                <field name="image" widget="image" width="100px"/>
+                <field name="room_ids"/>
+                <field name="booking_ids"/>
+                <field name="service_ids"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_form" model="ir.ui.view">
+        <field name="name">hotel_managment.form</field>
+        <field name="model">hotel.hotel</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="total_rooms"/>
+                            <field name="rating"/>
+                        </group>
+                        <group>
+                            <field name="category"/>
+                            <field name="is_active"/>
+                            <field name="opening_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hotel Description" name="hotel_description">
+                            <group>
+                                <label for="description"/>
+                                <div>
+                                    <field name="description"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Hotel Uploads" name="hotel_upload">
+                            <group>
+                                <label for="license_document"/>
+                                <div>
+                                    <field name="license_document"/>
+                                </div>
+                                <label for="image"/>
+                                <div>
+                                    <field name="image" widget="image"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Rooms" name="rooms">
+                            <field name="room_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Bookings" name="booking">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_reference"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Service" name="service">
+                            <field name="service_ids">
+                                <list>
+                                    <field name="service_name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_search" model="ir.ui.view">
+        <field name="name">hotel_managment.select</field>
+        <field name="model">hotel.hotel</field>
+        <field name="arch" type="xml">
+            <search string="Hotel Search">
+                <field name="name"/>
+                <field name="total_rooms"/>
+                <field name="rating"/>
+                <field name="category"/>
+                <field name="is_active"/>
+                <field name="opening_date"/>
+                 <filter string="Hotel Name" name="name" domain="[('name', 'ilike', 'B')]"/>
+                 <filter string="Hotel category" name="category" domain="[('category', 'in', ['luxury', 'business'])]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hotel">
+        <field name="name">Hotel</field>
+        <field name="res_model">hotel.hotel</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem name="Hotel Management" id="hotel_management_root"/>
+    <menuitem name="Hotel" id="hotel_management_hotel" parent="hotel_management_root" action="action_hotel"/>
+</odoo>

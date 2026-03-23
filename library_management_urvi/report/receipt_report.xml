@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_library_receipt_document">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Serial Number:
+                        <span t-field="doc.serial_number"/>
+                    </h2>
+                    <p>Student:
+                        <span t-field="doc.student_id.name"/>
+                    </p>
+                    <p>Librarian:
+                        <span t-field="doc.librarian_id"/>
+                    </p>
+                    <h3>Borrow Request Lines:</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                                <th>Issue Date</th>
+                                <th>Return Date</th>
+                                <th>Issue days</th>
+                                <th>Fine Amount</th>
+                                <th class="text-end o_price_total">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.borrow_request_lines_ids" t-as="line">
+                                <td>
+                                    <span t-field="line.book_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.quantity"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.issue_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.return_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.issue_days"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.fine_amount"/>
+                                </td>
+                                <td class="text-end o_price_total">
+                                    <span t-field="line.total_amount"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr style="width: 15%; margin-left: auto; margin-right: 0; display-inline"/>
+                    <p class="text-end">Fine Amount:
+                        <span t-field="doc.fine_amount"/>
+                    </p>
+                    <p class="text-end">Total Amount:
+                        <span t-field="doc.total_amount"/>
+                    </p>
+
+                </div>
+            </t>
+        </template>
+    </data>
+
+    <template id="report_library_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="library_management_urvi.report_library_receipt_document"/>
+            </t>
+        </t>
+    </template>
+
+    <data>
+        <record id="action_report_library_receipt" model="ir.actions.report">
+            <field name="name">library receipt Report</field>
+            <field name="model">library.borrow.request</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">library_management_urvi.report_library_receipt</field>
+            <field name="report_file">library_management_urvi.report_library_receipt</field>
+            <field name="print_report_name">'library_receipt'</field>
+            <field name="binding_model_id" ref="library_management_urvi.model_library_borrow_request"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+
+</odoo>

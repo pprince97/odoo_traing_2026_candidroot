@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="guest_list">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.guest</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="guest_name" width="100px"/>
+                <field name="age" width="100px"/>
+                <field name="discount" width="100px"/>
+                <field name="gender" width="100px"/>
+                <field name="is_vip" width="100px"/>
+                <field name="date_of_birth" width="100px"/>
+                <field name="check_in_time" width="100px"/>
+                <field name="remark" width="100px"/>
+                <field name="id_proof" width="100px"/>
+                <field name="guest_photo" widget="image" width="100px"/>
+                <field name="booking_ids"/>
+                <field name="room_ids"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="guest_form" model="ir.ui.view">
+        <field name="name">hotel_managment.form</field>
+        <field name="model">hotel.guest</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="guest_name"/>
+                            <field name="age"/>
+                            <field name="discount"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="is_vip"/>
+                            <field name="date_of_birth"/>
+                            <field name="check_in_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Guest Description" name="guest_description">
+                            <group>
+                                <label for="remark"/>
+                                <div>
+                                    <field name="remark"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Guest Uploads" name="hotel_upload">
+                            <group>
+                                <label for="id_proof"/>
+                                <div>
+                                    <field name="id_proof"/>
+                                </div>
+                                <label for="guest_photo"/>
+                                <div>
+                                    <field name="guest_photo" widget="image"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Bookings" name="booking">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_reference"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="rooms" name="Rooms">
+                            <field name="room_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="guest_search" model="ir.ui.view">
+        <field name="name">hotel_managment.select</field>
+        <field name="model">hotel.guest</field>
+        <field name="arch" type="xml">
+            <search string="Guest Search">
+                <field name="guest_name"/>
+                <field name="age"/>
+                <field name="discount"/>
+                <field name="gender"/>
+                <field name="is_vip"/>
+                <field name="date_of_birth"/>
+                <field name="check_in_time"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_guest">
+        <field name="name">Rooms</field>
+        <field name="res_model">hotel.guest</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <menuitem name="Guest" id="hotel_management_guest" parent="hotel_management_root" action="action_guest"/>
+</odoo>

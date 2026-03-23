@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_reporting" model="website.menu">
+        <field name="name">Library Reporting</field>
+        <field name="url">#</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">45</field>
+<!--        <field name="website_id" ref="website.default_website"/>-->
+    </record>
+
+    <record id="menu_history" model="website.menu">
+        <field name="name">Book History</field>
+        <field name="url">/</field>
+        <field name="parent_id" ref="library_management_urvi.menu_reporting"/>
+        <field name="sequence" type="int">46</field>
+    </record>
+</odoo>

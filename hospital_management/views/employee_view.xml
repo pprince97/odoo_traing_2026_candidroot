@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_employee_inherit_view_" model="ir.ui.view">
+        <field name="name">inherit.hr.employee.list</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button
+                            string="Approve Doctor"
+                            name="approve_doctor"
+                            type="object"
+                            class="oe_highlight ms-2 me-2">
+                        <field string="Doctor Count" name="doctor_count" widget="statinfo"/>
+                    </button>
+                    <button
+                            string="Patient List"
+                            name="patient_list"
+                            type="object"
+                            class="oe_highlight">
+                        <field string="Patient Count" name="patient_count" widget="statinfo"/>
+                    </button>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page name="employee-inherit" string="Hospital Employee">
+                    <group>
+                        <group>
+                            <field name="is_medical_staff"/>
+                            <field name="specialization"/>
+                            <field name="consultation_fee"/>
+                            <field name="experience_years"/>
+
+                        </group>
+                        <group>
+                            <field name="joining_datetime"/>
+                            <field name="patient_ids" widget="many2many_tags"/>
+                            <field name="signature_image"/>
+                            <field name="notes_html"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

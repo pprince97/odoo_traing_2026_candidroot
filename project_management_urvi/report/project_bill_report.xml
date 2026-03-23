@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_project_bill_document">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Bill ID:
+                        <span t-field="doc.name"/>
+                    </h2>
+                    <p>Customer:
+                        <span t-field="doc.partner_id.name"/>
+                    </p>
+                    <p>Bill Date:
+                        <span t-field="doc.invoice_date"/>
+                    </p>
+
+                    <h3>Invoice Lines:</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th class="text-end o_price_total">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                <td>
+                                    <span t-field="line.name"/>
+                                </td>
+                                <!--                                <td>-->
+                                <!--                                    <span t-field="line.quantity"/>-->
+                                <!--                                </td>-->
+                                <td class="text-end o_price_total">
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr style="width: 17%; margin-left: auto; margin-right: 0;"/>
+                    <p class="text-end">Total Amount:
+                        <span t-field="doc.amount_total"/>
+                    </p>
+
+                </div>
+            </t>
+        </template>
+    </data>
+
+    <template id="report_project_bill">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="project_management_urvi.report_project_bill_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <data>
+        <record id="action_report_my_project_bill" model="ir.actions.report">
+            <field name="name">Project Bill Report</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">project_management_urvi.report_project_bill</field>
+            <field name="report_file">project_management_urvi.report_project_bill</field>
+            <!--           <field name="print_report_name">(object.name or '').replace('/', '')</field>-->
+            <field name="print_report_name">'Project_Bill'</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="group_ids"
+                   eval="[(4, ref('account.group_account_invoice')), (4, ref('account.group_account_readonly'))]"/>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="student_demo_deep" model="res.partner">
+        <field name="name">Deep</field>
+        <field name="phone">1234567890</field>
+        <field name="email">deep@gmail.com</field>
+        <field name="gender">male</field>
+        <field name="library_role">student</field>
+    </record>
+
+    <record id="student_demo_vidhi" model="res.partner">
+        <field name="name">Vidhi</field>
+        <field name="phone">0987654321</field>
+        <field name="email">vidhi@gmail.com</field>
+        <field name="gender">female</field>
+        <field name="library_role">student</field>
+    </record>
+
+    <record id="student_demo_dhruvi" model="res.partner">
+        <field name="name">Dhruvi</field>
+        <field name="phone">1289034567</field>
+        <field name="email">dhruvi@gmail.com</field>
+        <field name="gender">female</field>
+        <field name="library_role">student</field>
+    </record>
+
+    <record id="student_demo_krunal" model="res.partner">
+        <field name="name">Krunal</field>
+        <field name="phone">4567890123</field>
+        <field name="email">krunal@gmail.com</field>
+        <field name="gender">male</field>
+        <field name="library_role">student</field>
+    </record>
+
+    <record id="student_demo_naisarg" model="res.partner">
+        <field name="name">naisarg</field>
+        <field name="phone">6789012345</field>
+        <field name="email">naisarg@gmail.com</field>
+        <field name="gender">male</field>
+        <field name="library_role">student</field>
+    </record>
+
+
+</odoo>

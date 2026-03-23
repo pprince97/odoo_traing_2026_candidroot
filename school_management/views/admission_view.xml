@@ -1,0 +1,117 @@
+<odoo>
+    <record model="ir.ui.view" id="custom_admission_list">
+        <field name="name">school_management.list</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_name"/>
+                <field name="father_name"/>
+                <field name="mother_name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="dob"/>
+                <field name="percentage"/>
+                <field name="standard"/>
+                <field name="address"/>
+                <field name="admission_date"/>
+                <field name="gender"/>
+                <field name="stage"/>
+                <field name="id_proof" filename="file_name"/>
+                <field name="photo" widget="image"/>
+                <field name="school_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="custom_admission_form" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <header>
+                    <button
+                            string="In progress"
+                            name="in_progress_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="stage in ['in_progress', 'confirm']"
+                    />
+                    <button
+                            string="Confirm"
+                            name="confirm_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="stage in ['new', 'confirm']"
+                    />
+                    <button
+                            string="Reset to draft"
+                            name="new_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="stage in ['in_progress', 'new']"
+                    />
+                    <field name="stage" widget="statusbar" statusbar_visible="new,in_progress,confirm"/>
+                    <button string="Action button"
+                            name="%(student_action)d"
+                            type="action"
+                    />
+                    <button
+                            string="Browse"
+                            name="browse_state"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                </header>
+                <sheet>
+                    <notebook>
+                        <page name="personal_details" String="Personal details">
+                            <group>
+                                <group>
+                                    <field name="student_name"/>
+                                    <field name="father_name"/>
+                                    <field name="mother_name"/>
+                                    <field name="percentage" widget="monetary"/>
+                                    <field name="standard"/>
+                                    <field name="address"/>
+                                </group>
+                                <group>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                    <field name="dob"/>
+                                    <field name="admission_date"/>
+                                    <field name="gender"/>
+<!--                                    <field name="school_id" options="{'no_edit':True,'no_create':True}"/>-->
+                                         <field name="school_id" context="{'form_view_ref':'school_management.school_simple_form'}"/>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page name="document_submission" String="Document Submission">
+                            <group>
+                                <group>
+                                    <field name="id_proof" filename="file_name"/>
+                                </group>
+                                <group>
+                                    <field name="photo" widget="image"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="admission_action">
+        <field name="name">Admission</field>
+        <field name="res_model">school.admission</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Admission" id="school_admission" parent="school_management.school_menu"
+              action="school_management.admission_action"/>
+
+
+</odoo>

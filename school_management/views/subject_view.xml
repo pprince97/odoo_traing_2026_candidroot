@@ -1,0 +1,86 @@
+<odoo>
+    <record model="ir.ui.view" id="custom_tree4">
+        <field name="name">school_management.list</field>
+        <field name="model">school.subject</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="subject_code"/>
+                <field name="max_marks"/>
+                <field name="passing_marks"/>
+                <field name="subject_type"/>
+                <field name="is_optional"/>
+                <field name="syllabus"/>
+                <field name="reference_material"/>
+                <field name="icon" widget="image"/>
+                <field name="active"/>
+                <field name="html"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="custom_form4" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.subject</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="subject_code"/>
+                            <field name="max_marks"/>
+                            <field name="passing_marks" widget="handle"/>
+                            <field name="subject_type" widget="selection"/>
+                        </group>
+                        <group>
+                            <field name="is_optional"/>
+                            <field name="syllabus"/>
+                            <field name="reference_material"/>
+                            <field name="icon" widget="image"/>
+                            <field name="active"/>
+                            <field name="html"/>
+
+                        </group>
+                        <notebook>
+                            <page name="student" string="Students">
+                                <field name="student_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="teacher" string="Teachers">
+                                <field name="teacher_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="school" string="School">
+                                <field name="school_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="subject_action">
+        <field name="name">Subject</field>
+        <field name="res_model">school.subject</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Subject" id="school_subject" parent="school_management.school_menu"
+              action="school_management.subject_action"/>
+
+
+</odoo>

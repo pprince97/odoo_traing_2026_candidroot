@@ -1,0 +1,72 @@
+<odoo>
+    <record model="ir.ui.view" id="custom_tree3">
+        <field name="name">school_management.list</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="employee_code"/>
+                <field name="experience_years"/>
+                <field name="salary"/>
+                <field name="qualification"/>
+                <field name="is_permanent"/>
+                <field name="joining_date"/>
+                <field name="last_login"/>
+                <field name="certificate"/>
+                <field name="image" widget="image"/>
+                <field name="subject_id"/>
+                <field name="school_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="custom_form3" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_code"/>
+                            <field name="experience_years"/>
+                            <field name="salary"/>
+                            <field name="certificate"/>
+                        </group>
+                        <group>
+                            <field name="qualification"/>
+                            <field name="is_permanent"/>
+                            <field name="joining_date"/>
+                            <field name="last_login"/>
+                            <field name="image" widget="image"/>
+                            <field name="subject_id"/>
+                            <field name="school_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="students" string="Students">
+                            <field name="student_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="teacher_action">
+        <field name="name">Teacher</field>
+        <field name="res_model">school.teacher</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Teacher" id="school_teacher" parent="school_management.school_menu"
+              action="school_management.teacher_action"/>
+
+
+</odoo>

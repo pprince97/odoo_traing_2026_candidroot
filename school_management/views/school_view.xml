@@ -1,0 +1,145 @@
+<odoo>
+    <record model="ir.ui.view" id="custom_tree5">
+        <field name="name">school_management.list</field>
+        <field name="model">school.school</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="address"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="custom_form5" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.school</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                class="oe_stat_button"
+                                type="object"
+                                name="new_state_count"
+                                icon="fa-usd">
+                            <field string="New Count" name="new_count" widget="statinfo"/>
+                        </button>
+                        <button
+                                class="oe_stat_button"
+                                type="object"
+                                name="in_progress_state_count"
+                                icon="fa-usd">
+                            <field string="In Progress Count" name="in_progress_count" widget="statinfo"/>
+                        </button>
+                        <button
+                                class="oe_stat_button"
+                                type="object"
+                                name="confirm_state_count"
+                                icon="fa-usd">
+                            <field string="Confirm Count" name="confirm_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" widget="field_selector"/>
+                            <field name="name"/>
+                            <field name="address"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="students" string="Students">
+                            <field name="student_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="Classes" string="Class">
+                            <field name="class_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="teachers" string="Teachers">
+                            <field name="teacher_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="subjects" string="Subjects">
+                            <field name="subject_ids" widget="many2many_tags_avatar">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="admission" string="Admission">
+                            <field name="admission_ids">
+                                <list editable="bottom">
+                                    <field name="student_name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="school_simple_form" model="ir.ui.view">
+        <field name="name">school_management.form</field>
+        <field name="model">school.school</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="school_simple_view_kanban">
+            <field name="name">school_management.kanban</field>
+            <field name="model">school.school</field>
+            <field name="arch" type="xml">
+                <kanban create="0" can_open="0">
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <div>
+                                <div>
+                                    <field name="name" class="fw-bold fs-5"/>
+<!--                                    <field name="create_date" class="ms-2 text-muted"/>-->
+                                </div>
+<!--                                <small invisible="not scope">Scope: <field name="scope"/></small>-->
+<!--                                <small>Expires on: <field name="expiration_date"/></small>-->
+                            </div>
+<!--                            <button name="remove" type="object" string="Delete" class="btn btn-secondary ms-auto mb-auto my-auto"/>-->
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+    <record model="ir.actions.act_window" id="school_action">
+        <field name="name">school</field>
+        <field name="res_model">school.school</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="School" id="school_school" parent="school_management.school_menu"
+              action="school_management.school_action"/>
+
+
+</odoo>

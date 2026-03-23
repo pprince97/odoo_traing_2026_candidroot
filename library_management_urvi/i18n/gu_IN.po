@@ -1,0 +1,694 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* library_management_urvi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-11 13:32+0000\n"
+"PO-Revision-Date: 2026-03-11 13:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: library_management_urvi
+#: model:ir.actions.report,print_report_name:library_management_urvi.action_report_library_history
+msgid "'library_history'"
+msgstr "'પુસ્તકાલય_ઇતિહાસ'"
+
+#. module: library_management_urvi
+#: model:ir.actions.report,print_report_name:library_management_urvi.action_report_library_receipt
+msgid "'library_receipt'"
+msgstr "'લાઇબ્રેરી_રસીદ'"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_kanban_view_admin
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_kanban_view_librarian
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.student_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-envelope text-primary\" title=\"Email\"/>"
+msgstr "ઈમેલ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_kanban_view_admin
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_kanban_view_librarian
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.student_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-key text-primary\" title=\"Gender\"/>"
+msgstr "જાતિ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-key text-primary\" title=\"barcode\"/>"
+msgstr "બારકોડ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_kanban_view_admin
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_kanban_view_librarian
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.student_kanban_view
+msgid "<i class=\"fa fa-fw me-1 fa-phone text-primary\" title=\"Phone\"/>"
+msgstr "ફોન"
+
+#. module: library_management_urvi
+#: model:res.groups,name:library_management_urvi.group_library_admin
+msgid "Admin"
+msgstr "સંચાલક"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__amount_per_unit
+msgid "Amount"
+msgstr "રકમ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,help:library_management_urvi.field_library_borrow_request_line__amount_per_unit
+msgid "Amount Per Unit Per Day"
+msgstr "પ્રતિ યુનિટ પ્રતિ દિવસ રકમ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__available
+msgid "Available"
+msgstr "ઉપલબ્ધ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_form_view
+msgid "Available Books"
+msgstr "ઉપલબ્ધ પુસ્તકો"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_kanban_view
+msgid "Available:"
+msgstr "ઉપલબ્ધ:"
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/models/borrow_request_lines_model.py:0
+msgid "BOOK OUT OF STOCK:quantity exceed available limit of book"
+msgstr "સ્ટોકમાંથી બુક આઉટ: પુસ્તકની ઉપલબ્ધ મર્યાદા કરતાં જથ્થો વધુ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__barcode
+msgid "Barcode"
+msgstr "બારકોડ"
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/models/book_model.py:0
+msgid "Barcode must be unique"
+msgstr "બારકોડ અનન્ય હોવો જોઈએ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__category__biography
+msgid "Biography"
+msgstr "જીવનચરિત્ર"
+
+#. module: library_management_urvi
+#: model:ir.actions.act_window,name:library_management_urvi.book_action
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__book_id
+#: model:ir.ui.menu,name:library_management_urvi.library_book
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Book"
+msgstr "પુસ્તક"
+
+#. module: library_management_urvi
+#: model:ir.ui.menu,name:library_management_urvi.library_book_history
+msgid "Book History"
+msgstr "પુસ્તક ઇતિહાસ"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_library_book
+msgid "Book Model"
+msgstr "પુસ્તક નમૂનો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__books
+msgid "Books"
+msgstr "પુસ્તકો"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "Books:"
+msgstr "પુસ્તકો:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__borrow_book_history_count
+msgid "Borrow Book History"
+msgstr "પુસ્તક ઇતિહાસ ઉધાર"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_form_view
+msgid "Borrow History"
+msgstr "ઇતિહાસ ઉધાર"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_borrow_history_wizard
+msgid "Borrow History Wizard"
+msgstr "ઇતિહાસ વિઝાર્ડ ઉધાર"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+msgid "Borrow Lines"
+msgstr "લાઇન્સ ઉધાર"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__borrow_price
+msgid "Borrow Price"
+msgstr "ઉધાર ભાવ"
+
+#. module: library_management_urvi
+#: model:ir.actions.act_window,name:library_management_urvi.borrow_request_action
+#: model:ir.ui.menu,name:library_management_urvi.library_borrow_request
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_form_view_admin
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.librarian_form_view_librarian
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.student_form_view
+msgid "Borrow Request"
+msgstr "ઉધાર વિનંતી"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_partner__borrow_request_count
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_users__borrow_request_count
+msgid "Borrow Request Count"
+msgstr "ઉધાર વિનંતીની ગણતરી"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__borrow_request_lines_ids
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__borrow_request_lines_ids
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__borrow_request_id
+msgid "Borrow Request Lines"
+msgstr "ઉધાર વિનંતી રેખાઓ"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_library_borrow_request_line
+msgid "Borrow Request Lines Model"
+msgstr "ઉધાર વિનંતી રેખાઓ મોડલ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Borrow Request Lines:"
+msgstr "ઉધાર વિનંતી રેખાઓ:"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_library_borrow_request
+msgid "Borrow Request Model"
+msgstr "ઉધાર વિનંતી મોડલ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+msgid "Cancel"
+msgstr "રદ કરો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__canceled_date
+msgid "Cancel Date"
+msgstr "રદ તારીખ"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_cancel_wizard
+msgid "Cancel Wizard"
+msgstr "વિઝાર્ડ રદ કરો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_borrow_request__state__canceled
+msgid "Canceled"
+msgstr "રદ કરેલ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__cancellation_reason
+msgid "Cancellation Reason"
+msgstr "રદ કરવાનું કારણ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__category
+msgid "Category"
+msgstr "શ્રેણી"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_kanban_view
+msgid "Category:"
+msgstr "શ્રેણી"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_res_config_settings
+msgid "Config Settings"
+msgstr "રૂપરેખા સેટિંગ્સ"
+
+#. module: library_management_urvi
+#: model:ir.model,name:library_management_urvi.model_res_partner
+msgid "Contact"
+msgstr "સંપર્ક"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__copies
+msgid "Copies"
+msgstr "નકલો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__create_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__create_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__create_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__create_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__create_uid
+msgid "Created by"
+msgstr "દ્વારા બનાવવામાં આવેલ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__create_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__create_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__create_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__create_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__create_date
+msgid "Created on"
+msgstr "ના રોજ બનાવ્યું"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__currency_id
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__currency_id
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__currency_id
+msgid "Currency"
+msgstr "ચલણ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__days
+msgid "Days"
+msgstr "દિવસો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__description
+msgid "Description"
+msgstr "વર્ણન"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_form_view
+msgid "Detail Information"
+msgstr "વિગતવાર માહિતી"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__display_name
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__display_name
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__display_name
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__display_name
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__display_name
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_partner__display_name
+msgid "Display Name"
+msgstr "પ્રદર્શન નામ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_borrow_request__state__draft
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+msgid "Draft"
+msgstr "ખરડો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__end_date
+msgid "End Date"
+msgstr "સમાપ્તિ તારીખ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "End Date:"
+msgstr "સમાપ્તિ તારીખ:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,help:library_management_urvi.field_library_book__borrow_price
+msgid "Enter price per day for the book"
+msgstr "પુસ્તક માટે પ્રતિ દિવસ કિંમત દાખલ કરો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__fine_amount
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__fine_amount
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Fine Amount"
+msgstr "દંડની રકમ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.res_config_settings_view_form_custom
+msgid "Fine Amount:"
+msgstr "દંડની રકમ:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_partner__gender
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_users__gender
+msgid "Gender"
+msgstr "જાતિ"
+
+#. module: library_management_urvi
+#: model:res.groups,name:library_management_urvi.group_library_hide_librarian
+msgid "Hide"
+msgstr "છુપાવો"
+
+#. module: library_management_urvi
+#: model:ir.actions.act_window,name:library_management_urvi.book_history_action
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__category__history
+msgid "History"
+msgstr "ઈતિહાસ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__category__horror
+msgid "Horror"
+msgstr "ભય"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__id
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__id
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__id
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__id
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__id
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_config_settings__id
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_partner__id
+msgid "ID"
+msgstr "ઓળખ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__image
+msgid "Image"
+msgstr "તસવીર"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "Is Returned:"
+msgstr "પરત કરવામાં આવે છે?"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+msgid "Issue"
+msgstr "આપવું"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__issue_date
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Issue Date"
+msgstr "આપવાની તારીખ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__issue_days
+msgid "Issue Days"
+msgstr "આપવાના દિવસો"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Issue days"
+msgstr "આપવાના દિવસો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_borrow_request__state__issued
+msgid "Issued"
+msgstr "આપવું"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__issued_date
+msgid "Issued Date"
+msgstr "આપવાની તારીખ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__write_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__write_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__write_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__write_uid
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__write_uid
+msgid "Last Updated by"
+msgstr "દ્વારા છેલ્લે અપડેટ કરવામાં આવ્યું હતું"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__write_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__write_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__write_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__write_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__write_date
+msgid "Last Updated on"
+msgstr "છેલ્લે અપડેટ થયેલ"
+
+#. module: library_management_urvi
+#: model:ir.actions.act_window,name:library_management_urvi.librarian_action_admin
+#: model:ir.actions.act_window,name:library_management_urvi.librarian_action_librarian
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__librarian_id
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__res_partner__library_role__librarian
+#: model:res.groups,name:library_management_urvi.group_library_librarian
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "Librarian"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Librarian:"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_urvi
+#: model:ir.ui.menu,name:library_management_urvi.library_librarian_admin
+#: model:ir.ui.menu,name:library_management_urvi.library_librarian_librarian
+msgid "Librarians"
+msgstr "ગ્રંથપાલ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.res_config_settings_view_form_custom
+msgid "Library"
+msgstr "પુસ્તકાલય"
+
+#. module: library_management_urvi
+#: model:ir.module.category,name:library_management_urvi.library_management_groups_catgory
+#: model:ir.ui.menu,name:library_management_urvi.library_root
+msgid "Library Management"
+msgstr "પુસ્તકાલય વ્યવસ્થાપન"
+
+#. module: library_management_urvi
+#: model:ir.ui.menu,name:library_management_urvi.library_reporting
+msgid "Library Reporting"
+msgstr "પુસ્તકાલય સમાચાર લેખન"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_partner__library_role
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_users__library_role
+#: model:res.groups.privilege,name:library_management_urvi.res_groups_privilege_library
+msgid "Library Role"
+msgstr "પુસ્તકાલયની ભૂમિકા"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__maximum_day_limit
+msgid "Maximum Day Limit"
+msgstr "મહત્તમ દિવસ મર્યાદા"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__category__mystery
+msgid "Mystery"
+msgstr "રહસ્ય"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__name
+msgid "Name"
+msgstr "નામ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_partner__librarian_borrow_request_count
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_users__librarian_borrow_request_count
+msgid "Number of Borrow Requests"
+msgstr "ઉધાર વિનંતીઓની સંખ્યા"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_kanban_view
+msgid "Price:"
+msgstr "કિંમત:"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+msgid "Print Receipt"
+msgstr "રસીદ છાપો"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_history_wizard_view
+msgid "Print Report"
+msgstr "અહેવાલ છાપો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_res_config_settings__fine_amount
+msgid "Project Bill"
+msgstr "યોજના બિલ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__state__published
+msgid "Published"
+msgstr "પ્રકાશિત"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__quantity
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Quantity"
+msgstr "જથ્થો"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_cancel_wizard__reason
+msgid "Reason"
+msgstr "કારણ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__request_ids_
+msgid "Requests"
+msgstr "વિનંતીઓ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+msgid "Return"
+msgstr "પરત"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__is_return_date
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__return_date
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Return Date"
+msgstr "પરત કરવાની તારીખ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_borrow_request__state__returned
+msgid "Returned"
+msgstr "પાછું આવવું"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__return_date
+msgid "Returned Date"
+msgstr "પરત કરવાની તારીખ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__category__romantic
+msgid "Romantic"
+msgstr "રોમાંચક"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__category__science
+msgid "Science"
+msgstr "વિજ્ઞાન"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__serial_number
+msgid "Serial Number"
+msgstr "અનુક્રમ નંબર"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Serial Number:"
+msgstr "અનુક્રમ નંબર:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__start_date
+msgid "Start Date"
+msgstr "પ્રારંભ તારીખ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "Start Date:"
+msgstr "પ્રારંભ તારીખ:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_book__state
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__state
+msgid "State"
+msgstr "સ્થિતિ"
+
+#. module: library_management_urvi
+#: model:ir.actions.act_window,name:library_management_urvi.student_action
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__student_id
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__res_partner__library_role__student
+#: model:res.groups,name:library_management_urvi.group_library_student
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "Student"
+msgstr "વિદ્યાર્થી"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Student:"
+msgstr "વિદ્યાર્થી:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_borrow_history_wizard__students
+#: model:ir.ui.menu,name:library_management_urvi.library_student
+msgid "Students"
+msgstr "વિદ્યાર્થીઓ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+msgid "Students:"
+msgstr "વિદ્યાર્થીઓ:"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.cancel_wizard_view
+msgid "Submit"
+msgstr "સમર્પિત કરવું"
+
+#. module: library_management_urvi
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request__total_amount
+#: model:ir.model.fields,field_description:library_management_urvi.field_library_borrow_request_line__total_amount
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.borrow_request_form_view
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_history_document
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Total Amount"
+msgstr "કુલ રકમ"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.report_library_receipt_document
+msgid "Total Amount:"
+msgstr "કુલ રકમ:"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__library_book__state__unpublished
+msgid "Unpublished"
+msgstr "અપ્રકાશિત"
+
+#. module: library_management_urvi
+#: model_terms:ir.ui.view,arch_db:library_management_urvi.book_kanban_view
+msgid "copy"
+msgstr "નકલ"
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/wizard/borrow_history_wizard.py:0
+msgid "end date must be grater than start date"
+msgstr "સમાપ્તિ તારીખ શરૂઆત તારીખ કરતાં ઓછી હોવી જોઈએ."
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__res_partner__gender__female
+msgid "female"
+msgstr "સ્ત્રી"
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/models/borrow_request_lines_model.py:0
+msgid "issue days exceed maximum days limit"
+msgstr ""
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/models/borrow_request_lines_model.py:0
+msgid "issued date must be less than return date"
+msgstr ""
+
+#. module: library_management_urvi
+#: model:ir.actions.report,name:library_management_urvi.action_report_library_history
+msgid "library history Report"
+msgstr "પુસ્તકાલય ઇતિહાસ અહેવાલ"
+
+#. module: library_management_urvi
+#: model:ir.actions.report,name:library_management_urvi.action_report_library_receipt
+msgid "library receipt Report"
+msgstr "પુસ્તકાલય રસીદ અહેવાલ"
+
+#. module: library_management_urvi
+#: model:ir.model.fields.selection,name:library_management_urvi.selection__res_partner__gender__male
+msgid "male"
+msgstr "પુરૂષ"
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/models/borrow_request_lines_model.py:0
+msgid "return date must be grater than issue date"
+msgstr "પરત કરવાની તારીખ જારી તારીખ કરતાં ઓછી હોવી જોઈએ."
+
+#. module: library_management_urvi
+#. odoo-python
+#: code:addons/library_management_urvi/wizard/borrow_history_wizard.py:0
+msgid "start date must be less than end date"
+msgstr "શરૂઆતની તારીખ સમાપ્તિ તારીખ કરતાં ઓછી હોવી જોઈએ."

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+customcar.access_custom_car,access_custom_car,customcar.model_custom_car,,1,1,1,1

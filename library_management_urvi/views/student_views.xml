@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="student_form_view" model="ir.ui.view">
+        <field name="name">library.student.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                type="object"
+                                icon="fa-list"
+                                name="show_borrow_request"
+                                class="btn-primary" groups="library_management_urvi.group_library_librarian,library_management_urvi.group_library_admin">
+                            <field name="borrow_request_count" string="Borrow Request" widget="statinfo" groups="library_management_urvi.group_library_librarian,library_management_urvi.group_library_admin"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="email" widget="email"/>
+                            <field name="gender" widget="radio" options="{'horizontal':true}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="student_kanban_view">
+            <field name="name">library.student.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <aside class="o_kanban_aside_full">
+                                <t >
+                                    <field name="avatar_128" class="w-100 h-auto m-0" widget="image" options="{'img_class': 'object-fit-contain w-100 h-100'}"/>
+                                </t>
+                            </aside>
+                            <main class="ps-2">
+                                <div class="mb-1">
+                                    <field name="name" class="mb-0 fw-bold fs-5"/>
+                                </div>
+                                <div class="text-truncate">
+                                    <i class="fa fa-fw me-1 fa-envelope text-primary" title="Email"/>
+                                    <field name="email"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-fw me-1 fa-phone text-primary" title="Phone"/>
+                                    <field name="phone"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-fw me-1 fa-key text-primary" title="Gender"/>
+                                    <field name="gender"/>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+    <record id="student_action" model="ir.actions.act_window">
+        <field name="name">Student</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('student_kanban_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('student_form_view')})]"/>
+        <field name="context">{'default_library_role':'student'}</field>
+        <field name="domain">[('library_role','=','student')]</field>
+    </record>
+
+    <menuitem id="library_student" name="Students" parent="library_root" action="student_action" sequence="5"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+

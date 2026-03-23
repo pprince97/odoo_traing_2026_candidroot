@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_inherit_view_" model="ir.ui.view">
+        <field name="name">inherit.res.partner.list</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='warning_tax']" position="before">
+                <header>
+                    <button
+                            string="Generate Code"
+                            name="generate_code"
+                            type="object"
+                            class="oe_highlight me-2"
+                            invisible="is_patient==False"
+                    />
+                    <button
+                            string="View Appointments"
+                            name="%(hospital_management.appointment_action)d"
+                            type="action"
+                            class="oe_highlight"
+                    />
+                </header>
+            </xpath>
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page name="partner-inherit" string="Hospital Partner">
+                    <group>
+                        <group>
+                            <field name="is_patient"/>
+                            <field name="is_doctor"/>
+                            <field name="patient_code"/>
+                            <field name="blood_group"/>
+                            <field name="height"/>
+                            <field name="weight"/>
+                            <field name="medical_history"/>
+                        </group>
+                        <group>
+                            <field name="insurance_document" filename="insurance_filename"/>
+                            <field name="last_visit_date"/>
+                            <field name="next_visit_datetime"/>
+                            <field name="emergency_contact_id"/>
+                            <field name="category_id" string="Tag IDs" widget="many2many_tags"/>
+                            <field name="risk_level"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

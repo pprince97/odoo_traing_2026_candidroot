@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="booking_list">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="booking_reference" width="100px"/>
+                <field name="number_of_nights" width="100px"/>
+                <field name="total_amount" width="100px"/>
+                <field name="booking_status" width="100px"/>
+                <field name="is_paid" width="100px"/>
+                <field name="booking_date" width="100px"/>
+                <field name="checkin_date" width="100px"/>
+                <field name="special_request" width="100px"/>
+                <field name="invoice" width="100px"/>
+                <field name="booking_image_proof" widget="image" width="100px"/>
+                <field name="hotel_id"/>
+                <field name="guest_id"/>
+                <field name="service_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="booking_tree1">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="booking_reference" width="100px"/>
+                <field name="number_of_nights" width="100px"/>
+                <field name="total_amount" width="100px"/>
+                <field name="booking_status" width="100px"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="booking_form1">
+        <field name="name">hotel_management.form</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="booking_reference"/>
+                            <field name="number_of_nights"/>
+                        </group>
+                        <group>
+                            <field name="total_amount" invisible="is_paid != False"/>
+                            <field name="booking_status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="booking_tree2">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="is_paid" width="100px"/>
+                <field name="booking_date" width="100px"/>
+                <field name="checkin_date" width="100px"/>
+                <field name="special_request" width="100px"/>
+                <field name="invoice" width="100px"/>
+                <field name="booking_image_proof" widget="image" width="100px"/>
+                <field name="hotel_id"/>
+                <field name="guest_id"/>
+                <field name="service_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="booking_form2">
+        <field name="name">hotel_management.form</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                         <group>
+                            <field name="is_paid"/>
+                            <field name="booking_date"/>
+                            <field name="checkin_date"/>
+                            <field name="hotel_id"/>
+                            <field name="guest_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Guest Description" name="guest_description">
+                            <group>
+                                <label for="special_request"/>
+                                <div>
+                                    <field name="special_request"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Guest Uploads" name="hotel_upload">
+                            <group>
+                                <label for="invoice"/>
+                                <div>
+                                    <field name="invoice"/>
+                                </div>
+                                <label for="booking_image_proof"/>
+                                <div>
+                                    <field name="booking_image_proof" widget="image"/>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="booking_form" model="ir.ui.view">
+        <field name="name">hotel_managment.form</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="booking_reference"/>
+                            <field name="number_of_nights"/>
+                            <field name="total_amount" invisible="is_paid != False"/>
+                            <field name="booking_status"/>
+                        </group>
+                        <group>
+                            <field name="is_paid"/>
+                            <field name="booking_date"/>
+                            <field name="checkin_date"/>
+                            <field name="hotel_id"/>
+                            <field name="guest_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Guest Description" name="guest_description">
+                            <group>
+                                <label for="special_request"/>
+                                <div>
+                                    <field name="special_request"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Guest Uploads" name="hotel_upload">
+                            <group>
+                                <label for="invoice"/>
+                                <div>
+                                    <field name="invoice"/>
+                                </div>
+                                <label for="booking_image_proof"/>
+                                <div>
+                                    <field name="booking_image_proof" widget="image"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Services" name="service">
+                            <field name="service_ids">
+                                <list>
+                                    <field name="service_name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="booking_search" model="ir.ui.view">
+        <field name="name">hotel_managment.select</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <search string="Booking Search">
+                <field name="booking_reference"/>
+                <field name="number_of_nights"/>
+                <field name="total_amount"/>
+                <field name="booking_status"/>
+                <field name="is_paid"/>
+                <field name="booking_date"/>
+                <field name="checkin_date"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_booking1">
+        <field name="name">Booking</field>
+        <field name="res_model">hotel.booking</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_booking1_list" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="booking_tree1" />
+        <field name="act_window_id" ref="action_booking1"/>
+    </record>
+
+    <record id="action_booking1_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="booking_form1" />
+        <field name="act_window_id" ref="action_booking1"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_booking2">
+        <field name="name">Booking</field>
+        <field name="res_model">hotel.booking</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <record id="action_booking2_list" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="booking_tree2" />
+        <field name="act_window_id" ref="action_booking2"/>
+    </record>
+
+    <record id="action_booking2_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="booking_form2" />
+        <field name="act_window_id" ref="action_booking2"/>
+    </record>
+
+    <menuitem name="Booking" id="hotel_management_booking" parent="hotel_management_root" />
+        <menuitem name="Booking1" id="hotel_management_booking1" action="action_booking1" parent="hotel_management_booking"/>
+        <menuitem name="Booking2" id="hotel_management_booking2" action="action_booking2" parent="hotel_management_booking"/>
+</odoo>

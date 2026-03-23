@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_library_history_document">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Start Date:
+                        <span t-field="doc.start_date"/>
+                    </h2>
+                    <p>End Date:
+                        <span t-field="doc.end_date"/>
+                    </p>
+                    <p>Students:
+                        <span t-field="doc.students"/>
+                    </p>
+                    <p>Books:
+                        <span t-field="doc.books"/>
+                    </p>
+                    <p>Is Returned:
+                        <span t-field="doc.is_return_date"/>
+                    </p>
+                    <h3>Borrow Request Lines:</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Student</th>
+                                <th>Librarian</th>
+                                <th>Issue Date</th>
+                                <th>Return Date</th>
+                                <th>Issue days</th>
+                                <th class="text-end o_price_total">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr t-foreach="doc.request_ids_" t-as="line">
+                        <td>
+                            <span t-field="line.book_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="line.borrow_request_id.student_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="line.borrow_request_id.librarian_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="line.borrow_request_id.issued_date"/>
+                        </td>
+                        <td>
+                            <span t-field="line.borrow_request_id.return_date"/>
+                        </td>
+                        <td>
+                            <span t-field="line.borrow_request_id.days"/>
+                        </td>
+                            <td class="text-end o_price_total">
+                                <span t-field="line.total_amount"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+
+    <template id="report_library_history">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="library_management_urvi.report_library_history_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <data>
+        <record id="action_report_library_history" model="ir.actions.report">
+            <field name="name">library history Report</field>
+            <field name="model">borrow.history.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">library_management_urvi.report_library_history</field>
+            <field name="report_file">library_management_urvi.report_library_history</field>
+            <field name="print_report_name">'library_history'</field>
+            <field name="binding_model_id" ref="library_management_urvi.model_borrow_history_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="task_list_view" model="ir.ui.view">
+        <field name="name">project.task.list</field>
+        <field name="model">project.task.urvi</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="manager_id"/>
+                <field name="assigns_ids" widget="many2many_tags"/>
+                <field name="task_start_date"/>
+                <field name="task_end_date"/>
+                <field name="task_stage"/>
+                <field name="timesheet" widget="many2many_tags"/>
+                <field name="customer_id"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="task_form_view" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task.urvi</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="task_stage" domain="['|',('project_ids','in',project_id),('project_ids','=',False)]" widget="statusbar"
+                           options="{'clickable':'1','foldable':'1','fold_field':'fold_state'}"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                class="oe_stat_button"
+                                type="object"
+                                name="bill_count_task"
+                                icon="fa-usd">
+                            <field string="Bills" name="bill_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="task_start_date"/>
+                            <field name="task_end_date"/>
+                            <field name="customer_id"/>
+                        </group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="manager_id"/>
+                            <field name="assigns_ids" widget="many2many_tags" domain="[('id','in',allowed_assigns)]"/>
+                            <field name="task_stage" domain="['|',('project_ids','in',project_id),('project_ids','=',False)]"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="timesheet" String="Timesheet">
+                            <field name="timesheet">
+                                <list editable="top">
+                                    <field name="assignee" domain="[('id','in',allowed_assigns)]"/>
+                                    <field name="t_start_date"/>
+                                    <field name="t_end_date"/>
+                                    <field name="description"/>
+                                    <field name="spent_hour" widget="timesheet_uom"/>
+                                </list>
+
+                            </field>
+                            <group>
+                                <group class=" oe_subtotal_footer">
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="total_time" string="Time Spent"/>
+                                    </span>
+                                    <field name="total_time" widget="timesheet_uom" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_task_action" model="ir.actions.act_window">
+        <field name="name">Task</field>
+        <field name="res_model">project.task.urvi</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem name="Project Management" id="project_root"/>
+    <menuitem name="Task" id="project_task" parent="project_root" action="project_task_action"/>
+</odoo>

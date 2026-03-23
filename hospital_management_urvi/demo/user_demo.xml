@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="manager_partner_demo" model="res.partner">
+            <field name="name">Manager Demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_name">YourCompany manager</field>
+            <field name="street">ABC Demo</field>
+            <field name="city">ABC</field>
+            <field name="state_id"  model="res.country.state" search="[('code','=','OR')]"/>
+            <field name="zip">323838</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="tz">Europe/Brussels</field>
+            <field name="email">manager@gmail.com</field>
+            <field name="phone">(123)-456-7890</field>
+        </record>
+
+        <record id="manager_user_demo" model="res.users">
+            <field name="partner_id" ref="hospital_management_urvi.manager_partner_demo"/>
+            <field name="login">Manager demo</field>
+            <field name="password">manager</field>
+            <field name="signature" type="html"><div>Mr Manager Demo</div></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="group_ids" eval="[Command.set([ref('base.group_user'),ref('hospital_management_urvi.group_hospital_Manager')])]"/>
+        </record>
+
+        <record id="manager_partner_demo" model="res.partner">
+            <field name="user_id" ref="hospital_management_urvi.manager_user_demo"/>
+        </record>
+
+    <record id="doctor_partner_demo" model="res.partner">
+            <field name="name">Doctor Demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_name">YourCompany doctor</field>
+            <field name="street">doctor Demo</field>
+            <field name="city">ABC</field>
+            <field name="state_id"  model="res.country.state" search="[('code','=','OR')]"/>
+            <field name="zip">323838</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="tz">Europe/Brussels</field>
+            <field name="email">manager@gmail.com</field>
+            <field name="phone">(123)-456-7890</field>
+        </record>
+
+        <record id="doctor_user_demo" model="res.users">
+            <field name="partner_id" ref="hospital_management_urvi.doctor_partner_demo"/>
+            <field name="login">Doctor demo</field>
+            <field name="password">doctor</field>
+            <field name="signature" type="html"><div>Mr Doctor Demo</div></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="group_ids" eval="[Command.set([ref('base.group_user'),ref('hospital_management_urvi.group_hospital_doctor')])]"/>
+        </record>
+
+        <record id="doctor_partner_demo" model="res.partner">
+            <field name="user_id" ref="hospital_management_urvi.doctor_user_demo"/>
+        </record>
+
+
+        <record id="admin_partner_demo" model="res.partner">
+            <field name="name">Admin Demo</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="company_name">YourCompany admin</field>
+            <field name="street">ABC Demo</field>
+            <field name="city">ABC</field>
+            <field name="state_id"  model="res.country.state" search="[('code','=','OR')]"/>
+            <field name="zip">323838</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="tz">Europe/Brussels</field>
+            <field name="email">manager@gmail.com</field>
+            <field name="phone">(123)-456-7890</field>
+        </record>
+
+        <record id="admin_user_demo" model="res.users">
+            <field name="partner_id" ref="hospital_management_urvi.admin_partner_demo"/>
+            <field name="login">admin demo</field>
+            <field name="password">admin</field>
+            <field name="role">group_system</field>
+            <field name="signature" type="html"><div>Mr Admin Demo</div></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="group_ids" eval="[Command.set([ref('base.group_system'),ref('hospital_management_urvi.group_hospital_Manager')])]"/>
+        </record>
+
+        <record id="admin_partner_demo" model="res.partner">
+            <field name="user_id" ref="hospital_management_urvi.admin_user_demo"/>
+        </record>
+
+</odoo>

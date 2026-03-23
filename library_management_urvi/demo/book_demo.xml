@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="book_demo_herry_porter" model="library.book">
+        <field name="name">Herry Porter</field>
+        <field name="barcode">abc123</field>
+        <field name="description">This is the description of Herry porter book</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">unpublished</field>
+        <field name="category">mystery</field>
+        <field name="available">10</field>
+        <field name="copies">10</field>
+        <field name="image" type="base64" file="library_management_urvi/assets/book.png"/>
+        <field name="borrow_price">20</field>
+        <field name="maximum_day_limit">10</field>
+    </record>
+
+    <record id="book_demo_akbarnama" model="library.book">
+        <field name="name">Akbar Nama</field>
+        <field name="barcode">abc456</field>
+        <field name="description">This is the description of Akbar Nama book</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">history</field>
+        <field name="available">12</field>
+        <field name="copies">12</field>
+        <field name="image" type="base64" file="library_management_urvi/assets/book.png"/>
+        <field name="borrow_price">40</field>
+        <field name="maximum_day_limit">15</field>
+    </record>
+
+    <record id="book_demo_panch_tantra" model="library.book">
+        <field name="name">Panch Tantra</field>
+        <field name="barcode">abc789</field>
+        <field name="description">This is the description of Panch Tantra book</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">science</field>
+        <field name="available">5</field>
+        <field name="copies">5</field>
+        <field name="image" type="base64" file="library_management_urvi/assets/book.png"/>
+        <field name="borrow_price">45</field>
+        <field name="maximum_day_limit">5</field>
+    </record>
+
+    <record id="book_demo_romio_julet" model="library.book">
+        <field name="name">Romio Julet</field>
+        <field name="barcode">def123</field>
+        <field name="description">This is the description of Romio Julet book</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">unpublished</field>
+        <field name="category">romantic</field>
+        <field name="available">14</field>
+        <field name="copies">14</field>
+        <field name="image" type="base64" file="library_management_urvi/assets/book.png"/>
+        <field name="borrow_price">30</field>
+        <field name="maximum_day_limit">20</field>
+    </record>
+
+    <record id="book_demo_rich" model="library.book">
+        <field name="name">How to Become rich</field>
+        <field name="barcode">def123</field>
+        <field name="description">This is the description of How to become rich book</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">biography</field>
+        <field name="available">7</field>
+        <field name="copies">7</field>
+        <field name="image" type="base64" file="library_management_urvi/assets/book.png"/>
+        <field name="borrow_price">22</field>
+        <field name="maximum_day_limit">17</field>
+    </record>
+</odoo>
+

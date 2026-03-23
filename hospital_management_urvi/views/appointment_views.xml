@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="appointment_list_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.list</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hospital_id"/>
+                <field name="patient_id"/>
+                <field name="department_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date_"/>
+                <!--                <field name="patient_address"/>-->
+                <field name="patient_dob"/>
+                <field name="patient_age" force_save="1"/>
+                <field name="patient_mobile"/>
+                <field name="patient_email"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="appointment_form_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            string="New"
+                            name="new_status"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['done','cancelled']"
+                    />
+                    <button
+                            string="In Progress"
+                            name="in_progress_status"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['new']"
+                    />
+                    <button
+                            string="Done"
+                            name="done_status"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['in_progress']"
+                    />
+                    <button
+                            string="Cancel"
+                            name="cancel_status"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status not in ['new','in_progress']"
+                    />
+                    <field name="status" widget="statusbar" statusbar_visible="new,in_progress,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                type="object"
+                                name="view_appointments"
+                                icon="fa-list"
+                                class="btn-primary">
+                            <field name="_a_count_" string="Appointments" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hospital_id" domain="[('id','in',allowed_hospitals)]"/>
+                            <field name="patient_id"
+                                   context="{'form_view_ref':'hospital_management_urvi.patient_form_view'}"/>
+                            <field name="department_id"/>
+                            <field name="doctor_id"
+                                   context="{'ap':department_id,'hos':hospital_id,'form_view_ref':'hospital_management_urvi.doctor_form_view'}"/>
+                            <field name="appointment_date_"/>
+                        </group>
+                        <group>
+                            <!--                            <field name="patient_address"/>-->
+                            <field name="patient_dob"/>
+                            <field name="patient_age" force_save="1"/>
+                            <field name="patient_mobile"/>
+                            <field name="patient_email"/>
+                        </group>
+<!--                        <field name="hospital_id" invisible="department_id or doctor_id"/>-->
+<!--                        <field name="hospital_id" domain="[('department_ids', 'in', department_id)]"-->
+<!--                               invisible="not department_id or doctor_id"/>-->
+<!--                        <field name="hospital_id" domain="[('doctor_ids', 'in', doctor_id)]"-->
+<!--                               invisible="not doctor_id or department_id"/>-->
+<!--                        <field name="hospital_id"-->
+<!--                               domain="[('doctor_ids', 'in', doctor_id) , ('department_ids', 'in', department_id)]"-->
+<!--                               invisible="not doctor_id or not department_id"/>-->
+
+
+<!--                        <field name="department_id" invisible="hospital_id or doctor_id"/>-->
+<!--                        <field name="department_id" domain="[('hospital_ids', 'in', hospital_id)]"-->
+<!--                               invisible="not hospital_id or doctor_id"/>-->
+<!--                        <field name="department_id" domain="[('doctor_ids', 'in', doctor_id)]"-->
+<!--                               invisible="not doctor_id or hospital_id"/>-->
+<!--                        <field name="department_id"-->
+<!--                               domain="[('doctor_ids', 'in', doctor_id) , ('hospital_ids', 'in', hospital_id)]"-->
+<!--                               invisible="not doctor_id or not hospital_id"/>-->
+
+
+<!--                        <field name="doctor_id" invisible="department_id or hospital_id"/>-->
+<!--                        <field name="doctor_id" domain="[('hospital_id', '=', hospital_id)]"-->
+<!--                               invisible="not hospital_id or department_id"/>-->
+<!--                        <field name="doctor_id" domain="[('department_id', '=', department_id)]"-->
+<!--                               invisible="not department_id or hospital_id"/>-->
+<!--                        <field name="doctor_id"-->
+<!--                               domain="[('department_id', '=', department_id) , ('hospital_id', '=', hospital_id)]"-->
+<!--                               invisible="not department_id or not hospital_id"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_search_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.select</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="filter_appointment" string="Today's Appointments"
+                        domain="[('appointment_date_','=','today')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="appointment_action" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list,form,search</field>
+        <field name="context">{'search_default_filter_appointment':1}</field>
+    </record>
+
+    <menuitem id="hospital_appointment" name="Appointments" parent="hospital_root" action="appointment_action"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

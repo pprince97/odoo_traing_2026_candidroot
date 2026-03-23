@@ -1,0 +1,8 @@
+<odoo>
+    <record id="stage_demo_invoice" model="project.stage">
+        <field name="name">Invoice</field>
+    </record>
+    <record id="stage_demo_done" model="project.stage">
+        <field name="name">Done</field>
+    </record>
+</odoo>

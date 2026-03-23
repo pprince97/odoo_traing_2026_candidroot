@@ -1,0 +1,6 @@
+<odoo>
+    <record id="department_demo_rec1" model="hospital.department">
+        <field name="name">Demo Department</field>
+        <field name="color">6</field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+customabc.access_custom_abc,access_custom_abc,customabc.model_custom_abc,,1,1,1,1
+customabc.access_custom_form,access_custom_form,customabc.model_custom_form,,1,1,1,1

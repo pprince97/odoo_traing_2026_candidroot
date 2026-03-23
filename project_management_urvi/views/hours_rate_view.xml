@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hours_rate_list_view" model="ir.ui.view">
+        <field name="name">project.hours_rate.list</field>
+        <field name="model">project.hours.rate</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="s_hour"/>
+                <field name="e_hour"/>
+                <field name="currency_id"/>
+                <field name="rate"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hours_rate_form_view" model="ir.ui.view">
+        <field name="name">project.hours_rate.form</field>
+        <field name="model">project.hours.rate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="s_hour"/>
+                        <field name="e_hour"/>
+                        <field name="currency_id"/>
+                        <field name="rate"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_hours_rate_action" model="ir.actions.act_window">
+        <field name="name">Hours Rate</field>
+        <field name="res_model">project.hours.rate</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--        <function model="project.hours.rate" name="system_para_bool" />-->
+
+    <menuitem name="Project Management" id="project_root"/>
+    <menuitem name="Hours Rate" id="project_hours_rate" parent="project_root" action="project_hours_rate_action"/>
+</odoo>
+

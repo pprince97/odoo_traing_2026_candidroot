@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="admission_list_view" model="ir.ui.view">
+        <field name="name">admission.list</field>
+        <field name="model">hospital.admission</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="admit_date"/>
+                <field name="discharge_date"/>
+                <field name="bed_no"/>
+                <field name="ward_type"/>
+                <field name="bill_amount"/>
+                <field name="paid_amount"/>
+                <field name="notes"/>
+                <field name="is_active"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="admission_form_view" model="ir.ui.view">
+        <field name="name">admission.form</field>
+        <field name="model">hospital.admission</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            string="Admit patient"
+                            name="admit_patient"
+                            type="object"
+                            class="oe_highlight ms-2 me-2"
+                    />
+                    <button
+                            string="Discharge Patient"
+                            name="discharge_patient"
+                            type="object"
+                            class="oe_highlight ms-2 me-2"
+                    />
+                    <button
+                            string="Mark Paid"
+                            name="mark_paid"
+                            type="object"
+                            class="oe_highlight ms-2 me-2"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="bed_no"/>
+                            <field name="ward_type"/>
+                            <field name="bill_amount"/>
+                            <field name="paid_amount"/>
+                        </group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="admit_date"/>
+                            <field name="discharge_date"/>
+                            <field name="is_active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Additional Notes">
+                            <group>
+                                <field name="notes"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="admission_search_view" model="ir.ui.view">
+        <field name="name">admission.search</field>
+        <field name="model">hospital.admission</field>
+        <field name="arch" type="xml">
+            <search string="Admission Search">
+                <field name="name"/>
+                <field name="notes"/>
+                <filter string="Active Admission" name="is_active" domain="[('is_active', '==', 'True')]"/>
+                <filter string="In Active Admission" name="is_active" domain="[('is_active', '==', 'False')]"/>
+                <filter string="General Ward" name="ward_type" domain="[('ward_type', '==', 'general')]"/>
+                <filter string="Semi Ward" name="ward_type" domain="[('ward_type','==','semi')]"/>
+                <filter string="Private Ward" name="ward_type" domain="[('ward_type','==','private')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="admission_kanban_view" model="ir.ui.view">
+        <field name="name">admission.kanban</field>
+        <field name="model">hospital.admission</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <div>
+                            <div>
+                                <field class="fw-bold fs-5" name="name"/>
+                                <br/>
+                                <field name="bed_no" class="ms-2 text-muted"/>
+                            </div>
+                            <small>Ward Type:
+                                <field name="ward_type"/>
+                            </small>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="admission_pivot_view" model="ir.ui.view">
+        <field name="name">admission.pivot</field>
+        <field name="model">hospital.admission</field>
+        <field name="arch" type="xml">
+            <pivot string="admission Records">
+                <field name="name" type="row"/>
+                <field name="paid_amount"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="admission_graph_view" model="ir.ui.view">
+        <field name="name">admission.graph</field>
+        <field name="model">hospital.admission</field>
+        <field name="arch" type="xml">
+            <graph string="Admission Records" type="bar" sample="1">
+                <field name="name" type="row"/>
+                <field name="paid_amount"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="admission_calendar_views" model="ir.ui.view">
+        <field name="name">admission.calendar</field>
+        <field name="model">hospital.admission</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Admission Calendar" date_start="admit_date">
+                <field name="name"/>
+                <field name="admit_date"/>
+                <field name="discharge_date"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="admission_action" model="ir.actions.act_window">
+        <field name="name">Admission</field>
+        <field name="res_model">hospital.admission</field>
+        <field name="view_mode">list,form,search,kanban,pivot,graph,calendar</field>
+    </record>
+
+    <menuitem name="Admission" id="hospital_admission" parent="hospital_root" action="admission_action"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

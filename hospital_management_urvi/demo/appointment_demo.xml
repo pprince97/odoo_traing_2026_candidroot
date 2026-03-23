@@ -1,0 +1,17 @@
+<odoo>
+    <record id="app_demo_1" model="hospital.appointment">
+        <field name="hospital_id" ref="hospital_management_urvi.hospital_demo_rec1" />
+<!--        <field name="patient_id"></field>-->
+        <field name="department_id" ref="hospital_management_urvi.department_demo_rec1"/>
+<!--        <field name="doctor_id"></field>-->
+        <field name="appointment_date_">2026-02-28</field>
+    </record>
+
+    <record id="app_demo_3" model="hospital.appointment">
+        <field name="hospital_id" ref="hospital_management_urvi.hospital_demo_rec2" />
+<!--        <field name="patient_id"></field>-->
+        <field name="department_id" ref="hospital_management_urvi.department_demo_rec1"/>
+<!--        <field name="doctor_id"></field>-->
+        <field name="appointment_date_">2026-02-27</field>
+    </record>
+</odoo>

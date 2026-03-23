@@ -1,0 +1,16 @@
+<odoo>
+        <record id="hospital_demo_rec1" model="hospital.hospital">
+            <field name="hospital_name">Apollo</field>
+            <field name="address">qwertyuiop</field>
+            <field name="phone">1234567890</field>
+            <field name="department_ids" eval="[(6, 0, [ref('hospital_management_urvi.department_demo_rec1')])]" />
+        </record>
+
+         <record id="hospital_demo_rec2" model="hospital.hospital">
+            <field name="hospital_name">Apollo1</field>
+            <field name="address">qwertyuiop</field>
+            <field name="phone">1234567890</field>
+            <field name="department_ids" eval="[Command.set([ref('hospital_management_urvi.department_demo_rec1')])]" />
+<!--             <field name="appointment_ids" eval="[Command.set([ref('hospital_management_urvi.app_demo_3')])]" />-->
+        </record>
+</odoo>

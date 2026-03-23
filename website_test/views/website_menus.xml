@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="blog_template" name="Blog Template">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Blog</h1>
+                    </div>
+                </section>
+                <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                    <div class="container s_allow_columns">
+                        <div class="row">
+                            <div class="col-lg-7 mt-4 mt-lg-0">
+                                <p class="lead">
+                                    Blog related to our company or services.
+                                </p>
+                            </div>
+                            <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
+                                <h5>My Company</h5>
+                                <ul class="list-unstyled mb-0 ps-2">
+                                    <li>
+                                        <i class="fa fa-map-marker fa-fw me-2"/>
+                                        <span class="o_force_ltr">3575 Fake Buena Vista Avenue</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone fa-fw me-2"/>
+                                        <span class="o_force_ltr">+1 555-555-5556</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-1x fa-fw fa-envelope me-2"/>
+                                        <span>info@yourcompany.example.com</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <record id="blog_page" model="website.page">
+        <field name="url">/blog</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="blog_template"/>
+        <field name="track">True</field>
+        <field name="website_meta_description">This is the Blog page of the website</field>
+    </record>
+
+    <record id="menu_blog" model="website.menu">
+        <field name="name">Blog</field>
+        <field name="url">/blog</field>
+        <field name="page_id" ref="website_test.blog_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">40</field>
+    </record>
+
+    <template id="custom_homepage" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                     data-snippet="s_title" data-scroll-background-ratio="1">
+                <span class="s_parallax_bg oe_img_bg"
+                      style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                <div class="o_we_bg_filter bg-black-50"/>
+                <div class="container">
+                    <h1>Home Page</h1>
+                </div>
+            </section>
+
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="container-fluid py-5">
+                    <h1 class="display-5 fw-bold">Welcome to the Test Website</h1>
+                    <p class="col-md-8 fs-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque corporis maiores molestiae nostrum omnis vero. Alias aut, cumque cupiditate, debitis fuga in minus necessitatibus nobis, quaerat saepe sed ullam?
+                    </p>
+                    <button class="btn btn-primary btn-lg" type="button">Learn More</button>
+                </div>
+            </div>
+
+            <!-- Cards Section -->
+            <div class="row g-4 justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <img src="website_test/static/assets/image_1.jpg" class="mx-auto my-2 d-block center" alt="Feature 1 Placeholder" height="220px" width="220px"/>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Blog Page</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae eligendi et fugit incidunt nesciunt non. Amet consequuntur ea eius eligendi eum expedita id libero neque odio, quod soluta tempore vero.
+                            </p>
+                            <div class="text-center"><a href="/blog" class="btn btn-outline-primary center">Move to Blog Page</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 justify-content-center align-items-center">
+                    <div class="card shadow-sm">
+                        <img src="website_test/static/assets/image_1.jpg" class="mx-auto my-2 d-block center" alt="Feature 2 Placeholder"  height="220px" width="220px"/>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Contact Us Page</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium aliquid amet atque blanditiis commodi debitis doloremque, eligendi esse expedita iure laborum magnam quas quis quos repudiandae tenetur ullam voluptates?
+                            </p>
+                            <div class="text-center"><a href="/contactus" class="btn btn-outline-primary center">Move to Contact Us</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+</odoo>

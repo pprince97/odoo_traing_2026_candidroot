@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="book_history_action" model="ir.actions.act_window">
+        <field name="name">History</field>
+        <field name="res_model">borrow.history.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('library_management_urvi.borrow_history_wizard_view')})]"/>
+        <field name="target">new</field>
+
+    </record>
+    <menuitem id="library_reporting" name="Library Reporting" parent="library_root" sequence="6" groups="library_management_urvi.group_library_admin"/>
+    <menuitem id="library_book_history" name="Book History" parent="library_reporting" action="book_history_action"/>
+</odoo>

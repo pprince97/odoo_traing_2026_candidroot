@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="service_list">
+        <field name="name">hotel_management.list</field>
+        <field name="model">hotel.service</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="service_name" width="100px"/>
+                <field name="service_type" width="100px"/>
+                <field name="price" width="100px"/>
+                <field name="quantity"/>
+                <field name="is_chargeable" width="100px"/>
+                <field name="service_date" width="100px"/>
+                <field name="service_time" width="100px"/>
+                <field name="description" width="100px"/>
+                <field name="attachment" width="100px"/>
+                <field name="service_image" widget="image" width="100px"/>
+                <field name="booking_ids"/>
+                <field name="hotel_ids" />
+            </list>
+        </field>
+    </record>
+
+    <record id="service_form" model="ir.ui.view">
+        <field name="name">hotel_managment.form</field>
+        <field name="model">hotel.service</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="service_name"/>
+                            <field name="service_type"/>
+                            <field name="price"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="is_chargeable"/>
+                            <field name="service_date"/>
+                            <field name="service_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Guest Description" name="guest_description">
+                            <group>
+                                <label for="description"/>
+                                <div>
+                                    <field name="description"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Guest Uploads" name="hotel_upload">
+                            <group>
+                                <label for="attachment"/>
+                                <div>
+                                    <field name="attachment"/>
+                                </div>
+                                <label for="service_image"/>
+                                <div>
+                                    <field name="service_image" widget="image"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Bookings" name="booking">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_reference"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Hotels" name="hotels">
+                            <field name="hotel_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="service_search" model="ir.ui.view">
+        <field name="name">hotel_managment.select</field>
+        <field name="model">hotel.service</field>
+        <field name="arch" type="xml">
+            <search string="Service Search">
+                <field name="service_name"/>
+                <field name="service_type"/>
+                <field name="price"/>
+                <field name="quantity"/>
+                <field name="is_chargeable"/>
+                <field name="service_date"/>
+                <field name="service_time"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_service">
+        <field name="name">Service</field>
+        <field name="res_model">hotel.service</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <menuitem name="Service" id="hotel_management_service" parent="hotel_management_root" action="action_service"/>
+</odoo>

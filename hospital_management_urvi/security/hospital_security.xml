@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Groups Category        -->
+        <record model="ir.module.category" id="hospital_management_groups_catgory">
+            <field name="name">Hospital Management</field>
+            <field name="sequence">35</field>
+        </record>
+
+        <!--        Group Privilage-->
+        <record model="res.groups.privilege" id="res_groups_privilege_hospital">
+            <field name="name">Hospital</field>
+            <field name="sequence">1</field>
+            <field name="category_id" ref="hospital_management_urvi.hospital_management_groups_catgory"/>
+        </record>
+
+        <!-- Groups        -->
+
+        <record id="group_hospital_patient" model="res.groups">
+            <field name="name">Patient</field>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+        </record>
+
+        <record id="group_hospital_receptionist" model="res.groups">
+            <field name="name">Receptionist</field>
+            <field name="sequence">11</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+        </record>
+
+        <record id="group_hospital_doctor" model="res.groups">
+            <field name="name">Doctor</field>
+            <field name="sequence">12</field>
+            <field name="implied_ids"
+                   eval="[(6,0,[ref('hospital_management_urvi.group_hospital_patient'),ref('hospital_management_urvi.group_hospital_receptionist')])]"/>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+        </record>
+
+        <record id="group_hospital_Manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="sequence">20</field>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+            <field name="implied_ids" eval="[(4, ref('group_hospital_doctor'))]"/>
+            <!--            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>-->
+        </record>
+
+        <record id="appointment_personal_rule1" model="ir.rule">
+            <field name="name">Personal Appointments</field>
+            <field ref="model_hospital_appointment" name="model_id"/>
+            <!--        <field name="domain_force">['|',('current_user','=',user.id),('current_user','=',False)]</field>-->
+            <!--        <field name="domain_force">['|',('patient_id.name','=',user.name),('patient_id','=',False)]</field>-->
+            <field name="domain_force">['|',('patient_id.user_id','=',user.id),('patient_id.user_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('hospital_management_urvi.group_hospital_patient'))]"/>
+        </record>
+
+        <record id="appointment_personal_rule2" model="ir.rule">
+            <field name="name">Personal Appointments</field>
+            <field ref="model_hospital_appointment" name="model_id"/>
+            <!--        <field name="domain_force">['|',('current_user','=',user.id),('current_user','=',False)]</field>-->
+            <!--        <field name="domain_force">['|',('patient_id.name','=',user.name),('patient_id','=',False)]</field>-->
+            <field name="domain_force">['|',('doctor_id.user_id','=',user.id),('doctor_id.user_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('hospital_management_urvi.group_hospital_doctor'))]"/>
+        </record>
+
+    </data>
+</odoo>

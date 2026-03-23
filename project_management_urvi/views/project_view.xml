@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_list_view" model="ir.ui.view">
+        <field name="name">project.list</field>
+        <field name="model">project.project.urvi</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="manager_id"/>
+                <field name="assigns_ids" widget="many2many_tags"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="per_hours_rate" widget="many2many_tags"/>
+                <!--                <field name="state"/>-->
+                <field name="customer_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="project_form_view" model="ir.ui.view">
+        <field name="name">project.form</field>
+        <field name="model">project.project.urvi</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" string="Create Bill" class="btn-primary" name="create_bill" groups="project_management_urvi.group_project_admin,project_management_urvi.group_project_admin"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button
+                                class="oe_stat_button"
+                                type="object"
+                                name="bill_count_method"
+                                icon="fa-usd">
+                            <field string="Bills" name="bill_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="manager_id"/>
+                            <field name="assigns_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="rate_page" string="Per Hours Rate" invisible="system_para">
+                            <field name="per_hours_rate">
+                                <list editable="bottom">
+                                    <field name="s_hour"/>
+                                    <field name="e_hour"/>
+                                    <field name="rate"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_project_action" model="ir.actions.act_window">
+        <field name="name">Project</field>
+        <field name="res_model">project.project.urvi</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem name="Project" id="project_project" parent="project_root" action="project_project_action"/>
+</odoo>
