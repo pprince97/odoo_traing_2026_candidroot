@@ -6,10 +6,21 @@ class BorrowController(http.Controller):
 
     @http.route('/borrow', type='http', auth='user', website=True)
     def list_borrow_records(self, **kw):
-        borrow_records = request.env['library.borrow.request'].search([])
-        return request.render('library_management_urvi.borrow_list_template', {
-            'borrows': borrow_records,
-        })
+        if request.env.user.has_group('library_management_urvi.group_library_admin'):
+            borrow_records = request.env['library.borrow.request'].search([])
+            return request.render('library_management_urvi.borrow_list_template', {
+                'borrows': borrow_records,
+            })
+        elif request.env.user.has_group('library_management_urvi.group_library_librarian'):
+            borrow_records = request.env['library.borrow.request'].search([('librarian_id','=',request.env.user.partner_id.id)])
+            return request.render('library_management_urvi.borrow_list_template', {
+                'borrows': borrow_records,
+            })
+        else:
+            borrow_records = request.env['library.borrow.request'].search([('student_id','=',request.env.user.partner_id.id)])
+            return request.render('library_management_urvi.borrow_list_template', {
+                'borrows': borrow_records,
+            })
 
     @http.route('/borrow/<int:record_id>', auth='user', website=True)
     def display_borrow_record(self, record_id):

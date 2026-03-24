@@ -108,24 +108,62 @@
 
     <template id="custom_homepage" inherit_id="website.homepage">
         <xpath expr="//div[@id='wrap']" position="inside">
-            <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
-                     data-snippet="s_title" data-scroll-background-ratio="1">
-                <span class="s_parallax_bg oe_img_bg"
-                      style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
-                <div class="o_we_bg_filter bg-black-50"/>
-                <div class="container">
-                    <h1>Home Page</h1>
-                </div>
-            </section>
+            <div id="wrap" class="oe_structure">
+                <!-- Custom Hero Section -->
+                <t t-if="website_id==%(library_management_urvi.library_website)d">
+                    <section class="s_banner pt96 pb96 bg-200">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 my-auto">
+                                    <h1 class="display-3 fw-bold">Welcome to Our Library</h1>
+                                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
+                                        dolores error excepturi facilis quasi qui ratione sequi, sint unde vel voluptate
+                                        voluptates. Ad amet deleniti dolorum, ducimus esse fugiat molestias nam natus
+                                        nesciunt nostrum, odit optio quae quibusdam reprehenderit sed sequi soluta
+                                        tenetur voluptatum? Ab cupiditate deleniti eaque incidunt iure laudantium
+                                        perferendis praesentium repellendus unde! Amet aspernatur cupiditate debitis
+                                        delectus dignissimos eaque eum eveniet inventore modi non numquam porro, quae
+                                        quasi rem sit totam voluptate voluptatum? Consequatur cupiditate explicabo
+                                        necessitatibus quaerat quo voluptate? A adipisci amet asperiores, dicta
+                                        distinctio error illo in iusto minus nisi numquam optio praesentium ullam vero.
+                                    </p>
+                                    <!--                                    <a href="/shop" class="btn btn-primary btn-lg mt-3">Shop Now</a>-->
+                                </div>
+                                <div class="col-lg-4">
+                                    <img src="/library_management_urvi/static/src/image/book.png"
+                                         class="img-fluid float-end rounded shadow" height="250px" width="320px"
+                                         alt="Hero Image"/>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--                    <div class="oe_structure"/>-->
+                </t>
+                <t t-else="">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24 mb-0" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Home Page</h1>
+                        </div>
+                    </section>
 
-            <div class="p-5 mb-4 bg-light rounded-3">
-                <div class="container-fluid py-5">
-                    <h1 class="display-5 fw-bold">Welcome to Library Homepage!</h1>
-                    <p class="col-md-8 fs-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque
-                        corporis maiores molestiae nostrum omnis vero. Alias aut, cumque cupiditate, debitis fuga in
-                        minus necessitatibus nobis, quaerat saepe sed ullam?
-                    </p>
-                </div>
+                    <div class="p-5 mb-4 bg-light rounded-3">
+                        <div class="container-fluid py-5">
+                            <h1 class="display-5 fw-bold">Welcome to Library Homepage!</h1>
+                            <p class="col-md-8 fs-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+                                atque
+                                corporis maiores molestiae nostrum omnis vero. Alias aut, cumque cupiditate, debitis
+                                fuga in
+                                minus necessitatibus nobis, quaerat saepe sed ullam?
+                            </p>
+                        </div>
+                    </div>
+<!--                    <div class="oe_structure"/>-->
+                </t>
+
             </div>
 
         </xpath>
@@ -195,48 +233,26 @@
 
 
     <template id="custom_header" inherit_id="website.layout" name="Custom Header">
-        <!-- Replace the entire header tag -->
-        <xpath expr="//header" position="replace">
+        <xpath expr="//header" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//header" position="after">
             <header>
-                <!--                <nav class="navbar navbar-expand-lg">-->
-                <!--                    <div class="container">-->
-                <!--                        <a class="navbar-brand" href="/">My Custom Logo</a>-->
-                <!--                        &lt;!&ndash; Your custom menu and buttons here &ndash;&gt;-->
-                <!--                    </div>-->
-                <!--                </nav>-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm py-3">
                     <div class="container">
-                        <!-- Brand Logo -->
                         <a class="navbar-brand fw-bold text-primary" href="/">
                             <img src="/library_management_urvi/static/src/image/book.png" alt="Logo"
                                  style="height: 40px;" class="me-2"/>
                             <span class="text-white">Library</span>
                         </a>
 
-                        <!-- Mobile Toggle -->
                         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNav">
                             <span class="navbar-toggler-icon"/>
                         </button>
 
-                        <!-- Navbar Links -->
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ms-auto align-items-center">
-                                <!--                                <li class="nav-item">-->
-                                <!--                                    <a class="nav-link px-3 text-white" href="/">Home</a>-->
-                                <!--                                </li>-->
-                                <!--                                <li class="nav-item">-->
-                                <!--                                    <a class="nav-link px-3 text-white" href="/book">Book</a>-->
-                                <!--                                </li>-->
-                                <!--                                <li class="nav-item">-->
-                                <!--                                    <a class="nav-link px-3 text-white" href="/borrow">Borrow Books</a>-->
-                                <!--                                </li>-->
-                                <!--                                <li class="nav-item">-->
-                                <!--                                    <a class="nav-link px-3 text-white" href="#">Library Reporting</a>-->
-                                <!--                                </li>-->
-                                <!--                                <li class="nav-item">-->
-                                <!--                                    <a class="nav-link px-3 text-white" href="/contactus">Contact Us</a>-->
-                                <!--                                </li>-->
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <t t-foreach="website.menu_id.child_id" t-as="submenu">
                                         <t t-call="website.submenu">
@@ -245,15 +261,12 @@
                                         </t>
                                     </t>
                                 </ul>
-                                <!-- Authentication Logic -->
                                 <t t-if="user_id._is_public()">
-                                    <!-- Shown to Guests -->
                                     <li class="nav-item ms-lg-3">
                                         <a class="btn btn-outline-primary rounded-pill px-4" href="/web/login">Login</a>
                                     </li>
                                 </t>
                                 <t t-else="">
-                                    <!-- Shown to Logged-in Users -->
                                     <li class="nav-item dropdown ms-lg-3">
                                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                                            id="userMenu" role="button" data-bs-toggle="dropdown">
@@ -286,10 +299,13 @@
         </xpath>
     </template>
 
+    <!--    <template id="custom_footer" inherit_id="website.footer_custom" name="Custom Footer">-->
     <template id="custom_footer" inherit_id="website.layout" name="Custom Footer">
-        <!-- Target the footer tag or the specific div with id='footer' -->
-        <xpath expr="//div[@id='footer']" position="replace">
-            <footer id="footer" class="bg-primary text-white text-center py-4">
+        <xpath expr="//footer[@id='bottom']" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//footer[@id='bottom']" position="after">
+            <footer id="footer_custom_library" class="bg-primary text-white text-center py-4">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 pt24 pb24">

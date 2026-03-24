@@ -21,7 +21,7 @@ class BookController(http.Controller):
     def book_form_submit(self, **post):
         if post.get('image'):
             post['image'] = base64.b64encode(post['image'].read())
-        request.env['library.book'].sudo().create({
+        request.env['library.book'].create({
             'name': post.get('name'),
             'barcode': post.get('barcode'),
             'description': post.get('description'),

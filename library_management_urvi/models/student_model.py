@@ -40,3 +40,13 @@ class Student(models.Model):
             a['res_id'] = (self.env['library.borrow.request'].search(
                 [('student_id', '=', self.id)])).id
         return a
+
+    def action_students(self):
+        if self.env.user.has_group('library_management_urvi.group_library_student'):
+            action = self.env['ir.actions.act_window']._for_xml_id(
+                'library_management_urvi.student_action_student')
+            return action
+        else:
+            action = self.env['ir.actions.act_window']._for_xml_id(
+                'library_management_urvi.student_action')
+            return action

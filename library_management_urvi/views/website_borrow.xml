@@ -322,7 +322,7 @@
                                         <th style="width: 15%;">Return Date</th>
                                         <th style="width: 10%;">Issue Days</th>
                                         <th style="width: 15%;">Total Amount</th>
-                                        <th style="width: 5%;"></th>
+                                        <th style="width: 5%;" />
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -347,7 +347,7 @@
                                 </tbody>
                             </table>
                             <button type="button" class="btn btn-link p-0 text-decoration-none" id="add_line_btn">
-                                <i class="fa fa-plus-circle me-1"></i> Add a line
+                                <i class="fa fa-plus-circle me-1" /> Add a line
                             </button>
                         </div>
 

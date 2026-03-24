@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="student_listing_page" name="Student Directory">
+        <t t-call="website.layout">
+            <div id="wrap" class="container py-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h1 class="mb-4 ms-0">Students</h1>
+                    </div>
+                    <div class="col-md-6 mb-3 text-end">
+                        <a href="/create/student" role="button" class="btn btn-primary s_website_form_send">Register Student
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <t t-foreach="students" t-as="student">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 d-flex flex-row overflow-hidden">
+                                
+                                <div t-attf-class="d-flex align-items-center justify-content-center text-white
+                                                  #{'bg-primary' if student.gender == 'male' else 'bg-info'}" 
+                                     style="width: 100px; font-size: 3rem; font-weight: bold;">
+                                    <t t-out="student.name[0].upper()"/>
+                                </div>
+
+                                <div class="card-body p-3">
+                                    <h5 class="card-title mb-1 text-dark">
+                                        <t t-out="student.name"/>
+                                    </h5>
+                                    <div class="text-muted small">
+                                        <div class="mb-1">
+                                            <i class="fa fa-envelope text-primary me-2"/>
+                                            <span t-out="student.email"/>
+                                        </div>
+                                        <div class="mb-1">
+                                            <i class="fa fa-phone text-primary me-2"/>
+                                            <span t-out="student.phone"/>
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-venus-mars text-primary me-2"/>
+                                            <span t-out="student.gender.capitalize()"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="menu_student" model="website.menu">
+        <field name="name">Students</field>
+        <field name="url">/student</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">47</field>
+        <field name="group_ids" eval="[(4, ref('library_management_urvi.group_library_librarian')),
+        (4, ref('library_management_urvi.group_library_admin'))]"/>
+    </record>
+</odoo>

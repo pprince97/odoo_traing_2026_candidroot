@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="library_website" model="website">
+        <field name="name">Library Website</field>
+    </record>
+
+    <record id="library_website_2" model="website">
+        <field name="name">Library Website 2</field>
+    </record>
+
+<!--    <record id="home_l1" model="website.menu">-->
+<!--        <field name="name">Home l1</field>-->
+<!--        <field name="url">/</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="website_id" ref="library_management_urvi.library_website"/>-->
+<!--        <field name="sequence" type="int">46</field>-->
+<!--    </record>-->
+
+<!--    <record id="home_l2" model="website.menu">-->
+<!--        <field name="name">Book History</field>-->
+<!--        <field name="url">/</field>-->
+<!--        <field name="parent_id" ref="library_management_urvi.menu_reporting"/>-->
+<!--        <field name="website_id" ref="website.default_website"/>-->
+<!--        <field name="sequence" type="int">46</field>-->
+<!--    </record>-->
+</odoo>
+
+
