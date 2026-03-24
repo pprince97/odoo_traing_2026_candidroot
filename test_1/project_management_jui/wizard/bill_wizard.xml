@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bill_wizard_view" model="ir.ui.view">
+        <field name="name">Bill.Wizard</field>
+        <field name="model">bill.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="choice"/>
+                        <field name="task_ids" domain="[('stage_id','=',%(project_management_jui.done_demo)d),('id','not in',task_ids),('project_id','=',project_id)]" invisible="choice in ['date_wise',False]" widget="many2many_tags"/>
+                        <field name="start_date" invisible="choice in ['task_wise',False]"/>
+                        <field name="end_date" invisible="choice in ['task_wise',False]"/>
+                    </group>
+                    <footer>
+                        <button
+                                type="object"
+                                name="wizard_create"
+                                string="create"
+                                class="btn-success"
+                        />
+                        <button
+                                type="object"
+                                name="wizard_create_print"
+                                string="Create and print"
+                                class="btn-success"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
+

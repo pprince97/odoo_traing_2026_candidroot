@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_book_borrow_history">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="library_management_jui.report_book_borrow_history_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_book_borrow_history_document">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="rec">
+                <h6>
+                    <h3>Book Borrow History</h3>
+                    <br/>
+                    <span t-field="rec.start_date"/>
+                    <br/>
+                    <span t-field="rec.end_date"/>
+                    <br/>
+                    <t t-foreach="rec.student_ids" t-as="student">
+                        <span t-field="student.name"/>
+                    </t>
+                    <br/>
+                    <t t-foreach="rec.book_ids" t-as="book">
+                        <span t-field="book.name"/>
+                    </t>
+                    <br/>
+                    <span t-field="rec.is_return_date"/>
+                    <br/>
+                    <br/>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><b>Book</b></th>
+                                <th><b>Student</b></th>
+                                <th><b>Issue date</b></th>
+                                <th><b>Return date</b></th>
+                                <th><b>Final Amount Pay</b></th>
+                                <th><b>Issue days</b></th>
+                                <th><b>Librarian</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rec.borrow_request_lines_id" t-as="borrow_request_line">
+                                <tr>
+                                    <td>
+                                        <span t-field="borrow_request_line.book_id"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="borrow_request_line.borrow_request_id.student_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.borrow_request_id.issue_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.borrow_request_id.return_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.borrow_request_id.total_amount"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.issue_days"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.borrow_request_id.librarian_id"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </h6>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="book_borrow_history_action" model="ir.actions.report">
+        <field name="name">Book Borrow History</field>
+        <field name="model">library.book.borrow.history.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_jui.report_book_borrow_history</field>
+        <field name="report_file">library_management_jui.report_book_borrow_history</field>
+        <field name="print_report_name">'Book Borrow History'</field>
+        <field name="binding_model_id" ref="library_management_jui.model_library_book_borrow_history_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

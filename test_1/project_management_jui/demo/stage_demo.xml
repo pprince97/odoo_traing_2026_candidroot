@@ -1,0 +1,13 @@
+<odoo>
+    <record id="new_demo" model="project.stage">
+        <field name="name">New</field>
+    </record>
+
+    <record id="done_demo" model="project.stage">
+        <field name="name">Done</field>
+    </record>
+
+    <record id="invoice_demo" model="project.stage">
+        <field name="name">Invoice</field>
+    </record>
+</odoo>

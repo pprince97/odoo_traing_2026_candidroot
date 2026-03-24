@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+        <menuitem id="rental_mangement_system_menu" name="Rental Management System"/>
+    </data>
+</odoo>

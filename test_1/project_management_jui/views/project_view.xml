@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="project_list" model="ir.ui.view">
+        <field name="name">Project</field>
+        <field name="model">project.project_jui</field>
+        <field name="arch" type="xml">
+        <list>
+            <field name="name" width="25px"/>
+            <field name="manager_id" width="25px"/>
+            <field name="assignees_id" width="30px"/>
+            <field name="start_date" width="30px"/>
+            <field name="end_date" width="25px"/>
+            <field name="per_hour_rate_ids" width="25px"/>
+            <field name="state" width="25px"/>
+            <field name="customer_id" width="25px"/>
+        </list>
+        </field>
+    </record>
+
+    <record id="project_form" model="ir.ui.view">
+        <field name="name">Project</field>
+        <field name="model">project.project_jui</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+
+
+                <header>
+                    <button name="create_bill"
+                            string="Create Bill"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="new,in_progress,done,cancelled"/>
+                </header>
+
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button name="view_tasks" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="task_count"/></span>
+                                <span class="o_stat_text">View Task</span>
+                            </div>
+                        </button>
+                        <button name="view_bills" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="bill_count"/></span>
+                                <span class="o_stat_text">View Bills</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="manager_id"/>
+                            <field name="assignees_id" widget="many2many_tags"/>
+                            <field name="start_date"/>
+
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                            <field name="state"/>
+                            <field name="customer_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="hour_rate" string="Per Hour Rate">
+                            <field name="per_hour_rate_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="start_range"/>
+                                    <field name="end_range"/>
+                                    <field name="per_hour_rate"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_action" model="ir.actions.act_window">
+        <field name="name">Project</field>
+        <field name="res_model">project.project_jui</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="project_parent_id" name="Project Management"/>
+    <menuitem id="project_id" name="Project" parent="project_parent_id" action="project_action"/>
+    </data>
+</odoo>
+

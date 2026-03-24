@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+        <record id="hospital_list" model="ir.ui.view">
+            <field name="name">Hospital</field>
+            <field name="model">hospital.model</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="name" width="25px"/>
+                <field name="address" width="25px"/>
+                <field name="phone" width="30px"/>
+                <field name="email" width="30px"/>
+                <field name="registration_number" width="25px"/>
+                <field name="description" width="25px"/>
+                <field name="available_department" width="25px"/>
+                <field name="doctor_ids" width="25px"/>
+                <field name="patient_ids" width="25px"/>
+                <field name="appointment_ids" width="25px"/>
+            </list>
+            </field>
+        </record>
+
+
+        <record id="hospital_form" model="ir.ui.view">
+            <field name="name">Hospital</field>
+            <field name="model">hospital.model</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <header>
+                        <button name="create_department"
+                                string="Create Department"
+                                type="object"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+
+                        <div name="button_box" position="inside">
+                            <button name="doctor_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Doctors</span>
+                                    <span class="o_stat_value"><field name="doctor_count"/></span>
+                                </div>
+                            </button>
+                            <button name="patient_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Patients</span>
+                                    <span class="o_stat_value"><field name="patient_count"/></span>
+                                </div>
+                            </button>
+                            <button name="appointment_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Appointments</span>
+                                    <span class="o_stat_value"><field name="appointment_count"/></span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="address"/>
+                                <field name="phone" widget="phone"/>
+                            </group>
+                            <group>
+                                <field name="email" widget="email"/>
+                                <field name="registration_number" widget="phone"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="department" string="Department">
+                                <field name="available_department" options="{'no_create_edit': True}">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="doctor" string="Doctor">
+                                <field name="doctor_ids" context="{'form_view_ref':'hospital_management.doctor_form'}">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="patient" string="Patient">
+                                <field name="patient_ids" context="{'form_view_ref':'hospital_management.patient_form'}">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="appointment" string="Appointment">
+                                <field name="appointment_ids">
+                                    <list>
+                                        <field name="patient_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hospital_action" model="ir.actions.act_window">
+            <field name="name">Hospital</field>
+            <field name="res_model">hospital.model</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem name="Hospital Management" id="hospital_management_id"/>
+        <menuitem name="Hospital" id="hospital_id" parent="hospital_management.hospital_management_id" action="hospital_action"/>
+
+    </data>
+</odoo>

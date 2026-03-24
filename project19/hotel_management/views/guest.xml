@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+
+        <record id="guest_list" model="ir.ui.view">
+            <field name="name">Guest</field>
+            <field name="model">obj.guest</field>
+            <field name="arch" type="xml">
+
+                <list>
+                    <field name="name" width="30px"/>
+                    <field name="age" width="30px"/>
+                    <field name="discount" width="30px"/>
+                    <field name="gender" width="30px"/>
+                    <field name="is_vip" width="30px"/>
+                    <field name="dob" width="30px"/>
+                    <field name="ci_time" width="30px"/>
+                    <field name="remark" width="30px"/>
+                    <field name="id_proof" filename="file_name" width="30px"/>
+                    <field name="g_image" filename="file_name_i" width="30px"/>
+
+                    <field name="booking_ids" width="30px"/>
+                    <field name="room_ids" width="30px"/>
+
+                </list>
+
+            </field>
+        </record>
+
+        <record id="guest_form" model="ir.ui.view">
+            <field name="name">Guest</field>
+            <field name="model">obj.guest</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="age"/>
+                                <field name="discount"/>
+                            </group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="is_vip"/>
+                                <field name="dob" />
+                                <field name="ci_time"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page string="Remark" name="remarks">
+                                <group>
+                                    <field name="remark"/>
+                                </group>
+                            </page>
+
+                            <page string="Upload documents" name="upload_docs">
+                                <group>
+                                    <group>
+                                        <field name="id_proof" filename="file_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="g_image" filename="file_name_i"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Booking" name="booking">
+                                <group>
+                                    <field name="booking_ids">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                            <page string="Room" name="room">
+                                <group>
+                                    <field name="room_ids">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="guest_search" model="ir.ui.view">
+            <field name="name">Guest</field>
+            <field name="model">obj.guest</field>
+            <field name="arch" type="xml">
+                <search string="Search guest">
+                    <field name="name"/>
+                    <field name="discount"/>
+                    <field name="gender"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="guest_action" model="ir.actions.act_window">
+            <field name="name">Guest</field>
+            <field name="res_model">obj.guest</field>
+            <field name="view_mode">list,form,search</field>
+        </record>
+
+        <menuitem name="Guest" id="guest_menu_id" parent="parent_id" action="guest_action"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <record id="hospital_demo" model="hospital.model">
+        <field name="name">hospital3</field>
+        <field name="address">address of hospital3</field>
+        <field name="phone">1234567890</field>
+        <field name="email">hospital3.com</field>
+        <field name="registration_number">1234567890</field>
+        <field name="description">description of hospital3</field>
+        <field name="available_department" eval="[(6, 0, [ref('hospital_management.department_demo')])]"/>
+        <field name="doctor_ids" eval="[(6, 0, [ref('hospital_management.doctor_demo')])]"/>
+        <field name="patient_ids" eval="[(6, 0, [ref('hospital_management.patient_demo')])]"/>
+    </record>
+</odoo>

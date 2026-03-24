@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_management_inherited_form_view" model="ir.ui.view">
+            <field name="name">product.management.inherited.form.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_price']" position="after">
+                    <page name="part_specifications" string="Part Specifications" invisible = "categ_id == %(product_management.accessory_demo)d">
+                        <group string="Product Information">
+                            <field name="multipart"/>
+                        </group>
+                        <group string="Product Details" invisible = "multipart == True">
+                            <group>
+                                <field name="material_id" context="{'form_view_ref': 'product_management.material_form'}"/>
+                                <field name="surface_finish_id" context="{'form_view_ref': 'product_management.surface_finish_form'}"/>
+                            </group>
+                            <group>
+                                <field name="uv_printing_id" context="{'form_view_ref': 'product_management.uv_printing_form'}"/>
+                                <field name="color_shade_id" context="{'form_view_ref': 'product_management.color_shade_form'}"/>
+                            </group>
+                        </group>
+                        <group string="product Cost">
+                            <field name="cost"/>
+                            <field name="accessories_cost"/>
+                            <field name="total_cost"/>
+                        </group>
+                        <group string="Accessories" invisible="multipart == True"/>
+                        <group string="Sub Products" invisible="multipart == False"/>
+                        <field name="product_line_ids" nolabel="1" invisible="multipart == True">
+                            <list editable="bottom">
+                                <field name="sub_product_id" width="25px" domain="[('categ_id','=',%(product_management.accessory_demo)d)]"/>
+                                <field name="quantity" width="25px"/>
+                                <field name="cost" width="25px"/>
+                                <field name="total_cost" width="25px"/>
+                            </list>
+                        </field>
+                        <field name="product_line_ids" nolabel="1" invisible="multipart == False">
+                            <list editable="bottom">
+                                <field name="sub_product_id" width="25px"/>
+                                <field name="quantity" width="25px"/>
+                                <field name="cost" width="25px"/>
+                                <field name="total_cost" width="25px"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

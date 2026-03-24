@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="student1_demo" model="res.partner">
+        <field name="name">student1</field>
+        <field name="phone">123456789</field>
+        <field name="email">student1@mail.com</field>
+        <field name="gender">male</field>
+        <field name="is_student">True</field>
+    </record>
+
+    <record id="student2_demo" model="res.partner">
+        <field name="name">student2</field>
+        <field name="phone">123456789</field>
+        <field name="email">student2@mail.com</field>
+        <field name="gender">female</field>
+        <field name="is_student">True</field>
+    </record>
+
+    <record id="student3_demo" model="res.partner">
+        <field name="name">student3</field>
+        <field name="phone">123456789</field>
+        <field name="email">student3@mail.com</field>
+        <field name="gender">male</field>
+        <field name="is_student">True</field>
+    </record>
+
+    <record id="student4_demo" model="res.partner">
+        <field name="name">student4</field>
+        <field name="phone">123456789</field>
+        <field name="email">student4@mail.com</field>
+        <field name="gender">female</field>
+        <field name="is_student">True</field>
+    </record>
+
+    <record id="student5_demo" model="res.partner">
+        <field name="name">student5</field>
+        <field name="phone">123456789</field>
+        <field name="email">student5@mail.com</field>
+        <field name="gender">male</field>
+        <field name="is_student">True</field>
+    </record>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="timesheet_list" model="ir.ui.view">
+        <field name="name">Timesheet</field>
+        <field name="model">project.timesheet</field>
+        <field name="arch" type="xml">
+        <list>
+            <field name="task_id" width="30px"/>
+            <field name="assignees_id" width="25px"/>
+            <field name="start_date" width="25px"/>
+            <field name="end_date" width="30px"/>
+            <field name="description" width="30px"/>
+            <field name="spent_hour" width="30px" sum="Total"/>
+        </list>
+        </field>
+    </record>
+
+
+    <record id="timesheet_form" model="ir.ui.view">
+        <field name="name">Timesheet</field>
+        <field name="model">project.timesheet</field>
+        <field name="arch" type="xml">
+            <form string="Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="task_id"/>
+                            <field name="assignees_id" domain="[('task_id','=',task_id)]"/>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                            <field name="description"/>
+                            <field name="spent_hour"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="timesheet_action" model="ir.actions.act_window">
+        <field name="name">Timesheet</field>
+        <field name="res_model">project.timesheet</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="timesheet_id" name="Timesheet" parent="project_management_jui.project_parent_id" action="timesheet_action"/>
+</odoo>

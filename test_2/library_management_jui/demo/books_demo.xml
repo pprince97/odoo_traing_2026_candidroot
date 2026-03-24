@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.USD" model="res.currency">
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="book1_demo" model="library.books">
+        <field name="name">book1</field>
+        <field name="barcode">b0001</field>
+        <field name="description">description of book1</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">unpublished</field>
+        <field name="category">novel</field>
+        <field name="available_copies">0</field>
+        <field name="stock">10</field>
+        <field name="stock_copy">10</field>
+        <field name="borrow_price">50</field>
+        <field name="maximum_day_limit">5</field>
+        <field name="cover_image" type="base64" file="base/static/img/user_demo-image.png"/>
+    </record>
+
+    <record id="book2_demo" model="library.books">
+        <field name="name">book2</field>
+        <field name="barcode">b0002</field>
+        <field name="description">description of book2</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">comic</field>
+        <field name="available_copies">0</field>
+        <field name="stock">10</field>
+        <field name="stock_copy">10</field>
+        <field name="borrow_price">30</field>
+        <field name="maximum_day_limit">10</field>
+        <field name="cover_image" type="base64" file="base/static/img/user_demo-image.png"/>
+    </record>
+
+    <record id="book3_demo" model="library.books">
+        <field name="name">book3</field>
+        <field name="barcode">b0003</field>
+        <field name="description">description of book3</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">religious</field>
+        <field name="available_copies">0</field>
+        <field name="stock">10</field>
+        <field name="stock_copy">10</field>
+        <field name="borrow_price">80</field>
+        <field name="maximum_day_limit">5</field>
+        <field name="cover_image" type="base64" file="base/static/img/user_demo-image.png"/>
+    </record>
+
+    <record id="book4_demo" model="library.books">
+        <field name="name">book4</field>
+        <field name="barcode">b0004</field>
+        <field name="description">description of book4</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">fashion</field>
+        <field name="available_copies">0</field>
+        <field name="stock">10</field>
+        <field name="stock_copy">10</field>
+        <field name="borrow_price">40</field>
+        <field name="maximum_day_limit">8</field>
+        <field name="cover_image" type="base64" file="base/static/img/user_demo-image.png"/>
+    </record>
+
+    <record id="book5_demo" model="library.books">
+        <field name="name">book5</field>
+        <field name="barcode">b0005</field>
+        <field name="description">description of book5</field>
+        <field name="currency_id" ref="base.USD"/>
+        <field name="state">published</field>
+        <field name="category">educational</field>
+        <field name="available_copies">0</field>
+        <field name="stock">10</field>
+        <field name="stock_copy">10</field>
+        <field name="borrow_price">60</field>
+        <field name="maximum_day_limit">5</field>
+        <field name="cover_image" type="base64" file="base/static/img/user_demo-image.png"/>
+    </record>
+</odoo>

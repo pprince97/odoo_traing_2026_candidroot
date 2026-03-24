@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+new.custom_new,custom_new,new.model_custom_new,,1,1,1,1
+new.custom_anothernew,custom_anothernew,new.model_custom_anothernew,,1,1,1,1

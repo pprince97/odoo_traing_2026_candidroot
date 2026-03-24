@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="custom_tree">
+            <field name="name">Task</field>
+            <field name="model">custom.task</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="height"/>
+                <field name="birth_date"/>
+                <field name="current_Date"/>
+                <field name="docs"/>
+                <field name="photo"/>
+                <field name="task_status"/>
+
+
+            </list>
+            </field>
+        </record>
+
+        <record id="custom_form" model="ir.ui.view">
+            <field name="name">Task</field>
+            <field name="model">custom.task</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="gender"/>
+                                <field name="age"/>
+                                <field name="height"/>
+                            </group>
+                            <group>
+                                <field name="birth_date"/>
+                                <field name="current_Date"/>
+                                <field name="docs"/>
+                                <field name="photo" widget="image"/>
+                                <field name="task_status"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="task_action">
+            <field name="name">Task</field>
+            <field name="res_model">custom.task</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem name="Task" id="root_task" action="task_action"/>
+    </data>
+</odoo>

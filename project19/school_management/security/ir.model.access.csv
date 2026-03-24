@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+school_management.school_student,school_student,school_management.model_school_student,,1,1,1,1
+school_management.school_teacher,school_teacher,school_management.model_school_teacher,,1,1,1,1
+school_management.school_class,school_class,school_management.model_school_class,,1,1,1,1
+school_management.school_subject,school_subject,school_management.model_school_subject,,1,1,1,1
+school_management.obj_school,obj_school,school_management.model_obj_school,,1,1,1,1
+school_management.admission_form,admission_form,school_management.model_admission_form,,1,1,1,1

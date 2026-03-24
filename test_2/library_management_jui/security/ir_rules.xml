@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="librarian_rule" model="ir.rule">
+        <field name="name">librarian cannot create another librarian</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('library_management_jui.library_group_librarian'))]"/>
+    </record>
+
+    <record id="admin_rule" model="ir.rule">
+        <field name="name">admin can see all res partners</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('library_management_jui.library_group_admin'))]"/>
+    </record>
+
+    <record id="student_rule" model="ir.rule">
+        <field name="name">student and only see student</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[('user_id','=',user.id),('is_student','=',True)]</field>
+        <field name="groups" eval="[(4, ref('library_management_jui.library_group_student'))]"/>
+    </record>
+
+    <record id="borrow_request_rule_stu" model="ir.rule">
+        <field name="name">for borrow request for student</field>
+        <field name="model_id" ref="library_management_jui.model_library_borrow_request"/>
+        <field name="domain_force">[('student_id.user_id','in',user.id)]</field>
+        <field name="groups" eval="[(4, ref('library_management_jui.library_group_student'))]"/>
+    </record>
+
+    <record id="borrow_request_rule_lib" model="ir.rule">
+        <field name="name">for borrow request for librarian</field>
+        <field name="model_id" ref="library_management_jui.model_library_borrow_request"/>
+        <field name="domain_force">[('librarian_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('library_management_jui.library_group_librarian'))]"/>
+    </record>
+
+    <record id="borrow_request_admin_rule" model="ir.rule">
+        <field name="name">admin can see all borrow requests</field>
+        <field name="model_id" ref="library_management_jui.model_library_borrow_request"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('library_management_jui.library_group_admin'))]"/>
+    </record>
+
+    <record id="base.menu_administration" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_system'), ref('library_management_jui.library_group_admin')])]"/>
+    </record>
+
+</odoo>

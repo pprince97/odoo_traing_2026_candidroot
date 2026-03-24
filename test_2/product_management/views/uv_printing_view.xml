@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="uv_printing_form" model="ir.ui.view">
+            <field name="name">uv.printing</field>
+            <field name="model">product.uv.printing</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="cost"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

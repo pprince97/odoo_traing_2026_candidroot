@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+
+        <record id="room_list" model="ir.ui.view">
+            <field name="name">Room</field>
+            <field name="model">obj.room</field>
+            <field name="arch" type="xml">
+
+                <list>
+                    <field name="name" width="30px"/>
+                    <field name="room_no" width="30px"/>
+                    <field name="price_pn" width="30px"/>
+                    <field name="room_type" width="30px"/>
+                    <field name="is_available" width="30px"/>
+                    <field name="m_date" width="30px"/>
+                    <field name="last_cleaned" width="30px"/>
+                    <field name="notes" width="30px"/>
+                    <field name="room_doc" filename="file_name" width="30px"/>
+                    <field name="r_image" filename="file_name_i" width="30px"/>
+
+                    <field name="hotel_id" width="30px"/>
+                    <field name="guest_ids" width="30px"/>
+                </list>
+
+            </field>
+        </record>
+        <record id="room_form" model="ir.ui.view">
+            <field name="name">Room</field>
+            <field name="model">obj.room</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="room_no"/>
+                                <field name="price_pn"/>
+                            </group>
+                            <group>
+                                <field name="room_type"/>
+                                <field name="is_available"/>
+                                <field name="m_date"/>
+                                <field name="last_cleaned"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page string="Note" name="note">
+                                <group>
+                                    <field name="notes" />
+                                </group>
+                            </page>
+
+                            <page string="Upload documents" name="upload_docs">
+                                <group>
+                                    <group>
+                                        <field name="room_doc" filename="file_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="r_image" filename="file_name_i"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Hotel" name="hotel">
+                                <group>
+                                    <field name="hotel_id">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                            <page string="Guest" name="guest">
+                                <group>
+                                    <field name="guest_ids">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="room_search" model="ir.ui.view">
+            <field name="name">Room</field>
+            <field name="model">obj.room</field>
+            <field name="arch" type="xml">
+                <search string="Search room">
+                    <field name="name"/>
+                    <field name="room_no"/>
+                    <field name="price_pn"/>
+                    <field name="room_type"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="room_action" model="ir.actions.act_window">
+            <field name="name">Room</field>
+            <field name="res_model">obj.room</field>
+            <field name="view_mode">list,form,search</field>
+        </record>
+
+        <menuitem name="Room" id="room_menu_id" parent="parent_id" action="room_action"/>
+
+    </data>
+</odoo>

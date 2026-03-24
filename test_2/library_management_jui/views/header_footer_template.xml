@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="footer_custom_library" inherit_id="website.footer_custom" name="Default" active="True">
+        <xpath expr="//footer[@id='bottom']" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//footer[@id='bottom']" position="after">
+            <div id="footer" class="oe_structure oe_structure_solo border text-break bg-primary p-3 bg-opacity-25">
+                <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 pt24 pb24">
+                                <h5>Useful Links</h5>
+                                <ul class="list-unstyled">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/book">Add Book</a></li>
+                                    <li><a href="/booklist">Book Catalog</a></li>
+                                    <li><a href="/contactus">Contact us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 pt24 pb24">
+                                <h5>About us</h5>
+                                <p>Welcome to our digital library, your all-in-one hub for exploring books and managing your reading list.
+                                <br/><br/>Whether you're a student looking for research papers or a book lover hunting for your next favorite novel, our platform makes it easy to search the catalog, reserve titles, and track your due dates online.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+<!--    <template id="library_management_jui.inheritedheader" name="Header" inherit_id="website.template_header_default">-->
+<!--            <xpath expr="//t[@t-call='website.placeholder_header_search_box']" position="before">-->
+<!--                <li class="mr-1">-->
+<!--                    <a href="/booklist" class="nav-link rounded-circle p-2 bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; text-decoration: none;">-->
+<!--                        <i class="fa fa-book fa-lg text-primary"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </xpath>-->
+<!--    </template>-->
+    <template id="library_management_jui.replacedheader" inherit_id="website.template_header_default" active="True">
+        <xpath expr="//header" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//header" position="after">
+            <header>
+                <nav id="o_main_nav" t-attf-class="navbar pt24 pb24 navbar-expand-lg o_main_nav #{header_content_width} p-0">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="/library_management_jui/static/src/image/logo.png"
+                             alt="Library Logo"
+                             width="30"
+                             height="30"
+                             class="d-inline-block m-2"/>
+                    </a>
+                    <!-- Navigation Menu -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                            <t t-call="website.submenu">
+                                <t t-set="item_class" t-value="'nav-item'"/>
+                                <t t-set="link_class" t-value="'nav-link text-black'"/>
+                            </t>
+                        </t>
+                    </ul>
+
+                    <!-- Right Side Icons/Buttons -->
+                    <ul class="navbar-nav align-items-center gap-2 flex-shrink-0 justify-content-end ps-3">
+                        <!-- Sign In -->
+                        <t t-call="portal.placeholder_user_sign_in">
+                            <t t-set="_link_class" t-value="_additional_btn_color or 'o_nav_link_btn nav-link border px-3'"/>
+                        </t>
+
+                        <!-- User Dropdown -->
+                        <t t-call="portal.user_dropdown">
+                            <t t-set="_user_name" t-value="True"/>
+                            <t t-set="_item_class" t-value="'nav-item dropdown'"/>
+                            <t t-set="_link_class" t-value="(_additional_btn_color or 'nav-link') + ' border-0'"/>
+                            <t t-set="_dropdown_menu_class" t-value="'dropdown-menu-end'"/>
+                        </t>
+                    </ul>
+                </div>
+            </nav>
+            </header>
+        </xpath>
+    </template>
+</odoo>

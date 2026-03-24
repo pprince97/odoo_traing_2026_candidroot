@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="book_borrow_history_wizard_form" model="ir.ui.view">
+            <field name="name">book.borrow.history</field>
+            <field name="model">library.book.borrow.history.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="is_return_date"/>
+                            <field name="student_ids" widget="many2many_tags" domain="[('is_student','=',True)]" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="book_ids" widget="many2many_tags" domain="[('state','in',['published'])]" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <footer>
+                            <button
+                                    type="object"
+                                    name="print_history"
+                                    string="print"
+                                    class="btn-success"
+                            />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="book_borrow_history_action_id" model="ir.actions.act_window">
+            <field name="name">Books Borrow History</field>
+            <field name="res_model">library.book.borrow.history.wizard</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+    </data>
+</odoo>

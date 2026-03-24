@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+
+        <record id="booking_list" model="ir.ui.view">
+            <field name="name">Booking</field>
+            <field name="model">obj.booking</field>
+            <field name="arch" type="xml">
+                <list>
+
+                    <field name="name" width="30px"/>
+                    <field name="n_nights" width="30px"/>
+                    <field name="t_amount" width="30px"/>
+                    <field name="b_status" width="30px"/>
+                    <field name="is_paid" width="30px"/>
+                    <field name="b_date" width="30px"/>
+                    <field name="ci_dt" width="30px"/>
+                    <field name="s_req" width="30px"/>
+                    <field name="invoice" filename="file_name" width="30px"/>
+                    <field name="b_image" filename="file_name_i" width="30px"/>
+
+                    <field name="hotel_id2" width="30px"/>
+                    <field name="guest_id" width="30px"/>
+                    <field name="service_ids" width="30px"/>
+
+                </list>
+            </field>
+        </record>
+
+        <record id="booking_form" model="ir.ui.view">
+            <field name="name">Booking</field>
+            <field name="model">obj.booking</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="n_nights"/>
+                                <field name="t_amount"/>
+                            </group>
+                            <group>
+                                <field name="b_status"/>
+                                <field name="is_paid"/>
+                                <field name="b_date"/>
+                                <field name="ci_dt"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page string="Special request" name="sr">
+                                <group>
+                                    <field name="s_req"/>
+                                </group>
+                            </page>
+
+                            <page string="Upload documents" name="upload_docs">
+                                <group>
+                                    <group>
+                                        <field name="invoice" filename="file_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="b_image" filename="file_name_i"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Hotel" name="hotel">
+                                <group>
+                                    <field name="hotel_id2">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                            <page string="Guest" name="guest">
+                                <group>
+                                    <field name="guest_id">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                            <page string="Service" name="service">
+                                <group>
+                                    <field name="service_ids">
+                                        <list>
+                                            <field name="name"/>
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="booking_search" model="ir.ui.view">
+            <field name="name">Booking</field>
+            <field name="model">obj.booking</field>
+            <field name="arch" type="xml">
+                <search string="Search booking">
+                    <field name="name"/>
+                    <field name="n_nights"/>
+                    <field name="b_status"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="booking_action" model="ir.actions.act_window">
+            <field name="name">Booking</field>
+            <field name="res_model">obj.booking</field>
+            <field name="view_mode">list,form,search</field>
+        </record>
+
+        <menuitem name="Booking" id="booking_menu_id" parent="parent_id" action="booking_action"/>
+
+    </data>
+</odoo>

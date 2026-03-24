@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="custom_tree2">
+            <field name="name">Another</field>
+            <field name="model">custom.anothernew</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="topic"/>
+                <field name="description"/>
+                <field name="writer"/>
+                <field name="date"/>
+
+            </list>
+            </field>
+        </record>
+
+        <record id="custom_form2" model="ir.ui.view">
+            <field name="name">Another</field>
+            <field name="model">custom.anothernew</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="topic"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="writer"/>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="another_action">
+            <field name="name">Another</field>
+            <field name="res_model">custom.anothernew</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem name="Root_another" id="menu_another_root"/>
+        <menuitem name="Child_another" id="menu_another_child" parent="new.menu_another_root" action="new.another_action"/>
+    </data>
+</odoo>

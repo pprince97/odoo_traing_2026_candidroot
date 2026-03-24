@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_inherit_library_management_jui" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.library.management.jui</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <xpath expr="//block[@name='performance']" position="after">
+                        <block title="Library management" id="config_fine_amount">
+                            <setting id="config_fine_amount_setting" >
+                                <div class="content-group mb-3">
+                                    <div>
+                                        <div class="mt8">
+                                            <field name="fine_amount"/>
+                                            <label for="fine_amount">Fine amount for the books</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </setting>
+                        </block>
+                    </xpath>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

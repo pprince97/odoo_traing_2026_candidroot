@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="borrow_request_lines_list" model="ir.ui.view">
+            <field name="name">borrow.request.history</field>
+            <field name="model">library.borrow.request.lines</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="book_id" width="30px"/>
+                <field name="quantity" width="15px"/>
+                <field name="amount_per_unit" width="40px"/>
+                <field name="issue_date" width="30px"/>
+                <field name="return_date" width="30px"/>
+                <field name="fine_amount" width="30px"/>
+                <field name="total_amount" width="30px"/>
+                <field name="issue_days" width="30px"/>
+            </list>
+            </field>
+        </record>
+
+        <record id="borrow_request_lines_form" model="ir.ui.view">
+            <field name="name">borrow.request.lines</field>
+            <field name="model">library.borrow.request.lines</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="book_id"/>
+                                <field name="quantity"/>
+                                <field name="amount_per_unit"/>
+                                <field name="issue_date"/>
+                                <field name="return_date"/>
+                            </group>
+                            <group>
+
+                                <field name="issue_days"/>
+                                <field name="fine_amount"/>
+                                <field name="total_amount"/>
+                                <field name="borrow_request_id" readonly="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

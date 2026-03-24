@@ -1,0 +1,11 @@
+<odoo>
+    <record id="doctor_demo" model="res.partner">
+        <field name="doctor_code">d00007</field>
+        <field name="name">doctor6</field>
+        <field name="phone">1234567890</field>
+        <field name="email">docotr6.com</field>
+        <field name="experience">10</field>
+        <field name="department_id" ref="hospital_management.department_demo"/>
+        <field name="description">description of doctor6</field>
+    </record>
+</odoo>

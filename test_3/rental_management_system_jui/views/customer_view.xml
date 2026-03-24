@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="customer_list" model="ir.ui.view">
+            <field name="name">Customer</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" width="30px"/>
+                    <field name="email" width="30px"/>
+                    <field name="phone" width="30px"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="customer_form" model="ir.ui.view">
+            <field name="name">Customer</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+
+                    <sheet>
+<!--                        <div name="button_box" position="inside">-->
+<!--                            <button name="borrow_history_of_student"-->
+<!--                                    type="object"-->
+<!--                                    class="btn-primary"-->
+<!--                                    icon="fa-list">-->
+<!--                                <field name="borrow_history_count" string ="Borrow History" widget="statinfo"/>-->
+<!--                            </button>-->
+<!--                        </div>-->
+
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="phone"/>
+                            </group>
+                            <group>
+                                <field name="email"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_action_id" model="ir.actions.act_window">
+            <field name="name">Customer</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'default_is_customer':1}</field>
+            <field name="domain">[('is_customer','=','1')]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="customer_list_action">
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="customer_list"/>
+            <field name="act_window_id" ref="customer_action_id"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="customer_form_action">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="customer_form"/>
+            <field name="act_window_id" ref="customer_action_id"/>
+        </record>
+
+        <menuitem id="customer_menu" name="Customer" parent="rental_management_system_jui.rental_mangement_system_menu" action="customer_action_id"/>
+    </data>
+</odoo>

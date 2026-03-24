@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hospital.appointment_obj,appointment_obj,hospital.model_appointment_obj,,1,1,1,1
+hospital.patient_obj,patient_obj,hospital.model_patient_obj,,1,1,1,1
+hospital.rooms_obj,rooms_obj,hospital.model_rooms_obj,,1,1,1,1

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="rental_order_lines_list" model="ir.ui.view">
+            <field name="name">Rental Order</field>
+            <field name="model">rental.order</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="customer_id" width="30px"/>
+                    <field name="start_date" width="30px"/>
+                    <field name="end_date" width="30px"/>
+                    <field name="total_amount" width="30px"/>
+                    <field name="rental_order_ids" width="30px"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="rental_order_form" model="ir.ui.view">
+            <field name="name">Rental Order</field>
+            <field name="model">rental.order</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+
+                    <sheet>
+                        <header>
+                            <button name="generate_invoice"
+                                string="Create Invoice"
+                                type="object"
+                                class="oe_highlight"/>
+                            <button name="rent_status"
+                                string="Rent"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="states in ['rent','returned','invoiced','partially_invoiced','cancelled']"/>
+                            <button name="returned_status"
+                                string="Returned"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="states in ['draft','returned','invoiced','partially_invoiced','cancelled']"/>
+                            <button name="cancelled_status"
+                                string="Cancelled"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="states in ['returned','rent','invoiced','partially_invoiced','cancelled']"/>
+                            <field name="states" widget="statusbar" statusbar_visible="draft,rent,returned,invoiced,partially_invoiced,cancelled"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="customer_id" domain="[('is_customer','=',True)]"/>
+                                <field name="total_amount"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="rental_order_lines" string="Rental Order Lines">
+                                <field name="rental_order_ids">
+                                    <list editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="available_pieces_ids" widget="many2many_tags" domain="[('product_id','in',product_id),('is_available','=',False)]"/>
+                                        <field name="total_amount"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="rental_order_action_id" model="ir.actions.act_window">
+            <field name="name">Rental Order</field>
+            <field name="res_model">rental.order</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="rental_order_menu" name="Rental Order" parent="rental_management_system_jui.rental_mangement_system_menu" action="rental_order_action_id"/>
+    </data>
+</odoo>

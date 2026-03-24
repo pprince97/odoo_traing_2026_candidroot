@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="borrow_request_list" model="ir.ui.view">
+            <field name="name">borrow.request</field>
+            <field name="model">library.borrow.request</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="serial_number" width="25px"/>
+                <field name="student_id" width="30px"/>
+                <field name="librarian_id" width="30px"/>
+                <field name="state" width="30px"/>
+                <field name="return_date" width="30px"/>
+                <field name="issue_date" width="25px"/>
+                <field name="fine_amount" width="25px"/>
+                <field name="total_amount" width="25px"/>
+                <field name="borrow_request_lines_id" width="25px"/>
+            </list>
+            </field>
+        </record>
+
+        <record id="borrow_request_form" model="ir.ui.view">
+            <field name="name">borrow.request</field>
+            <field name="model">library.borrow.request</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+
+                    <header>
+                        <button name="generate_report"
+                                string="Borrow request receipt"
+                                type="object"
+                                class="oe_highlight"
+                        />
+
+                        <button name="issued_state"
+                                string="Issue"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['issued','returned','canceled']"
+                                groups = "library_management_jui.library_group_librarian"
+                        />
+                        <button name="returned_state"
+                                string="Return"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['returned','draft','canceled']"
+                                groups = "library_management_jui.library_group_librarian"
+                        />
+                        <button name="canceled_state"
+                                string="Cancel"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['returned','canceled']"
+                                groups = "library_management_jui.library_group_librarian"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,issued,returned,canceled"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="serial_number"/>
+                                <field name="student_id" readonly="state in ['issued', 'returned','canceled']" domain="[('is_student','=',True)]" context="{'form_view_ref': 'library_management_jui.student_form','default_is_student':1}"/>
+                                <field name="librarian_id" force_save="1"/>
+                                <field name="return_date" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="issue_date" readonly="True"/>
+                                <field name="fine_amount"/>
+                                <field name="total_amount"/>
+                                <field name="canceled_date" invisible="state not in ['canceled']" readonly="state in ['issued', 'returned','canceled']"/>
+                                <field name="cancellation_reason" invisible="state not in ['canceled']" readonly="state in ['issued', 'returned','canceled']"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="borrow_request_list" string="Borrow Request List">
+                                <field name="borrow_request_lines_id" readonly="state in ['issued', 'returned','canceled']">
+                                    <list editable="bottom">
+                                        <field name="book_id" width="30px" domain="[('state','in',['published'])]" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="quantity" width="15px"/>
+                                        <field name="amount_per_unit" width="40px"/>
+                                        <field name="issue_date" width="30px"/>
+                                        <field name="return_date" width="30px"/>
+                                        <field name="fine_amount" width="30px"/>
+                                        <field name="total_amount" width="30px"/>
+                                        <field name="issue_days" width="30px"/>
+                                    </list>
+                                </field>
+                                <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                    <group class="oe_subtotal_footer order-0 order-lg-1 flex-column" colspan="2" name="total_amount">
+                                        <field name="fine_amount"/>
+                                        <field name="total_amount"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="library_borrow_request_action_id" model="ir.actions.act_window">
+            <field name="name">Borrow Request</field>
+            <field name="res_model">library.borrow.request</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="library_management_id" name="Library Management"/>
+        <menuitem id="library_borrow_request_id" name="Borrow Request" parent="library_management_jui.library_management_id" action="library_borrow_request_action_id"/>
+    </data>
+</odoo>

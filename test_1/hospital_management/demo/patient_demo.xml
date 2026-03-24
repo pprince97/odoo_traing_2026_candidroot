@@ -1,0 +1,12 @@
+<odoo>
+    <record id="patient_demo" model="res.partner">
+        <field name="patient_code">p0004</field>
+        <field name="name">patient4</field>
+        <field name="phone">1234567890</field>
+        <field name="email">patient4.com</field>
+        <field name="city">ahmedabad</field>
+    </record>
+</odoo>
+
+
+<!--res_partner_hospital_doctor_extra,base.res.partner,base.model_res_partner,hospital_management.group_doctor_extra_rights,1,1,0,0-->

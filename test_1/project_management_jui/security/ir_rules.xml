@@ -1,0 +1,65 @@
+<odoo>
+    <record id="project_project_rule" model="ir.rule">
+        <field name="name">for project</field>
+        <field name="model_id" ref="project_management_jui.model_project_project_jui"/>
+        <field name="domain_force">['|',('assignees_id','in',user.id),('manager_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_assignees')),(4, ref('project_management_jui.project_group_manager'))]"/>
+    </record>
+
+    <record id="project_task_rule" model="ir.rule">
+        <field name="name">for tasks</field>
+        <field name="model_id" ref="project_management_jui.model_project_task_jui"/>
+        <field name="domain_force">['|',('assignees_id','in',user.id),('manager_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_manager')),(4, ref('project_management_jui.project_group_assignees'))]"/>
+    </record>
+
+    <record id="project_timesheet_rule" model="ir.rule">
+        <field name="name">for timesheets</field>
+        <field name="model_id" ref="project_management_jui.model_project_timesheet"/>
+        <field name="domain_force">[('assignees_id','in',user.id)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_manager')),(4, ref('project_management_jui.project_group_assignees'))]"/>
+    </record>
+
+    <record id="project_bill_rule" model="ir.rule">
+        <field name="name">for bill</field>
+        <field name="model_id" ref="project_management_jui.model_account_move"/>
+        <field name="domain_force">['|',('project_id.assignees_id','in',user.id),('task_ids.assignees_id','in',user.id)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_manager')),(4, ref('project_management_jui.project_group_assignees'))]"/>
+    </record>
+
+    <record id="project_project_rule_admin" model="ir.rule">
+        <field name="name">for admin project</field>
+        <field name="model_id" ref="project_management_jui.model_project_project_jui"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_admin'))]"/>
+    </record>
+
+    <record id="project_task_rule_admin" model="ir.rule">
+        <field name="name">for admin tasks</field>
+        <field name="model_id" ref="project_management_jui.model_project_task_jui"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_admin'))]"/>
+    </record>
+
+    <record id="project_timesheet_rule_admin" model="ir.rule">
+        <field name="name">for admin timesheets</field>
+        <field name="model_id" ref="project_management_jui.model_project_timesheet"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_admin'))]"/>
+    </record>
+
+    <record id="project_users_rule" model="ir.rule">
+        <field name="name">for users</field>
+        <field name="model_id" ref="project_management_jui.model_res_users"/>
+        <field name="domain_force">['|',('task_id.assignees_id','in',user.id),('project_id.manager_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_manager'))]"/>
+    </record>
+
+    <record id="project_users_rule" model="ir.rule">
+        <field name="name">for admin users</field>
+        <field name="model_id" ref="project_management_jui.model_res_users"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('project_management_jui.project_group_admin'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,113 @@
+<odoo>
+     <data>
+
+        <record model="ir.ui.view" id="custom_tree3">
+            <field name="name">Class</field>
+            <field name="model">school.class</field>
+            <field name="arch" type="xml">
+
+            <list>
+
+                <field name="name" width="30px"/>
+                <field name="class_str" width="30px"/>
+                <field name="avg_scr" width="30px"/>
+                <field name="section" width="30px"/>
+                <field name="is_active" width="30px"/>
+                <field name="start_date" width="30px"/>
+                <field name="description" width="30px"/>
+                <field name="timetable" width="30px" filename="file_name2"/>
+                <field name="class_image" width="30px" filename="file_name_i2"/>
+
+                <field name="student_ids" width="30px"/>
+                <field name="school_ids" width="30px"/>
+
+            </list>
+            </field>
+        </record>
+
+        <record id="custom_form3" model="ir.ui.view">
+            <field name="name">Class</field>
+            <field name="model">school.class</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="class_str"/>
+                                <field name="avg_scr"/>
+                                <field name="section"/>
+                                <field name="is_active"/>
+                                <field name="start_date"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="timetable" filename="file_name2"/>
+                                <field name="class_image" widget="image" filename="file_name_i2"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page name="Reference" string="reference">
+                                <group>
+                                <field name="student_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                                </group>
+                            </page>
+
+                            <page name="School ref" string="school ref">
+                                <group>
+                                <field name="school_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="context_class_form" model="ir.ui.view">
+            <field name="name">Class</field>
+            <field name="model">school.class</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="class_str"/>
+                                <field name="avg_scr"/>
+                                <field name="section"/>
+                                <field name="is_active"/>
+                                <field name="start_date"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="class_action">
+            <field name="name">Class</field>
+            <field name="res_model">school.class</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+        <menuitem name="Class" id="class_school" parent="school_management.parent_school" action="school_management.class_action"/>
+
+    </data>
+</odoo>

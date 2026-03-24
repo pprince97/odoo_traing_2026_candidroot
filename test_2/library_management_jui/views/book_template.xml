@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="library_management_jui.model_library_books" model="ir.model">
+  <field name="website_form_access">True</field>
+</record>
+<function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>library.books</value>
+            <value eval="[
+                'name',
+                'description',
+                'barcode',
+                'state',
+                'category',
+                'stock',
+                'cover_image',
+                'borrow_price',
+                'maximum_day_limit',
+            ]"/>
+        </function>
+    <template id="library_management_jui.book" name="Books">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="title mb-5">
+                        <span class="bg-image d-flex pt-4 pb-4" style="background-image: url('library_management_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                        <div class="container">
+                            <h1 class="text-white">Book</h1>
+                        </div>
+                        </span>
+                    </section>
+                    <section class="body mt-5 mb-5">
+                        <div class="container text-center">
+                            <p class="fs-5">Sorry, you are not eligible to access this page.</p>
+                        </div>
+                        <div class="justify-content-center mt-2 d-flex"><a href="/" class="fs-5">Home</a></div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="library_management_jui.book_form" name="Books">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="title mb-5">
+                        <span class="bg-image d-flex pt-4 pb-4" style="background-image: url('library_management_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                        <div class="container">
+                            <h1 class="text-white">Add Book</h1>
+                        </div>
+                        </span>
+                    </section>
+
+                    <!--From Controller-->
+
+<!--                    <section class="body mt-5 mb-5">-->
+<!--                        <div class="container">-->
+<!--                             <form action="/book/submit" method="post" enctype="multipart/form-data">-->
+<!--                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+<!--                                 <div class="s_website_form_rows row s_col_no_bgcolor">-->
+<!--                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="name_b">-->
+<!--                                            <span class="s_website_form_label_content">Name</span>-->
+<!--                                        </label>-->
+<!--                                        <input id="name_b" type="text" class="form-control s_website_form_input" name="name" required="" data-fill-with="name"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="barcode_b">-->
+<!--                                            <span class="s_website_form_label_content">Barcode</span>-->
+<!--                                        </label>-->
+<!--                                        <input id="barcode_b" type="tel" class="form-control s_website_form_input" name="barcode" data-fill-with="phone"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_required s_website_form_model_required" data-type="text" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="description_b">-->
+<!--                                            <span class="s_website_form_label_content">Description</span>-->
+<!--                                        </label>-->
+<!--                                        <textarea id="description_b" class="form-control s_website_form_input" name="description" required="" drows="8"></textarea>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom" data-type="selection" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="state_b">-->
+<!--                                            <span class="s_website_form_label_content">State</span>-->
+<!--                                        </label><br/>-->
+<!--                                        <select id="state_b" name="state" data-fill-with="state" class="form-control">-->
+<!--                                            <option value="unpublished">Unpublished</option>-->
+<!--                                            <option value="published">Published</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom" data-type="selection" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="category_b">-->
+<!--                                            <span class="s_website_form_label_content">Category</span>-->
+<!--                                        </label><br/>-->
+<!--                                        <select id="category_b" name="category" data-fill-with="&#45;&#45;select&#45;&#45;" class="form-control">-->
+<!--                                            <option value="novel">Novel</option>-->
+<!--                                            <option value="comic">Comic</option>-->
+<!--                                            <option value="religious">Religious</option>-->
+<!--                                            <option value="fashion">Fashion</option>-->
+<!--                                            <option value="educational">Educational</option>-->
+<!--                                            <option value="philosophical">Philosophical</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                     <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="image" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="cover_image_b">-->
+<!--                                            <span class="s_website_form_label_content">Cover Image</span>-->
+<!--                                        </label>-->
+<!--                                        <input id="cover_image_b" type="file" class="form-control s_website_form_input" name="cover_image" required=""/>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-4 s_website_form_field s_website_form_required s_website_form_model_required" data-type="integer" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="stock_b">-->
+<!--                                            <span class="s_website_form_label_content">Stock</span>-->
+<!--                                        </label>-->
+<!--                                        <input id="stock_b" type="number" class="form-control s_website_form_input" name="stock" required=""/>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-4 s_website_form_field s_website_form_required s_website_form_model_required" data-type="float" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="borrow_price_b">-->
+<!--                                            <span class="s_website_form_label_content">Borrow Price</span>-->
+<!--                                        </label>-->
+<!--                                        <input id="borrow_price_b" type="number" class="form-control s_website_form_input" name="borrow_price" required=""/>-->
+<!--                                    </div>-->
+<!--                                    <div class="mb-3 col-lg-4 s_website_form_field s_website_form_required s_website_form_model_required" data-type="integer" data-name="Field">-->
+<!--                                        <label class="s_website_form_label" style="width: 200px" for="maximum_day_limit_b">-->
+<!--                                            <span class="s_website_form_label_content">Maximum day limit</span>-->
+<!--                                        </label>-->
+<!--                                        <input id="maximum_day_limit_b" type="number" class="form-control s_website_form_input" name="maximum_day_limit" required=""/>-->
+<!--                                    </div>-->
+<!--                                     <br/>-->
+<!--                                    <div style="width:200px;" class="mb-0 py-2 col-12"><button type="submit" class="btn btn-primary btn-lg">submit</button></div>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </section>-->
+
+                    <!--Directly from xml-->
+
+                    <section class="body mt-5 mb-5 s_website_form" data-snippet="s_website_form" >
+                        <div class="container">
+                             <form action="/website/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-model_name="library.books" data-mark="*" data-success-mode="redirect" data-success-page="/contactus-thank-you" data-pre-fill="true">
+                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="name_b">
+                                            <span class="s_website_form_label_content">Name</span>
+                                        </label>
+                                        <input id="name_b" type="text" class="form-control s_website_form_input" name="name" required="" data-fill-with="name"/>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="barcode_b">
+                                            <span class="s_website_form_label_content">Barcode</span>
+                                        </label>
+                                        <input id="barcode_b" type="tel" class="form-control s_website_form_input" name="barcode" data-fill-with="phone"/>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_required s_website_form_model_required" data-type="text" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="description_b">
+                                            <span class="s_website_form_label_content">Description</span>
+                                        </label>
+                                        <textarea id="description_b" class="form-control s_website_form_input" name="description" required="" drows="8"></textarea>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom" data-type="selection" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="state_b">
+                                            <span class="s_website_form_label_content">State</span>
+                                        </label><br/>
+                                        <select id="state_b" name="state" data-fill-with="state" class="form-control">
+                                            <option value="unpublished">Unpublished</option>
+                                            <option value="published">Published</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom" data-type="selection" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="category_b">
+                                            <span class="s_website_form_label_content">Category</span>
+                                        </label><br/>
+                                        <select id="category_b" name="category" data-fill-with="--select--" class="form-control">
+                                            <option value="novel">Novel</option>
+                                            <option value="comic">Comic</option>
+                                            <option value="religious">Religious</option>
+                                            <option value="fashion">Fashion</option>
+                                            <option value="educational">Educational</option>
+                                            <option value="philosophical">Philosophical</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="image" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="cover_image_b">
+                                            <span class="s_website_form_label_content">Cover Image</span>
+                                        </label>
+                                        <input id="cover_image_b" type="file" class="form-control s_website_form_input" name="cover_image" required=""/>
+                                    </div>
+                                    <div class="mb-3 col-lg-4 s_website_form_field s_website_form_required s_website_form_model_required" data-type="integer" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="stock_b">
+                                            <span class="s_website_form_label_content">Stock</span>
+                                        </label>
+                                        <input id="stock_b" type="number" class="form-control s_website_form_input" name="stock" required=""/>
+                                    </div>
+                                    <div class="mb-3 col-lg-4 s_website_form_field s_website_form_required s_website_form_model_required" data-type="float" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="borrow_price_b">
+                                            <span class="s_website_form_label_content">Borrow Price</span>
+                                        </label>
+                                        <input id="borrow_price_b" type="number" class="form-control s_website_form_input" name="borrow_price" required=""/>
+                                    </div>
+                                    <div class="mb-3 col-lg-4 s_website_form_field s_website_form_required s_website_form_model_required" data-type="integer" data-name="Field">
+                                        <label class="s_website_form_label" style="width: 200px" for="maximum_day_limit_b">
+                                            <span class="s_website_form_label_content">Maximum day limit</span>
+                                        </label>
+                                        <input id="maximum_day_limit_b" type="number" class="form-control s_website_form_input" name="maximum_day_limit" required=""/>
+                                    </div>
+
+                                    <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                                        <div style="width: 200px;" class="s_website_form_label"/>
+                                        <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send">Submit</a>
+                                        <span id="s_website_form_result"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="custom_menu_books" model="website.menu">
+        <field name="name">Books</field>
+        <field name="url">/book</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">90</field>
+        <field name="group_ids"  eval="[(4, ref('library_management_jui.library_group_librarian'))]"/>
+    </record>
+
+</odoo>

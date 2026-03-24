@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_borrow_request_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="rec">
+                <t t-call="library_management_jui.report_borrow_request_receipt_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_borrow_request_receipt_document">
+        <t t-call="web.external_layout">
+                <h6>
+                    <h3>Borrow request receipt</h3>
+                    <h3 t-field="rec.serial_number"/>
+                    <br/>
+                    <h5 t-field="rec.student_id"/>
+                    <br/>
+                    <h5 t-field="rec.librarian_id"/>
+                    <br/>
+                    <br/>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><b>Book</b></th>
+                                <th><b>Quantity</b></th>
+                                <th><b>Issue date</b></th>
+                                <th><b>Return date</b></th>
+                                <th><b>Fine amount</b></th>
+                                <th><b>Issue days</b></th>
+                                <th class="text-end"><b>Total amount</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rec.borrow_request_lines_id" t-as="borrow_request_line">
+                                <tr>
+                                    <td>
+                                        <span t-field="borrow_request_line.book_id"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="borrow_request_line.quantity"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.issue_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.return_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.fine_amount"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="borrow_request_line.issue_days"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="borrow_request_line.total_amount"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <hr style="width:20%;margin-left:auto;margin-right:0;"/>
+                    <div class="text-end">
+                        <span>Total :    </span>
+                        <span t-field="rec.total_amount"/>
+                    </div>
+
+                </h6>
+            </t>
+    </template>
+
+
+    <record id="borrow_request_receipt_action" model="ir.actions.report">
+        <field name="name">Borrow request Receipt</field>
+        <field name="model">library.borrow.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_jui.report_borrow_request_receipt</field>
+        <field name="report_file">library_management_jui.report_borrow_request_receipt</field>
+        <field name="print_report_name">'Borrow request Receipt'</field>
+        <field name="binding_model_id" ref="library_management_jui.model_library_borrow_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

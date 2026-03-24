@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="library_management_jui.inheritedhomepage" name="Home" inherit_id="website.homepage">
+            <xpath expr="//div" position="after">
+                <section class="title mb-5">
+                    <span class="bg-image d-flex pt-4 pb-4" style="background-image: url('library_management_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                    <div class="container">
+                        <h1 class="text-white">Home</h1>
+                    </div>
+                    </span>
+                </section>
+                <t t-if = "website_id == %(library_management_jui.library_website)d">
+                <section class="py-5 bg-white border-bottom">
+                    <div class="container px-4 px-lg-5 mb-3">
+                        <div class="row gx-4 gx-lg-5 align-items-center">
+
+                            <!-- Content Column -->
+                            <div class="col-md-7">
+                                <h1 class="display-3 fw-bolder text-dark mb-2">Welcome to digital library</h1>
+                                <h2 class="h4 fw-light text-muted mb-4">Explore, Discover, and Borrow.</h2>
+                                <h2 class="h4 fw-light text-muted mb-4">Access thousands of books, digital resources, and educational materials.</h2>
+
+                                <div class="pe-md-5">
+                                    <p class="lead text-muted mb-4">
+                                        Welcome to our digital library, your all-in-one hub for exploring books and managing your reading list.
+                                        Whether you're a student looking for research papers or a book lover hunting for your next favorite novel,
+                                        our platform makes it easy to search the catalog, reserve titles, and track your due dates online.
+                                    </p>
+                                    <p class="text-muted mb-5">
+                                        Dive into our collection of physical books and e-resources today and take your learning experience
+                                        to the next level with just a few clicks.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Visual Column -->
+                            <div class="col-md-5 d-none d-md-block text-center">
+                                <img class="img-fluid rounded-4 shadow"
+                                     src="/web/image/website.s_banner_default_image"
+                                     alt="Digital Library"
+                                     loading="lazy"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </t>
+                <t t-else="">
+                    <section class="py-5 bg-white border-bottom mb-5">
+                        <div class="container px-4 px-lg-5 mb-3">
+                            <div class="row gx-4 gx-lg-5 align-items-center">
+
+                                <!-- Visual Column -->
+                                <div class="col-md-5 d-none d-md-block text-center">
+                                    <img class="img-fluid rounded-4 shadow"
+                                         src="/web/image/website.s_banner_default_image"
+                                         alt="Digital Library"
+                                         loading="lazy"/>
+                                </div>
+
+                                <!-- Content Column -->
+                                <div class="col-md-7 text-end">
+                                    <h2 class="display-3 fw-bolder text-dark mb-2">Smarter Solutions for a Better Lifestyle</h2>
+                                    <h2 class="h4 fw-light text-muted mb-4">Elevate Your Daily Routine with Innovative Design</h2>
+                                    <h2 class="h4 fw-light text-muted mb-4">Effortless Efficiency for the Modern Home</h2>
+
+                                    <div class="text_end">
+                                        <p class="lead text-muted mb-4 text_end">
+                                            Our products are engineered to solve your everyday challenges, saving you time and effort.
+                                            Experience seamless functionality designed for modern living.
+                                        </p>
+                                        <p class="text-muted mb-5 text_end">
+                                            Crafted for durability and designed with aesthetics in mind, each product is made to improve your quality of life.
+                                            Discover the difference that thoughtful design makes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-4 gx-lg-5 align-items-center mt-5">
+
+                                <!-- Content Column -->
+                                <div class="col-md-7">
+                                    <h2 class="display-3 fw-bolder text-dark mb-2">Discover Your Next Favorite Essential</h2>
+                                    <h2 class="h4 fw-light text-muted mb-4">Curated Finds to Upgrade Your Everyday Living</h2>
+                                    <h2 class="h4 fw-light text-muted mb-4">Exclusive New Arrivals You’ll Love to Own</h2>
+
+                                    <div class="pe-md-5">
+                                        <p class="lead text-muted mb-4">
+                                            Whether you're upgrading your space or looking for the perfect gift, our exclusive range offers something special for everyone.
+                                            Browse our new arrivals and find the perfect match for your lifestyle.
+                                        </p>
+                                        <p class="text-muted mb-5">
+                                            From premium materials to artisanal craftsmanship, we believe in products that last.
+                                            Explore our bestsellers, designed to bring both functionality and elegance into your home.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Visual Column -->
+                                <div class="col-md-5 d-none d-md-block text-center">
+                                    <img class="img-fluid rounded-4 shadow"
+                                         src="/web/image/website.s_banner_default_image"
+                                         alt="Digital Library"
+                                         loading="lazy"/>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </t>
+            </xpath>
+    </template>
+
+    <record id="menu_reporting" model="website.menu">
+        <field name="name">Reporting</field>
+        <field name="parent_id" model="website.menu" search="[('parent_id','=',False),('website_id','=',ref('website.default_website'))]"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence" type="int">130</field>
+        <field name="group_ids"  eval="[(4, ref('library_management_jui.library_group_admin'))]"/>
+    </record>
+
+    <record id="menu_history" model="website.menu">
+        <field name="name">Book History</field>
+        <field name="url">/</field>
+        <field name="parent_id" ref="library_management_jui.menu_reporting"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence" type="int">130</field>
+    </record>
+
+    <record id="menu_library_hub" model="website.menu">
+        <field name="name">Library Hub</field>
+        <field name="url">/library_hub_mega_menu</field>
+        <field name="parent_id" model="website.menu" search="[('parent_id','=',False),('website_id','=',ref('website.default_website'))]"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence">140</field>
+        <field name="is_mega_menu">True</field>
+        <field name="mega_menu_content" type="html">
+            <section class="library-mega-menu">
+                 <!-- ITEM 1 -->
+                <div class="mega-item">
+                    <div class="left">Resources and Research</div>
+                    <div class="right">
+                        <ul>
+                            <li><a href="#">Books</a></li>
+                            <li><a href="#">Journals</a></li>
+                            <li><a href="#">Academic Databases</a></li>
+                            <li><a href="#">E-Resources</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ITEM 2 -->
+                <div class="mega-item">
+                    <div class="left">Borrowing and Services</div>
+                    <div class="right">
+                        <ul>
+                            <li><a href="#">Renew Items</a></li>
+                            <li><a href="#">Interlibrary Loans</a></li>
+                            <li><a href="#">Room Booking</a></li>
+                            <li><a href="#">Fines</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ITEM 3 -->
+                <div class="mega-item">
+                    <div class="left">Locations and Hours</div>
+                    <div class="right">
+                        <ul>
+                            <li><a href="#">Branch Information</a></li>
+                            <li><a href="#">Map</a></li>
+                            <li><a href="#">Meeting Room Info</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ITEM 4 -->
+                <div class="mega-item">
+                    <div class="left">About and Support</div>
+                    <div class="right">
+                        <ul>
+                            <li><a href="#">Staff Directory</a></li>
+                            <li><a href="#">Policies</a></li>
+                            <li><a href="#">Library News</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+           </section>
+       </field>
+    </record>
+</odoo>
+

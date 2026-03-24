@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="bill_inherit_view" model="ir.ui.view">
+            <field name="name">bill.inherit.view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='partner_id']" position="attributes">-->
+<!--                    <attribute name='invisible'>1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='invoice_vendor_bill_id']" position="attributes">-->
+<!--                    <attribute name='invisible'>1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='ref']" position="attributes">-->
+<!--                    <attribute name='invisible'>1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//group[@id='header_left_group']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Groups Category -->
+
+       <record model="ir.module.category" id="project_management_group_catgory">
+            <field name="name">Project Management</field>
+            <field name="sequence">40</field>
+       </record>
+
+        <!-- Group Privilege -->
+
+        <record model="res.groups.privilege" id="project_management_group_privilege">
+            <field name="name">Role</field>
+            <field name="sequence">1</field>
+            <field name="category_id" ref="project_management_jui.project_management_group_catgory"/>
+        </record>
+
+        <!-- Groups -->
+
+        <record id="project_group_assignees" model="res.groups">
+            <field name="name">Assignees</field>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="project_management_jui.project_management_group_privilege"/>
+        </record>
+
+        <record id="project_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="sequence">20</field>
+            <field name="implied_ids" eval="[(4, ref('project_management_jui.project_group_assignees'))]"/>
+            <field name="privilege_id" ref="project_management_jui.project_management_group_privilege"/>
+        </record>
+
+        <record id="project_group_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="sequence">30</field>
+            <field name="implied_ids" eval="[(4, ref('project_management_jui.project_group_manager'))]"/>
+            <field name="privilege_id" ref="project_management_jui.project_management_group_privilege"/>
+        </record>
+
+    </data>
+</odoo>

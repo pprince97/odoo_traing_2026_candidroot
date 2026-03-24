@@ -1,0 +1,34 @@
+<odoo>
+    <record id="hospital_doctor_rule" model="ir.rule">
+        <field name="name">doctor only</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management.hospital_group_doctor')),(4, ref('hospital_management.hospital_group_patient'))]"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+    </record>
+
+    <record id="hospital_admin_rule" model="ir.rule">
+        <field name="name">admin only</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management.hospital_group_admin'))]"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+    </record>
+
+    <record id="hospital_receptionist_rule" model="ir.rule">
+        <field name="name">receptionist only</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management.hospital_group_receptionist'))]"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+    </record>
+</odoo>

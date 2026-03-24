@@ -1,0 +1,48 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="custom_tree">
+            <field name="name">Registration</field>
+            <field name="model">custom.entry</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="username"/>
+                <field name="userphone"/>
+                <field name="role"/>
+                <field name="age"/>
+                <field name="height"/>
+
+            </list>
+            </field>
+        </record>
+
+        <record id="custom_form" model="ir.ui.view">
+            <field name="name">Registration</field>
+            <field name="model">custom.entry</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="username"/>
+                                <field name="userphone"/>
+                                <field name="role"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="height"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="entries_action">
+            <field name="name">Registration</field>
+            <field name="res_model">custom.entry</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem name="Root" id="menu_root" action="registration.entries_action"/>
+    </data>
+</odoo>

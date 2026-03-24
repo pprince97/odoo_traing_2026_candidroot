@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_bill">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="project_management_jui.report_bill_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_bill_document">
+        <t t-call="web.external_layout">
+<!--            <t t-esc="docs"/>-->
+<!--            <t t-esc="docs_ids"/>-->
+<!--            <t t-esc="doc_model"/>-->
+            <t t-foreach="docs" t-as="rec">
+                <h6>
+                    <br/>
+                    <h3>Project bill</h3>
+                    <h3 t-field="rec.name"/>
+                    <br/>
+                    <span t-field="rec.partner_id"/>
+                    <br/>
+                    <br/>
+                    <table class="table table-sm">
+                        <tr>
+                            <th><b>Date</b></th>
+                            <th class="text-end"><b>Accounting Date</b></th>
+                        </tr>
+                        <tr>
+                            <td><span t-field="rec.invoice_date"/></td>
+                            <td class="text-end"><span t-field="rec.date"/></td>
+                        </tr>
+                    </table>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><b>Name</b></th>
+                                <th class="text-end"><b>Quantity</b></th>
+                                <th class="text-end"><b>Price</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rec.invoice_line_ids" t-as="invoice">
+                                <tr>
+                                    <td>
+                                        <span t-field="invoice.name"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="invoice.quantity"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="invoice.price_unit"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <hr style="width:20%;margin-left:auto;margin-right:0;"/>
+                    <div class="text-end">
+                        <span>Total :    </span>
+                        <span t-field="rec.amount_residual"/>
+                    </div>
+
+                </h6>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_bill" model="ir.actions.report">
+        <field name="name">Bill</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">project_management_jui.report_bill</field>
+        <field name="report_file">project_management_jui.report_bill</field>
+        <field name="print_report_name">'Bill'</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

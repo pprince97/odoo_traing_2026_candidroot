@@ -1,0 +1,27 @@
+<odoo>
+    <record id="hospital_admin_demo" model="res.partner">
+        <field name="name">Hospital Admin</field>
+        <field name="company_name">YourCompany</field>
+        <field name="street">215 Vine St</field>
+        <field name="city">Scranton</field>
+        <field name="zip">18503</field>
+        <field name='country_id' ref='base.us'/>
+        <field name='state_id' ref='base.state_us_39'/>
+        <field name="phone">+1 555-555-5555</field>
+        <field name="email">admin@yourcompany.example.com</field>
+        <field name="tz">Europe/Brussels</field>
+        <field name="image_1920" type="base64" file="base/static/img/partner_root-image.png"/>
+    </record>
+
+    <record id="hospital_user_admin" model="res.users">
+        <field name="partner_id" ref="hospital_management.hospital_admin_demo"/>
+        <field name="login">demo_admin</field>
+        <field name="password">admin</field>
+        <field name="signature" type="html"><div>Hospital Admin</div></field>
+        <field name="group_ids" eval="[Command.set([ref('base.group_system'),ref('hospital_management.hospital_group_admin')])]"/>
+    </record>
+
+    <record id="hospital_admin_demo" model="res.partner" >
+        <field name="user_id" ref="hospital_management.hospital_user_admin"/>
+    </record>
+</odoo>

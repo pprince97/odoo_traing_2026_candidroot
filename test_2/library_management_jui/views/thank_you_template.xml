@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="library_management_jui.thank_you" name="About Us">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="body mt-5 mb-5">
+                        <div class="container text-center center">
+                            <h2> Thank you 🙂 </h2>
+                            <p class="fs-5">The Borrow Request has been submitted in the library 📚 </p>
+                        </div>
+                        <div class="justify-content-center mt-2 d-flex"><a href="/" class="fs-5">Home</a></div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

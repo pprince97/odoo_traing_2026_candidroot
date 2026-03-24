@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="books_kanban" model="ir.ui.view">
+            <field name="name">Books</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_department_kanban o_kanban_mobile">
+                    <templates>
+                        <t t-name="card">
+                            <div class="row">
+                                <div class="col-8">
+                                   <h4><field class="fw-bold fs-2" name="name"/></h4>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <field class="badge text-bg-success rounded-pill" name="category"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                   <field class="badge text-bg-primary rounded-pill" name="available_copies"/>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <field class="badge text-bg-success rounded-pill" name="borrow_price"/>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="books_form" model="ir.ui.view">
+            <field name="name">Books</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="unpublished,published" options="{'clickable': '1'}"/>
+                    </header>
+
+                    <sheet>
+                        <div name="button_box" position="inside">
+                            <button name="history_of_borrowed"
+                                    type="object"
+                                    class="btn-primary"
+                                    icon="fa-list">
+                                <field name="borrowed_count" string="History Of Borrowed" widget="statinfo"/>
+                            </button>
+
+                            <button type="object" class="btn-primary" icon="fa-list">
+                                <field name="available_copies" widget="statinfo" string="Available copies "/>
+                                <field name="stock" widget="statinfo" string="/ stock"/>
+                            </button>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="barcode"/>
+                                <field name="description"/>
+                                <field name="currency_id"/>
+                                <field name="category"/>
+                            </group>
+                            <group>
+                                <field name="available_copies" readonly="True"/>
+                                <field name="stock"/>
+                                <field name="borrow_price"/>
+                                <field name="maximum_day_limit"/>
+                                <field name="cover_image"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="library_books_action_id" model="ir.actions.act_window">
+            <field name="name">Books</field>
+            <field name="res_model">library.books</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+
+        <menuitem id="library_books_id" name="Books" parent="library_management_jui.library_management_id" action="library_books_action_id" groups="library_management_jui.library_group_librarian"/>
+
+        <menuitem id="reporting_id" name="Reporting" parent="library_management_jui.library_management_id" groups="library_management_jui.library_group_admin"/>
+        <menuitem id="book_borrow_history_id" name="Books Borrow History" parent="reporting_id" action="library_management_jui.book_borrow_history_action_id"/>
+
+    </data>
+</odoo>

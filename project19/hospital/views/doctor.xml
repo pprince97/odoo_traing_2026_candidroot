@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+        <record id="hr_employee_inherit_view" model="ir.ui.view">
+            <field name="name">hr.employee.inherit.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_ids']" position="after">
+                    <group>
+                        <field name="name"/>
+                        <field name="email_d"/>
+                        <field name="phone_d"/>
+                        <field name="address_d" placegolder="Address"/>
+                        <field name="department_d" placeholder="Department"/>
+                        <field name="salary"/>
+                        <field name="is_available"/>
+
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='image_1920']" position="replace">
+                    <group>
+                        <field name="photo_d" widget="image"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page name="patient" string="Patient">
+                            <field name="patient">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                    </page>
+
+                    <page name="app" string="Appointments">
+                            <field name="app_id">
+                                <list>
+                                    <field name="p_id"/>
+                                </list>
+                            </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='work_information']" position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']" position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='resume']" position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='payroll_information']" position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']" position='attributes'>
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_ids']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

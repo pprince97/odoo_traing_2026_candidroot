@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="library_management_jui.model_library_borrow_request" model="ir.model">
+  <field name="website_form_access">True</field>
+</record>
+<record id="library_management_jui.model_library_borrow_request_lines" model="ir.model">
+  <field name="website_form_access">True</field>
+</record>
+<function model="ir.model.fields" name="formbuilder_whitelist">
+    <value>library.borrow.request</value>
+    <value eval="[
+        'serial_number',
+        'student_id',
+        'librarian_id',
+        'state',
+        'return_date',
+        'issue_date',
+        'fine_amount',
+        'total_amount',
+        'canceled_date',
+        'cancellation_reason',
+        ]"/>
+</function>
+<function model="ir.model.fields" name="formbuilder_whitelist">
+    <value>library.borrow.request.lines</value>
+    <value eval="[
+        'book_id',
+        'quantity',
+        'amount_per_unit',
+        'issue_date',
+        'return_date',
+        'fine_amount',
+        'total_amount',
+        'issue_days',
+        'borrow_request_id',
+        ]"/>
+</function>
+    <template id="library_management_jui.borrow_request_temp_form" name="Borrow Request Form">
+    <t t-call="website.layout">
+        <div id="wrap">
+            <div class="oe_structure">
+
+                <!-- HEADER -->
+                <section class="title mb-5">
+                    <span class="bg-image d-flex pt-4 pb-4"
+                          style="background-image: url('library_management_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                        <div class="container">
+                            <h1 class="text-white">Create Borrow Request</h1>
+                        </div>
+                    </span>
+                </section>
+
+                <section class="body mt-5 mb-5">
+                    <div class="container">
+
+                        <form action="/borrow_request/submit" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <!-- ✅ IMPORTANT: keep request id -->
+                            <input type="hidden" name="request_id" t-att-value="id"/>
+
+                            <div class="row">
+
+                                <!-- STUDENT -->
+                                <div class="mb-3 col-lg-6">
+                                    <t t-set="partners"
+                                       t-value="request.env['res.partner'].sudo().search([('is_student','=',True)])"/>
+
+                                    <label>Student</label>
+                                    <select name="student_id" class="form-control" required="1">
+                                        <t t-foreach="partners" t-as="student">
+                                            <option t-att-value="student.id"
+                                                    t-att-selected="requests and student.id == requests.student_id.id">
+                                                <t t-esc="student.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <!-- LIBRARIAN -->
+                                <div class="mb-3 col-lg-6">
+                                    <t t-set="current_librarian" t-value="request.env.user.partner_id"/>
+
+                                    <label>Librarian</label>
+                                    <select name="librarian_id" class="form-control"
+                                            readonly="1"
+                                            style="pointer-events:none; background:#e9ecef;">
+                                        <option t-att-value="current_librarian.id" selected="selected">
+                                            <t t-esc="current_librarian.name"/>
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- ISSUE DATE -->
+                                <div class="mb-3 col-lg-6">
+                                    <label>Issue Date</label>
+                                    <input type="date" name="issue_date"
+                                           class="form-control"
+                                           t-att-value="requests.issue_date if requests else ''"/>
+                                </div>
+
+                                <!-- RETURN DATE -->
+                                <div class="mb-3 col-lg-6">
+                                    <label>Return Date</label>
+                                    <input type="date" name="return_date"
+                                           class="form-control"
+                                           t-att-value="requests.return_date if requests else ''"/>
+                                </div>
+
+                                <!-- STATE -->
+                                <div class="mb-3 col-12">
+                                    <label class="me-3">State :</label>
+
+                                    <t t-set="state_options"
+                                       t-value="request.env['library.borrow.request']._fields['state'].selection"/>
+
+                                    <t t-foreach="state_options" t-as="option">
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio"
+                                                   name="state"
+                                                   class="form-check-input"
+                                                   t-att-value="option[0]"
+                                                   t-att-checked="option[0] == (requests.state if requests else 'draft')"/>
+                                            <label class="form-check-label">
+                                                <t t-esc="option[1]"/>
+                                            </label>
+                                        </div>
+                                    </t>
+                                </div>
+
+                            </div>
+
+                            <!-- ✅ LINES TABLE -->
+                            <div class="table-responsive mt-4">
+
+                                <t t-set="request_lines"
+                                   t-value="requests.borrow_request_lines_id if requests else []"/>
+
+                                <t t-set="available_books"
+                                   t-value="request.env['library.books'].sudo().search([('state','=','published')])"/>
+
+                                <table class="table table-bordered">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Book</th>
+                                            <th class="text-end">Qty</th>
+                                            <th>Issue Date</th>
+                                            <th>Return Date</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <!-- EXISTING LINES -->
+                                        <t t-foreach="request_lines" t-as="line">
+                                            <tr>
+                                                <td><t t-esc="line.book_id.name"/></td>
+                                                <td class="text-end"><t t-esc="line.quantity"/></td>
+                                                <td><t t-esc="line.issue_date"/></td>
+                                                <td><t t-esc="line.return_date"/></td>
+                                                <td class="text-center">
+                                                    <a t-attf-href="/library/line/delete/#{line.id}"
+                                                       class="btn btn-sm btn-danger">
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <!-- ADD LINE ROW -->
+                                        <tr class="bg-light">
+                                            <td>
+                                                <select name="new_book_id" class="form-control">
+                                                    <option value="">Select Book...</option>
+                                                    <t t-foreach="available_books" t-as="book">
+                                                        <option t-att-value="book.id">
+                                                            <t t-esc="book.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </td>
+
+                                            <td>
+                                                <input type="number" name="new_qty" value="1"
+                                                       class="form-control text-end"/>
+                                            </td>
+
+                                            <td>
+                                                <input type="date" name="new_issue_date"
+                                                       class="form-control"/>
+                                            </td>
+
+                                            <td>
+                                                <input type="date" name="new_return_date"
+                                                       class="form-control"/>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <button type="submit"
+                                                        name="action"
+                                                        value="add_line"
+                                                        class="btn btn-primary btn-sm">
+                                                    Add Line
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- FINAL SUBMIT -->
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </t>
+</template>
+
+    <record id="custom_menu_borrow_request_form" model="website.menu">
+        <field name="name">Create Borrow request</field>
+        <field name="url">/create_borrow_request</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">120</field>
+        <field name="group_ids"  eval="[(4, ref('library_management_jui.library_group_librarian'))]"/>
+    </record>
+</odoo>
+
+

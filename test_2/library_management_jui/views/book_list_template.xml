@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="book_list" name="Library Book List">
+    <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+            <section class="title mb-5">
+                <span class="bg-image d-flex pt-4 pb-4" style="background-image: url('library_management_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                <div class="container">
+                    <h1 class="text-white">Book Catalog</h1>
+                </div>
+                </span>
+            </section>
+            <div class="container mt-4 mb-4">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <p class="ms-0 fs-3">Available Books in the Library</p>
+                    </div>
+                    <div class="col-md-6 mt-2 text-end">
+                        <a href="/book" role="button" class="btn btn-primary s_website_form_send">Add Book
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <t t-foreach="docs" t-as="record">
+                        <div class="col">
+                            <!-- Card with Bootstrap shadow and rounded corners -->
+                            <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden">
+
+                                <!-- Top Image Section -->
+                                <div class="position-relative bg-light" style="height: 250px;">
+                                    <img t-if="record.cover_image"
+                                         t-att-src="website.image_url(record, 'cover_image')"
+                                         class="card-img-top h-100"
+                                         style="object-fit: cover;"
+                                         alt="Cover Image"/>
+
+                                    <div t-else="" class="h-100 d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-book fa-4x text-muted opacity-50"/>
+                                    </div>
+
+                                    <!-- Dynamic State Badge -->
+                                    <span t-attf-class="badge position-absolute m-3 py-2 px-3 #{(record.state == 'published') and 'text-bg-success' or 'text-bg-secondary'}"
+                                          style="top: 0; right: 0; z-index: 1;">
+                                        <t t-esc="record.state.capitalize() if record.state else 'Draft'"/>
+                                    </span>
+                                </div>
+
+                                <!-- Card Body -->
+                                <div class="card-body p-4 d-flex flex-column">
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title fw-bold mb-0 text-truncate" t-field="record.name"/>
+                                        <small class="text-muted ms-2" t-field="record.barcode"/>
+                                    </div>
+                                    <div class="card-text text-muted small flex-grow-1 mb-3" style="line-height: 1.5;">
+                                        <span class="badge rounded-pill border text-primary bg-light px-2 py-1 float-end ms-2 mb-1"
+                                              t-field="record.category"/>
+                                        <p class="m-0" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                            <t t-esc="record.description"/>
+                                        </p>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-end pt-3 border-top mt-3">
+                                        <div class="lh-1">
+                                            <small class="text-muted d-block mb-1">Available</small>
+                                            <span class="fw-bold text-dark h6 mb-0">
+                                                <t t-esc="record.available_copies"/> Copies
+                                            </span>
+                                        </div>
+                                        <div class="lh-1">
+                                            <small class="text-muted d-block mb-1">Maximum Day Limit</small>
+                                            <span class="fw-bold text-dark h6 mb-0">
+                                                <t t-esc="record.maximum_day_limit"/>
+                                            </span>
+                                        </div>
+                                        <div class="text-end lh-1">
+                                            <small class="text-muted d-block mb-1">Daily Price</small>
+                                            <span class="text-primary fw-bold h5 mb-0">
+                                                <span t-field="record.borrow_price" t-options='{"widget": "monetary", "display_currency": record.currency_id or res_company.currency_id}'/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+    <record id="custom_book_list_menu" model="website.menu">
+        <field name="name">Book Catalog</field>
+        <field name="url">/booklist</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">100</field>
+        <field name="group_ids"  eval="[(4, ref('library_management_jui.library_group_librarian'))]"/>
+    </record>
+</odoo>

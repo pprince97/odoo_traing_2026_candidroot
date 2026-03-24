@@ -1,0 +1,164 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="Custom_tree7">
+            <field name="name">Admission</field>
+            <field name="model">admission.form</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="name" width="25px"/>
+                <field name="age" width="25px"/>
+                <field name="gender" width="25px"/>
+                <field name="percentage" width="25px"/>
+                <field name="dob" width="25px"/>
+                <field name="std_for_admission" width="25px"/>
+                <field name="previous_school" width="25px"/>
+                <field name="address" width="25px"/>
+                <field name="fees" width="25px"/>
+                <field name="f_name" width="25px"/>
+<!--                <field name="f_phone" width="25px"/>-->
+<!--                <field name="f_email" width="25px"/>-->
+                <field name="m_name" width="25px"/>
+<!--                <field name="m_phone" width="25px"/>-->
+<!--                <field name="m_email" width="25px"/>-->
+<!--                <field name="s_photo" width="25px" filename="file_name_i"/>-->
+<!--                <field name="id_proof" width="25px" filename="file_name"/>-->
+                <field name="school_id" width="30px"/>
+            </list>
+            </field>
+        </record>
+
+        <record id="Custom_form7" model="ir.ui.view">
+            <field name="name">Admission Form</field>
+            <field name="model">admission.form</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+
+                    <header>
+                        <button name="new_state"
+                                string="Reset to draft"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['new','in_progress']"/>
+                        <button name="in_progress_state"
+                                string="In Progress"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['in_progress','confirm']"/>
+                        <button name="confirm_state"
+                                string="Confirm"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['new','confirm']"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,in_progress,confirm"/>
+
+                        <button name=" %(school_action)d"
+                                string="School"
+                                type="action"
+                                class="oe_highlight"/>
+
+                        <button name="browse_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+<!--                                    <span class="o_stat_value"></span>-->
+                                    <span class="o_stat_text">Browse</span>
+                                </div>
+                            </button>
+
+                    </header>
+
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name" width="25px" widget="char"/>
+                                <field name="age" width="25px"/>
+                                <field name="gender" width="25px" widget="reference"/>
+                                <field name="dob" width="25px" widget="datetime"/>
+                                <field name="percentage" width="25px"/>
+                                <field name="std_for_admission" width="25px"/>
+                                <field name="previous_school" width="25px"/>
+                                <field name="address" width="25px" widget="badge"/>
+                                <field name="html" width="25px" widget="code"/>
+                                <field name="color" width="25px" widget="color_picker"/>
+                                <field name="k_color" width="25px" widget="kanban_color_picker"/>
+                                <field name="company_currency_id" widget=""/>
+                                <field name="fees" width="25px" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+
+                            </group>
+                            <group>
+                                <field name="f_name" width="25px" widget="statinfo"/>
+                                <field name="f_phone" width="25px" widget="phone"/>
+                                <field name="f_email" width="25px" widget="email"/>
+                                <field name="m_name" widget="image_url"/>
+                                <field name="m_phone" width="25px"/>
+                                <field name="m_email" width="25px" widget="url"/>
+                                <field name="is_active" width="25px" widget="boolean_toggle"/>
+                                <field name="school_id" options="{'no_create':True, 'no_edit':True}" widget="many2one_reference_integer"/>
+                                <field name="state" widget="selection_badge_with_filter" options="{'allowed_selection_field': 'name'}"/>
+                                <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-warning="state == 'new'"  decoration-info="state == 'in_progress'"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="list" string="List">
+                                <field name="school_id">
+                                    <list widget="list_activity">
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <page name="sp" string="Student Photo">
+                                <field name="s_photo" filename="file_name_i" widget="image"/>
+                            </page>
+
+                            <page name="idp" string="Id Proof">
+                                <field name="id_proof" width="25px" filename="file_name" widget="contact_image"/>
+                            </page>
+
+                            <page name="bg" string="Background Image">
+                                <field name="bg_img" width="25px" widget="work_permit_upload"/>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="admission_kanban" model="ir.ui.view">
+            <field name="name">Admission Form</field>
+            <field name="model">admission.form</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_department_kanban o_kanban_mobile">
+                    <templates>
+                        <t t-name="card">
+                            <div class="row">
+                                <div class="col-8">
+                                   <h4><field class="fw-bold fs-2" name="name"/></h4>
+                                </div>
+                                <div class="col-4 text-end">
+                                   <h4><field class="fw-bold fs-2" name="name" widget="handle"/></h4>
+                                    <field class="badge text-bg-success rounded-pill" name="percentage"/>
+                                </div>
+                            </div>
+                            <div>
+                               <field name="gender"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="admission_form_action">
+            <field name="name">Admission Form</field>
+            <field name="res_model">admission.form</field>
+            <field name="view_mode">list,form,kanban</field>
+        </record>
+
+        <menuitem name="Admission Form" id="form_adm" parent="school_management.parent_school" action="school_management.admission_form_action"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="librarian_demo" model="res.partner">
+        <field name="name">jiya</field>
+        <field name="phone">123456789</field>
+        <field name="email">jiya@mail.com</field>
+        <field name="gender">female</field>
+        <field name="is_librarian">True</field>
+    </record>
+
+    <record id="borrow_request1_lines_demo" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_jui.book1_demo"/>
+        <field name="quantity">2</field>
+        <field name="amount_per_unit">50</field>
+        <field name="issue_date" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() + timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="fine_amount">0</field>
+        <field name="total_amount">300</field>
+        <field name="issue_days">3</field>
+    </record>
+
+    <record id="borrow_request2_lines_demo" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_jui.book2_demo"/>
+        <field name="quantity">3</field>
+        <field name="amount_per_unit">30</field>
+        <field name="issue_date" eval="(DateTime.today() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="fine_amount">60</field>
+        <field name="total_amount">420</field>
+        <field name="issue_days">3</field>
+    </record>
+
+    <record id="borrow_request3_lines_demo" model="library.borrow.request.lines">
+        <field name="book_id" ref="library_management_jui.book3_demo"/>
+        <field name="quantity">1</field>
+        <field name="amount_per_unit">80</field>
+        <field name="issue_date" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+        <field name="fine_amount">10</field>
+        <field name="total_amount">170</field>
+        <field name="issue_days">1</field>
+    </record>
+
+    <record id="borrow_request1_demo" model="library.borrow.request">
+        <field name="serial_number">002</field>
+        <field name="student_id" ref="library_management_jui.student1_demo"/>
+        <field name="librarian_id" ref="library_management_jui.librarian_demo"/>
+        <field name="state">draft</field>
+        <field name="fine_amount">0</field>
+        <field name="total_amount">300</field>
+        <field name="borrow_request_lines_id" eval="[(6, 0, [ref('library_management_jui.borrow_request1_lines_demo')])]"/>
+    </record>
+
+    <record id="borrow_request2_demo" model="library.borrow.request">
+        <field name="serial_number">003</field>
+        <field name="student_id" ref="library_management_jui.student2_demo"/>
+        <field name="librarian_id" ref="library_management_jui.librarian_demo"/>
+        <field name="state">issued</field>
+        <field name="issue_date" eval="(DateTime.today() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="fine_amount">60</field>
+        <field name="total_amount">420</field>
+        <field name="borrow_request_lines_id" eval="[(6, 0, [ref('library_management_jui.borrow_request2_lines_demo')])]"/>
+    </record>
+
+    <record id="borrow_request3_demo" model="library.borrow.request">
+        <field name="serial_number">004</field>
+        <field name="student_id" ref="library_management_jui.student3_demo"/>
+        <field name="librarian_id" ref="library_management_jui.librarian_demo"/>
+        <field name="state">returned</field>
+        <field name="return_date" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="issue_date" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+        <field name="fine_amount">10</field>
+        <field name="total_amount">170</field>
+        <field name="borrow_request_lines_id" eval="[(6, 0, [ref('library_management_jui.borrow_request3_lines_demo')])]"/>
+    </record>
+
+</odoo>

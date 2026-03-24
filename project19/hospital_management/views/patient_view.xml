@@ -1,0 +1,153 @@
+<odoo>
+    <data>
+        <record id="patient_h_list" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.model</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="name" width="25px"/>
+                <field name="active_p" width="25px"/>
+                <field name="age" width="30px"/>
+                <field name="dob" width="30px"/>
+                <field name="gender" width="25px"/>
+                <field name="address" width="25px"/>
+                <field name="symptoms" width="25px"/>
+                <field name="priority" width="25px"/>
+                <field name="report_file" width="25px" filename="report_name" widget="binary"/>
+                <field name="report_name" width="25px"/>
+                <field name="ref_field" width="25px"/>
+            </list>
+            </field>
+        </record>
+
+
+        <record id="patient_h_tree" model="ir.ui.view">
+            <field name="name">Patient</field>
+            <field name="model">patient.model</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <header>
+                         <button name="admit_patient" type="object" class="oe_stat_button" string="Admit Patient"/>
+                         <button name="discharge_patient" type="object" class="oe_highlight" string="Discharge Patient"/>
+                         <button name=" %(appointment_patient_action)d" string="Create Appointment" type="action" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div name="button_box" position="inside">
+                            <button name="confirm_count_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="confirm_count"/></span>
+                                    <span class="o_stat_text">Confirm</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" width="25px"/>
+                                <field name="active_p" width="25px"/>
+                                <field name="age" width="30px"/>
+                                <field name="dob" width="30px"/>
+                                <field name="gender" width="25px"/>
+                                <field name="address" width="25px"/>
+                                <field name="symptoms" width="25px"/>
+                            </group>
+                            <group>
+                                <field name="priority" width="25px"/>
+                                <field name="report_file" width="25px" filename="report_name"/>
+                                <field name="report_name" width="25px"/>
+                                <field name="ref_field" width="25px"/>
+                                <field name="partner_id" width="25px" required="0" readonly="1"/>
+                                <field name="doctor_id" width="25px"/>
+                                <field name="doctor_emp_id" width="25px"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="patient_h_search" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.model</field>
+            <field name="arch" type="xml">
+                <search string="Search patient">
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="partner_id"/>
+                    <field name="doctor_emp_id"/>
+                    <filter name="gender_male" string="Male" domain="[('gender', '=', 'male')]"/>
+                    <filter name="gender_female" string="Female" domain="[('gender', '=', 'female')]"/>
+                    <filter name="priority_low" string="Low" domain="[('priority', '=', 'low')]"/>
+                    <filter name="priority_normal" string="Normal" domain="[('priority', '=', 'normal')]"/>
+                    <filter name="priority_high" string="High" domain="[('priority', '=', 'high')]"/>
+                    <filter name="ref_employee" string="Employee" domain="[('ref_field', '=', 'employee')]"/>
+                    <filter name="ref_partner" string="Partner" domain="[('ref_field', '=', 'partner')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="patient_h_kanban" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.model</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_department_kanban o_kanban_mobile">
+                    <templates>
+                        <t t-name="card">
+                            <div class="row">
+                                <div class="col-8">
+                                   <h4><field class="fw-bold fs-2" name="name"/></h4>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <field class="badge text-bg-success rounded-pill" name="age"/>
+                                </div>
+                            </div>
+                            <div>
+                               <field name="gender"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="patient_h_pivot" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.model</field>
+            <field name="arch" type="xml">
+                <pivot string="Patients">
+                    <field name="gender" type="col"/>
+                    <field name="age" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+         <record id="patient_h_calendar" model="ir.ui.view">
+             <field name="name">Patients</field>
+             <field name="model">patient.model</field>
+             <field name="arch" type="xml">
+                 <calendar string="Patient" date_start="dob">
+                     <field name="name"/>
+                 </calendar>
+             </field>
+        </record>
+
+        <record id="patient_h_graph" model="ir.ui.view">
+             <field name="name">Patients</field>
+             <field name="model">patient.model</field>
+             <field name="arch" type="xml">
+                 <graph string="Patients" type="line" sample="1">
+                     <field name="age"/>
+                     <field name="gender"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="patient_h_action"  model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">patient.model</field>
+            <field name="view_mode">list,form,search,kanban,pivot,calendar,graph</field>
+        </record>
+
+        <menuitem name="Hospital Management" id="hospital_management_parent"/>
+        <menuitem name="Patients" id="patient_h_id" parent="hospital_management_parent" action="patient_h_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="website_jui.services" name="Services">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="title mb-5">
+                        <span class="bg-image d-flex pt-4 pb-4" style="background-image: url('website_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                        <div class="container">
+                            <h1 class = "text-white">Services</h1>
+                        </div>
+                        </span>
+                    </section>
+                    <section class="body mt-5 mb-5">
+                        <div class="container">
+                            <h4>Our Services</h4>
+                            <br/>
+                            <h5>Custom Software Development:</h5>
+                            <p class="fs-6 justify-content-center">We emphasize developing unique solutions that help businesses of all sizes find answers to their specific challenges.</p>
+
+                            <h5>Mobile Innovation:</h5>
+                            <p class="fs-6">Our team specializes in high-quality mobile app development, empowering your business with ease and mobility in an ever-changing market.</p>
+
+                            <h5>Web Solutions:</h5>
+                            <p class="fs-6">We create device-friendly, high-performance business websites designed to serve as your digital foundation.</p>
+
+                            <h5>Digital Transformation:</h5>
+                            <p class="fs-6">We work with you to build capabilities that enable your organization to achieve a sustainable competitive advantage through technology and innovation.</p>
+
+                            <h5>Strategic Growth Services:</h5>
+                            <p class="fs-6">Beyond technical builds, we provide SEO, SMO, and digital marketing to ensure your brand story reaches the right audience.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="custom_services_page" model="website.page">
+        <field name="url">/customservices</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="website_jui.services"/>
+        <field name="website_meta_description">The services we provide on this website</field>
+    </record>
+
+    <record id="custom_menu_services" model="website.menu">
+        <field name="name">Services</field>
+        <field name="url">/customservices</field>
+        <field name="page_id" ref="website_jui.custom_services_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">80</field>
+    </record>
+</odoo>

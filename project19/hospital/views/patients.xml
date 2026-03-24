@@ -1,0 +1,153 @@
+<odoo>
+    <data>
+        <record id="patient_list" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.obj</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="name" width="25px"/>
+                <field name="age" width="30px"/>
+                <field name="dob" width="30px"/>
+                <field name="blood_group" width="25px"/>
+                <field name="gender" width="25px"/>
+                <field name="address" width="25px"/>
+                <field name="weight" width="25px"/>
+                <field name="height" width="25px"/>
+                <field name="contact" width="25px"/>
+                <field name="emergency_contact" width="25px"/>
+                <field name="p_report" width="25px"/>
+                <field name="illness" width="25px"/>
+                <field name="department" width="25px"/>
+                <field name="doctor" width="25px"/>
+                <field name="appointment" width="25px"/>
+            </list>
+            </field>
+        </record>
+
+
+        <record id="patient_tree" model="ir.ui.view">
+            <field name="name">Patient</field>
+            <field name="model">patient.obj</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" width="25px"/>
+                                <field name="age" width="30px"/>
+                                <field name="dob" width="30px"/>
+                                <field name="blood_group" width="25px"/>
+                                <field name="gender" width="25px"/>
+                                <field name="address" width="25px"/>
+                                <field name="weight" width="25px"/>
+                            </group>
+                            <group>
+                                 <field name="height" width="25px"/>
+                                <field name="contact" width="25px"/>
+                                <field name="emergency_contact" width="25px"/>
+                                <field name="p_report" width="25px"/>
+                                <field name="illness" width="25px"/>
+                                <field name="department" width="25px"/>
+                                <field name="doctor" width="25px"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="doctor" string="Doctor">
+                                <field name="appointment">
+                                    <list>
+                                        <field name="p_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="room" string="Room">
+                                <field name="r_id">
+                                    <list>
+                                        <field name="number"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="patient_search" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.obj</field>
+            <field name="arch" type="xml">
+                <search string="Search hospital">
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="department"/>
+                    <field name="doctor"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="patient_kanban" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.obj</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_department_kanban o_kanban_mobile">
+                    <templates>
+                        <t t-name="card">
+                            <div class="row">
+                                <div class="col-8">
+                                   <h4><field class="fw-bold fs-2" name="name"/></h4>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <field class="badge text-bg-success rounded-pill" name="doctor"/>
+                                </div>
+                            </div>
+                            <div>
+                               <field name="gender"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="patient_pivot" model="ir.ui.view">
+            <field name="name">Patients</field>
+            <field name="model">patient.obj</field>
+            <field name="arch" type="xml">
+                <pivot string="Patients">
+                    <field name="name" type="col"/>
+                    <field name="doctor" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+         <record id="patient_calendar" model="ir.ui.view">
+             <field name="name">Patients</field>
+             <field name="model">patient.obj</field>
+             <field name="arch" type="xml">
+                 <calendar string="Patient" date_start="date_start">
+                     <field name="name"/>
+                 </calendar>
+             </field>
+        </record>
+
+        <record id="patient_graph" model="ir.ui.view">
+             <field name="name">Patients</field>
+             <field name="model">patient.obj</field>
+             <field name="arch" type="xml">
+                 <graph string="Patients" type="line" sample="1">
+                     <field name="name"/>
+                     <field name="blood_group"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="patient_action"  model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">patient.obj</field>
+            <field name="view_mode">list,form,search,kanban,pivot,calendar,graph</field>
+        </record>
+
+        <menuitem id="patient_id" name="Patients" parent="hospital_parent_id" action="patient_action"/>
+    </data>
+</odoo>

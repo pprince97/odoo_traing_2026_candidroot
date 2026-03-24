@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="rental_management_inherited_form_view" model="ir.ui.view">
+            <field name="name">rental.management.inherited.form.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_storable']" position="attributes">
+                    <attribute name="default">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tracking']" position="attributes">
+                    <attribute name="default">serial</attribute>
+                    <attribute name="tracking">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,109 @@
+<odoo>
+    <data>
+        <record id="appointment_list" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">appointment.obj</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="appointment" width="25px"/>
+                <field name="d_id" width="30px"/>
+                <field name="p_id" width="30px"/>
+            </list>
+            </field>
+        </record>
+
+
+        <record id="appointment_tree" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">appointment.obj</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="appointment" width="25px"/>
+                                <field name="d_id"/>
+                                <field name="p_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="appointment_search" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">appointment.obj</field>
+            <field name="arch" type="xml">
+                <search string="Search hospital">
+                    <field name="p_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="appointment_kanban" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">appointment.obj</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_department_kanban o_kanban_mobile">
+                    <templates>
+                        <t t-name="card">
+                            <div class="row">
+                                <div class="col-8">
+                                   <h4><field class="fw-bold fs-2" name="p_id"/></h4>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <field class="badge text-bg-success rounded-pill" name="d_id"/>
+                                </div>
+                            </div>
+                            <div>
+                               <field name="appointment"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="appointment_pivot" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">appointment.obj</field>
+            <field name="arch" type="xml">
+                <pivot string="Appointments">
+                    <field name="p_id" type="col"/>
+                    <field name="appointment" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+         <record id="appointment_calendar" model="ir.ui.view">
+             <field name="name">Appointments</field>
+             <field name="model">appointment.obj</field>
+             <field name="arch" type="xml">
+                 <calendar string="Appointment" date_start="appointment">
+                     <field name="appointment"/>
+                 </calendar>
+             </field>
+        </record>
+
+        <record id="appointment_graph" model="ir.ui.view">
+             <field name="name">Appointments</field>
+             <field name="model">appointment.obj</field>
+             <field name="arch" type="xml">
+                 <graph string="Appointments" type="line" sample="1">
+                     <field name="p_id"/>
+                     <field name="d_id" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="appointment_action"  model="ir.actions.act_window">
+            <field name="name">Appointments</field>
+            <field name="res_model">appointment.obj</field>
+            <field name="view_mode">list,form,search,kanban,pivot,calendar,graph</field>
+        </record>
+
+        <menuitem id="hospital_parent_id" name="Hospital management"/>
+        <menuitem id="appointment_id" name="Appointments" parent="hospital_parent_id" action="appointment_action"/>
+    </data>
+</odoo>

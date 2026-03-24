@@ -1,0 +1,132 @@
+<odoo>
+    <data>
+
+        <record id="school_list" model="ir.ui.view">
+            <field name="name">School</field>
+            <field name="model">obj.school</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" width="30px"/>
+                    <field name="address" width="30px"/>
+                    <field name="phone" width="30px"/>
+                    <field name="email" width="30px"/>
+
+                    <field name="student_ids" width="30px"/>
+                    <field name="class_ids" width="30px"/>
+                    <field name="teacher_ids" width="30px"/>
+<!--                    <field name="subject_ids" width="30px"/>-->
+                </list>
+            </field>
+        </record>
+
+        <record id="school_form" model="ir.ui.view">
+            <field name="name">School</field>
+            <field name="model">obj.school</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                         <div name="button_box" position="inside">
+                            <button name="new_count_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="new_count"/></span>
+                                    <span class="o_stat_text">New</span>
+                                </div>
+                            </button>
+
+                             <button name="in_progress_count_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="in_progress_count"/></span>
+                                    <span class="o_stat_text">In Progress</span>
+                                </div>
+                             </button>
+
+                             <button name="confirm_count_btn" type="object" class="oe_stat_button" icon="fa-id-card-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="confirm_count"/></span>
+                                    <span class="o_stat_text">Confirm</span>
+                                </div>
+                             </button>
+
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name" width="30px"/>
+                                <field name="address" width="30px"/>
+                            </group>
+                            <group>
+                                <field name="phone" width="30px"/>
+                                <field name="email" width="30px"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page name="School ref" string="school ref">
+                                <group>
+                                <field name="student_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                                </group>
+                            </page>
+
+                            <page name="School ref2" string="school ref2">
+                                <group>
+                                <field name="class_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                                </group>
+                            </page>
+
+                            <page name="School ref3" string="school ref3">
+                                <group>
+                                <field name="teacher_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                                </group>
+                            </page>
+
+                            <page name="admission" string="Admission">
+                                <group>
+                                <field name="admission_ids">
+                                    <list editable='bottom'>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                                </group>
+                            </page>
+
+<!--                            <page name="School ref4" string="school ref4">-->
+<!--                                <group>-->
+<!--                                <field name="subject_ids">-->
+<!--                                    <list>-->
+<!--                                        <field name="name"/>-->
+<!--                                    </list>-->
+<!--                                </field>-->
+<!--                                </group>-->
+<!--                            </page>-->
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="school_action" model="ir.actions.act_window">
+            <field name="name">School</field>
+            <field name="res_model">obj.school</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem name="School" id="menu_school" parent="parent_school" action="school_action"/>
+
+    </data>
+</odoo>

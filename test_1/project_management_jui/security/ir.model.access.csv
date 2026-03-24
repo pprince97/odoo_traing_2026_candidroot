@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+project_management_jui.project_project_jui,project_project_jui,project_management_jui.model_project_project_jui,,1,1,1,1
+project_management_jui.project_task_jui,project_task_jui,project_management_jui.model_project_task_jui,,1,1,1,1
+project_management_jui.project_stage,project_stage,project_management_jui.model_project_stage,,1,1,1,1
+project_management_jui.project_timesheet,project_timesheet,project_management_jui.model_project_timesheet,,1,1,1,1
+project_management_jui.project_hour_rate,project_hour_rate,project_management_jui.model_project_hour_rate,,1,1,1,1
+project_management_jui.bill_wizard,bill_wizard,project_management_jui.model_bill_wizard,,1,1,1,1
+project_management_jui.res_user_project,base.res.users,base.model_res_users,project_management_jui.project_group_manager,1,1,1,1

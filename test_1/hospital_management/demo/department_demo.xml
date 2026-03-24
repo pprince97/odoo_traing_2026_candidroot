@@ -1,0 +1,6 @@
+<odoo>
+    <record id="department_demo" model="department.model">
+        <field name="name">General</field>
+        <field name="color">6</field>
+    </record>
+</odoo>

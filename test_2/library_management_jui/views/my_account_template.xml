@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="library_management_jui.inheritedaccount" name="Footer" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@id='portal_common_category']" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                    <t t-set="title">Borrow Request Records</t>
+                    <t t-set="text">My borrow request records</t>
+                    <t t-set="url" t-value="'/my/borrow/records'"/>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </xpath>
+    </template>
+
+    <template id="my_borrow_request_list_template" name="Borrow request List">
+    <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty mb-5">
+            <div class="container mt-3 mb-5">
+                <div class="container mt-2">
+                    <div class="container mt-2 mb-4">
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <h3 class="mb-4">Borrow Requests</h3>
+                            </div>
+                            <div class="col-md-6 mt-2 text-end" groups="library_management_jui.library_group_librarian">
+                                <a href="/create_borrow_request" role="button" class="btn btn-primary s_website_form_send">Create Borrow Request
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="table-responsive shadow-sm rounded border">
+                    <table class="table table-hover mb-0 bg-white">
+                        <thead class="table-light border-bottom text-uppercase small text-muted">
+                            <tr>
+                                <th class="ps-4">Serial No</th>
+                                <th>Student</th>
+                                <th>Librarian</th>
+                                <th>Issue Date</th>
+                                <th>Return Date</th>
+                                <th class="text-end">Fine</th>
+                                <th class="text-end">Total</th>
+                                <th class="text-center pe-4">Status</th>
+                                <th t-if="any(d.state == 'canceled' for d in docs)">Canceled Date</th>
+                                <th t-if="any(d.state == 'canceled' for d in docs)">Reason</th>
+                                <th>Borrow request lines</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 'docs' comes from your controller dictionary -->
+                            <t t-foreach="docs" t-as="doc">
+                                <tr class="position-relative clickable-row" style="cursor: pointer;">
+                                    <td class="ps-4 align-middle font-weight-bold">
+                                        <!-- Dynamic link using the record ID -->
+                                        <a t-attf-data-bs-target="#borrow_request_#{doc.id}" href="#" class="stretched-link text-decoration-none text-reset" data-bs-toggle="modal">
+                                            <t t-out="doc.serial_number"/>
+                                        </a>
+                                    </td>
+                                    <td class="align-middle" t-out="doc.student_id.name"/>
+                                    <td class="align-middle" t-out="doc.librarian_id.name"/>
+                                    <td class="align-middle">
+                                        <span t-field="doc.issue_date" t-options='{"widget": "date"}'/>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span t-field="doc.return_date" t-options='{"widget": "date"}'/>
+                                    </td>
+                                    <td class="align-middle text-end">
+                                        <span t-field="doc.fine_amount"
+                                              t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                    </td>
+                                    <td class="align-middle text-end">
+                                        <span t-field="doc.total_amount"
+                                              t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                    </td>
+                                    <td class="align-middle text-center pe-4">
+                                        <span t-attf-class="badge rounded-pill #{
+                                            'bg-info text-dark' if doc.state == 'draft' else
+                                            'bg-primary' if doc.state == 'issued' else
+                                            'bg-success' if doc.state == 'returned' else 'bg-danger text-white'}">
+                                            <!-- Displays the Selection Label (e.g., 'Draft') instead of the key ('draft') -->
+                                            <t t-out="dict(doc._fields['state'].selection).get(doc.state)"/>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="doc.borrow_request_lines_id" t-as="line">
+                                            <span t-out="line.book_id.name"/>
+                                        </t>
+                                    </td>
+<!--                                    <td><t t-out="len(doc.borrow_request_lines_id)"/> lines</td>-->
+                                    <td class="align-middle text-danger">
+                                        <t t-if="doc.state == 'canceled'">
+                                            <span t-field="doc.canceled_date" t-options='{"widget": "date"}'/>
+                                        </t>
+                                        <t t-else="">-</t>
+                                    </td>
+                                    <td class="align-middle italic small text-muted">
+                                        <t t-if="doc.state == 'canceled'">
+                                            <span t-out="doc.cancellation_reason"/>
+                                        </t>
+                                        <t t-else="">-</t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <t t-foreach="docs" t-as="doc">
+                    <div class="modal fade" t-attf-id="borrow_request_#{doc.id}" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0">
+                                    <h5 class="modal-title">Details:
+                                        <t t-out="doc.serial_number"/>
+                                    </h5>
+                                </div>
+                                <div class="modal-body pt-0">
+                                    <t t-call="library_management_jui.borrow_record_view_template">
+                                        <t t-set="record" t-value="doc"/>
+                                    </t>
+                                </div>
+                                <div class="modal-footer justify-content-start">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                </div>
+            </div>
+            <style>
+                .clickable-row:hover { background-color: #f8f9fa !important; }
+            </style>
+
+            </div>
+        </div>
+    </t>
+    </template>
+
+    <template id="borrow_record_view_template" name="Borrow Record View Template">
+        <div id="wrap" class="oe_structure">
+            <div class="container">
+                <h1 class="mt-4">Borrow Record Details</h1>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Serial Number:
+                            <span t-field="record.serial_number"/>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">Student ID</div>
+                            <div class="col-sm-9">
+                                <span t-field="record.student_id.name"/>
+                            </div>
+
+                            <div class="col-sm-3">Librarian ID</div>
+                            <div class="col-sm-9">
+                                <span t-field="record.librarian_id.name"/>
+                            </div>
+
+                            <div class="col-sm-3">State</div>
+                            <div class="col-sm-9">
+                                <span t-field="record.state"/>
+                            </div>
+
+                            <div t-if="record.issue_date" class="col-sm-3">Issued Date</div>
+                            <div t-if="record.issue_date" class="col-sm-9">
+                                <span t-field="record.issue_date"/>
+                            </div>
+
+                            <div t-if="record.return_date" class="col-sm-3">Return Date</div>
+                            <div t-if="record.return_date" class="col-sm-9">
+                                <span t-field="record.return_date"/>
+                            </div>
+
+                            <div class="col-sm-3">Fine Amount</div>
+                            <div class="col-sm-9">
+                                <span t-field="record.fine_amount"/>
+                            </div>
+
+                            <div class="col-sm-3">Total Amount</div>
+                            <div class="col-sm-9">
+                                <span t-field="record.total_amount"/>
+                            </div>
+
+                            <div t-if="record.canceled_date" class="col-sm-3">Canceled Date</div>
+                            <div t-if="record.canceled_date" class="col-sm-9">
+                                <span t-field="record.canceled_date"/>
+                            </div>
+
+                            <div t-if="record.cancellation_reason" class="col-sm-3">Cancellation Reason</div>
+                            <div t-if="record.cancellation_reason" class="col-sm-9">
+                                <span t-field="record.cancellation_reason"/>
+                            </div>
+
+                        </div>
+
+                        <h6>Borrowed Items:</h6>
+                        <t t-if="record.borrow_request_lines_id">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Book</th>
+                                        <th>Quantity</th>
+                                        <th>Amount Per Unit</th>
+                                        <th>Issue Date</th>
+                                        <th>Return Date</th>
+                                        <th>Issue Days</th>
+                                        <th>Fine Amount</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="record.borrow_request_lines_id" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <t t-out="line.book_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.amount_per_unit"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.issue_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.return_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.issue_days"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.fine_amount"/>
+                                            </td>
+                                            <td>
+                                                <t t-out="line.total_amount" sum="Total Amount"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p>No items borrowed.</p>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>
