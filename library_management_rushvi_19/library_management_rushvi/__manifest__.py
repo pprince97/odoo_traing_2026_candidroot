@@ -26,6 +26,7 @@
         'views/students_website_page.xml',
         'views/librarian_website_page.xml',
         'views/website_menu_items.xml',
+        'views/website_new.xml'
 
     ],
     'demo': [

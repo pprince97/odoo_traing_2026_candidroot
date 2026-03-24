@@ -2,7 +2,7 @@
 <odoo>
  <record id="book_menu" model="website.menu">
      <field name="name">Library</field>
-     <field name="url"></field>
+     <field name="url">#</field>
      <field name="website_id" ref="website.default_website" />
      <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('parent_id','=',False)]"/>
      <field name="sequence">70</field>
@@ -11,7 +11,7 @@
     <record id="book_menu1" model="website.menu">
         <field name="name">Books</field>
         <field name="url">/books</field>
-<!--        <field name="website_id" ref="website.default_website" />-->
+        <field name="website_id" ref="website.default_website" />
         <field name="parent_id" ref="book_menu" />
         <field name="sequence">80</field>
     </record>
@@ -19,7 +19,7 @@
     <record id="book_menu2" model="website.menu">
         <field name="name">Students</field>
         <field name="url">/students</field>
-<!--        <field name="website_id" ref="website.default_website" />-->
+        <field name="website_id" ref="website.default_website" />
         <field name="parent_id" ref="book_menu"/>
         <field name="sequence">90</field>
     </record>
@@ -32,4 +32,84 @@
         <field name="sequence">100</field>
         <field name="group_ids" eval="[(4,ref('library_management_rushvi.group_library_librarian'))]"/>
     </record>
+
+    <record id="menu_library_services_mega" model="website.menu">
+        <field name="name">Library Services</field>
+        <field name="url">#</field>
+        <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('parent_id','=',False)]"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="is_mega_menu" eval="True"/>
+        <field name="sequence">110</field>
+        <field name="mega_menu_content" type="html">
+            <section class="s_mega_menu_multi_menus pt32 pb32 bg-white">
+                <div class="container">
+                    <div class="row g-4 justify-content-center">
+                        <!-- Book Lending -->
+                        <div class="col-lg-2 text-center">
+                            <div class="p-3 border rounded shadow-sm h-100">
+                                <i class="fa fa-book fa-3x mb-3 text-primary"/>
+                                <h6 class="fw-bold">Book Lending</h6>
+                                <p class="small text-muted mb-3">Physical collection of 50k+ titles.</p>
+                                <a href="/books" class="btn btn-outline-primary btn-sm w-100 mt-auto">Browse</a>
+                            </div>
+                        </div>
+                        <!-- Digital Hub -->
+                        <div class="col-lg-2 text-center">
+                            <div class="p-3 border rounded shadow-sm h-100">
+                                <i class="fa fa-laptop fa-3x mb-3 text-success"/>
+                                <h6 class="fw-bold">Digital Hub</h6>
+                                <p class="small text-muted mb-3">E-books, journals &amp; audiobooks.</p>
+                                <a href="#" class="btn btn-outline-success btn-sm w-100 mt-auto">Access</a>
+                            </div>
+                        </div>
+                        <!--  Study Rooms -->
+                        <div class="col-lg-2 text-center">
+                            <div class="p-3 border rounded shadow-sm h-100">
+                                <i class="fa fa-users fa-3x mb-3 text-info"/>
+                                <h6 class="fw-bold">Study Rooms</h6>
+                                <p class="small text-muted mb-3">Private spaces for group work.</p>
+                                <a href="#" class="btn btn-outline-info btn-sm w-100 mt-auto">Book Space</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </field>
+    </record>
+
+<!--    <record id="menu_library_services_mega_2" model="website.menu">-->
+<!--        <field name="name">Library Services 2</field>-->
+<!--        <field name="url">#</field>-->
+<!--        <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('parent_id','=',False)]"/>-->
+<!--        <field name="website_id" ref="website.default_website"/>-->
+<!--        <field name="is_mega_menu" eval="True"/>-->
+<!--        <field name="sequence">110</field>-->
+<!--        <field name="mega_menu_content" type="html">-->
+<!--            <section class="s_mega_menu_multi_menus pt32 pb32 bg-white">-->
+<!--                <div class="container">-->
+<!--                    <div class="row g-4 justify-content-center">-->
+<!--                        &lt;!&ndash; Book Lending &ndash;&gt;-->
+<!--                        <div class="col-lg-2 text-center">-->
+<!--                            <div class="p-3 border rounded shadow-sm h-100">-->
+<!--                                <i class="fa fa-book fa-3x mb-3 text-primary"/>-->
+<!--                                <h6 class="fw-bold">Book Lending</h6>-->
+<!--                                <p class="small text-muted mb-3">Physical collection of 50k+ titles.</p>-->
+<!--                                <a href="/books" class="btn btn-outline-primary btn-sm w-100 mt-auto">Browse</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Digital Hub &ndash;&gt;-->
+<!--                        <div class="col-lg-2 text-center">-->
+<!--                            <div class="p-3 border rounded shadow-sm h-100">-->
+<!--                                <i class="fa fa-laptop fa-3x mb-3 text-success"/>-->
+<!--                                <h6 class="fw-bold">Digital Hub</h6>-->
+<!--                                <p class="small text-muted mb-3">E-books, journals &amp; audiobooks.</p>-->
+<!--                                <a href="#" class="btn btn-outline-success btn-sm w-100 mt-auto">Access</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--        </field>-->
+<!--    </record>-->
+
  </odoo>
