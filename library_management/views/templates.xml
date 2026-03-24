@@ -368,7 +368,136 @@
     </template>
 
 
-    
+    <!--    Mega menu bar-->
+    <record id="menu_education_hub" model="website.menu">
+        <field name="name">Education Hub</field>
+        <field name="url">/education_hub</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">30</field>
+        <field name="is_mega_menu">True</field>
+
+        <field name="mega_menu_content" type="html">
+            <div class="container py-4">
+
+                <!-- Title -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h4 class="fw-bold">Education Resources</h4>
+                        <hr class="mt-2 mb-0"/>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="row">
+
+                    <!-- Column 1 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Books</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/book-data" class="text-decoration-none">
+                                    <i class="fa fa-book me-2"></i>
+                                    Book List
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/book/form" class="text-decoration-none">
+                                    <i class="fa fa-plus me-2"></i>
+                                    Add Book
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Students</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/student-list" class="text-decoration-none">
+                                    <i class="fa fa-users me-2"></i>
+                                    Student List
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/student/form" class="text-decoration-none">
+                                    <i class="fa fa-user-plus me-2"></i>
+                                    Add Student
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Reports</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/reports/books" class="text-decoration-none">
+                                    <i class="fa fa-file-text me-2"></i>
+                                    Book Reports
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/reports/students" class="text-decoration-none">
+                                    <i class="fa fa-chart-bar me-2"></i>
+                                    Student Reports
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/contactus" class="text-decoration-none">
+                                    <i class="fa fa-envelope me-2"></i>
+                                    Contact
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/aboutus" class="text-decoration-none">
+                                    <i class="fa fa-info-circle me-2"></i>
+                                    About
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </field>
+    </record>
+
+
+    <!--            Create submenu-->
+    <record id="parent_book_menu" model="website.menu">
+        <field name="name">Book</field>
+        <field name="url">#</field>
+        <field name="parent_id" model="website.menu"
+               search="[('website_id', '=', ref('website.default_website')),('parent_id', '=', False)]"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence" type="int">65</field>
+    </record>
+
+
+    <record id="menu_book_form_data1" model="website.menu">
+        <field name="name">Book Data</field>
+        <field name="url">/book-data</field>
+        <field name="parent_id" ref="parent_book_menu"/>
+        <field name="sequence" type="int">65</field>
+    </record>
+
+
+    <record id="menu_book_form_data2" model="website.menu">
+        <field name="name">Book Form</field>
+        <field name="url">/book/form</field>
+        <field name="parent_id" ref="parent_book_menu"/>
+        <field name="sequence" type="int">65</field>
+        <!--        <field name="parent_id" ref="website.main_menu"/>-->
+    </record>
 
 
     <!--            Menu Bar-->
