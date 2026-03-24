@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="borrow_request_template">
+        <t t-call="portal.portal_layout">
+            <t t-if="user.has_group('library_management.group_project_librarian') or user.has_group('library_management.group_project_admin')">
+                <div class="mt-5">
+                    <h4 class="d-flex align-items-center gap-5">
+                        Borrow Requests
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newBorrowRequestModal"> New </button>
+                    </h4>
+                </div>
+            </t>
+            <div class="modal fade" id="newBorrowRequestModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/borrow_request/create" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="modal-header">
+                                <h5>Create New Borrow Request</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                            </div>
+                            <div class="modal-body">
+                                 <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="student_id" class="form-label fw-bold">Student</label>
+                                        <select name="student_id" class="form-select" required="1">
+                                            <option value="">Select</option>
+                                            <t t-foreach="request.env['res.partner'].search([('student_code','!=',False)])" t-as="student">
+                                                <option t-att-value="student.id">
+                                                    <t t-esc="student.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold text-muted">Librarian</label>
+                                        <input type="text" class="form-control bg-light" t-att-value="request.env.user.name" readonly="1"/>
+                                        <input type="hidden" name="librarian_id" t-att-value="request.env.user.partner_id.id"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="issue_date" class="form-label fw-bold">Issue Date</label>
+                                        <input type="date" name="issue_date" class="form-control" required="1"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="return_date" class="form-label fw-bold">Return Date</label>
+                                        <input type="date" name="return_date" class="form-control" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 border rounded">
+                <table class="table table-hover table-borderless" style="border-color: #e9ecef;">
+                    <thead style="background-color: #f8f9fa; border-bottom: 2px solid #edeff1;">
+                        <tr class="text-uppercase" style="font-size: 1rem; letter-spacing: 0.5px;">
+                            <th class="py-3 px-4 text-start text-muted">Serial Number</th>
+                            <th class="py-3 px-4 text-start text-muted">Student</th>
+                            <th class="py-3 px-4 text-start text-muted">Librarian</th>
+                            <th class="py-3 px-4 text-start text-muted">Issue Date</th>
+                            <th class="py-3 px-4 text-start text-muted">Return Date</th>
+                            <th class="py-3 px-4 text-start text-muted">State</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <t t-foreach="borrow_requests" t-as="book">
+                            <tr style="border-bottom: 1px solid #f0f2f5;">
+                                <td class="py-3 px-4 text-start fw-medium text-dark">
+                                    <a t-attf-href="/borrow_request/#{book.id}">
+                                        <t t-esc="book.serial_number"/></a></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.student_id.name"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.librarian_id.name"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.issue_date"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.return_date"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.state"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="borrow_request_detail_template">
+        <t t-call="portal.portal_layout">
+            <div class="py-3 w-50 mt-5">
+                <h4 class="mb-3 fw-bold text-primary" style="font-size: 45px;">
+                    <strong>#</strong> <span t-field="borrow_request.serial_number"/></h4>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <strong>Student Name : </strong> <span t-field="borrow_request.student_id.name"/> <br/>
+                    <strong>Librarian Name : </strong> <span t-field="borrow_request.librarian_id.name"/> <br/>
+                </div>
+                <div class="col-6">
+                    <strong>Issue Date : </strong> <span t-field="borrow_request.issue_date"/> <br/>
+                    <strong>Return Date : </strong> <span t-field="borrow_request.return_date"/> <br/>
+                </div>
+            </div>
+            <t t-if="user.has_group('library_management.group_project_librarian') or user.has_group('library_management.group_project_admin')">
+                <div class="mt-5">
+                    <h4 class="d-flex align-items-center gap-5">
+                        Borrow Books
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newBorrowRequestLinesModal"> New </button>
+                    </h4>
+                </div>
+            </t>
+            <div class="modal fade" id="newBorrowRequestLinesModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/borrow_request/write" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="borrow_request_id" t-att-value="borrow_request.id"/>
+                            <div class="modal-header">
+                                <h5>Create New Borrow Request Lines</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="book_id" class="form-label fw-bold">Book</label>
+                                        <select name="book_id" class="form-select" required="1">
+                                            <option value="">Select</option>
+                                            <t t-foreach="request.env['library.books'].search([('state','=','published')])" t-as="book">
+                                                <option t-att-value="book.id">
+                                                    <t t-esc="book.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="quantity" class="form-label fw-bold">Quantity</label>
+                                        <input type="number" name="quantity" class="form-control" required="1" min="1"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="issue_date" class="form-label fw-bold">Issue Date</label>
+                                        <input type="date" name="issue_date" class="form-control" required="1"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="return_date" class="form-label fw-bold">Return Date</label>
+                                        <input type="date" name="return_date" class="form-control" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 border rounded">
+                <table class="table table-hover table-borderless" style="border-color: #e9ecef;">
+                    <thead style="background-color: #f8f9fa; border-bottom: 2px solid #edeff1;">
+                        <tr class="text-uppercase" style="font-size: 1rem; letter-spacing: 0.5px;">
+                            <th class="py-3 px-4 text-start text-muted">Book</th>
+                            <th class="py-3 px-4 text-start text-muted">Quantity</th>
+                            <th class="py-3 px-4 text-start text-muted">Issue Date</th>
+                            <th class="py-3 px-4 text-start text-muted">Return Date</th>
+                            <th class="py-3 px-4 text-start text-muted">Issue Days</th>
+                            <th class="py-3 px-4 text-start text-muted">Amount</th>
+                            <th class="py-3 px-4 text-start text-muted">Fine Amount</th>
+                            <th class="py-3 px-4 text-start text-muted">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <t t-foreach="borrow_request.borrow_request_ids" t-as="book">
+                            <tr style="border-bottom: 1px solid #f0f2f5;">
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.book_id.name"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.quantity"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.issue_date"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.return_date"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.issue_days"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.amount"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.fine_amount"/></td>
+                                <td class="py-3 px-4 text-start fw-medium text-dark"><t t-esc="book.total_amount"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_borrow_request_menu" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'borrow_request'" t-attf-class="breadcrumb-item #{'active ' if not borrow_request else ''}">
+                <a t-if="borrow_request" t-attf-href="/borrow_request">Borrow Request</a>
+                <t t-else="">Borrow Request</t>
+            </li>
+            <li t-if="borrow_request" class="breadcrumb-item active">
+                <t t-out="borrow_request.serial_number" t-if="borrow_request.serial_number != ''"/>
+                <t t-else=""><em>Borrow Request</em></t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_borrow_request" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Library Borrow Request</t>
+                <t t-set="url" t-value="'/borrow_request'"/>
+                <t t-set="text">See borrow request for library</t>
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="icon" t-value="'/library_management/static/src/img/book.svg'"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

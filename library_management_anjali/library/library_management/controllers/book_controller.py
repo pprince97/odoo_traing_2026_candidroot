@@ -4,10 +4,6 @@ import base64
 
 
 class BookController(http.Controller):
-    # @http.route('/home', type='http', auth="public", website=True)
-    # def home_page(self, **kwargs):
-    #     return request.render('library_management.my_home_page', {})
-
     @http.route('/book', type='http', auth="public", website=True)
     def list_books(self, **kwargs):
         books = request.env['library.books'].sudo().search([])

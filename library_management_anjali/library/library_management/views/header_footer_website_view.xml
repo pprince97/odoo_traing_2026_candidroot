@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="header_borrow_request" inherit_id="website.layout">
+        <xpath expr="//header" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//header" position="after">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm py-3">
+                    <div class="container">
+                        <a class="navbar-brand fw-bold text-primary" href="/">
+                            <img src="/library_management/static/src/img/library1.jpg" alt="Logo"
+                                 style="height: 50px;" class="rounded-circle me-2"/>
+                            <span class="text-white">Library</span>
+                        </a>
+                        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav">
+                            <span class="navbar-toggler-icon"/>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ms-auto align-items-center">
+                                <li class="nav-item">
+                                    <a data-bs-target="#o_search_modal" data-bs-toggle="modal" role="button" title="Search" href="#" class="btn rounded-circle p-1 text-white o_navlink_background o_not_editable">
+                                        <i class="oi oi-search"/>
+                                    </a>
+                                </li>
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                                        <t t-call="website.submenu">
+                                            <t t-set="item_class" t-value="'nav-item'"/>
+                                            <t t-set="link_class" t-value="'nav-link text-white'"/>
+                                        </t>
+                                    </t>
+                                </ul>
+                                <t t-if="user_id._is_public()">
+                                    <li class="nav-item ms-lg-3">
+                                        <a class="btn btn-outline-primary rounded-pill px-4 text-white" href="/web/login">Login</a>
+                                    </li>
+                                </t>
+                                <t t-else="">
+                                    <li class="nav-item dropdown ms-lg-3">
+                                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                           id="userMenu" role="button" data-bs-toggle="dropdown">
+                                            <span class="me-2 text-white">
+                                                <t t-esc="user_id.name"/>
+                                            </span>
+                                            <img t-attf-src="/web/image/res.users/#{user_id.id}/avatar_128"
+                                                 class="rounded-circle"
+                                                 style="width: 35px; height: 35px; object-fit: cover;"/>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow mt-3">
+                                            <li>
+                                                <a class="dropdown-item" href="/my/home">My Account</a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider"/>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item text-danger" href="/web/session/logout">Logout
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        </xpath>
+    </template>
+
+    <template id="footer_borrow_request" inherit_id="web.frontend_layout">
+        <xpath expr="//footer[@id='bottom']" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//footer[@id='bottom']" position="after">
+            <div id="custom_footer" class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;" data-oe-id="1342" data-oe-xpath="/data/xpath/div" data-oe-model="ir.ui.view" data-oe-field="arch">
+                <section class="s_text_block pt40 pb16" style="background-color: #714B67; color: white;" data-snippet="s_text_block" data-name="Container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-5 pt24 pb24">
+                                <h3> My custom footer </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2 pt24 pb24">
+                                <h5>Useful Links</h5>
+                                <ul class="list-unstyled">
+                                    <li><a href="/" class="text-white">Home</a></li>
+                                    <li><a href="#" class="text-white">About us</a></li>
+                                    <li><a href="#" class="text-white">Products</a></li>
+                                    <li><a href="#" class="text-white">Services</a></li>
+                                    <li><a href="#" class="text-white">Legal</a></li>
+
+                                    <li><a href="/contactus" class="text-white">Contact us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-5 pt24 pb24">
+                                <h5>About us</h5>
+                                <p>We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
+                                <br/><br/>Our products are designed for small to medium size companies willing to optimize their performance.</p>
+                            </div>
+                            <div class="col-lg-4 offset-lg-1 pt24 pb24">
+                                <h5>Connect with us</h5>
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-comment fa-fw me-2"></i><a href="/contactus" class="text-white">Contact us</a></li>
+                                    <li><i class="fa fa-envelope fa-fw me-2"></i><a href="mailto:info@yourcompany.example.com" class="text-white">info@yourcompany.example.com</a></li>
+                                    <li><i class="fa fa-phone fa-fw me-2"></i><a href="tel:+1 555-555-5556" class="text-white"><span class="o_force_ltr">+1 555-555-5556</span></a></li>
+                                </ul>
+                                <div class="s_social_media text-start o_not_editable" data-snippet="s_social_media" data-name="Social Media" contenteditable="false">
+                                    <h5 class="s_social_media_title d-none" contenteditable="true">Follow us</h5>
+                                    <a href="/website/social/facebook" class="s_social_media_facebook" target="_blank" aria-label="Facebook">
+                                        <i class="fa fa-facebook rounded-circle shadow-sm o_editable_media"></i>
+                                    </a>
+                                    <a href="/website/social/twitter" class="s_social_media_twitter" target="_blank" aria-label="X">
+                                        <i class="fa fa-twitter rounded-circle shadow-sm o_editable_media"></i>
+                                    </a>
+                                    <a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank" aria-label="LinkedIn">
+                                        <i class="fa fa-linkedin rounded-circle shadow-sm o_editable_media"></i>
+                                    </a>
+                                    <a href="/" class="text-800" aria-label="Extra page">
+                                        <i class="fa fa-home rounded-circle shadow-sm o_editable_media"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="o_footer_copyright o_colored_level o_cc" data-name="Copyright">
+                <div class="container py-3">
+                    <div class="row row-gap-2">
+                        <div class="text-center text-muted col-md d-flex flex-column-reverse gap-2 text-md-start">
+                            <span class="o_footer_copyright_name me-2 small" data-oe-id="637" data-oe-xpath="/data/xpath[1]/span" data-oe-model="ir.ui.view" data-oe-field="arch">Copyright © Company name</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
