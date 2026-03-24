@@ -1,0 +1,48 @@
+$primary-color: #007bff;
+$base-font-size: 30px;
+$font-stack: Helvetica, sans-serif;
+$is-active: true;
+
+
+
+.link_thank {
+    text-align: center;
+    font-family: $font-stack;
+    font-size: $base-font-size;
+    font-weight: bold;
+}
+
+.link_thank a {
+    color: $primary-color;
+    text-decoration: none;
+}
+
+
+/* Make the mega menu background transparent */
+.dropdown-menu.o_mega_menu {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Optional: adds a modern frosted glass effect */
+    border: none;
+}
+
+/* Ensure responsiveness for mobile */
+@media (max-width: 991.98px) {
+    .o_mega_menu .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .o_mega_menu h3 {
+        font-size: 1.2rem;
+    }
+}
+
+
+.o_mega_menu a {
+    color: #444;
+    transition: all 0.2s ease;
+}
+
+.o_mega_menu a:hover {
+    color: #875A7B;
+    padding-left: 4px;
+}

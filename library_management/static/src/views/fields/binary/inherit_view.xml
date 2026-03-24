@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--<templates xml:space="preserve">-->
+<!--    <t t-name="web.HistoryBinaryField" t-inherit="web.BinaryField">-->
+<!--        <xpath expr="//button[hasclass('o_select_file_button')]" position="after">-->
+<!--            <button-->
+<!--                    class="btn btn-link btn-sm lh-1 fa fa-history o_select_file_button"-->
+<!--                    data-tooltip="History"-->
+<!--                    aria-label="History"-->
+<!--                    t-on-click="onHistoryClick"-->
+<!--            >-->
+<!--            </button>-->
+<!--        </xpath>-->
+<!--    </t>-->
+<!--</templates>-->
+
+
+<templates xml:space="preserve">
+    <t t-inherit="web.BinaryField" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('o_clear_file_button')]" position="after">
+            <button
+                class="btn btn-link btn-sm lh-1 fa fa-history"
+                data-tooltip="History"
+                aria-label="History"
+                t-on-click="onHistoryClick"
+            />
+        </xpath>
+    </t>
+</templates>

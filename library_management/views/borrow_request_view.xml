@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <data noupdate="1">
+        <!--    Serial Number-->
+        <record id="registration_generate" model="ir.sequence">
+            <field name="name">Request Serial Number</field>
+            <field name="code">borrow.request.sequence</field>
+            <field name="prefix">BR/%(year)s/</field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record id="borrow_request_list_view" model="ir.ui.view">
+            <field name="name">borrow.request.list.view</field>
+            <field name="model">library.borrow.request</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="serial_number"/>
+                    <field name="student_id"/>
+                    <field name="librarian_id"/>
+                    <field name="issue_date"/>
+                    <field name="return_date"/>
+                    <field name="fine_amount"/>
+                    <field name="total_amount"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="borrow_request_form_view" model="ir.ui.view">
+            <field name="name">borrow.request.form.view</field>
+            <field name="model">library.borrow.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <button name="action_issued" class="oe_highlight" type="object" string="Issued"
+                                invisible="state in ['issued','returned','cancelled']"/>
+
+                        <button name="action_returned" class="oe_highlight" type="object" string="Returned"
+                                invisible="state in ['returned','draft','cancelled']"/>
+
+                        <!--                    <button name="action_new" class="oe_highlight" type="object" string="Draft"-->
+                        <!--                            invisible="state in ['new','in_progress']"/>-->
+
+                        <button name="action_cancelled" class="oe_button" type="object" string="Cancel"
+                                invisible="state in ['issued','returned','cancelled']"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,issued,returned,cancelled"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="serial_number" readonly="1"/>
+                                <field name="student_id" readonly="state in ['issued','returned','cancelled']"
+                                       domain="[('member', '=', 'student')]"/>
+                                <field name="librarian_id" readonly="state in ['issued','returned','cancelled']"
+                                       domain="[('member', '=', 'librarian')]"/>
+                                <field name="cancelled_date" readonly="1"
+                                       invisible="state in ['draft','issued','returned']"/>
+                                <field name="cancellation_reason" readonly="1"
+                                       invisible="state in ['draft','issued','returned']"/>
+                            </group>
+
+                            <group>
+                                <field name="issue_date" readonly="1"/>
+                                <field name="return_date" readonly="1"/>
+                                <field name="fine_amount" readonly="state in ['issued','returned','cancelled']"/>
+                                <field name="total_amount" readonly="state in ['issued','returned','cancelled']"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+
+                            <page string="Borrow Request lines">
+                                <field name="request_lines_ids" readonly="state in ['issued','returned','cancelled']">
+                                    <list editable="bottom">
+                                        <field name="book_id"/>
+                                        <field name="quantity"/>
+                                        <field name="amount_per_day"/>
+                                        <field name="issue_date"/>
+                                        <field name="return_date"/>
+                                        <field name="fine_amount"/>
+                                        <field name="total_amount"/>
+                                        <field name="issue_days"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+<!--        Kanban View-->
+
+
+        <record id="borrow_request_action_window" model="ir.actions.act_window">
+            <field name="name">Borrow Request Records</field>
+            <field name="res_model">library.borrow.request</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="borrow_request_view"
+                  name="Borrow Request"
+                  parent="library_menu_root"
+                  action="borrow_request_action_window"/>
+<!--        />-->
+
+    </data>
+
+</odoo>

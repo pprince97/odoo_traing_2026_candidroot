@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    Footer-->
+    <template id="custom_footer" inherit_id="website.layout">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                <section class="s_text_block pt40 pb24" data-snippet="s_text_block" data-name="Text">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Shop departments -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <h6>Account &amp; other info</h6>
+                                <div class="s_hr pb8" data-name="Separator">
+                                    <hr class="w-50 me-auto" style="border-top-width: 1px; border-color: var(--600);"/>
+                                </div>
+                                <ul class="list-unstyled tp-list-arrow">
+                                    <t t-foreach="[
+                                       'My account', 'Your Orders', 'Shipping Info',
+                                       'Delivery data', 'Our Policy']" t-as="info">
+                                        <li class="my-2">
+                                            <a href="#">
+                                                <t t-esc="info"/>
+                                            </a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <!-- Account & Other Info -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <h6 class="mt-4">About us</h6>
+                                <div class="s_hr pb8">
+                                    <hr class="w-50 me-auto" style="border-top-width: 1px; border-color: var(--600);"/>
+                                </div>
+                                <ul class="list-unstyled tp-list-arrow">
+                                    <t t-foreach="['Our Stores', 'Contact us', 'Locate store', 'News', 'Blog']"
+                                       t-as="about">
+                                        <li class="my-2">
+                                            <a href="#">
+                                                <t t-esc="about"/>
+                                            </a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <!-- Newsletter & Payment -->
+                            <div class="col-12 col-md-4">
+                                <h6>Stay informed</h6>
+                                <div class="s_hr pb8">
+                                    <hr class="w-100 me-auto" style="border-top-width: 1px; border-color: var(--600);"/>
+                                </div>
+                                <div class="s_newsletter_list">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-envelope-o"/>
+                                        </span>
+                                        <input type="email" name="email" class="form-control"
+                                               placeholder="your email..."/>
+                                        <a role="button" href="#" class="btn btn-primary">
+                                            <i class="fa fa-send-o"/>
+                                        </a>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small>* Subscribe to our newsletter to receive early discount offers and new
+                                            products info.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+</odoo>

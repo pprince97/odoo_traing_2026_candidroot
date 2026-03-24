@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="cookie_policy" name="Cookie Policy">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Cookie Policy</h1>
+                    </div>
+                </section>
+
+                <section class="pt8 pb8">
+                    <div class="container">
+                        <p>
+                            Cookies are small bits of text sent by our servers to your computer or device when you
+                            access our services. They are stored in your browser and later sent back to our servers so
+                            that we can provide
+                            contextual content.
+                            Without cookies, using the web would be a much more frustrating experience.
+                            We use them to support your activities on our website. For example, your session (so you
+                            don't have to login again) or your shopping cart.
+                        </p>
+                        <p>
+                            Here is an overview of the cookies that may be stored on your device when you visit our
+                            website:
+                        </p>
+                        <div class="table-responsive">
+                            <table class="small table table-bordered text-center">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" style="width: 20%">Category of Cookie</th>
+                                        <th scope="col" style="width: 50%; min-width: 200px;">Purpose</th>
+                                        <th scope="col" style="width: 30%">Examples</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p>Session &amp; Security<br/>(essential)
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                Authenticate users, protect user data and allow the website to deliver
+                                                the
+                                                services users expects,
+                                                such as maintaining the content of their cart, or allowing file uploads.
+                                            </p>
+                                            <p>The website will not work properly if you reject or discard those
+                                                cookies.
+                                            </p>
+                                        </td>
+                                        <td>
+                                            session_id (Odoo)
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Preferences<br/>(essential)
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>Remember information about the preferred look or behavior of the website,
+                                                such as your preferred language or region.
+                                            </p>
+                                            <p>Your experience may be degraded if you discard those cookies, but the
+                                                website
+                                                will still work.
+                                            </p>
+                                        </td>
+                                        <td>
+                                            frontend_lang (Odoo)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interaction History<br/>(optional)
+                                        </td>
+                                        <td>
+                                            <p>
+                                                Used to collect information about your interactions with the website,
+                                                the
+                                                pages you've seen,
+                                                and any specific marketing campaign that brought you to the website.
+                                            </p>
+                                            <p>We may not be able to provide the best service to you if you reject those
+                                                cookies, but the website will work.
+                                            </p>
+                                        </td>
+                                        <td>
+                                            im_livechat_previous_operator_pid (Odoo)
+                                            <br/>
+                                            utm_campaign (Odoo)
+                                            <br/>
+                                            utm_source (Odoo)
+                                            <br/>
+                                            utm_medium (Odoo)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>We do not currently support Do Not Track signals, as there is no industry standard for
+                            compliance.
+                        </p>
+                    </div>
+
+                    <h3 class="link_thank">
+                        <a href="/contactus-thank-you">Thank You</a>
+                    </h3>
+                </section>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="book_form" name="Book Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Book Form</h1>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                    <div class="container s_allow_columns">
+                        <div class="row">
+                            <div class="col-lg-6 mt-2 mt-lg-0 container w-72 mx-auto">
+                                <form class="row g-3" action="/book-create" method="post">
+
+                                    <div class="col-md-12">
+                                        <label for="inputBook" class="form-label">Student Name</label>
+                                        <select id="inputBook" name="student_id" class="form-select">
+                                            <option t-att-selected="not default_value" disabled="disabled" value="">
+                                                -----Select student name-----
+                                            </option>
+                                            <t t-foreach="request.env['res.partner'].sudo().search([('member', '=', 'student')])"
+                                               t-as="val">
+                                                <option t-att-value="val.id">
+                                                    <t t-esc="val.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="inputBook" class="form-label">Book Name</label>
+                                        <input type="text" name="name" class="form-control" id="inputBook"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputBarcode" class="form-label">Barcode</label>
+                                        <input type="password" name="barcode" class="form-control" id="inputBarcode"/>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="inputStatus" class="form-label">Status</label>
+                                        <select id="inputStatus" name="state" class="form-select">
+                                            <option t-att-selected="not default_value" disabled="disabled" value="">
+                                                ---Select Option---
+                                            </option>
+                                            <option>published</option>
+                                            <option>unpublished</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="inputCategory" class="form-label">Category</label>
+                                        <select id="inputCategory" name="category" class="form-select">
+                                            <option t-att-selected="not default_value" disabled="disabled" value="">
+                                                ---Select Option---
+                                            </option>
+                                            <option>anime</option>
+                                            <option>hollywood</option>
+                                            <option>motivation</option>
+                                            <option>music</option>
+                                            <option>other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="inputStock" class="form-label">Stock</label>
+                                        <input type="text" name="stock" class="form-control" id="inputStock"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputBorrowPrice" class="form-label">Borrow Price</label>
+                                        <input type="text" name="borrow_price" class="form-control"
+                                               id="inputBorrowPrice"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inputDayLimit" class="form-label">Max Day Limit</label>
+                                        <input type="text" name="max_day_limit" class="form-control"
+                                               id="inputDayLimit"/>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                                  id="floatingTextarea2" style="height: 100px"/>
+                                        <label for="floatingTextarea2">Comments</label>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="description" type="checkbox"
+                                                   id="gridCheck"/>
+                                            <label class="form-check-label" for="gridCheck">
+                                                Check me out
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!--    Book data-->
+    <template id="book_data" name="Book Menu View">
+        <t t-call="website.layout">
+            <section class="container py-5">
+                <div class="row justify-content-center">
+                    <h3 class="mb-4 text-center">Welcome to Library Management</h3>
+                    <form action="/book/form" method="get">
+                        <button type="submit" class="btn btn-primary">Create Record</button>
+                    </form>
+                    <br/>
+                    <br/>
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Student</th>
+                                <th>Book</th>
+                                <th>Barcode</th>
+                                <th>State</th>
+                                <th>Category</th>
+                                <th>Stock</th>
+                                <th>Available Copies</th>
+                                <th>Fine Amount</th>
+                                <th>Borrow Price</th>
+                                <th>Maximum Day Limit</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tboady>
+                            <t t-foreach="books" t-as="book">
+                                <tr>
+                                    <td>
+                                        <span t-field="book.id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.student_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.barcode"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.state"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.category"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.stock"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.available_copies"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.fine_amount"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.borrow_price"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.maximum_day_limit"/>
+                                    </td>
+                                    <td>
+                                        <button id="myBtn">
+                                            <img alt="svgImg"
+                                                 src="library_management/static/src/img/icons8-delete-25.png"/>
+                                        </button>
+
+                                        <button>
+                                            <img alt="svgImg"
+                                                 src="library_management/static/src/img/icons8-edit-25.png"/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tboady>
+                    </table>
+                </div>
+            </section>
+        </t>
+    </template>
+
+
+    <!--    Record in My Account Portal-->
+    <template id="portal_my_home_books" name="Book List" inherit_id="portal.portal_my_home" priority="10">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <div id="portal_alert_category" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/sale/static/src/img/bag.svg'"/>
+                    <t t-set="title">Book Lists</t>
+                    <t t-set="url" t-value="'/book-data'"/>
+                    <t t-set="text">View and Create a books</t>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+
+    <!--    Header-->
+    <!--    <template id="header_in_portal" inherit_id="website.layout">-->
+    <!--        <xpath expr="//header" position="before">-->
+    <!--            <div class="alert alert-success text-center" role="alert">-->
+    <!--                <b>CandidRoot Solutions Pvt. Ltd.</b>-->
+    <!--            </div>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+
+    <!--    Inherit Home Page-->
+    <template id="custom_homepage" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <div class="container">
+                <h1>Welcome to Our Inherited Homepage</h1>
+            </div>
+        </xpath>
+    </template>
+
+<!--    different website -->
+    <template id="custom_homepage_a1" name="homepage_a1">
+        <t t-call="website.layout" pageName.f="homepage">
+            <div id="wrap" class="oe_structure oe_empty">
+                <h1>Welcome to Our Inherited Homepage A1</h1>
+            </div>
+        </t>
+    </template>
+
+    <template id="custom_homepage_a2" name="homepage_a2">
+        <t t-call="website.layout" pageName.f="homepage">
+            <div id="wrap" class="oe_structure oe_empty">
+                <h1>Welcome to Our Inherited Homepage A2</h1>
+            </div>
+        </t>
+    </template>
+
+
+    <!--    Mega menu bar-->
+    <record id="menu_education_hub" model="website.menu">
+        <field name="name">Education Hub</field>
+        <field name="url">/education_hub</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">30</field>
+        <field name="is_mega_menu">True</field>
+
+        <field name="mega_menu_content" type="html">
+            <div class="container py-4">
+
+                <!-- Title -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h4 class="fw-bold">Education Resources</h4>
+                        <hr class="mt-2 mb-0"/>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="row">
+
+                    <!-- Column 1 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Books</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/book-data" class="text-decoration-none">
+                                    <i class="fa fa-book me-2"></i>
+                                    Book List
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/book/form" class="text-decoration-none">
+                                    <i class="fa fa-plus me-2"></i>
+                                    Add Book
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Students</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/student-list" class="text-decoration-none">
+                                    <i class="fa fa-users me-2"></i>
+                                    Student List
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/student/form" class="text-decoration-none">
+                                    <i class="fa fa-user-plus me-2"></i>
+                                    Add Student
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Reports</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/reports/books" class="text-decoration-none">
+                                    <i class="fa fa-file-text me-2"></i>
+                                    Book Reports
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/reports/students" class="text-decoration-none">
+                                    <i class="fa fa-chart-bar me-2"></i>
+                                    Student Reports
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/contactus" class="text-decoration-none">
+                                    <i class="fa fa-envelope me-2"></i>
+                                    Contact
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/aboutus" class="text-decoration-none">
+                                    <i class="fa fa-info-circle me-2"></i>
+                                    About
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </field>
+    </record>
+
+
+    <!--            Create submenu-->
+    <record id="parent_book_menu" model="website.menu">
+        <field name="name">Book</field>
+        <field name="url">#</field>
+        <field name="parent_id" model="website.menu"
+               search="[('website_id', '=', ref('website.default_website')),('parent_id', '=', False)]"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence" type="int">65</field>
+    </record>
+
+
+    <record id="menu_book_form_data1" model="website.menu">
+        <field name="name">Book Data</field>
+        <field name="url">/book-data</field>
+        <field name="parent_id" ref="parent_book_menu"/>
+        <field name="sequence" type="int">65</field>
+    </record>
+
+
+    <record id="menu_book_form_data2" model="website.menu">
+        <field name="name">Book Form</field>
+        <field name="url">/book/form</field>
+        <field name="parent_id" ref="parent_book_menu"/>
+        <field name="sequence" type="int">65</field>
+        <!--        <field name="parent_id" ref="website.main_menu"/>-->
+    </record>
+
+
+    <!--            Menu Bar-->
+    <record id="menu_policy" model="website.menu">
+        <field name="name">Cookie Policy</field>
+        <field name="url">/policy</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <!--        <field name="sequence" type="int">60</field>-->
+    </record>
+
+
+</odoo>
+

@@ -1,0 +1,167 @@
+<odoo>
+    <record id="books_demo_views1" model="library.books">
+        <field name="name">Iron Man</field>
+        <field name="barcode">B001</field>
+        <field name="state">published</field>
+        <field name="category">hollywood</field>
+        <field name="available_copies">10</field>
+        <field name="stock">15</field>
+        <field name="borrow_price">120</field>
+        <field name="maximum_day_limit">5</field>
+    </record>
+
+    <record id="books_demo_views2" model="library.books">
+        <field name="name">Pirates of the Caribbean</field>
+        <field name="barcode">B002</field>
+        <field name="state">published</field>
+        <field name="category">hollywood</field>
+        <field name="available_copies">20</field>
+        <field name="stock">20</field>
+        <field name="borrow_price">150</field>
+        <field name="maximum_day_limit">7</field>
+    </record>
+
+    <record id="books_demo_views3" model="library.books">
+        <field name="name">Naruto</field>
+        <field name="barcode">B003</field>
+        <field name="state">published</field>
+        <field name="category">anime</field>
+        <field name="available_copies">10</field>
+        <field name="stock">15</field>
+        <field name="borrow_price">200</field>
+        <field name="maximum_day_limit">10</field>
+    </record>
+
+    <record id="books_demo_views4" model="library.books">
+        <field name="name">One Piece</field>
+        <field name="barcode">B004</field>
+        <field name="state">published</field>
+        <field name="category">anime</field>
+        <field name="available_copies">5</field>
+        <field name="stock">10</field>
+        <field name="borrow_price">180</field>
+        <field name="maximum_day_limit">6</field>
+    </record>
+
+    <record id="books_demo_views5" model="library.books">
+        <field name="name">Eat that Frog</field>
+        <field name="barcode">B005</field>
+        <field name="state">published</field>
+        <field name="category">motivation</field>
+        <field name="available_copies">20</field>
+        <field name="stock">20</field>
+        <field name="borrow_price">220</field>
+        <field name="maximum_day_limit">7</field>
+    </record>
+
+
+    <!--    Student Data-->
+    <record id="student_demo_data1" model="res.partner">
+        <field name="name">Amitkumar</field>
+        <field name="email">amit123@gmail.com</field>
+        <field name="phone">990974022</field>
+        <field name="gender">male</field>
+        <field name="member">student</field>
+    </record>
+
+    <record id="student_demo_data2" model="res.partner">
+        <field name="name">Sankit Patel</field>
+        <field name="email">sankit123@gmail.com</field>
+        <field name="phone">9764312864</field>
+        <field name="gender">male</field>
+        <field name="member">student</field>
+    </record>
+
+    <record id="student_demo_data3" model="res.partner">
+        <field name="name">Smit Mungra</field>
+        <field name="email">smit123@gmail.com</field>
+        <field name="phone">4556897812</field>
+        <field name="gender">male</field>
+        <field name="member">student</field>
+    </record>
+
+    <record id="student_demo_data4" model="res.partner">
+        <field name="name">Muskan</field>
+        <field name="email">muskan456@gmail.com</field>
+        <field name="phone">2356897845</field>
+        <field name="gender">female</field>
+        <field name="member">student</field>
+    </record>
+
+    <record id="student_demo_data5" model="res.partner">
+        <field name="name">Shraddha Khapra</field>
+        <field name="email">shraddha123@gmail.com</field>
+        <field name="phone">12568996256</field>
+        <field name="gender">female</field>
+        <field name="member">student</field>
+    </record>
+
+    <!--    <record id="student_demo_data6" model="res.partner">-->
+    <!--        <field name="name">Jatin</field>-->
+    <!--        <field name="email">jatin123@gmail.com</field>-->
+    <!--        <field name="phone">123456789</field>-->
+    <!--        <field name="gender">male</field>-->
+    <!--        <field name="member">student</field>-->
+    <!--    </record>-->
+
+
+    <!--    Librarian data-->
+    <record id="librarian_demo_data1" model="res.partner">
+        <field name="name">Lr Mansukhlal</field>
+        <field name="email">mansukh401@gmail.com</field>
+        <field name="phone">7894561235</field>
+        <field name="gender">male</field>
+        <field name="member">librarian</field>
+    </record>
+
+    <record id="librarian_demo_data2" model="res.partner">
+        <field name="name">Lr Hansaben</field>
+        <field name="email">hansa402@gmail.com</field>
+        <field name="phone">4567891239</field>
+        <field name="gender">female</field>
+        <field name="member">librarian</field>
+    </record>
+
+    <record id="librarian_demo_data3" model="res.partner">
+        <field name="name">Lr Maheshbhai</field>
+        <field name="email">mahesh403@gmail.com</field>
+        <field name="phone">9638527415</field>
+        <field name="gender">male</field>
+        <field name="member">librarian</field>
+    </record>
+
+    <record id="librarian_demo_data4" model="res.partner">
+        <field name="name">Lr Nikunj</field>
+        <field name="email">nikunj404@gmail.com</field>
+        <field name="phone">8527419638</field>
+        <field name="gender">male</field>
+        <field name="member">librarian</field>
+    </record>
+
+    <record id="librarian_demo_data5" model="res.partner">
+        <field name="name">Lr Dhartiben</field>
+        <field name="email">dhartiben405@gmail.com</field>
+        <field name="phone">1594872634</field>
+        <field name="gender">female</field>
+        <field name="member">librarian</field>
+    </record>
+
+    <!--    Borrow Records-->
+    <record id="borrow_record_data1" model="library.borrow.request">
+        <field name="student_id" ref="student_demo_data1"/>
+        <field name="librarian_id" ref="librarian_demo_data1"/>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="borrow_record_data2" model="library.borrow.request">
+        <field name="student_id" ref="student_demo_data2"/>
+        <field name="librarian_id" ref="librarian_demo_data1"/>
+        <field name="state">issued</field>
+    </record>
+
+    <record id="borrow_record_data3" model="library.borrow.request">
+        <field name="student_id" ref="student_demo_data3"/>
+        <field name="librarian_id" ref="librarian_demo_data2"/>
+        <field name="state">returned</field>
+    </record>
+</odoo>

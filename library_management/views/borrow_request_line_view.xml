@@ -1,0 +1,53 @@
+<odoo>
+    <record id="borrow_request_line_list_view" model="ir.ui.view">
+        <field name="name">borrow.request.line.list.view</field>
+        <field name="model">borrow.request.line</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id"/>
+                <field name="quantity"/>
+                <field name="amount_per_day"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="total_amount"/>
+                <field name="issue_days"/>
+            </list>
+        </field>
+    </record>
+
+    <!--    Books form views-->
+    <record id="borrow_request_line_form_view" model="ir.ui.view">
+        <field name="name">borrow.request.line.form.view</field>
+        <field name="model">borrow.request.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_id" domain="[('state', '=', 'published')]"/>
+                            <field name="quantity"/>
+                            <field name="amount_per_day"/>
+                            <field name="issue_date" widget="daterange" options="{'end_date_field': 'return_date'}"/>
+                            <field name="fine_amount"/>
+                            <field name="total_amount"/>
+                            <field name="issue_days"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="request_line_action_window" model="ir.actions.act_window">
+        <field name="name">All request record</field>
+        <field name="res_model">borrow.request.line</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--    <menuitem id="request_lines_record"-->
+<!--              name="Request Lines"-->
+<!--              parent="library_menu_root"-->
+<!--              action="request_line_action_window"/>-->
+</odoo>

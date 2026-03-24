@@ -1,0 +1,42 @@
+<odoo>
+    <!--    Borrow History views-->
+    <record id="borrow_history_form_view" model="ir.ui.view">
+        <field name="name">borrow.history.form.view</field>
+        <field name="model">borrow.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="is_return_date"/>
+                        <field name="student_ids" widget="many2many_tags"/>
+                        <field name="book_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button type="object" string="Print Report" name="print_book_borrow_history"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="borrow_history_action_window" model="ir.actions.act_window">
+        <field name="name">Borrow Reports</field>
+        <field name="res_model">borrow.history</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="reporting_record_menu"
+              name="Reporting"
+              parent="library_menu_root"
+              groups="library_management.group_admin"/>
+    />
+
+    <menuitem id="book_history_record"
+              name="Book History"
+              parent="reporting_record_menu"
+              action="borrow_history_action_window"/>
+</odoo>

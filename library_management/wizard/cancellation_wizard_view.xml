@@ -1,0 +1,20 @@
+<odoo>
+    <record id="cancellation_wizard_popup" model="ir.ui.view">
+        <field name="name">cancellation.wizard.popup</field>
+        <field name="model">cancellation.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="reason"/>
+                    </group>
+
+                    <footer>
+                        <button name="cancellation_request_create" type="object" string="Submit"
+                                class="oe_highlight"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <!--    New Website create-->
+    <record id="website_first" model="website">
+        <field name="name">Website A1</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+
+    <record id="website_second" model="website">
+        <field name="name">Website A2</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>
