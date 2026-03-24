@@ -1,0 +1,45 @@
+<odoo>
+    <template id="librarians_template">
+        <t t-call="website.layout">
+            <div id="wrap" class="container my-5">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h5 class="display-6">Librarians</h5>
+                    </div>
+                </div>
+
+                <div class="row d-flex flex-wrap justify-content-start">
+                    <t t-foreach="librarians" t-as="librarian">
+                        <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 shadow-sm border-0 border-top border-primary border-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title mb-0">
+                                            <t t-esc="librarian.name"/>
+                                        </h5>
+                                        <span t-attf-class="badge rounded-pill">
+                                            <t t-esc="librarian.gender.capitalize()"/>
+                                        </span>
+                                    </div>
+
+                                    <div class="card-text">
+                                        <div class="mb-2">
+                                            <i class="fa fa-phone text-primary me-2"/>
+                                            <span class="text-muted"><t t-esc="librarian.phone"/></span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <i class="fa fa-envelope text-primary me-2"/>
+                                            <a t-attf-href="mailto:#{librarian.email}" class="text-decoration-none">
+                                                <t t-esc="librarian.email"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

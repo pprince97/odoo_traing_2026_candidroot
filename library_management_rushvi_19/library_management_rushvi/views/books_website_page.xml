@@ -1,5 +1,86 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+        <template id="header_borrow_request" inherit_id="website.layout">
+        <xpath expr="//header" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//header" position="after">
+            <header id="header_borrow" class="o_main_header">
+                <div class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+                        <div class="container">
+                            <ul class="nav navbar-nav">
+                                <a data-name="Navbar Logo" href="/" class="navbar-brand logo me-4">
+                                    <span role="img" aria-label="Logo of My Website" title="My Website">
+                                    <img src="library_management_rushvi/static/src/img/library_logo.jpg" class="img img-fluid" alt="My Website" loading="lazy" style=""/></span>
+                                </a>
+                                <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                                    <li t-attf-class="nav-item #{'dropdown' if submenu.child_id else ''}">
+                                        <t t-if="not submenu.child_id">
+                                            <a t-att-href="submenu.url"
+                                               t-attf-class="nav-link #{'active' if submenu.url == request.httprequest.path else ''}">
+                                                <span t-field="submenu.name"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">
+                                            <a class="nav-link dropdown-toggle"
+                                               href="#"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <span t-field="submenu.name"/>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <t t-foreach="submenu.child_id" t-as="child">
+                                                    <li>
+                                                        <a t-att-href="child.url" class="dropdown-item">
+                                                            <span t-field="child.name"/>
+                                                        </a>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </t>
+                                    </li>
+                                </t>
+                            </ul>
+                            <ul  class="nav navbar-nav ms-auto">
+                                <li t-if="user_id.id != website.user_id.id" class="dropdown o_no_autohide_item">
+                                    <a href="#" role="button" data-bs-toggle="dropdown" class="dropdown-toggle nav-link border-0" aria-expanded="false">
+                                        <span class="" t-esc="request.env.user.name"/>
+                                    </a>
+                                    <div role="menu" class="dropdown-menu js_usermenu dropdown-menu-end" style="">
+                                        <a href="/odoo" role="menuitem" class="dropdown-item ps-3" id="o_backend_user_dropdown_link" data-oe-model="ir.ui.view" data-oe-id="483" data-oe-field="arch" data-oe-xpath="/t[1]/li[1]/div[1]/a[1]">
+                                            <i class="fa fa-fw fa-th me-1 small text-primary-emphasis"></i> Apps
+                                        </a>
+                                    <a href="/my/home" role="menuitem" class="dropdown-item ps-3" data-oe-id="501" data-oe-xpath="/data/xpath/a" data-oe-model="ir.ui.view" data-oe-field="arch">
+                                        <i class="fa fa-fw fa-id-card-o me-1 small text-primary-emphasis"></i> My Account
+                                    </a>
+                                        <div id="o_logout_divider" class="dropdown-divider" data-oe-model="ir.ui.view" data-oe-id="483" data-oe-field="arch" data-oe-xpath="/t[1]/li[1]/div[1]/div[1]"></div>
+                                        <a role="menuitem" id="o_logout" class="dropdown-item ps-3" data-oe-model="ir.ui.view" data-oe-id="483" data-oe-field="arch" data-oe-xpath="/t[1]/li[1]/div[1]/a[2]" href="/web/session/logout?redirect=/">
+                                            <i class="fa fa-fw fa-sign-out me-1 small text-primary-emphasis"></i> Logout
+                                        </a>
+                                    </div>
+                                </li>
+                                <li  t-if="user_id.id == website.user_id.id" class=" o_no_autohide_item">
+                                    <a href="/web/login" class="o_nav_link_btn nav-link border px-3">Sign in</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+        </xpath>
+    </template>
+
+    <template id="custom_footer_content" inherit_id="web.frontend_layout">
+        <xpath expr="//footer[@id='bottom']" position="attributes">
+            <attribute name="t-attf-class" add="d-none" separator=" "/>
+        </xpath>
+        <xpath expr="//footer[@id='bottom']" position="after">
+            <div class="col-lg-12 text-center p-3">
+                <p>Custom Library Footer</p>
+            </div>
+        </xpath>
+    </template>
 
     <template id="books_template">
         <t t-call="website.layout">

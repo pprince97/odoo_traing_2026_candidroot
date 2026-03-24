@@ -6,7 +6,7 @@
     'website': "",
     'category': "Uncategorized",
     'version': '1.0',
-    'depends': ['base','website','portal'],
+    'depends': ['base','website','portal','web'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -21,9 +21,12 @@
         'views/library_borrow_requests_views.xml',
         'views/library_borrow_request_lines_views.xml',
         'views/res_config_settings_views.xml',
-        'views/website_menu_items.xml',
         'views/books_website_page.xml',
         'views/my_portal_page.xml',
+        'views/students_website_page.xml',
+        'views/librarian_website_page.xml',
+        'views/website_menu_items.xml',
+
     ],
     'demo': [
         'demo/books_demo.xml',

@@ -96,3 +96,36 @@ class BooksForm(http.Controller):
             'borrow_request_line_ids': [(0, 0, borrow_line_data)],
         })
         return request.redirect(f'/my/borrow-requests/{id}')
+
+    @http.route('/students', type='http', auth='user', website=True)
+    def students(self):
+        print(request.env.user)
+        if request.env.user.has_group('library_management_rushvi.group_library_admin') or request.env.user.has_group('library_management_rushvi.group_library_librarian'):
+            students = request.env['res.partner'].search([('is_student','=',True)])
+            print(students)
+        elif request.env.user.has_group('library_management_rushvi.group_library_student'):
+            students = request.env['res.partner'].search([('is_student', '=', True),('id', '=', request.env.user.partner_id.id)])
+            print(students)
+        else:
+            students=request.env['res.partner'].browse()
+        return request.render('library_management_rushvi.students_template', {
+            'students': students,
+            'user': request.env.user
+        })
+
+    @http.route('/librarians', type='http', auth='user', website=True)
+    def librarians(self):
+        print(request.env.user)
+        if request.env.user.has_group('library_management_rushvi.group_library_admin'):
+            librarians = request.env['res.partner'].search([('is_librarian', '=', True)])
+            print(librarians)
+        elif request.env.user.has_group('library_management_rushvi.group_library_librarian'):
+            librarians = request.env['res.partner'].search(
+                [('is_librarian', '=', True), ('id', '=', request.env.user.partner_id.id)])
+            print(librarians)
+        else:
+            librarians = request.env['res.partner'].browse()
+        return request.render('library_management_rushvi.librarians_template', {
+            'librarians': librarians,
+            'user': request.env.user
+        })
