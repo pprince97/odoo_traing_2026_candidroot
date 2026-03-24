@@ -1,4 +1,220 @@
 <odoo>
+
+    <template id="borrow_request_line_template" name="Borrow Request Line">
+        <div class="container">
+            <div style="font-size: 18px;">
+                <t t-if="borrow_request.student_id">
+                    <strong>Student :</strong>
+                    <span t-field="borrow_request.student_id"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.librarian_id">
+                    <strong>Librarian :</strong>
+                    <span t-field="borrow_request.librarian_id"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.state">
+                    <strong>State :</strong>
+                    <span t-field="borrow_request.state"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.issue_date">
+                    <strong>Issue date :</strong>
+                    <span t-field="borrow_request.issue_date"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.return_date">
+                    <strong>Return date :</strong>
+                    <span t-field="borrow_request.return_date"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.fine_amount">
+                    <strong>Fine amount :</strong>
+                    <span t-field="borrow_request.fine_amount"/>
+                    <br/>
+                </t>
+                <t t-if="borrow_request.total_amount">
+                    <strong>Total amount :</strong>
+                    <span t-field="borrow_request.total_amount"/>
+                    <br/>
+                </t>
+                <br/>
+                <t t-if="borrow_request.borrow_request_line_ids">
+                    <strong>Borrow Request Lines :</strong>
+                    <br/>
+                    <div class="container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Quantity</th>
+                                    <th>Amount per unit per day</th>
+                                    <th>Issue date</th>
+                                    <th>Return date</th>
+                                    <th>Fine amount</th>
+                                    <th>Total amount</th>
+                                    <th>Issue days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="borrow_request.borrow_request_line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-if="line.book_id">
+                                                <span t-field="line.book_id"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.quantity">
+                                                <span t-field="line.quantity"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.amount_per_unit_per_day">
+                                                <span t-field="line.amount_per_unit_per_day"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.issue_date">
+                                                <span t-field="line.issue_date"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.return_date">
+                                                <span t-field="line.return_date"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.fine_amount">
+                                                <span t-field="line.fine_amount"/>
+                                            </t>
+                                            <t t-else="">
+                                                0.00
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.total_amount">
+                                                <span t-field="line.total_amount"/>
+                                            </t>
+                                            <t t-else="">
+                                                0.00
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.issue_days">
+                                                <span t-field="line.issue_days"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <template id="borrow_request_website_template" name="Borrow Request">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h3>Borrow Requests</h3>
+                    </div>
+<!--                    <div class="col-md-6 text-end">-->
+<!--                        <a href="#" class="btn btn-primary">New Borrow Request</a>-->
+<!--                    </div>-->
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Serial number</th>
+                            <th>Student</th>
+                            <th>Librarian</th>
+                            <th>State</th>
+                            <th>Issue date</th>
+                            <th>Return date</th>
+                            <th>Borrow Request Lines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="borrow_requests" t-as="borrow">
+                            <tr>
+                                <td>
+                                    <t t-if="borrow.serial_no">
+                                        <a href="#" data-bs-toggle="modal"
+                                           t-attf-data-bs-target="#borrow_request_modal_#{borrow.id}">
+                                            <span t-field="borrow.serial_no"/>
+                                        </a>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="borrow.student_id">
+                                        <span t-field="borrow.student_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="borrow.librarian_id">
+                                        <span t-field="borrow.librarian_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="borrow.state">
+                                        <span t-field="borrow.state"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="borrow.issue_date">
+                                        <span t-field="borrow.issue_date"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="borrow.return_date">
+                                        <span t-field="borrow.return_date"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="borrow.borrow_request_line_ids">
+                                        <t t-if="len(borrow.borrow_request_line_ids) == 1">
+                                            <span t-out="len(borrow.borrow_request_line_ids)"/>
+                                            line
+                                        </t>
+                                        <t t-else="">
+                                            <span t-out="len(borrow.borrow_request_line_ids)"/>
+                                            lines
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <t t-foreach="borrow_requests" t-as="borrow">
+                    <div role="dialog" class="modal fade" t-attf-id="borrow_request_modal_#{borrow.id}" aria-hidden="True">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        <u>
+                                            <span t-field="borrow.serial_no"/>
+                                        </u>
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"/>
+                                </div>
+                                <div class="modal-body">
+                                    <t t-set="borrow_request" t-value="borrow"/>
+                                    <t t-call="library_management_tanisha.borrow_request_line_template"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
     <template id="my_account_borrow_reuqest" inherit_id="portal.portal_my_home">
         <xpath expr="//div[@id='portal_vendor_category']" position="after">
             <div id="portal_borrow_request">
@@ -7,9 +223,10 @@
                     <t t-set="title">Borrow Requests</t>
                     <t t-set="url" t-value="'/library-borrow-request'"/>
                     <t t-set="text">See, Create Borrow requests</t>
-                    <t t-set="placeholder_count" t-value="'bill_count'"/>
+                    <t t-set="config_card" t-value="True"/>
                 </t>
             </div>
         </xpath>
     </template>
+
 </odoo>

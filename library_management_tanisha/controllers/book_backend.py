@@ -38,15 +38,15 @@ class BookBackend(http.Controller):
         borrow_requests = self.env['library.borrow.request'].search([])
         return request.render('library_management_tanisha.borrow_request_website_template', {'borrow_requests': borrow_requests})
 
-    @http.route('/borrow-request', type="http", auth='public', website=True)
-    def borrow_request_form(self):
-        students = self.env['res.partner'].search([('is_student','=',True)])
-        librarians = self.env['res.partner'].search([('is_librarian','=',True)])
-        books = self.env['library.book'].search([('state','=','published')])
-        return request.render('library_management_tanisha.borrow_request_form_template', {'students': students, 'librarians': librarians, 'books': books})
+    # @http.route('/borrow-request', type="http", auth='public', website=True)
+    # def borrow_request_form(self):
+    #     students = self.env['res.partner'].search([('is_student','=',True)])
+    #     librarians = self.env['res.partner'].search([('is_librarian','=',True)])
+    #     books = self.env['library.book'].search([('state','=','published')])
+    #     return request.render('library_management_tanisha.borrow_request_form_template', {'students': students, 'librarians': librarians, 'books': books})
 
-    @http.route('/borrow-request-form', type="http", auth='public', website=True)
-    def create_borrow_request(self, **kwargs):
+    # @http.route('/borrow-request-form', type="http", auth='public', website=True)
+    # def create_borrow_request(self, **kwargs):
         # self.env['library.borrow.request'].create({
         #     'student_id': kwargs.get('student'),
         #     'librarian_id': kwargs.get('librarian'),
@@ -58,6 +58,6 @@ class BookBackend(http.Controller):
         #     'borrow_request_line_ids': [int(i) for i in kwargs.get('borrow_request_line_ids').split(',')],
         # })
 
-        return request.redirect('/library-borrow-request')
+        # return request.redirect('/library-borrow-request')
 
 

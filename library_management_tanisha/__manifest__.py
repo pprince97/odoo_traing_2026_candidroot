@@ -22,8 +22,10 @@
         'views/fine_res_config_setting_views.xml',
         'views/website_page_views.xml',
         'views/book_website_views.xml',
-        'views/borrow_request_website_views.xml',
         'views/my_account_borrow_request.xml',
+        'views/reporting_submenu_website.xml',
+        # 'views/custom_header_footer_website.xml',
+        'views/library_website.xml',
     ],
     'demo': [
         'demo/book_demo_data.xml',

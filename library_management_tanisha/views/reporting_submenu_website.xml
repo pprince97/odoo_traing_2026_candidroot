@@ -1,0 +1,23 @@
+<odoo>
+
+
+    <data noupdate="1">
+
+        <record id="library_reporting_website_menu" model="website.menu">
+            <field name="name">Reporting</field>
+            <field name="parent_id" model="website.menu" search="[('parent_id','=',False),('website_id','=',ref('website.default_website'))]"/>
+            <field name="website_id" ref="website.default_website"/>
+            <field name="sequence" type="int">21</field>
+        </record>
+
+        <record id="library_book_history_website_menu" model="website.menu">
+            <field name="name">Book History</field>
+            <field name="url">/book</field>
+            <field name="parent_id" ref="library_management_tanisha.library_reporting_website_menu"/>
+            <field name="website_id" ref="website.default_website"/>
+            <field name="sequence" type="int">22</field>
+        </record>
+
+    </data>
+
+</odoo>
