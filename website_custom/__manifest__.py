@@ -10,7 +10,7 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['base','website', 'library_management_smit'],
+    'depends': ['website', 'library_management_smit'],
 
     'data': [
         'views/custom_home.xml',

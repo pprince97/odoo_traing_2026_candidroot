@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
-access_product_product_line,product.product.line,model_product_product_line,,1,1,1,1
-access_product_material,product.material,model_product_material,,1,1,1,1
-access_product_surface,product.surface,model_product_surface,,1,1,1,1
-access_product_uv_printing,product.uv.printing,model_product_uv_printing,,1,1,1,1
-access_product_colour_shade,product.colour.shade,model_product_colour_shade,,1,1,1,1

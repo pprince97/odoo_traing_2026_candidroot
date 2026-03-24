@@ -1,5 +1,15 @@
-from odoo import http
+import odoo.http as http
 from odoo.http import request
+from odoo.addons.website.controllers.main import Website
+
+class CustomHome(Website):
+    @http.route()
+    def index(self, **kw):
+        print("------1---------")
+        response = super(CustomHome, self).index(**kw)
+        requests = request.env['library.book.borrow'].sudo().search([])
+        response.qcontext['requests'] = requests
+        return response
 
 class PartnerFormController(http.Controller):
 
@@ -11,12 +21,11 @@ class PartnerFormController(http.Controller):
     def borrow_requests(self, **post):
         requests = request.env['library.book.borrow'].sudo().search([('librarian_id', '=', 1)])
 
-        return request.render('website_custom.website_book_borrow_template', {
-            'requests': requests
-        })
+        return request.render('website_custom.website_book_borrow_template', {'requests': requests})
 
     @http.route('/contactus', type='http', auth='public', website=True)
-    def contact_us(self, **kwargs):
+    def index_contact(self, **kwargs):
+        print("------1---------")
         return request.render('website.contactus')
 
     @http.route('/partner/form/submit', type='http', auth='public', methods=['POST'], website=True)
