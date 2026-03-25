@@ -1,1 +1,4 @@
 .idea
+
+rental_managment_sankit/gitignore
+
