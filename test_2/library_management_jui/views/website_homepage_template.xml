@@ -9,7 +9,7 @@
                     </div>
                     </span>
                 </section>
-                <t t-if = "website_id == %(library_management_jui.library_website)d">
+                <t t-if = "website_id == %(library_management_jui.library_website)d or website_id == %(website.default_website)d">
                 <section class="py-5 bg-white border-bottom">
                     <div class="container px-4 px-lg-5 mb-3">
                         <div class="row gx-4 gx-lg-5 align-items-center">

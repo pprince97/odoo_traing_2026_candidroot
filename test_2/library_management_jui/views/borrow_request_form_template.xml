@@ -91,22 +91,6 @@
                                     </select>
                                 </div>
 
-                                <!-- ISSUE DATE -->
-                                <div class="mb-3 col-lg-6">
-                                    <label>Issue Date</label>
-                                    <input type="date" name="issue_date"
-                                           class="form-control"
-                                           t-att-value="requests.issue_date if requests else ''"/>
-                                </div>
-
-                                <!-- RETURN DATE -->
-                                <div class="mb-3 col-lg-6">
-                                    <label>Return Date</label>
-                                    <input type="date" name="return_date"
-                                           class="form-control"
-                                           t-att-value="requests.return_date if requests else ''"/>
-                                </div>
-
                                 <!-- STATE -->
                                 <div class="mb-3 col-12">
                                     <label class="me-3">State :</label>

@@ -9,7 +9,7 @@
         <field name="barcode">b0001</field>
         <field name="description">description of book1</field>
         <field name="currency_id" ref="base.USD"/>
-        <field name="state">unpublished</field>
+        <field name="state">published</field>
         <field name="category">novel</field>
         <field name="available_copies">0</field>
         <field name="stock">10</field>

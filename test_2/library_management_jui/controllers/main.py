@@ -79,8 +79,6 @@ class BookController(http.Controller):
             borrow_request = BorrowRequest.create({
                 'student_id': int(post.get('student_id')),
                 'librarian_id': int(post.get('librarian_id')),
-                'issue_date': post.get('issue_date'),
-                'return_date': post.get('return_date'),
                 'state': post.get('state') or 'draft',
             })
             request.session['borrow_request_id'] = borrow_request.id
@@ -103,9 +101,92 @@ class BookController(http.Controller):
 
         return request.render('library_management_jui.thank_you')
 
-    @http.route('/library/line/delete/<int:line_id>', type='http', auth='user', website=True)
+    @http.route('/library/line/delete/<int:line_id>', type='http', auth='public', website=True)
     def delete_line(self, line_id, **kw):
         line = request.env['library.borrow.request.lines'].sudo().browse(line_id)
         if line:
             line.unlink()
         return request.redirect('/create_borrow_request')
+
+    @http.route('/my/action/update/<int:res_id>', type='http', auth='public', website=True)
+    def redirect_update_template(self, res_id, **kw):
+        record = request.env['library.borrow.request'].browse(res_id)
+        return request.render('library_management_jui.update_borrow_record_template', {
+            'record': record,
+        })
+
+    @http.route('/my/action/view/<int:res_id>', type='http', auth='public', website=True)
+    def redirect_view_template(self, res_id, **kw):
+        record = request.env['library.borrow.request'].browse(res_id)
+        return request.render('library_management_jui.view_borrow_record_page_template', {
+            'record': record,
+        })
+
+    @http.route('/my/action/delete/<int:res_id>', type='http', auth='public', website=True)
+    def delete_record(self, res_id, **kw):
+        record = request.env['library.borrow.request'].browse(res_id)
+        if record:
+            record.unlink()
+        return request.redirect('/borrow_request')
+
+    @http.route('/borrow_request/update', type='http', auth='public', website=True, methods=['POST'])
+    def borrow_request_update(self, **post):
+        borrow_id = int(post.get('request_id'))
+        borrow_request = request.env['library.borrow.request'].sudo().browse(borrow_id)
+        line_ids = request.httprequest.form.getlist('existing_line_ids')
+
+        # 1. HANDLE "ADD LINE" ACTION
+        if post.get('btn_action') == 'add_line':
+            # Create the new line immediately so it shows up on reload
+            if post.get('new_book_id'):
+                request.env['library.borrow.request.lines'].sudo().create({
+                    'borrow_request_id': borrow_request.id,
+                    'book_id': int(post.get('new_book_id')),
+                    'quantity': int(post.get('new_qty') or 1),
+                    'issue_date': post.get('new_issue_date'),
+                    'return_date': post.get('new_return_date'),
+                })
+            # Reload the page/modal (redirect back to the edit view)
+            return request.redirect(f'/my/action/update/{int(borrow_id)}')
+
+        # 2. HANDLE "SAVE CHANGES" ACTION
+        if post.get('btn_action') == 'save_all':
+            # Update Main Record Fields
+            new_state = post.get('state')
+            update_vals = {
+                'student_id': int(post.get('student_id')),
+                'state': new_state,
+                'cancellation_reason': post.get('cancellation_reason') if new_state == 'cancelled' else False
+            }
+
+            # Auto-set canceled date if switching to canceled for the first time
+            if new_state == 'cancelled' and not borrow_request.canceled_date:
+                update_vals['canceled_date'] = fields.Date.today()
+            elif new_state != 'cancelled':
+                update_vals['canceled_date'] = False
+
+            borrow_request.write(update_vals)
+
+            # Update all existing lines from the form data
+            for l_id in line_ids:
+                line = request.env['library.borrow.request.lines'].sudo().browse(int(l_id))
+                if line.exists():
+                    line.write({
+                        'book_id': int(post.get(f'book_id_{l_id}')),
+                        'quantity': int(post.get(f'qty_{l_id}') or 1),
+                        'issue_date': post.get(f'issue_{l_id}'),
+                        'return_date': post.get(f'return_{l_id}'),
+                    })
+
+            return request.redirect('/borrow_request')
+
+            # Default fallback
+        return request.redirect(f'/borrow_request')
+
+    @http.route('/record/line/delete/<int:line_id>', type='http', auth='public', website=True)
+    def delete_line(self, line_id, **kw):
+        line = request.env['library.borrow.request.lines'].sudo().browse(line_id)
+        borrow_id = line.borrow_request_id
+        if line:
+            line.unlink()
+        return request.redirect(f'/my/action/update/{int(borrow_id)}')
