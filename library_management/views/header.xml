@@ -1,80 +1,119 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!--    Change logo-->
-<!--    <template id="custom_header_logo" inherit_id="website.layout" name="Custom Header Logo">-->
-<!--        <xpath expr="//t[@t-call='website.placeholder_header_brand']" position="replace">-->
-<!--            <a href="/" class="navbar-brand logo">-->
-<!--                <img src="/library_management/static/src/img/odoo.png"-->
-<!--                     class="img img-fluid"-->
-<!--                     alt="Custom Logo"-->
-<!--                     title="Custom Logo"/>-->
-<!--            </a>-->
-<!--        </xpath>-->
-<!--    </template>-->
+    <template id="custom_header_logo" inherit_id="website.layout" name="Custom Header Logo">
+        <xpath expr="//t[@t-call='website.placeholder_header_brand']" position="replace">
+            <a href="/" class="navbar-brand logo">
+                <img src="/library_management/static/src/img/odoo.png"
+                     class="img img-fluid"
+                     alt="Custom Logo"
+                     title="Custom Logo"/>
+            </a>
+        </xpath>
+    </template>
 
-<!--    <template id="custom_theme_header" inherit_id="website.layout"-->
-<!--              name="Custom Theme Header">-->
-<!--        <xpath expr="//header" position="replace">-->
-<!--            <header style="z-index: 9999">-->
-<!--                <nav class="navbar navbar-expand-lg navbar-light py-3"-->
-<!--                     style="background-color: #2a2d34;">-->
-<!--                    <div class="container ps-2 pe-2">-->
-<!--                        <a class="navbar-brand" href="#">-->
-<!--                            <img src="/web/static/img/logo.png"-->
-<!--                                 alt="Logo"-->
-<!--                                 style="height: 25px; max-height: 25px;"/>-->
-<!--                            &lt;!&ndash;  Add your website name here instead of image if necessary  &ndash;&gt;-->
-<!--                        </a>-->
-<!--                        <button class="navbar-toggler" type="button"-->
-<!--                                data-toggle="collapse"-->
-<!--                                data-target="#navbarSupportedContent"-->
-<!--                                aria-controls="navbarSupportedContent"-->
-<!--                                aria-expanded="false"-->
-<!--                                aria-label="Toggle navigation">-->
-<!--                            <span class="fa fa-bars"/>-->
-<!--                            <span/>-->
-<!--                        </button>-->
-<!--                        <div class="collapse navbar-collapse"-->
-<!--                             id="navbarSupportedContent">-->
-<!--                            <ul class="navbar-nav mx-auto">-->
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link text-white"-->
-<!--                                       href="#">-->
-<!--                                        Home-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link text-white"-->
-<!--                                       href="#">Shop-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link text-white"-->
-<!--                                       href="#">Contact Us-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                            <div class="nav navbar-nav ml-auto">-->
-<!--                                &lt;!&ndash;  Sign In  &ndash;&gt;-->
-<!--                                <t t-call="portal.placeholder_user_sign_in">-->
-<!--                                    <t t-set="_item_class"-->
-<!--                                       t-value="'nav-item ml-lg-3'"/>-->
-<!--                                    <t t-set="_link_class"-->
-<!--                                       t-value="'nav-link'"/>-->
-<!--                                </t>-->
-<!--                                &lt;!&ndash;  User Dropdown  &ndash;&gt;-->
-<!--                                <t t-call="portal.user_dropdown">-->
-<!--                                    <t t-set="_user_name" t-value="True"/>-->
-<!--                                    <t t-set="_item_class"-->
-<!--                                       t-value="'nav-item dropdown ml-lg-3'"/>-->
-<!--                                    <t t-set="_link_class"-->
-<!--                                       t-value="'nav-link font-weight-bold'"/>-->
-<!--                                </t>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </nav>-->
-<!--            </header>-->
-<!--        </xpath>-->
-<!--    </template>-->
+
+    <!--    Mega menu bar-->
+    <record id="menu_education_hub" model="website.menu">
+        <field name="name">Education Hub</field>
+        <field name="url">/education_hub</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">30</field>
+        <field name="is_mega_menu">True</field>
+
+        <field name="mega_menu_content" type="html">
+            <div class="container py-4">
+
+                <!-- Title -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h4 class="fw-bold">Education Resources</h4>
+                        <hr class="mt-2 mb-0"/>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="row">
+
+                    <!-- Column 1 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Books</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/book-data" class="text-decoration-none">
+                                    <i class="fa fa-book me-2"></i>
+                                    Book List
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/book/form" class="text-decoration-none">
+                                    <i class="fa fa-plus me-2"></i>
+                                    Add Book
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6 class="text-muted mb-2">Students</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="/student-list" class="text-decoration-none">
+                                    <i class="fa fa-users me-2"></i>
+                                    Student List
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="/student/form" class="text-decoration-none">
+                                    <i class="fa fa-user-plus me-2"></i>
+                                    Add Student
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+
+    <template id="homepage_top_selling" inherit_id="website.homepage" name="Top Selling Products Section">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <div class="container mt-5 mb-5">
+                <h2 class="text-center mb-4">Top Selling Products</h2>
+                <div class="row">
+                    <t t-foreach="top_selling_products" t-as="product">
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                <video class="hero-section__video" no-controls="" autoplay="" loop="" playsinline=""
+                                       muted=""
+                                       poster="https://goodies.icons8.com/web/landings/home/landing-main_icons.jpg"
+                                       data-v-95d63aae="">
+                                    <source src="https://goodies.icons8.com/web/landings/home/landing-main_icons.mp4"
+                                            type="video/mp4" data-v-95d63aae=""/>
+                                    <source src="https://goodies.icons8.com/web/landings/home/landing-main_icons.webm"
+                                            type="video/webm" data-v-95d63aae=""/>
+                                </video>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">
+                                        <t t-esc="product.name"/>
+                                    </h5>
+                                    <p class="card-text flex-grow-1">
+                                        <t t-esc="product.list_price"/>
+                                        ₹
+                                    </p>
+                                    <a t-att-href="'/shop/product/%s' % product.id" class="btn btn-primary mt-auto">View
+                                        Product
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
 </odoo>

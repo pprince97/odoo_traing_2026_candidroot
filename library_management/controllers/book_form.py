@@ -1,30 +1,58 @@
 from odoo import http, models, fields, tools, _
 from odoo.http import request
+from odoo.addons.website.controllers.main import Website
+from requests import session
+
+
+# Controller inherit
+class WebsiteTopSelling(Website):
+    @http.route('/', type='http', auth='public', website=True)
+    def index(self, **kw):
+
+        print("========>", request.session.uid)
+
+        res = super(WebsiteTopSelling, self).index(**kw)
+
+        top_products = request.env['product.template'].search([
+            ('website_published', '=', True),
+        ], limit=4)
+
+        res.qcontext['top_selling_products'] = top_products
+
+        print("========>", top_products)
+        return res
+
 
 
 class BookForm(http.Controller):
 
-    @http.route('/', type='http', auth='public', website=True)
-    def index(self, **kwargs):
-        print(request.website.id)
-        if request.website.name == "Website A1":
-            return request.render('library_management.custom_homepage_a1')
-        elif request.website.name == "Website A2":
-            return request.render('library_management.custom_homepage_a2')
-        else:
-            return request.render('library_management.custom_homepage')
+    # @http.route('/', type='http', auth='public', website=True)
+    # def show_multiple_pages(self, **kwargs):
+    #     print(request.website.id)
+    #     if request.website.name == "Website A1":
+    #         return request.render('library_management.custom_homepage_a1')
+    #     elif request.website.name == "Website A2":
+    #         return request.render('library_management.custom_homepage_a2')
+    #     else:
+    #         return request.render('library_management.custom_homepage')
 
-
+    # @http.route('/shop', type='http', auth='public', website=True)
+    # def shop(self, **post):
+    #     if request.session.uid:
+    #         return
 
     @http.route('/policy', type='http', auth='public', website=True)
     def cookie_policy_func(self):
-        return request.render('library_management.cookie_policy', {})
+        return request.render('website.cookie_policy', {})
 
 
     @http.route('/book-data', type='http', auth='public', website=True)
     def book_form_data(self):
-        books = request.env['library.books'].sudo().search([])
-        return request.render('library_management.book_data', {'books': books})
+        if request.session.uid:
+            books = request.env['library.books'].sudo().search([])
+            return request.render('library_management.book_data', {'books': books})
+        else:
+            return request.render('website.homepage')
 
 
     @http.route('/book/form', type='http', auth='public', website=True, methods=['GET'])

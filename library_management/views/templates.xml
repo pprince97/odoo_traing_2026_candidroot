@@ -1,123 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="cookie_policy" name="Cookie Policy">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
-                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
-                         data-snippet="s_title" data-scroll-background-ratio="1">
-                    <span class="s_parallax_bg oe_img_bg"
-                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
-                    <div class="o_we_bg_filter bg-black-50"/>
-                    <div class="container">
-                        <h1>Cookie Policy</h1>
-                    </div>
-                </section>
-
-                <section class="pt8 pb8">
-                    <div class="container">
-                        <p>
-                            Cookies are small bits of text sent by our servers to your computer or device when you
-                            access our services. They are stored in your browser and later sent back to our servers so
-                            that we can provide
-                            contextual content.
-                            Without cookies, using the web would be a much more frustrating experience.
-                            We use them to support your activities on our website. For example, your session (so you
-                            don't have to login again) or your shopping cart.
-                        </p>
-                        <p>
-                            Here is an overview of the cookies that may be stored on your device when you visit our
-                            website:
-                        </p>
-                        <div class="table-responsive">
-                            <table class="small table table-bordered text-center">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th scope="col" style="width: 20%">Category of Cookie</th>
-                                        <th scope="col" style="width: 50%; min-width: 200px;">Purpose</th>
-                                        <th scope="col" style="width: 30%">Examples</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p>Session &amp; Security<br/>(essential)
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p>
-                                                Authenticate users, protect user data and allow the website to deliver
-                                                the
-                                                services users expects,
-                                                such as maintaining the content of their cart, or allowing file uploads.
-                                            </p>
-                                            <p>The website will not work properly if you reject or discard those
-                                                cookies.
-                                            </p>
-                                        </td>
-                                        <td>
-                                            session_id (Odoo)
-                                            <br/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p>Preferences<br/>(essential)
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p>Remember information about the preferred look or behavior of the website,
-                                                such as your preferred language or region.
-                                            </p>
-                                            <p>Your experience may be degraded if you discard those cookies, but the
-                                                website
-                                                will still work.
-                                            </p>
-                                        </td>
-                                        <td>
-                                            frontend_lang (Odoo)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Interaction History<br/>(optional)
-                                        </td>
-                                        <td>
-                                            <p>
-                                                Used to collect information about your interactions with the website,
-                                                the
-                                                pages you've seen,
-                                                and any specific marketing campaign that brought you to the website.
-                                            </p>
-                                            <p>We may not be able to provide the best service to you if you reject those
-                                                cookies, but the website will work.
-                                            </p>
-                                        </td>
-                                        <td>
-                                            im_livechat_previous_operator_pid (Odoo)
-                                            <br/>
-                                            utm_campaign (Odoo)
-                                            <br/>
-                                            utm_source (Odoo)
-                                            <br/>
-                                            utm_medium (Odoo)
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p>We do not currently support Do Not Track signals, as there is no industry standard for
-                            compliance.
-                        </p>
-                    </div>
-
-                    <h3 class="link_thank">
-                        <a href="/contactus-thank-you">Thank You</a>
-                    </h3>
-                </section>
-            </div>
-        </t>
-    </template>
-
-
     <template id="book_form" name="Book Form">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure">
@@ -331,26 +213,16 @@
     </template>
 
 
-    <!--    Header-->
-    <!--    <template id="header_in_portal" inherit_id="website.layout">-->
-    <!--        <xpath expr="//header" position="before">-->
-    <!--            <div class="alert alert-success text-center" role="alert">-->
-    <!--                <b>CandidRoot Solutions Pvt. Ltd.</b>-->
+    <!--    Inherit Home Page-->
+    <!--    <template id="custom_homepage" inherit_id="website.homepage">-->
+    <!--        <xpath expr="//div[@id='wrap']" position="inside">-->
+    <!--            <div class="container">-->
+    <!--                <h1>Welcome to Our Inherited Homepage</h1>-->
     <!--            </div>-->
     <!--        </xpath>-->
     <!--    </template>-->
 
-
-    <!--    Inherit Home Page-->
-    <template id="custom_homepage" inherit_id="website.homepage">
-        <xpath expr="//div[@id='wrap']" position="inside">
-            <div class="container">
-                <h1>Welcome to Our Inherited Homepage</h1>
-            </div>
-        </xpath>
-    </template>
-
-<!--    different website -->
+    <!--    different website -->
     <template id="custom_homepage_a1" name="homepage_a1">
         <t t-call="website.layout" pageName.f="homepage">
             <div id="wrap" class="oe_structure oe_empty">
@@ -366,110 +238,6 @@
             </div>
         </t>
     </template>
-
-
-    <!--    Mega menu bar-->
-    <record id="menu_education_hub" model="website.menu">
-        <field name="name">Education Hub</field>
-        <field name="url">/education_hub</field>
-        <field name="parent_id" ref="website.main_menu"/>
-        <field name="sequence" type="int">30</field>
-        <field name="is_mega_menu">True</field>
-
-        <field name="mega_menu_content" type="html">
-            <div class="container py-4">
-
-                <!-- Title -->
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <h4 class="fw-bold">Education Resources</h4>
-                        <hr class="mt-2 mb-0"/>
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="row">
-
-                    <!-- Column 1 -->
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <h6 class="text-muted mb-2">Books</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a href="/book-data" class="text-decoration-none">
-                                    <i class="fa fa-book me-2"></i>
-                                    Book List
-                                </a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="/book/form" class="text-decoration-none">
-                                    <i class="fa fa-plus me-2"></i>
-                                    Add Book
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 2 -->
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <h6 class="text-muted mb-2">Students</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a href="/student-list" class="text-decoration-none">
-                                    <i class="fa fa-users me-2"></i>
-                                    Student List
-                                </a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="/student/form" class="text-decoration-none">
-                                    <i class="fa fa-user-plus me-2"></i>
-                                    Add Student
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 3 -->
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <h6 class="text-muted mb-2">Reports</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a href="/reports/books" class="text-decoration-none">
-                                    <i class="fa fa-file-text me-2"></i>
-                                    Book Reports
-                                </a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="/reports/students" class="text-decoration-none">
-                                    <i class="fa fa-chart-bar me-2"></i>
-                                    Student Reports
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 4 -->
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <h6 class="text-muted mb-2">Quick Links</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a href="/contactus" class="text-decoration-none">
-                                    <i class="fa fa-envelope me-2"></i>
-                                    Contact
-                                </a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="/aboutus" class="text-decoration-none">
-                                    <i class="fa fa-info-circle me-2"></i>
-                                    About
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </field>
-    </record>
 
 
     <!--            Create submenu-->
@@ -496,18 +264,44 @@
         <field name="url">/book/form</field>
         <field name="parent_id" ref="parent_book_menu"/>
         <field name="sequence" type="int">65</field>
-        <!--        <field name="parent_id" ref="website.main_menu"/>-->
     </record>
 
 
-    <!--            Menu Bar-->
+    <!-- Menu Bar-->
     <record id="menu_policy" model="website.menu">
         <field name="name">Cookie Policy</field>
         <field name="url">/policy</field>
         <field name="parent_id" ref="website.main_menu"/>
-        <!--        <field name="sequence" type="int">60</field>-->
+        <field name="sequence" type="int">60</field>
     </record>
 
+
+    <!--    Price and other hide-->
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-if">request.session.uid</attribute>
+        </xpath>
+    </template>
+
+
+
+    <template id="products_item_new" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@name='product_price']" position="replace">
+            <div class="product_price" t-if="request.session.uid">
+                <span t-out="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </div>
+            <div class="product_price" t-if="not request.session.uid">
+                <b style="color: red;">Please Log in to see price.</b>
+            </div>
+        </xpath>
+    </template>
+
+    <!--    price range hide-->
+    <template id="filter_products_price_hide" inherit_id="website_sale.filter_products_price">
+        <xpath expr="//div[@id='o_wsale_price_range_option']" position="attributes">
+            <attribute name="t-if">request.session.uid</attribute>
+        </xpath>
+    </template>
 
 </odoo>
 
