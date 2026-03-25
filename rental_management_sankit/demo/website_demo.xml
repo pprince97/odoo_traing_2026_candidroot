@@ -1,0 +1,13 @@
+<odoo>
+    <!-- Website 1 -->
+    <record id="website_one" model="website">
+        <field name="name">Website One</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <!-- Website 2 -->
+    <record id="website_two" model="website">
+        <field name="name">Website Second</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

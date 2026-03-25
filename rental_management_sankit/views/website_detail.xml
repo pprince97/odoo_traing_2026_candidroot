@@ -374,9 +374,47 @@
         <record id="menu_customer" model="website.menu">
             <field name="name">Add Customer</field>
             <field name="url">/rental</field>
+<!--            <field name="parent_id" ref="menu_rental"/>-->
             <field name="parent_id" ref="menu_rental"/>
             <field name="sequence" type="int">65</field>
         </record>
+<!--Sub Menu Code -->
+         <record id="menu_test" model="website.menu">
+            <field name="name">Add Test</field>
+            <field name="url">#</field>
+<!--            <field name="parent_id" ref="website.main_menu"/>-->
+            <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('parent_id', '=', False)]"/>
+             <field name="website_id" ref="website.default_website"/>
+            <field name="sequence" type="int">65</field>
+        </record>
+
+        <record id="menu_test_child" model="website.menu">
+            <field name="name">Add Child</field>
+            <field name="url">/rental</field>
+            <field name="parent_id" ref="menu_test"/>
+<!--            <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('id', '=', ref('menu_test'))]"/>-->
+            <field name="sequence" type="int">65</field>
+        </record>
+
+
+<!--Sub Menu For Website 2-->
+        <record id="menu_test_web2" model="website.menu">
+            <field name="name">Test</field>
+            <field name="url">#</field>
+<!--            <field name="parent_id" ref="website.main_menu"/>-->
+            <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.website2')),('parent_id', '=', False)]"/>
+             <field name="website_id" ref="website.website2"/>
+            <field name="sequence" type="int">65</field>
+        </record>
+            <record id="menu_test_child_web2" model="website.menu">
+                <field name="name">Child</field>
+                <field name="url">/rental</field>
+                <field name="parent_id" ref="menu_test_web2"/>
+                <!--            <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('id', '=', ref('menu_test'))]"/>-->
+                <field name="sequence" type="int">65</field>
+            </record>
+
+
 
 <!--        <record id="menu_shop" model="website.menu">-->
 <!--            <field name="name">Shop</field>-->

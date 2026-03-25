@@ -1,9 +1,42 @@
 from odoo import http, models, fields, tools, api , _
 from odoo.http import request
 
-class WebsiteDetail(http.Controller):
-    @http.route('/faqs', type='http', auth='user', website=True)
+from odoo.addons.website.controllers.main import Website
+from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
+
+class WebsiteInherit(Website):
+    @http.route()
+    def index(self, **kw):
+        response = super(WebsiteInherit, self).index(**kw)
+        rental_orders = request.env['rental.order'].sudo().search([] , limit=1)
+        response.qcontext['rental_orders'] = rental_orders
+        return response
+
+
+#
+# class CustomHome(Website):
+#     @http.route()
+#     def index(self, **kw):
+#         print("------1---------")
+#         response = super(CustomHome, self).index(**kw)
+#         requests = request.env['library.book.borrow'].sudo().search([])
+#         response.qcontext['requests'] = requests
+#         return response
+
+
+
+class WebsiteDetail(http.Controller):
+    # @http.route('/', type='http', auth='public', website=True)
+    # def homepage_view(self, **kwargs):
+    #     if request.website.id == request.env.ref('rental_management_sankit.website_one').id:
+    #         return request.render('rental_management_sankit.template_home1', {})
+    #     elif request.website.id == request.env.ref('rental_management_sankit.website_two').id:
+    #         return request.render('rental_management_sankit.template_home2', {})
+    #     else:
+    #         return request.render('website.homepage', {})
+
+    @http.route('/faqs', type='http', auth='user', website=True)
     def faq_page(self ,**kwargs):
         rental_orders =request.env['rental.order'].sudo().search([])
         values = {
@@ -33,13 +66,33 @@ class WebsiteDetail(http.Controller):
         })
         return request.render('rental_management_sankit.rental_create')
 
-    @http.route('/rental_order', type='http', auth='public', website=True)
-    def rental_order_list(self, **kwargs):
+    @http.route(['/rental_order','/rental_order/page/<int:page>'], type='http', auth='public', website=True)
+    def rental_order_list(self,page=1, search=None, search_in='all', **kwargs):
         """rental order  page"""
         # rental_orders = request.env['rental.order'].search([]).read(['rental_number', 'customer_id', 'rent_start_date', 'rent_end_date' , 'total_amount'])
         rental_orders = request.env['rental.order'].sudo().search([])
+        total_orders = rental_orders.search_count([])
+        step = 3
+        pager = portal_pager(
+            url='/rental_order',
+            total=total_orders,
+            page=page,
+            step=step,
+        )
+        rental_records = rental_orders.search(
+            [],
+            limit=step,
+            offset=pager['offset'],
+            order='id asc',
+        )
+
+        # Edit
         values = {
             'rental_orders': rental_orders,
+            'rental_records': rental_records,
+            'page_name': 'rental_order',
+            'default_url': '/rental_order',
+            'pager': pager,
         }
         print("==============")
         print(rental_orders)
@@ -57,7 +110,7 @@ class WebsiteDetail(http.Controller):
 
     @http.route('/rental_order/create', type='http', auth='public', methods=['POST'], website=True)
     def rental_order_create_page(self, **post):
-        tag_ids = request.httprequest.form.getlist('tag_ids[]')
+        tag_ids = request.httprequest.form.getlist('tag_ids')
         # tag_ids = list(map(int, tag_ids)) if tag_ids else []
         """rental order  page"""
         request.env['rental.order'].sudo().create({

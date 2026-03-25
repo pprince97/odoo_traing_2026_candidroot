@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="portal_fleet_template" name="Portal Fleet List">
+    <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <div class="o_portal_wrap">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h2>My Fleet</h2>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <form method="get" action="/fleet" class="o_portal_search_form">
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <input type="text"
+                                           name="search"
+                                           t-att-value="search or ''"
+                                           class="form-control"
+                                           placeholder="Search vehicles..."/>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="search_in" class="form-select">
+                                        <t t-foreach="searchbar_inputs.items()" t-as="s">
+                                            <option t-att-value="s[0]"
+                                                    t-att-selected="s[0] == search_in and 'selected' or None">
+                                                <t t-esc="s[1]['label']"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="filterby" class="form-select">
+                                        <t t-foreach="searchbar_filters.items()" t-as="f">
+                                            <option t-att-value="f[0]"
+                                                    t-att-selected="f[0] == filterby and 'selected' or None">
+                                                <t t-esc="f[1]['label']"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>License Plate</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="fleet_records">
+                                    <t t-foreach="fleet_records" t-as="vehicle">
+                                        <tr>
+                                            <td><t t-esc="vehicle.name"/></td>
+                                            <td><t t-esc="vehicle.license_plate"/></td>
+                                            <td><t t-esc="vehicle.state_id.name or 'N/A'"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-4">
+                                            No vehicles found.
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <t t-call="portal.pager">
+                            <t t-set="classname" t-value="'d-flex justify-content-center'"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+</odoo>

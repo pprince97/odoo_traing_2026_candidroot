@@ -38,14 +38,6 @@
             </xpath>
         </template>
 
-
-        <template id="homepage_inherited" inherit_id="website.homepage">
-        <xpath expr="//div[@id='wrap']" position="after">
-          <div id="wrap" class="oe_structure">
-              hello
-          </div>
-        </xpath>
-    </template>
 <!--        <template id="header_custom" inherit_id="web.frontend_layout" name="Default" active="True">-->
 <!--            <xpath expr="//header" position="inside">-->
 <!--                CandidRoot Solution-->

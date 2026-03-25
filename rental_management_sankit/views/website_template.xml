@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <!-- Template for Website 1 Homepage -->
+<!--        <template id="template_home1" name="Homepage 1" inherit_id="website.homepage">-->
+<!--            <xpath expr="//div[@id='wrap']" position="inside">-->
+<!--                    <section class="pt8 pb8">-->
+
+<!--                        <div class="container mt-5">-->
+<!--                            <h1 class="pt16 h2-fs" style="color: #000000; text-align: center;">HOME FOR WEBSITE 1</h1>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--            </xpath>-->
+
+<!--        </template>-->
+
+<!--        <template id="template_home2" name="Homepage 2" inherit_id="website.homepage">-->
+<!--            <xpath expr="//div[@id='wrap']" position="inside">-->
+<!--                    <section class="pt8 pb8">-->
+<!--                        <div class="container mt-5">-->
+<!--                            <h1 class="pt16 h2-fs" style="color: #000000; text-align: center;">HOME FOR WEBSITE 2</h1>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--            </xpath>-->
+<!--        </template>-->
+
+        <template id="template_home1" name="Homepage 1">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="pt8 pb8">
+
+                        <div class="container mt-5">
+                            <h1 class="pt16 h2-fs" style="color: #000000; text-align: center;">HOME FOR WEBSITE 1</h1>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+        <template id="template_home2" name="Homepage 2">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="pt8 pb8">
+                        <div class="container mt-5">
+                            <h1 class="pt16 h2-fs" style="color: #000000; text-align: center;">HOME FOR WEBSITE 2</h1>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="homepage_inherited_home" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="after">
+          <div id="wrap" class="oe_structure">
+              <section class="pt8 pb8">
+
+                        <div class="container">
+                            <h1 class="pt16 h2-fs" style="color: #008f8c;">Home Pages</h1>
+                            <table class="small table table-bordered text-center">
+                            <thead class="highlight">
+                                <tr>
+                                    <th scope="col" style="width: 10%">ID</th>
+                                    <th scope="col">Rental Number</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">End Date</th>
+                                    <th scope="col">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="rental_orders" t-as="rental_order">
+                                    <tr>
+                                        <th scope="row">
+                                            <span t-esc="rental_order.id"/>
+                                        </th>
+                                        <td>
+                                            <span t-esc="rental_order.rental_number"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.customer_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.rent_start_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.rent_end_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="rental_order.total_amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                            </tbody>
+                        </table>
+                        </div>
+              </section>
+
+          </div>
+        </xpath>
+    </template>
+    </data>
+</odoo>
