@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+website_sale_custom.access_product_suitable,access_product_suitable,model_product_suitable,,1,1,1,1

@@ -1,0 +1,51 @@
+<odoo>
+    <template id="css_vs_scss" name="CSS Vs SCSS">
+        <t t-call="website.layout">
+            <div>
+                <h2>
+                    <b>Difference Between CSS and SCSS</b>
+                </h2>
+                <br/>
+                <br/>
+                <div>
+                    <h4>CSS</h4>
+                    <ul>
+                        <li>
+                            CSS (Cascading Style Sheets) is a stylesheet language for designing the layout of web pages.
+                        </li>
+                        <li>
+                            It is simple to use and follows a cascading hierarchy to apply styles to HTML elements.
+                        </li>
+                    </ul>
+                </div>
+                <br/>
+                <div>
+                    <h4>SCSS</h4>
+                    <ul>
+                        <li>
+                            SCSS (Sassy CSS) is a preprocessor scripting language that extends CSS with features like
+                            variables, nesting, and mixins.
+                        </li>
+                        <li>
+                            It makes stylesheets more maintainable and efficient to write.
+                        </li>
+                    </ul>
+                </div>
+                <br/>
+            </div>
+        </t>
+    </template>
+
+    <record id="css_vs_scss_page" model="website.page">
+        <field name="url">/css-vs-scss</field>
+        <field name="view_id" ref="css_vs_scss"/>
+    </record>
+
+    <record id="css_vs_scss_menu" model="website.menu">
+        <field name="name">CSS Vs SCSS</field>
+        <field name="url">/css-vs-scss</field>
+        <field name="page_id" ref="css_vs_scss_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+</odoo>
