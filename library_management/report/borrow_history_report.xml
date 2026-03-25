@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <template id="report_borrow_request">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <t t-set="values" t-value="o._get_payment_receipt_report_values()"/>
+                <div class="page">
+
+                    <table name="Borrow Report" class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span>Book name</span>
+                                </th>
+                                <th>
+                                    <span>Issue date</span>
+                                </th>
+                                <th>
+                                    <span>Return date</span>
+                                </th>
+                                <th>
+                                    <span>Student name</span>
+                                </th>
+                                <th>
+                                    <span>Librarian name</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="borrow_request_id" t-as="doc">
+                                <tr>
+                                    <td>
+                                        <span t-field="doc.book_id">Name</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.issue_date">2023-01-01</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.return_date">2023-01-01</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.student_id">Name</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.librarian_id">Name</span>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="oe_structure"></div>
+            </t>
+        </template>
+
+        <template id="report_borrow_receipt">
+            <t t-call="web.html_container">
+                <t t-call="library_management.report_borrow_request" t-lang="lang"/>
+            </t>
+        </template>
+
+        <record id="action_report_borrow_receipt" model="ir.actions.report">
+            <field name="name">Borrow Receipt</field>
+            <field name="model">report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account.report_borrow_receipt</field>
+            <field name="report_file">account.report_borrow_receipt</field>
+            <field name="binding_model_id" ref="model_report_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

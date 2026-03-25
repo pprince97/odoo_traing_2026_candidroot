@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="menu_my_page" model="website.menu">
+        <field name="name">New my Page</field>
+        <field name="url">/new_my_page</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">50</field>
+    </record>
+
+     <record id="menu_my_page2" model="website.menu">
+        <field name="name">New my Page 2</field>
+        <field name="url">/new_my_page2</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">51</field>
+    </record>
+
+    <record id="menu_book" model="website.menu">
+        <field name="name">Books</field>
+        <field name="url">/books</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">2</field>
+    </record>
+
+
+</odoo>

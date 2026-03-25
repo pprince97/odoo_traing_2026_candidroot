@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record model="ir.ui.view" id="books_view_form">
+        <field name="name">library.books.form</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="show_history" type="object" class="oe_stat_button" icon="fa-history">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">
+                                    History
+                                </span>
+                            </div>
+                        </button>
+                        <button name="show_available_copies" type="object" class="oe_stat_button" icon="fa-book">
+                            <field name="show_book" widget="statinfo" string="Available Copies"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cover_image" widget="image"/>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="description"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="category"/>
+                            <field name="borrow_price"/>
+                            <field name="maximum_day_limit"/>
+                            <field name="available_copies"/>
+                            <field name="stock"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="books_view_kanban">
+        <field name="name">library.books.kanban</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name"/>
+                <field name="cover_image"/>
+                <field name="barcode"/>
+                <field name="category"/>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <t>
+                                <div class="position-relative w-100 h-auto m-0">
+                                    <field name="cover_image" class="h-100" widget="image"
+                                           options="{'img_class': 'object-fit-contain'}"/>
+                                </div>
+                            </t>
+                        </aside>
+                        <main class="ps-2">
+                            <div class="mb-1">
+                                <field name="name" class="mb-0 fw-bold fs-5"/>
+                            </div>
+                            <div>
+                                <field name="barcode"/>
+                            </div>
+                            <div>
+                                <field name="category"/>
+                            </div>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="books_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.books</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem id="root" name="Library Management"/>
+    <menuitem id="books" name="Books" parent="root" action="books_action" sequence="2"/>
+
+</odoo>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record id="demo_book_1" model="library.books">
+            <field name="name">Harry Potter</field>
+            <field name="category">fiction</field>
+            <field name="stock">10</field>
+            <field name="borrow_price">100</field>
+            <field name="maximum_day_limit">15</field>
+        </record>
+
+        <record id="demo_book_2" model="library.books">
+            <field name="name">Game of Thrones</field>
+            <field name="category">fiction</field>
+            <field name="stock">20</field>
+            <field name="borrow_price">150</field>
+            <field name="maximum_day_limit">20</field>
+        </record>
+
+        <record id="demo_book_3" model="library.books">
+            <field name="name">Star Wars</field>
+            <field name="category">fiction</field>
+            <field name="stock">20</field>
+            <field name="borrow_price">50</field>
+            <field name="maximum_day_limit">10</field>
+        </record>
+
+        <record id="demo_book_4" model="library.books">
+            <field name="name">Marvel Avengers</field>
+            <field name="category">fiction</field>
+            <field name="stock">30</field>
+            <field name="borrow_price">200</field>
+            <field name="maximum_day_limit">25</field>
+        </record>
+
+        <record id="demo_book_5" model="library.books">
+            <field name="name">DC</field>
+            <field name="category">fiction</field>
+            <field name="stock">10</field>
+            <field name="borrow_price">50</field>
+            <field name="maximum_day_limit">10</field>
+        </record>
+
+        <record id="demo_student_1" model="res.partner">
+            <field name="name">Student1</field>
+            <field name="email">a</field>
+            <field name="phone">0</field>
+            <field name="gender">male</field>
+            <field name="person">student</field>
+        </record>
+
+        <record id="demo_student_2" model="res.partner">
+            <field name="name">Student2</field>
+            <field name="email">b</field>
+            <field name="phone">1</field>
+            <field name="gender">male</field>
+            <field name="person">student</field>
+        </record>
+
+        <record id="demo_student_3" model="res.partner">
+            <field name="name">Student3</field>
+            <field name="email">c</field>
+            <field name="phone">2</field>
+            <field name="gender">female</field>
+            <field name="person">student</field>
+        </record>
+
+        <record id="demo_student_4" model="res.partner">
+            <field name="name">Student4</field>
+            <field name="email">d</field>
+            <field name="phone">3</field>
+            <field name="gender">female</field>
+            <field name="person">student</field>
+        </record>
+
+        <record id="demo_student_5" model="res.partner">
+            <field name="name">Student5</field>
+            <field name="email">e</field>
+            <field name="phone">4</field>
+            <field name="gender">female</field>
+            <field name="person">student</field>
+        </record>
+
+        <record id="demo_borrow_request_1" model="library.borrow.request">
+            <field name="serial_number">Req00001</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="demo_borrow_request_2" model="library.borrow.request">
+            <field name="serial_number">Req00002</field>
+            <field name="state">issue</field>
+            <field name="issue_date">2026-03-09</field>
+
+        </record>
+
+        <record id="demo_borrow_request_3" model="library.borrow.request">
+            <field name="serial_number">Req00003</field>
+            <field name="state">return</field>
+            <field name="issue_date">2026-03-03</field>
+            <field name="return_date">2026-03-09</field>
+        </record>
+
+    </data>
+</odoo>

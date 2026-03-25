@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="new_my_page" model="website.page">
+        <field name="name">My Custom Page</field>
+        <field name="type">qweb</field>
+        <field name="url">/new_my_page</field>
+        <field name="website_indexed" eval="False"/>
+        <field name="is_published">True</field>
+        <field name="key">library_management.new_my_page</field>
+        <field name="arch" type="xml">
+            <t t-name="library_management.new_my_page">
+                <t t-call="website.layout">
+                    <div class="container text-center my-5">
+                        <h1 class="text-primary">
+                            Welcome to My New Page.
+                        </h1>
+                        <p class="mt-3">
+                            This page is created using XML.
+                        </p>
+                    </div>
+                    <div class="oe_structure"> </div>
+                    <!--                    <table class="table table-borderless m-0">-->
+                    <!--                        <tbody>-->
+                    <!--                            <tr t-foreach="o." t-as="line">-->
+                    <!--                                <td class="w-25 py-1">-->
+                    <!--                                    <span class="d-block fw-bold" t-field="line.date">2023-08-11</span>-->
+                    <!--                                </td>-->
+                    <!--                                <td class="py-1">-->
+                    <!--                                    <span class="d-block fw-bold" t-if="line.partner_id">-->
+                    <!--                                        <span t-out="line.partner_id.name">Marc Demo</span>-->
+                    <!--                                        <span t-if="line.partner_bank_id and line.partner_bank_id.partner_id != line.partner_id">-->
+                    <!--                                            (<span t-out="line.partner_bank_id.partner_id.name">Bank of odoo</span>)-->
+                    <!--                                        </span>-->
+                    <!--                                    </span>-->
+                    <!--                                    <span class="d-block" t-if="line.partner_bank_id or line.account_number"-->
+                    <!--                                          t-out="line.account_number or line.partner_bank_id.acc_number">534677881234-->
+                    <!--                                    </span>-->
+                    <!--                                    <span class="d-block" t-if="line.payment_ref" t-field="line.payment_ref">Payment-->
+                    <!--                                        Reference-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                                <td class="text-end py-1">-->
+                    <!--                                    <span t-att-class="'d-block fw-bold' + (' text-danger' if line.amount &lt; 0 else '')"-->
+                    <!--                                          t-field="line.amount">100.0-->
+                    <!--                                    </span>-->
+                    <!--                                </td>-->
+                    <!--                            </tr>-->
+                    <!--                        </tbody>-->
+                    <!--                    </table>-->
+                </t>
+            </t>
+        </field>
+    </record>
+
+
+</odoo>

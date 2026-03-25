@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="borrow_request_line_view_list" model="ir.ui.view">
+        <field name="name">borrow.requestline.list</field>
+        <field name="model">borrow.requestline</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="book_id"/>
+                <field name="quantity"/>
+                <field name="amount_per_day"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="borrow_req_line_action" model="ir.actions.act_window">
+        <field name="name">Borrow Requests Lines</field>
+        <field name="res_model">borrow.requestline</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

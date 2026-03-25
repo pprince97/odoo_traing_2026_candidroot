@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="borrow_request_view_form" model="ir.ui.view">
+        <field name="name">library.borrow.request.form</field>
+        <field name="model">library.borrow.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="issue_book" string="Issue" type="object" class="oe_highlight"
+                            invisible="state in ['issue','return','cancel']"/>
+                    <button name="return_book" string="Return" type="object" class="oe_highlight"
+                            invisible="state in ['draft','return','cancel']"/>
+                    <button name="cancel_request" string="Cancel" type="object" class="oe_highlight"
+                            invisible="state in ['issue','return','cancel']"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="serial_number" readonly="1"/>
+                            <field name="student_id"  readonly="state in ['issue','return','cancel']"/>
+                            <field name="librarian_id"  readonly="state in ['issue','return','cancel']"/>
+                            <field name="cancel_date" invisible="state in ['draft','issue','return']" readonly="1"/>
+                            <field name="cancellation_reason" invisible="state in ['draft','issue','return']" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="issue_date" readonly="1" invisible="state in ['draft','cancel']"/>
+                            <field name="return_date" readonly="1" invisible="state in ['draft','issue','cancel']"/>
+                            <field name="fine_amount" invisible="not return_date" readonly="1"/>
+                            <field name="total_amount" invisible="not return_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Borrow Request Lines">
+                            <field name="borrow_request_lines_ids"  readonly="state in ['issue','return','cancel']"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="borrow_request_view_list" model="ir.ui.view">
+        <field name="name">library.borrow.request.list</field>
+        <field name="model">library.borrow.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_number"/>
+                <field name="student_id"/>
+                <field name="librarian_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="borrow_req_action" model="ir.actions.act_window">
+        <field name="name">Borrow Requests</field>
+        <field name="res_model">library.borrow.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="borrow_req" name="Borrow Requests" parent="root" action="borrow_req_action" sequence="1"
+              groups="group_library_student"/>
+
+</odoo>

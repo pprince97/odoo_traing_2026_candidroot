@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="librarian_view_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="borrow_requests_processed" type="object" class="oe_stat_button" icon="fa-book">
+                            <field name="request_processed" widget="statinfo" string="Request Processed"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="email" required="1"/>
+<!--                            <field name="teacher_id" domain="[('person', '=', 'teacher')]"/>-->
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="librarian_view_list" model="ir.ui.view">
+        <field name="name">res.partner.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="gender"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="librarian_action" model="ir.actions.act_window">
+        <field name="name">Librarians</field>
+        <field name="res_model">res.partner</field>
+        <field name="domain">[('person', '=', 'librarian')]</field>
+        <field name="context">{'default_person':'librarian'}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'list', 'view_id': ref('librarian_view_list')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('librarian_view_form')}),
+        ]"/>
+    </record>
+
+    <menuitem id="librarian" name="Librarian" parent="root" action="librarian_action" sequence="3"
+              groups="group_school_librarian"/>
+
+</odoo>
