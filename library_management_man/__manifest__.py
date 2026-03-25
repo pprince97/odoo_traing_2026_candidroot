@@ -7,7 +7,7 @@
     'description': 'Library Management',
     'author': 'Man Patel',
     'depends': [
-        'base','contacts','mail','website',
+        'base', 'contacts', 'mail', 'website',
     ],
 
     'data': [
@@ -21,13 +21,20 @@
         'wizards/book_borrow_history.xml',
         'wizards/cancellation_request.xml',
         'views/book_history.xml',
+        'views/website_library.xml',
+        # 'views/multi_website_library.xml',
         'views/res_config_setting.xml',
         'views/library_student.xml',
         'views/library_librarian.xml',
         'views/library_borrow_request.xml',
         'views/library_borrow_request_line.xml',
-        'views/website_library.xml',
     ],
+
+    'assets': {
+        'web.assets_frontend': [
+            'library_management_man/static/src/css/website_library.css'
+        ],
+    },
 
     # 'demo': [
     #     'demo/demo.xml',

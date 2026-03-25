@@ -39,7 +39,7 @@
         <field name="maximum_day_limit">30</field>
     </record>
 
-    <record id="library_student_1" model="res.partner" >
+    <record id="library_student_1" model="res.partner">
         <field name="student_code">LS00001</field>
         <field name="name">Man Patel</field>
         <field name="email">manpatel1711@gmail.com</field>
@@ -78,6 +78,18 @@
         <field name="email">nisarg@gmail.com</field>
         <field name="phone">7897897878</field>
         <field name="gender">male</field>
+    </record>
+
+    <record id="default_website_1" model="website">
+        <field name="name">My Website 1</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="user_id" ref="base.public_user"/>
+    </record>
+
+    <record id="default_website_2" model="website">
+        <field name="name">My Website 2</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="user_id" ref="base.public_user"/>
     </record>
 
 </odoo>

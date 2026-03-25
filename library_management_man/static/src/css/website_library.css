@@ -1,0 +1,17 @@
+/* Make the mega menu background transparent */
+.dropdown-menu.o_mega_menu {
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Optional: adds a modern frosted glass effect */
+    border: none;
+}
+
+/* Ensure responsiveness for mobile */
+@media (max-width: 991.98px) {
+    .o_mega_menu .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .o_mega_menu h3 {
+        font-size: 1.2rem;
+    }
+}

@@ -13,17 +13,17 @@
 </templates>
 
 
-<?xml version="1.0" encoding="UTF-8"?>
-<templates xml:space="preserve">
-    <t t-name="your_module.BinaryFieldHistory" t-inherit="web.BinaryField" t-inherit-mode="extension">
-        <!-- Target the Clear (Trash) button and place History after it -->
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates xml:space="preserve">-->
+<!--    <t t-name="your_module.BinaryFieldHistory" t-inherit="web.BinaryField" t-inherit-mode="extension">-->
+<!--        &lt;!&ndash; Target the Clear (Trash) button and place History after it &ndash;&gt;-->
 
-            <button
-                class="btn btn-link btn-sm lh-1 fa fa-history o_history_file_button"
-                data-tooltip="History"
-                aria-label="History"
-                t-on-click="onHistoryClick"
-            />
-        </xpath>
-    </t>
-</templates>
+<!--            <button-->
+<!--                class="btn btn-link btn-sm lh-1 fa fa-history o_history_file_button"-->
+<!--                data-tooltip="History"-->
+<!--                aria-label="History"-->
+<!--                t-on-click="onHistoryClick"-->
+<!--            />-->
+<!--        </xpath>-->
+<!--    </t>-->
+<!--</templates>-->
