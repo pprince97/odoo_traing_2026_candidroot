@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='sales']" position="after">
-                <page name="partner-inherit" string="Parts Specifications" invisible="categ_id == %(product_management.product_category_accessories)d">
+                <page name="partner-inherit" string="Parts Specifications"
+                      invisible="categ_id == %(product_management.product_category_accessories)d">
                     <group string="PRODUCT INFO">
                         <field name="multipart"/>
                     </group>
@@ -52,11 +53,22 @@
                 </page>
             </xpath>
             <xpath expr="//field[@name='categ_id']" position="after">
-                <field name="total_cost" string="Price" readonly="0" invisible="categ_id != %(product_management.product_category_accessories)d"/>
+                <field name="total_cost" string="Price" readonly="0"
+                       invisible="categ_id != %(product_management.product_category_accessories)d"/>
             </xpath>
         </field>
     </record>
 
+    <record id="product_template_inherit_view_urvi" model="ir.ui.view">
+        <field name="name">inherit.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="application_area" widget="many2many_tags" />
+            </xpath>
+        </field>
+    </record>
     <record id="color_shade_form_view" model="ir.ui.view">
         <field name="name">color.shade.form</field>
         <field name="model">product.color.shade</field>

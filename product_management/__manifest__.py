@@ -7,10 +7,11 @@
     """,
     'category': 'Uncategorized',
     'website': 'https://www.product.com',
-    'depends': ['base','sale_management'],
+    'depends': ['base','sale_management','website','website_sale'],
     'data': [
         'security/ir.model.access.csv',
         'demo/demo_category.xml',
+        'views/website_products.xml',
         'views/products_view.xml'
     ],
     'application': True,

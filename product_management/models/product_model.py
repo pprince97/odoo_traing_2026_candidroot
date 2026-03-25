@@ -55,5 +55,9 @@ class Products(models.Model):
 
 
 
+class ProductTemplats(models.Model):
+    _inherit = "product.template"
+
+    application_area = fields.Many2many('product.application.area','product_area_rel','product_id','application_id',string='Application Area')
 
 

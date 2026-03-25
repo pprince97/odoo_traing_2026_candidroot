@@ -4,3 +4,4 @@ access_product_color_shade,access_product_color_shade,model_product_color_shade,
 access_product_surface_finish,access_product_surface_finish,model_product_surface_finish,,1,1,1,1
 access_product_uv_printing,access_product_uv_printing,model_product_uv_printing,,1,1,1,1
 access_product_product_lines,access_product_product_lines,model_product_product_lines,,1,1,1,1
+access_product_application_area,access_product_application_area,model_product_application_area,,1,1,1,1

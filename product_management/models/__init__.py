@@ -4,3 +4,4 @@ from . import color_shade_model
 from . import uv_printing_model
 from . import product_model
 from . import product_lines
+from . import application_area_model
