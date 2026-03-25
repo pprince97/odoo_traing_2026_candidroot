@@ -42,3 +42,15 @@ class ProductVariant(models.Model):
             if rec.categ_id != self.env.ref('product_management.product_category_accessory'):
                 rec.total_cost = rec.product_cost + rec.accessories_cost
 
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    functionality_ids = fields.Many2many(comodel_name='product.functionality',relation='product_template_functionality_rel',column1='product_id',column2='functionality_id',string='Functionalities')
+
+class ProductFunctionality(models.Model):
+    _name = 'product.functionality'
+    _description = 'Product Functionality'
+
+    name = fields.Char(string='Name')
+    product_ids = fields.Many2many(comodel_name='product.template',relation='product_template_functionality_rel',column1='functionality_id',column2='product_id',string='Products')

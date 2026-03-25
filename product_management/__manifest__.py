@@ -10,6 +10,7 @@
         'security/ir.model.access.csv',
         'demo/product_category_demo.xml',
         'views/product_variant_views.xml',
+        'views/shop_menu_website.xml',
     ],
     'installable': True,
     'application': True,

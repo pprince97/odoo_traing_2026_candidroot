@@ -1,77 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="custom_header_tanisha_library_2" inherit_id="website.layout">
-        <xpath expr="//header[@id='top']" position="attributes">
-            <attribute name="t-attf-class" add="d-none" separator=" "/>
-        </xpath>
-        <xpath expr="//header[@id='top']" position="after">
-            <div class="container my-3">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="/library_management_tanisha/static/img/demo_image.jpeg" height="50px" width="60px"
-                             alt="Custom Logo" class="img-fluid"/>
+    <record id="library_website_2" model="website">
+        <field name="name">Library Website 2</field>
+    </record>
+
+
+<!--    <template id="custom_header_tanisha_library_2" inherit_id="website.layout">-->
+<!--        <xpath expr="//header[@id='top']" position="attributes">-->
+<!--            <attribute name="t-attf-class" add="d-none" separator=" "/>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//header[@id='top']" position="after">-->
+<!--            <t t-if="website_id == %(library_management_tanisha.library_website_2)d">-->
+<!--                <div class="my-3 bg-primary-50">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-4">-->
+<!--                            <img src="/library_management_tanisha/static/img/demo_image.jpeg" height="50px" width="60px"-->
+<!--                                 alt="Custom Logo" class="img-fluid"/>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-8">-->
+<!--                            <div role="menu">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <ul t-if="not navbar_back_url" class="nav"-->
+<!--                                            t-att-data-menu_name="editable and 'Website Menu'"-->
+<!--                                            t-att-data-content_menu_id="editable and website.menu_id.id">-->
+<!--                                            <t t-foreach="website.menu_id.child_id" t-as="submenu">-->
+<!--                                                <t t-call="website.submenu">-->
+<!--                                                    <t t-set="item_class" t-value="'nav-item'"/>-->
+<!--                                                    <t t-set="link_class" t-value="'nav-link text-nowrap'"/>-->
+<!--                                                </t>-->
+<!--                                            </t>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <a groups="base.group_public" t-attf-href="/web/login" role="menuitem"-->
+<!--                                                   t-attf-class="#{_link_class}">-->
+<!--                                                    <i class="fa fa-fw fa-sign-in me-1 small text-primary-emphasis"/>-->
+<!--                                                    Sign in-->
+<!--                                                </a>-->
+<!--                                                <a groups="base.group_user" href="#" role="button"-->
+<!--                                                   data-bs-toggle="dropdown"-->
+<!--                                                   t-attf-class="#{'' if _no_caret else 'dropdown-toggle'} #{_link_class}">-->
+<!--                                                    <span t-field="user_id.name"/>-->
+<!--                                                </a>-->
+<!--                                                <div t-attf-class="dropdown-menu js_usermenu #{_dropdown_menu_class}"-->
+<!--                                                     role="menu">-->
+<!--                                                    <a groups="base.group_user" href="/odoo" role="menuitem"-->
+<!--                                                       class="dropdown-item ps-3"-->
+<!--                                                       id="o_backend_user_dropdown_link">-->
+<!--                                                        <i class="fa fa-fw fa-th me-1 small text-primary-emphasis"/>-->
+<!--                                                        Apps-->
+<!--                                                    </a>-->
+<!--                                                    <a groups="base.group_user" href="/my/home" role="menuitem"-->
+<!--                                                       class="dropdown-item ps-3">-->
+<!--                                                        <i class="fa fa-fw fa-id-card-o me-1 small text-primary-emphasis"/>-->
+<!--                                                        My Account-->
+<!--                                                    </a>-->
+<!--                                                    <div id="o_logout_divider" class="dropdown-divider"/>-->
+<!--                                                    <a groups="base.group_user"-->
+<!--                                                       t-attf-href="/web/session/logout?redirect=/"-->
+<!--                                                       role="menuitem" id="o_logout"-->
+<!--                                                       class="dropdown-item ps-3">-->
+<!--                                                        <i class="fa fa-fw fa-sign-out me-1 small text-primary-emphasis"/>-->
+<!--                                                        Logout-->
+<!--                                                    </a>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <a href="/contactus" class="btn btn-primary mb-3">Contact Us</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+    <template id="custom_home_page_tanisha_library_2" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="inside">
+            <t t-if="website_id == %(library_management_tanisha.library_website_2)d">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Welcome to the Home Page of Library Website 2</h1>
                     </div>
-                    <div class="col-md-8">
-                        <div role="menu">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <a href="/">Home</a>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <a groups="base.group_public" t-attf-href="/web/login" role="menuitem"
-                                               t-attf-class="#{_link_class}">
-                                                <i class="fa fa-fw fa-sign-in me-1 small text-primary-emphasis"/>
-                                                Sign in
-                                            </a>
-                                            <a groups="base.group_user" href="#" role="button" data-bs-toggle="dropdown"
-                                               t-attf-class="#{'' if _no_caret else 'dropdown-toggle'} #{_link_class}">
-                                                <span t-field="user_id.name"/>
-                                            </a>
-                                            <div t-attf-class="dropdown-menu js_usermenu #{_dropdown_menu_class}"
-                                                 role="menu">
-                                                <a groups="base.group_user" href="/odoo" role="menuitem"
-                                                   class="dropdown-item ps-3"
-                                                   id="o_backend_user_dropdown_link">
-                                                    <i class="fa fa-fw fa-th me-1 small text-primary-emphasis"/>
-                                                    Apps
-                                                </a>
-                                                <a groups="base.group_user" href="/my/home" role="menuitem"
-                                                   class="dropdown-item ps-3">
-                                                    <i class="fa fa-fw fa-id-card-o me-1 small text-primary-emphasis"/>
-                                                    My Account
-                                                </a>
-                                                <div id="o_logout_divider" class="dropdown-divider"/>
-                                                <a groups="base.group_user" t-attf-href="/web/session/logout?redirect=/"
-                                                   role="menuitem" id="o_logout"
-                                                   class="dropdown-item ps-3">
-                                                    <i class="fa fa-fw fa-sign-out me-1 small text-primary-emphasis"/>
-                                                    Logout
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a href="/contactus" class="btn btn-primary mb-3">Contact Us</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </section>
+            </t>
         </xpath>
     </template>
 
-    <data noupdate="1">
 
-        <record id="library_website_2" model="website">
-            <field name="name">Library Website 2</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="user_id" ref="base.public_user"/>
-        </record>
-
-    </data>
 </odoo>

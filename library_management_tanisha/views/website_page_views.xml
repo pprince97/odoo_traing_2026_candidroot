@@ -134,34 +134,34 @@
         </t>
     </template>
 
-    <template id="home_page_inherit_template" inherit_id="website.homepage">
-        <xpath expr="//div[@id='wrap']" position="inside">
-            <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
-                     data-snippet="s_title" data-scroll-background-ratio="1">
-                <span class="s_parallax_bg oe_img_bg"
-                      style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
-                <div class="o_we_bg_filter bg-black-50"/>
-                <div class="container">
-                    <h1>Welcome to the Home Page</h1>
-                </div>
-            </section>
-            <section class="pt40 pb40" data-snippet="s_text_block" style="background-color: #F1F1F1;">
-                <div class="container">
-                    <p style="font-size: 20px">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis deleniti distinctio
-                        doloribus, modi reiciendis veritatis? Accusantium, assumenda distinctio, dolor ea error
-                        explicabo ipsam labore minus quam ratione tempore vitae voluptate voluptatibus! Adipisci aliquid
-                        aperiam consectetur consequuntur eaque et expedita fugiat, id illo illum incidunt inventore iste
-                        iure libero modi nemo nihil obcaecati, quis quod, quos recusandae repellat repellendus
-                        reprehenderit repudiandae soluta sunt ullam voluptatem. Amet at aut earum iusto laborum minus,
-                        nostrum officia quisquam similique vel? Alias at doloribus eligendi, nulla pariatur reiciendis
-                        unde. Ad asperiores deleniti doloribus in libero magni nesciunt odit pariatur, placeat quod
-                        ullam velit voluptatem? Corporis.
-                    </p>
-                </div>
-            </section>
-        </xpath>
-    </template>
+<!--    <template id="home_page_inherit_template" inherit_id="website.homepage">-->
+<!--        <xpath expr="//div[@id='wrap']" position="inside">-->
+<!--            <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"-->
+<!--                     data-snippet="s_title" data-scroll-background-ratio="1">-->
+<!--                <span class="s_parallax_bg oe_img_bg"-->
+<!--                      style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>-->
+<!--                <div class="o_we_bg_filter bg-black-50"/>-->
+<!--                <div class="container">-->
+<!--                    <h1>Welcome to the Home Page</h1>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--            <section class="pt40 pb40" data-snippet="s_text_block" style="background-color: #F1F1F1;">-->
+<!--                <div class="container">-->
+<!--                    <p style="font-size: 20px">-->
+<!--                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis deleniti distinctio-->
+<!--                        doloribus, modi reiciendis veritatis? Accusantium, assumenda distinctio, dolor ea error-->
+<!--                        explicabo ipsam labore minus quam ratione tempore vitae voluptate voluptatibus! Adipisci aliquid-->
+<!--                        aperiam consectetur consequuntur eaque et expedita fugiat, id illo illum incidunt inventore iste-->
+<!--                        iure libero modi nemo nihil obcaecati, quis quod, quos recusandae repellat repellendus-->
+<!--                        reprehenderit repudiandae soluta sunt ullam voluptatem. Amet at aut earum iusto laborum minus,-->
+<!--                        nostrum officia quisquam similique vel? Alias at doloribus eligendi, nulla pariatur reiciendis-->
+<!--                        unde. Ad asperiores deleniti doloribus in libero magni nesciunt odit pariatur, placeat quod-->
+<!--                        ullam velit voluptatem? Corporis.-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--        </xpath>-->
+<!--    </template>-->
 
 <!--    <data noupdate="1">-->
 

@@ -26,6 +26,7 @@
         'views/reporting_submenu_website.xml',
         # 'views/custom_header_footer_website.xml',
         'views/library_website.xml',
+        'views/library_website_2.xml',
     ],
     'demo': [
         'demo/book_demo_data.xml',

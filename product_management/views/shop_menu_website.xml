@@ -1,0 +1,39 @@
+<odoo>
+
+    <template id="product_functionality_website" inherit_id="website_sale.product_attribute_filters_form">
+        <xpath expr="//form" position="inside">
+            <div class="accordion-item">
+                <div class="accordion-header h6 mb-0">
+                    <button
+                            class="accordion-button px-0 bg-transparent shadow-none"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            t-attf-data-bs-target="#product_functionalities"
+                            t-attf-aria-controls="product_functionalities"
+                            aria-expanded="true"
+                    >
+                        <b>Functionality</b>
+                    </button>
+                </div>
+                <div
+                        id="product_functionalities"
+                        class="accordion-collapse collapse hidden"
+                >
+                    <t t-foreach="functionalities" t-as="funct" class="list-group-item border-0 ps-0 pb-0">
+                        <div class="form-check mb-1">
+                            <input type="checkbox"
+                                   name="functionality"
+                                   class="form-check-input"
+                                   t-attf-id="funct_#{funct.id}"
+                                   t-att-value="funct.id"
+                            />
+                            <!--                                   t-att-checked="'checked' if funct.id in functionality else None"-->
+                            <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}" t-field="funct.name"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
