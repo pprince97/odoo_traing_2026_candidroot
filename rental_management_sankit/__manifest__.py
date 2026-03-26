@@ -25,6 +25,7 @@
         'views/pagination.xml',
         'views/sale_page_inherit.xml',
         'report/product_rental_report.xml',
+        'views/snippets/snippet_view.xml',
     ],
 
     'assets': {
@@ -36,6 +37,8 @@
             # "rental_management_sankit/static/src/js/jquery.js",
             'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             "rental_management_sankit/static/src/js/select2.js",
+            # "rental_management_sankit/static/src/js/dynamic_snippet_owl.js",
+            # "rental_management_sankit/static/src/xml/dynamic_snippet_owl.xml",
         ]
     },
 
