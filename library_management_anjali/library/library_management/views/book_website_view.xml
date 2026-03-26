@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--    <template id="my_home_page" name="Book List View">-->
-<!--        <t t-call="website.layout">-->
-<!--            <div id="wrap">-->
-<!--                <div class="oe_structure">-->
-<!--                    <div class="container mt-5">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-lg-12 text-center">-->
-<!--                                <h2>Welcome to my home page.!!!</h2>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </t>-->
-<!--    </template>-->
-
     <template id="books_template">
         <t t-call="website.layout">
             <t t-if="user.has_group('library_management.group_project_librarian') or user.has_group('library_management.group_project_admin')">
@@ -138,11 +122,23 @@
         <field name="sequence" type="int">300</field>
     </record>
 
-    <record id="menu_library1" model="website.menu">
-        <field name="name">book</field>
+    <record id="menu_library_book" model="website.menu">
+        <field name="name">Book</field>
         <field name="url">/book</field>
         <field name="parent_id" ref="menu_library"/>
-        <field name="sequence" type="int">500</field>
+        <field name="sequence" type="int">10</field>
+    </record>
+    <record id="menu_library_student" model="website.menu">
+        <field name="name">Student</field>
+        <field name="url">/student</field>
+        <field name="parent_id" ref="menu_library"/>
+        <field name="sequence" type="int">20</field>
+    </record>
+    <record id="menu_library_librarian" model="website.menu">
+        <field name="name">Librarian</field>
+        <field name="url">/librarian</field>
+        <field name="parent_id" ref="menu_library"/>
+        <field name="sequence" type="int">30</field>
     </record>
 
     <record id="menu_library_services_mega" model="website.menu">
@@ -151,7 +147,7 @@
         <field name="parent_id" model="website.menu" search="[('website_id','=',ref('website.default_website')),('parent_id','=',False)]"/>
         <field name="website_id" ref="website.default_website"/>
         <field name="is_mega_menu" eval="True"/>
-        <field name="sequence">300</field>
+        <field name="sequence">400</field>
         <field name="mega_menu_content" type="html">
             <section class="s_mega_menu_multi_menus pt32 pb32 bg-white">
                 <div class="container">
@@ -177,4 +173,26 @@
             </section>
         </field>
     </record>
+
+    <record id="custom_contactus_thanks_page" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="url">/thank-you</field>
+        <field name="website_published">True</field> <!-- Must be True -->
+        <field name="type">qweb</field>
+        <field name="key">library_management.custom_contactus_thanks_page</field>
+        <field name="arch" type="xml">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_text_block pt128 pb128 bg-100 text-center">
+                        <div class="container bg-white p-5 shadow rounded-4">
+                            <h1 class="display-4 fw-bold">Thank You!</h1>
+                            <p class="lead mb-4">Your message reached us. We'll be in touch soon.</p>
+                            <a href="/" class="btn btn-primary rounded-pill px-5">Back to Home</a>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </field>
+    </record>
+
 </odoo>

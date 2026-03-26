@@ -1,6 +1,7 @@
 from odoo import models,fields,api,http
 from odoo.http import request
 import base64
+import math
 
 
 class BookController(http.Controller):
@@ -10,6 +11,59 @@ class BookController(http.Controller):
         return request.render('library_management.books_template', {
             'books': books,
             'user': request.env.user
+        })
+
+    @http.route(['/student', '/student/page/<int:page>'], type='http', auth="user", website=True)
+    def list_students(self, page=0, **kwargs):
+        # students = request.env['res.partner'].sudo().search([('student_code', '!=', False)], order="name asc")
+        if request.env.user.has_group('library_management.group_project_admin') or \
+                request.env.user.has_group('library_management.group_project_librarian'):
+            domain = [('student_code', '!=', False)]
+        elif request.env.user.has_group('library_management.group_project_student'):
+            domain = [('student_code', '!=', False), ('id', '=', request.env.user.partner_id.id)]
+        else:
+            domain = [('id', '=', False)]
+        Student = request.env['res.partner']
+        total_students = Student.search_count(domain)
+        students = Student.search(domain)
+        pager = request.website.pager(
+            url='/student',
+            total=total_students,
+            page=page,
+            step=3,
+        )
+        offset = pager['offset']
+        students = students[offset: offset + 3]
+        return request.render('library_management.students_template', {
+            'students': students,
+            'user': request.env.user,
+            'pager': pager,
+        })
+
+    @http.route(['/librarian', '/librarian/page/<int:page>'], type='http', auth="user", website=True)
+    def list_librarians(self, page=0, **kwargs):
+        # librarians = request.env['res.partner'].sudo().search([('librarian_code', '!=', False)])
+        if request.env.user.has_group('library_management.group_project_admin'):
+            domain = [('librarian_code', '!=', False)]
+        elif request.env.user.has_group('library_management.group_project_librarian'):
+            domain = [('librarian_code', '!=', False), ('id', '=', request.env.user.partner_id.id)]
+        else:
+            domain = [('id', '=', False)]
+        Librarian = request.env['res.partner']
+        total_librarians = Librarian.search_count(domain)
+        librarians = Librarian.search(domain)
+        pager = request.website.pager(
+            url='/librarian',
+            total=total_librarians,
+            page=page,
+            step=2,
+        )
+        offset = pager['offset']
+        librarians = librarians[offset: offset + 2]
+        return request.render('library_management.librarians_template', {
+            'librarians': librarians,
+            'user': request.env.user,
+            'pager': pager,
         })
 
     @http.route('/book/create', type='http', auth='user', methods=['POST'], website=True)

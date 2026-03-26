@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="wsale_custom_m2m_sidebar" inherit_id="website_sale.products_attributes">
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="after">
+            <div class="accordion my-3" id="wsale_my_products_accordion">
+                <div class="nav-item border-top mt-3">
+                    <h6 class="accordion-header mb-0">
+                        <button class="accordion-button py-3 px-0 shadow-none bg-transparent fw-bold text-dark collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#wsale_my_products_collapse"
+                                t-attf-aria-controls="wsale_my_products_collapse"
+                                aria-expanded="false">
+                            My Products
+                        </button>
+                    </h6>
+                    <div id="wsale_my_products_collapse" class="collapse show">
+                        <div class="nav flex-column mb-3 ps-2">
+                            <form method="get" action="/shop">
+                                <t t-foreach="my_products" t-as="mp">
+                                    <div class="form-check">
+                                        <input type="checkbox"
+                                               name="my_prod"
+                                               t-att-value="mp.id"
+                                               t-att-checked="'checked' if mp.id in selected_my_products else None"
+                                               class="form-check-input"
+                                               onchange="this.form.submit()"/>
+                                        <label class="form-check-label fw-normal text-muted" t-att-for="'mp_%s' % mp.id">
+                                            <span t-field="mp.name"/>
+                                        </label>
+                                    </div>
+                                </t>
+                                <t t-foreach="request.httprequest.args.items()" t-as="arg">
+                                    <t t-if="arg[0] not in ['my_prod', 'page']">
+                                        <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>
+                                    </t>
+                                </t>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+
+    <template id="hide_price_class_shop" inherit_id="website_sale.products_item" name="Hide Price Class Shop">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-attf-class">product_price {{ 'd-none' if user_id._is_public() else '' }}</attribute>
+        </xpath>
+<!--        <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="attributes">-->
+<!--            <attribute name="t-attf-class">o_wsale_product_btn {{ 'd-none' if user_id._is_public() else '' }}</attribute>-->
+<!--        </xpath>-->
+        <xpath expr="//div[hasclass('product_price')]" position="after">
+            <div t-if="user_id._is_public()" class="text-primary mt-1 small">
+                <a t-attf-href="/web/login?redirect={{request.httprequest.path}}">Login for price</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="hide_price_product_page_inner" inherit_id="website_sale.product" name="Hide Price Product Detail">
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="attributes">
+            <attribute name="t-attf-class">base_unit_price {{ 'd-none' if user_id._is_public() else '' }}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="after">
+            <div t-if="user_id._is_public()" class="text-primary mt-1 small">
+                <a t-attf-href="/web/login?redirect={{request.httprequest.path}}">Login for price</a>
+            </div>
+        </xpath>
+    </template>
+
+
+
+
+
+
+<!--    <template id="hide_price_class_shop" inherit_id="website_sale.products_item" name="Hide Price Shop Grid">-->
+<!--        <xpath expr="//div[hasclass('product_price')]" position="attributes">-->
+<!--            <attribute name="t-attf-class">product_price {{ 'd-none' if user_id._is_public() else '' }}</attribute>-->
+<!--        </xpath>-->
+<!--    </template>-->
+<!--    <template id="hide_price_product_page_inner" inherit_id="website_sale.product_price" name="Hide Price Product Detail">-->
+<!--        <xpath expr="//t[1]" position="replace">-->
+<!--            <t t-if="not user_id._is_public()">-->
+<!--                <div class="product_price mt-2" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org">-->
+<!--                    <t t-set="combination_info" t-value="product._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>-->
+<!--                    <span class="oe_price" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
+<!--                    <span t-if="combination_info['has_discounted_price']" class="text-danger oe_default_price ms-1" style="text-decoration: line-through;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--            <t t-else="">-->
+<!--                <div class="alert alert-info py-2 px-3 small text-center mt-2">-->
+<!--                    <a t-attf-href="/web/login?redirect={{request.httprequest.path}}">Login to view price</a>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="librarians_template" name="Student Directory">
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-5">
+                <h2 class="mb-4 fw-bold">Librarian Directory</h2>
+                <div class="row g-4">
+                    <t t-foreach="librarians" t-as="librarian">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-3">
+                                <div class="card-body p-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-primary-light rounded-circle p-3 me-3">
+                                            <i t-if="librarian.gender == 'male'" class="fa fa-male fa-2x text-primary"/>
+                                            <i t-elif="librarian.gender == 'female'" class="fa fa-female fa-2x text-primary"/>
+                                            <i t-else="" class="fa fa-user fa-2x text-primary"/>
+                                        </div>
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-0"><t t-esc="librarian.name"/></h5>
+                                            <span class="badge bg-secondary-soft text-dark small">
+                                                <t t-esc="librarian.librarian_code"/>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="small text-muted mb-2">
+                                        <i class="fa fa-envelope-o me-2"/> <t t-esc="librarian.email"/>
+                                    </div>
+                                    <div class="small text-muted mb-3" t-if="librarian.phone">
+                                        <i class="fa fa-phone me-2"/> <t t-esc="librarian.phone"/>
+                                    </div>
+
+                                    <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                        <a t-attf-href="/librarian/#{librarian.id}" class="btn btn-sm btn-outline-primary">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <div class="products_pager d-flex justify-content-center">
+                <t t-call="website.pager">
+                    <t t-set="_classes">mt-2 ml-md-2 text-center</t>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>
