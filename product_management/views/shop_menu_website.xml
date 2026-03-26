@@ -17,7 +17,7 @@
                 </div>
                 <div
                         id="product_functionalities"
-                        class="accordion-collapse collapse hidden"
+                        class="accordion-collapse collapse show"
                 >
                     <t t-foreach="functionalities" t-as="funct" class="list-group-item border-0 ps-0 pb-0">
                         <div class="form-check mb-1">
@@ -26,9 +26,11 @@
                                    class="form-check-input"
                                    t-attf-id="funct_#{funct.id}"
                                    t-att-value="funct.id"
+                                   t-att-checked="'checked' if str(funct.id) in request.httprequest.args.getlist('functionality') else None"
+                                   onchange="this.form.submit()"
                             />
-                            <!--                                   t-att-checked="'checked' if funct.id in functionality else None"-->
-                            <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}" t-field="funct.name"/>
+                            <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}"
+                                   t-field="funct.name"/>
                         </div>
                     </t>
                 </div>

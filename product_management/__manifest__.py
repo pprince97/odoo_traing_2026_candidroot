@@ -5,7 +5,7 @@
     'summary': 'Product Management Module',
     'description': "This is Product Management created by Tanisha",
     'website': 'https://www.productmanagement.com',
-    'depends': ['base','sale_management'],
+    'depends': ['base','sale_management','website_sale'],
     'data': [
         'security/ir.model.access.csv',
         'demo/product_category_demo.xml',
