@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="wsale_custom_m2m_sidebar" inherit_id="website_sale.products_attributes">
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="inside">
+            <div class="accordion my-3" id="wsale_my_products_accordion">
+                <div class="nav-item border-top mt-3">
+                    <h6 class="accordion-header mb-0">
+                        <button class="accordion-button py-3 px-0 shadow-none bg-transparent fw-bold text-dark collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#wsale_my_products_collapse"
+                                aria-expanded="false">
+                            Collections
+                        </button>
+                    </h6>
+                    <div id="wsale_my_products_collapse" class="collapse-show">
+                        <div class="nav flex-column mb-3 ps-2">
+                           <form method="get" action="/shop">
+                                <t t-foreach="my_products" t-as="mp">
+                                    <div class="form-check">
+                                        <input type="checkbox"
+                                               name="my_prod"
+                                               t-att-value="mp.id"
+                                               t-att-checked="'checked' if mp.id in selected_my_products else None"
+                                               class="form-check-input"
+                                               onchange="this.closest('form').submit()"/>
+                                        <label class="form-check-label fw-normal text-muted" t-att-for="'mp_%s' % mp.id">
+                                            <span t-field="mp.name"/>
+                                        </label>
+                                    </div>
+                                </t>
+                                <t t-foreach="request.httprequest.args.items()" t-as="arg">
+                                    <t t-if="arg[0] not in ['my_prod', 'page']">
+                                        <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>
+                                    </t>
+                                </t>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+<!--    MOST VIEWED SORT -->
+
+    <template id="shop_sorting_most_viewed" inherit_id="website_sale.sort">
+        <xpath expr="//t[@t-foreach='website_sale_sortable']" position="before">
+            <t t-set="website_sale_sortable"
+               t-value="website_sale_sortable + [('most_viewed', 'Most Viewed')]"/>
+        </xpath>
+    </template>
+
+</odoo>

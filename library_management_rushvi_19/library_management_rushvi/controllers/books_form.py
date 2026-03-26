@@ -2,6 +2,7 @@ from odoo import models, fields, api, http
 from odoo.http import request
 import base64
 from odoo.exceptions import ValidationError
+import math
 
 class BooksForm(http.Controller):
 
@@ -97,19 +98,57 @@ class BooksForm(http.Controller):
         })
         return request.redirect(f'/my/borrow-requests/{id}')
 
-    @http.route('/students', type='http', auth='user', website=True)
-    def students(self):
-        print(request.env.user)
-        if request.env.user.has_group('library_management_rushvi.group_library_admin') or request.env.user.has_group('library_management_rushvi.group_library_librarian'):
-            students = request.env['res.partner'].search([('is_student','=',True)])
+    @http.route(['/students','/students/page/<int:page>'], type='http', auth='user', website=True)
+    def students(self, page=0, **kwargs):
+        page = int(page)
+
+        if request.env.user.has_group('library_management_rushvi.group_library_admin') or \
+                request.env.user.has_group('library_management_rushvi.group_library_librarian'):
+            domain = [('is_student', '=', True)]
         elif request.env.user.has_group('library_management_rushvi.group_library_student'):
-            students = request.env['res.partner'].search([('is_student', '=', True),('id', '=', request.env.user.partner_id.id)])
+            domain = [('is_student', '=', True), ('id', '=', request.env.user.partner_id.id)]
         else:
-            students=request.env['res.partner'].browse()
+            domain = [('id', '=', False)]  # empty recordset
+        Student = request.env['res.partner']
+        total_students = Student.search_count(domain)
+        students = Student.search(domain)
+        pager = request.website.pager(
+            url='/students',
+            total=total_students,
+            page=page,
+            step=9,
+        )
+        offset = pager['offset']
+        students = students[offset: offset + 9]
         return request.render('library_management_rushvi.students_template', {
             'students': students,
-            'user': request.env.user
+            'user': request.env.user,
+            'pager': pager,
         })
+
+    # @http.route('/students', type='http', auth='user', website=True)
+    # def students(self, page=1, page_size=9, **kwargs):
+    #     page = int(page)
+    #     page_size = int(page_size)
+    #     if request.env.user.has_group('library_management_rushvi.group_library_admin') or \
+    #             request.env.user.has_group('library_management_rushvi.group_library_librarian'):
+    #         domain = [('is_student', '=', True)]
+    #     elif request.env.user.has_group('library_management_rushvi.group_library_student'):
+    #         domain = [('is_student', '=', True), ('id', '=', request.env.user.partner_id.id)]
+    #     else:
+    #         domain = [('id', '=', False)]  # empty recordset
+    #     Student = request.env['res.partner']
+    #     total_students = Student.search_count(domain)
+    #     students = Student.search(domain, limit=page_size, offset=(page - 1) * page_size)
+    #     total_pages = math.ceil(total_students / page_size) if total_students else 1
+    #
+    #     return request.render('library_management_rushvi.students_template', {
+    #         'students': students,
+    #         'user': request.env.user,
+    #         'page': page,
+    #         'page_size': page_size,
+    #         'total_pages': total_pages
+    #     })
 
     @http.route('/librarians', type='http', auth='user', website=True)
     def librarians(self):

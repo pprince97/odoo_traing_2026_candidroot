@@ -4,6 +4,7 @@
     <record id="website_library1" model="website">
         <field name="name">Library 1</field>
         <field name="company_id" ref="base.main_company"/>
+<!--        <field name="domain">localhost:8069</field>-->
         <field name="language_ids" eval="[(4, ref('base.lang_en'))]"/>
         <field name="default_lang_id" ref="base.lang_en"/>
         <field name="sequence">20</field>

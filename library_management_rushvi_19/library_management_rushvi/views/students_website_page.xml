@@ -29,14 +29,21 @@
                                         </div>
                                         <div class="mb-2">
                                             <i class="fa fa-envelope text-primary me-2"/>
-                                            <a t-attf-href="mailto:#{student.email}" class="text-decoration-none">
-                                                <t t-esc="student.email"/>
+                                           <a t-attf-href="mailto:\#{student.email}" class="text-decoration-none">
+                                               <t t-esc="student.email"></t>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </t>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <t t-call="website.pager">
+                        <t t-set="_classes">mt-2 ml-md-2 text-center</t>
                     </t>
                 </div>
             </div>

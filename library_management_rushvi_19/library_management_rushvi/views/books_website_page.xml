@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
         <template id="header_borrow_request" inherit_id="website.layout">
-        <xpath expr="//header" position="attributes">
-            <attribute name="t-attf-class" add="d-none" separator=" "/>
-        </xpath>
+    <!--        <xpath expr="//header" position="attributes">-->
+    <!--            <attribute name="t-attf-class" add="d-none" separator=" "/>-->
+    <!--        </xpath>-->
         <xpath expr="//header" position="after">
             <header id="header_borrow" class="o_main_header">
                 <div class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;">
@@ -99,7 +99,7 @@
                 <div class="container my-5">
                     <div class="card shadow-sm border-0 custom-book-form">
                         <div class="card-header bg-primary text-white py-3">
-                            <h4 class="mb-0">Add New Library Book</h4>
+                            <h4 class="mb-0 text-light">Add New Library Book</h4>
                         </div>
                         <div class="card-body p-4">
                             <form action="/books/create" method="post" enctype="multipart/form-data">
@@ -199,5 +199,30 @@
             </div>
 <!--        </t>-->
         </t>
+    </template>
+
+
+<!--  LOGIN TO VIEW PRODUCT PRICE -->
+    <template id="hide_price_class_shop" inherit_id="website_sale.products_item" name="Hide Price Class Shop">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-attf-class">product_price {{ 'd-none' if user_id._is_public() else '' }}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('product_price')]" position="after">
+            <div t-if="user_id._is_public()" class="text-primary mt-1 small">
+                <a t-attf-href="/web/login?redirect={{request.httprequest.path}}">Login for price</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="hide_price_class_shop_prodduct_details" inherit_id="website_sale.product" name="Hide Price Shop">
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="attributes">
+            <attribute name="t-attf-class">base_unit_price {{ 'd-none' if user_id._is_public() else '' }}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="after">
+            <div t-if="user_id._is_public()" class="text-primary mt-1 small">
+                <a t-attf-href="/web/login?redirect={{request.httprequest.path}}">Login for price</a>
+            </div>
+
+        </xpath>
     </template>
 </odoo>

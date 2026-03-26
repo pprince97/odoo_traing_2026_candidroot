@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_new_model,access_new_model,model_new_model,base.group_public,1,1,1,1
+access_new_model1,access_new_model1,model_new_model,base.group_user,1,1,1,1
 access_library_books_group_student,access_library_books_group_student,model_library_books,library_management_rushvi.group_library_student,1,0,0,0
 access_library_books_group_librarians,access_library_books_group_librarians,model_library_books,library_management_rushvi.group_library_librarian,1,1,1,0
 access_library_books_group_admin,access_library_books_group_admin,model_library_books,library_management_rushvi.group_library_admin,1,1,1,1
