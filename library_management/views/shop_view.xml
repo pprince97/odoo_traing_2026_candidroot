@@ -1,0 +1,48 @@
+<odoo>
+    <!--    Price and other hide-->
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="replace">
+<!--            <attribute name="t-if">request.session.uid</attribute>-->
+
+            <div class="product_price" t-if="request.session.uid">
+                <span t-esc="template_price_vals['price_reduce']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+
+                <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                    <em class="small" t-esc="template_price_vals['base_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                </del>
+            </div>
+
+            <div class="product_price" t-if="not request.session.uid">
+                <b style="color: red;">Please Log in to see price.</b>
+            </div>
+        </xpath>
+    </template>
+
+
+
+    <template id="products_item_new" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@name='product_price']" position="replace">
+            <div class="product_price" t-if="request.session.uid">
+                <span t-out="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+
+                <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                    <em class="small" t-out="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                </del>
+<!--                <span t-out="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
+<!--                <span t-out="combination_info['has_discounted_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
+<!--                <span t-out="combination_info['compare_list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
+            </div>
+            <div class="product_price" t-if="not request.session.uid">
+                <b style="color: red;">Please Log in to see price.</b>
+            </div>
+        </xpath>
+    </template>
+
+    <!--    price range hide-->
+    <template id="filter_products_price_hide" inherit_id="website_sale.filter_products_price">
+        <xpath expr="//div[@id='o_wsale_price_range_option']" position="attributes">
+            <attribute name="t-if">request.session.uid</attribute>
+        </xpath>
+    </template>
+
+</odoo>

@@ -276,32 +276,5 @@
     </record>
 
 
-    <!--    Price and other hide-->
-    <template id="products_item" inherit_id="website_sale.products_item">
-        <xpath expr="//div[hasclass('product_price')]" position="attributes">
-            <attribute name="t-if">request.session.uid</attribute>
-        </xpath>
-    </template>
-
-
-
-    <template id="products_item_new" inherit_id="website_sale.product_price">
-        <xpath expr="//div[@name='product_price']" position="replace">
-            <div class="product_price" t-if="request.session.uid">
-                <span t-out="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-            </div>
-            <div class="product_price" t-if="not request.session.uid">
-                <b style="color: red;">Please Log in to see price.</b>
-            </div>
-        </xpath>
-    </template>
-
-    <!--    price range hide-->
-    <template id="filter_products_price_hide" inherit_id="website_sale.filter_products_price">
-        <xpath expr="//div[@id='o_wsale_price_range_option']" position="attributes">
-            <attribute name="t-if">request.session.uid</attribute>
-        </xpath>
-    </template>
-
 </odoo>
 
