@@ -1,0 +1,195 @@
+// ============================================================================
+// Christmas Theme - Main Styles (FULL VERSION)
+// ============================================================================
+
+@import "./variables";
+
+// ============================================================================
+// Mixins (SAFE replacement for @extend)
+// ============================================================================
+@mixin christmas-card-base {
+    background: white;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: $box-shadow-lg;
+        border-color: $christmas-gold;
+    }
+}
+
+// ============================================================================
+// Global Styles
+// ============================================================================
+body {
+    font-family: $font-family-base;
+}
+
+// ============================================================================
+// Christmas Hero Section
+// ============================================================================
+.christmas-hero {
+    background: linear-gradient(135deg, $christmas-red 0%, $christmas-green 100%);
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    .christmas-heading {
+        font-weight: 700;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: festive-glow 2s ease-in-out infinite alternate;
+    }
+}
+
+// Snow Effect
+.christmas-snow-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 60px 70px, white, transparent),
+        radial-gradient(1px 1px at 50px 50px, white, transparent),
+        radial-gradient(1px 1px at 130px 80px, white, transparent),
+        radial-gradient(2px 2px at 90px 10px, white, transparent);
+    background-size: 200px 200px;
+    animation: snowfall 10s linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+@keyframes snowfall {
+    from {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+
+    to {
+        background-position: 500px 1000px, 400px 400px, 300px 300px, 200px 500px, 100px 200px;
+    }
+}
+
+@keyframes festive-glow {
+    from {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    to {
+        text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+// ============================================================================
+// Christmas Features Section
+// ============================================================================
+.christmas-features {
+    background: linear-gradient(to bottom, $christmas-white 0%, rgba($christmas-green, 0.05) 100%);
+}
+
+.christmas-card {
+    @include christmas-card-base;
+}
+
+// ============================================================================
+// Christmas Products Section
+// ============================================================================
+.christmas-products {
+    .christmas-product-card {
+        @include christmas-card-base;
+        overflow: hidden;
+        position: relative;
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: $christmas-red;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            z-index: 10;
+        }
+
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+
+        &:hover {
+            .product-image {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+// ============================================================================
+// Christmas CTA Section
+// ============================================================================
+.christmas-cta {
+    background: linear-gradient(135deg, $christmas-green 0%, $christmas-dark-green 100%);
+    position: relative;
+    overflow: hidden;
+
+    .form-control {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: $border-radius-base;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        &:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: white;
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+// ============================================================================
+// Utility Classes
+// ============================================================================
+.text-christmas {
+    color: $christmas-red !important;
+}
+
+.btn-christmas-primary {
+    background-color: $christmas-red;
+    border-color: $christmas-red;
+    color: white;
+    font-weight: 600;
+    border-radius: 2rem;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+        background-color: #a01830;
+        border-color: #a01830;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.btn-christmas {
+    background-color: $christmas-green;
+    border-color: $christmas-green;
+    color: white;
+    font-weight: 600;
+    border-radius: $border-radius-base;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: $christmas-dark-green;
+        border-color: $christmas-dark-green;
+        color: white;
+    }
+}

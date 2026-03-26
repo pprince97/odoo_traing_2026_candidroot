@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c7073065-d3c8-498c-9ed2-1a352c111f49" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/project19/hospital/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/models/appointment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/models/bill.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/models/doctor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/models/patients.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/models/rooms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/views/appointment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/views/bill.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/views/doctor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/views/patients.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital/views/rooms.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/admission_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/appointment_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/doctor_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/employee_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/partner_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/models/patient_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/views/admission_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/views/appointment_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/views/doctor_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/views/employee_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/views/partner_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hospital_management/views/patient_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/models/booking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/models/guest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/models/hotel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/models/room.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/models/service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/views/booking.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/views/guest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/views/hotel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/views/room.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/hotel_management/views/service.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/models/another.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/models/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/views/another_views.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/new/views/new_views.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/practice/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/practice/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/practice/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/practice/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/registration/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/registration/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/registration/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/registration/models/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/registration/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/registration/views/views.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/admission_form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/class_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/orm_student.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/orm_subject.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/school.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/student.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/subject.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/models/teacher.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/admission_form.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/class_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/orm_student.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/orm_subject.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/school.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/student.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/subject.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/school_management/views/teacher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/task/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/task/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/task/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/task/models/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/task/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project19/task/views/views.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/.idea/test_1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/config/config.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/data/doctor_sequence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/data/patient_sequence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/demo/admin_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/demo/department_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/demo/doctor_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/demo/hospital_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/demo/patient_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/demo/user_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/models/appointment_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/models/department_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/models/doctor_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/models/hospital_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/models/patient_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/security/hospital_groups_security.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/security/ir_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/views/appointment_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/views/department_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/views/doctor_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/views/hospital_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/views/patient_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/wizard/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/wizard/department_wizard.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/hospital_management/wizard/department_wizard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/data/scheduled_actions.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/demo/stage_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/assignees_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/bill_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/hour_rate_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/project_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/res_config_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/stage_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/task_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/models/timesheet_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/report/bill_report.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/security/ir_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/security/project_groups_security.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/views/project_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/views/res_config_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/views/stage_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/views/task_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/views/timesheet_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/wizard/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/wizard/bill_wizard.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_1/project_management_jui/wizard/bill_wizard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/.idea/test_2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/controllers/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/controllers/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/data/borrow_request_sequence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/demo/books_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/demo/borrow_request_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/demo/student_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/i18n/gu_IN.po" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/book_history.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/books_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/borrow_request_lines_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/borrow_request_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/librarian_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/res_config_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/models/student_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/report/borrow_history_report.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/report/borrow_request_receipt_report.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/security/ir_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/security/library_groups.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/static/src/image/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/static/src/image/menu_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/static/src/scss/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/static/src/views/fields/book_image_history.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/static/src/views/fields/book_image_history.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/book_list_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/book_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/books_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/borrow_request_form_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/borrow_request_lines_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/borrow_request_list_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/borrow_request_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/header_footer_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/librarian_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/my_account_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/res_config_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/student_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/thank_you_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/website_custom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/views/website_homepage_template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/wizard/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/wizard/book_borrow_history_wizard.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/wizard/book_borrow_history_wizard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/wizard/borrow_request_cancel_wizard.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/library_management_jui/wizard/borrow_request_cancel_wizard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/demo/product_category_demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/color_shade_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/material_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/product_line_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/product_variant_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/surface_finish_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/models/uv_printing_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/views/color_shade_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/views/material_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/views/product_variant_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/views/surface_finish_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_2/product_management/views/uv_printing_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/.idea/test_3.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/controllers/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/controllers/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/models/product_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/models/product_taxonomy_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/views/product_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/product_website_jui/views/template.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/models/customer_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/models/product_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/models/rental_order_lines_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/models/rental_order_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/models/stock_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/views/customer_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/views/product_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/views/rental_management_system_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/views/rental_order.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/rental_management_system_jui/views/rental_order_lines.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/static/src/image/menu_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/static/src/scss/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/views/about_us.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/views/home_page.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_3/website_jui/views/services.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="3BTyhpZMK0EnvX4K89XuvT8hYDO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "jui__patel",
+    "last_opened_file_path": "/home/erp/odoo19"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c7073065-d3c8-498c-9ed2-1a352c111f49" name="Changes" comment="" />
+      <created>1774527477678</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774527477678</updated>
+    </task>
+    <servers />
+  </component>
+</project>

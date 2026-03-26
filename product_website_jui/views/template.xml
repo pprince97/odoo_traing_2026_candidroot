@@ -1,0 +1,34 @@
+<!-- views/product_taxonomy_filters.xml -->
+<odoo>
+    <template id="shop_taxonomy_filter" inherit_id="website_sale.product_attribute_filters_form"
+              name="Add Taxonomy Filter">
+        <xpath expr="//form" position="inside">
+            <div class="accordion-header h6 mb-0">
+                <button class="accordion-button px-0 bg-transparent shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="true"
+                        t-attf-data-bs-target="#custom_filter_taxonomy"
+                        t-attf-aria-controls="custom_filter_taxonomy">
+                    <b>Taxonomy</b>
+                </button>
+            </div>
+            <div id="custom_filter_taxonomy" class="accordion-collapse collapse show">
+                <div class="flex-column mb-3">
+                    <t t-foreach="taxonomy_ids" t-as="tax">
+                        <div class="form-check">
+                            <input type="checkbox"
+                                   class="form-check-input"
+                                   name="taxonomies"
+                                   t-att-value="tax.id"
+                                   t-att-checked="'checked' if str(tax.id) in request.httprequest.args.getlist('taxonomies') else None"
+                                   onchange="this.form.submit()"/>
+                            <label class="form-check-label fw-normal" t-attf-for="tax_#{tax.id}"
+                                   t-field="tax.name"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

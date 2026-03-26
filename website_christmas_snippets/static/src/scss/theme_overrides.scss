@@ -1,0 +1,89 @@
+// ============================================================================
+// Christmas Theme - Bootstrap Overrides
+// ============================================================================
+
+// Import our variables first
+// Variables are loaded in the bundle before this file
+
+// Override Odoo/Bootstrap Color System
+:root {
+    --primary: #{$christmas-red};
+    --secondary: #{$christmas-green};
+    --success: #{$christmas-green};
+    --info: #{$christmas-gold};
+}
+
+// Override Standard Buttons
+.btn-primary {
+    background-color: $christmas-red;
+    border-color: $christmas-red;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: darken($christmas-red, 10%);
+        border-color: darken($christmas-red, 10%);
+        box-shadow: 0 0 0 0.2rem rgba($christmas-red, 0.5);
+    }
+}
+
+.btn-secondary {
+    background-color: $christmas-green;
+    border-color: $christmas-green;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: darken($christmas-green, 10%);
+        border-color: darken($christmas-green, 10%);
+        box-shadow: 0 0 0 0.2rem rgba($christmas-green, 0.5);
+    }
+}
+
+// Links
+a {
+    color: $christmas-red;
+
+    &:hover {
+        color: darken($christmas-red, 15%);
+    }
+}
+
+// Navbar (Optional - make navbar festive)
+.o_main_navbar {
+    background-color: $christmas-dark-green !important;
+    border-bottom: 2px solid $christmas-gold !important;
+}
+
+// Standard Headers
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $christmas-dark-green;
+}
+
+// ============================================================================
+// Logo Santa Hat
+// ============================================================================
+a.navbar-brand {
+    position: relative;
+    overflow: visible !important; // Ensure hat sticks out
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: -20px; // Moved higher up
+        left: -15px; // Moved further left
+        width: 45px; // Slightly larger
+        height: 45px;
+        background-image: url('/website_christmas_snippets/static/src/img/santa_hat.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none; // Let clicks pass through to the logo
+        z-index: 105; // Ensure it sits on top
+        transform: rotate(-25deg); // More tilt
+    }
+}

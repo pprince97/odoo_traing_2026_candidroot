@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-hospital_management.patient_model,patient_model,hospital_management.model_patient_model,,1,1,1,1
-hospital_management.doctor_model,doctor_model,hospital_management.model_doctor_model,,1,1,1,1
-hospital_management.appointment_model,appointment_model,hospital_management.model_appointment_model,,1,1,1,1
-hospital_management.admission_model,admission_model,hospital_management.model_admission_model,,1,1,1,1
-
