@@ -19,3 +19,8 @@
 (False, datetime.date(2026, 3, 23), False)
 (False, datetime.date(2026, 3, 23), False)
 ('modern-seal-gold.svg', datetime.date(2026, 3, 24), 1)
+('One Piece.png', datetime.date(2026, 3, 26), 4)
+('4928934-uhd_3840_2160_24fps.mp4', datetime.date(2026, 3, 26), 5)
+('Eat That Frog.png', datetime.date(2026, 3, 26), 5)
+(False, datetime.date(2026, 3, 26), False)
+(False, datetime.date(2026, 3, 26), False)

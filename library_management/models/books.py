@@ -12,7 +12,7 @@ class Books(models.Model):
 
     name = fields.Char(required=True, tracking=True)
     # book_id = fields.Many2one(related='file.upload.history.book_id', string='Book')
-    barcode = fields.Char(required=True)
+    barcode = fields.Char(readonly=True)
 
     description = fields.Text(string='Description')
     currency_id = fields.Many2one(comodel_name='res.currency', string='Currency')

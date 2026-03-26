@@ -13,15 +13,15 @@
                     </div>
                 </section>
 
-                <section class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                <section class="s_text_block pt40 pb40 o_colored_level" data-snippet="s_text_block">
                     <div class="container s_allow_columns">
                         <div class="row">
                             <div class="col-lg-6 mt-2 mt-lg-0 container w-72 mx-auto">
                                 <form class="row g-3" action="/book-create" method="post">
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-9">
                                         <label for="inputBook" class="form-label">Student Name</label>
-                                        <select id="inputBook" name="student_id" class="form-select">
+                                        <select id="inputBook" name="student_id" class="form-select" required="required">
                                             <option t-att-selected="not default_value" disabled="disabled" value="">
                                                 -----Select student name-----
                                             </option>
@@ -34,14 +34,23 @@
                                         </select>
                                     </div>
 
+                                    <div class="col-md-3">
+                                        <label for="inputBarcode" class="form-label">Barcode</label>
+                                        <input type="text" name="name" class="form-control" id="inputBarcode" required="required"/>
+                                    </div>
+
+
                                     <div class="col-md-6">
                                         <label for="inputBook" class="form-label">Book Name</label>
-                                        <input type="text" name="name" class="form-control" id="inputBook"/>
+                                        <input type="text" name="name" class="form-control" id="inputBook" required="required"/>
                                     </div>
+
                                     <div class="col-md-6">
-                                        <label for="inputBarcode" class="form-label">Barcode</label>
-                                        <input type="password" name="barcode" class="form-control" id="inputBarcode"/>
+                                        <label for="inputCoverImage" class="form-label">Book Cover Image</label>
+                                        <input type="file" name="cover_image" class="form-control"
+                                               id="inputCoverImage" required="required"/>
                                     </div>
+
 
                                     <div class="col-md-6">
                                         <label for="inputStatus" class="form-label">Status</label>
@@ -56,7 +65,7 @@
 
                                     <div class="col-md-6">
                                         <label for="inputCategory" class="form-label">Category</label>
-                                        <select id="inputCategory" name="category" class="form-select">
+                                        <select id="inputCategory" name="category" class="form-select" required="required">
                                             <option t-att-selected="not default_value" disabled="disabled" value="">
                                                 ---Select Option---
                                             </option>
@@ -70,17 +79,17 @@
 
                                     <div class="col-md-4">
                                         <label for="inputStock" class="form-label">Stock</label>
-                                        <input type="text" name="stock" class="form-control" id="inputStock"/>
+                                        <input type="text" name="stock" class="form-control" id="inputStock" required="required"/>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="inputBorrowPrice" class="form-label">Borrow Price</label>
                                         <input type="text" name="borrow_price" class="form-control"
-                                               id="inputBorrowPrice"/>
+                                               id="inputBorrowPrice" required="required"/>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="inputDayLimit" class="form-label">Max Day Limit</label>
                                         <input type="text" name="max_day_limit" class="form-control"
-                                               id="inputDayLimit"/>
+                                               id="inputDayLimit" required="required"/>
                                     </div>
 
                                     <div class="form-floating">
@@ -115,14 +124,17 @@
     <!--    Book data-->
     <template id="book_data" name="Book Menu View">
         <t t-call="website.layout">
+            <div class="oe_structure"></div>
             <section class="container py-5">
                 <div class="row justify-content-center">
                     <h3 class="mb-4 text-center">Welcome to Library Management</h3>
                     <form action="/book/form" method="get">
                         <button type="submit" class="btn btn-primary">Create Record</button>
                     </form>
+
                     <br/>
                     <br/>
+                    <!-- TABLE -->
                     <table class="table table-bordered table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
@@ -133,14 +145,15 @@
                                 <th>State</th>
                                 <th>Category</th>
                                 <th>Stock</th>
-                                <th>Available Copies</th>
                                 <th>Fine Amount</th>
                                 <th>Borrow Price</th>
                                 <th>Maximum Day Limit</th>
-                                <th>Action</th>
+                                <th>Book Cover</th>
                             </tr>
                         </thead>
-                        <tboady>
+
+                        <!-- FIXED tbody -->
+                        <tbody>
                             <t t-foreach="books" t-as="book">
                                 <tr>
                                     <td>
@@ -165,9 +178,6 @@
                                         <span t-field="book.stock"/>
                                     </td>
                                     <td>
-                                        <span t-field="book.available_copies"/>
-                                    </td>
-                                    <td>
                                         <span t-field="book.fine_amount"/>
                                     </td>
                                     <td>
@@ -177,20 +187,47 @@
                                         <span t-field="book.maximum_day_limit"/>
                                     </td>
                                     <td>
-                                        <button id="myBtn">
-                                            <img alt="svgImg"
-                                                 src="library_management/static/src/img/icons8-delete-25.png"/>
-                                        </button>
-
-                                        <button>
-                                            <img alt="svgImg"
-                                                 src="library_management/static/src/img/icons8-edit-25.png"/>
-                                        </button>
+                                        <span t-field="book.book_cover_name"/>
                                     </td>
                                 </tr>
                             </t>
-                        </tboady>
+                        </tbody>
                     </table>
+
+                    <!--                    <div t-if="pager">-->
+                    <!--                        <div class="mt-4 d-flex justify-content-center">-->
+                    <!--                            <ul class="pagination">-->
+
+                    <!--                                &lt;!&ndash; Previous: only show when not on page 1 &ndash;&gt;-->
+                    <!--                                <li t-if="pager['page'] > 1" class="page-item">-->
+                    <!--                                    <a class="page-link"-->
+                    <!--                                       t-att-href="pager['url'](pager['page'] - 1)">-->
+                    <!--                                         Previous-->
+                    <!--                                    </a>-->
+                    <!--                                </li>-->
+
+                    <!--                                &lt;!&ndash; Page numbers &ndash;&gt;-->
+                    <!--                                <t t-foreach="range(1, pager['page_count'] + 1)" t-as="p">-->
+                    <!--                                    <li t-att-class="'page-item active' if p == pager['page'] else 'page-item'">-->
+                    <!--                                        <a class="page-link"-->
+                    <!--                                           t-att-href="pager['url'](p)">-->
+                    <!--                                            <t t-esc="p"/>-->
+                    <!--                                        </a>-->
+                    <!--                                    </li>-->
+                    <!--                                </t>-->
+
+                    <!--                                &lt;!&ndash; Next: only show when not on last page &ndash;&gt;-->
+                    <!--                                <li t-if="pager['page'] &lt; pager['page_count']" class="page-item">-->
+                    <!--                                    <a class="page-link"-->
+                    <!--                                       t-att-href="pager['url'](pager['page'] + 1)">-->
+                    <!--                                        Next-->
+                    <!--                                    </a>-->
+                    <!--                                </li>-->
+
+                    <!--                            </ul>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
                 </div>
             </section>
         </t>
@@ -223,21 +260,21 @@
     <!--    </template>-->
 
     <!--    different website -->
-    <template id="custom_homepage_a1" name="homepage_a1">
-        <t t-call="website.layout" pageName.f="homepage">
-            <div id="wrap" class="oe_structure oe_empty">
-                <h1>Welcome to Our Inherited Homepage A1</h1>
-            </div>
-        </t>
-    </template>
+    <!--    <template id="custom_homepage_a1" name="homepage_a1">-->
+    <!--        <t t-call="website.layout" pageName.f="homepage">-->
+    <!--            <div id="wrap" class="oe_structure oe_empty">-->
+    <!--                <h1>Welcome to Our Inherited Homepage A1</h1>-->
+    <!--            </div>-->
+    <!--        </t>-->
+    <!--    </template>-->
 
-    <template id="custom_homepage_a2" name="homepage_a2">
-        <t t-call="website.layout" pageName.f="homepage">
-            <div id="wrap" class="oe_structure oe_empty">
-                <h1>Welcome to Our Inherited Homepage A2</h1>
-            </div>
-        </t>
-    </template>
+    <!--    <template id="custom_homepage_a2" name="homepage_a2">-->
+    <!--        <t t-call="website.layout" pageName.f="homepage">-->
+    <!--            <div id="wrap" class="oe_structure oe_empty">-->
+    <!--                <h1>Welcome to Our Inherited Homepage A2</h1>-->
+    <!--            </div>-->
+    <!--        </t>-->
+    <!--    </template>-->
 
 
     <!--            Create submenu-->
@@ -253,7 +290,7 @@
 
     <record id="menu_book_form_data1" model="website.menu">
         <field name="name">Book Data</field>
-        <field name="url">/book-data</field>
+        <field name="url">/book/data</field>
         <field name="parent_id" ref="parent_book_menu"/>
         <field name="sequence" type="int">65</field>
     </record>
@@ -274,6 +311,44 @@
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">60</field>
     </record>
+
+
+
+
+<!--    Custom Snippets-->
+    <template id="custom_snippet_register" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <t t-snippet="library_management.custom_snippet_template"
+               t-thumbnail="https://goodies.icons8.com/web/landings/home/landing-main_icons.jpg"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <t t-snippet="library_management.custom_snippet_template"/>
+        </xpath>
+    </template>
+
+    <template id="custom_snippet_template" name="Custom Snippet">
+        <section class="s_custom_snippet">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <h2>Vid</h2>
+                            <video class="hero-section__video" no-controls="" autoplay="" loop="" playsinline=""
+                                   muted=""
+                                   poster="https://goodies.icons8.com/web/landings/home/landing-main_icons.jpg"
+                                   data-v-95d63aae="">
+                                <source src="https://goodies.icons8.com/web/landings/home/landing-main_icons.mp4"
+                                        type="video/mp4" data-v-95d63aae=""/>
+                                <source src="https://goodies.icons8.com/web/landings/home/landing-main_icons.webm"
+                                        type="video/webm" data-v-95d63aae=""/>
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
 
 
 </odoo>

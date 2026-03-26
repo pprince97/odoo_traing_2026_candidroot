@@ -2,8 +2,6 @@
     <!--    Price and other hide-->
     <template id="products_item" inherit_id="website_sale.products_item">
         <xpath expr="//div[hasclass('product_price')]" position="replace">
-<!--            <attribute name="t-if">request.session.uid</attribute>-->
-
             <div class="product_price" t-if="request.session.uid">
                 <span t-esc="template_price_vals['price_reduce']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
 
@@ -28,9 +26,6 @@
                 <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
                     <em class="small" t-out="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
                 </del>
-<!--                <span t-out="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
-<!--                <span t-out="combination_info['has_discounted_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
-<!--                <span t-out="combination_info['compare_list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>-->
             </div>
             <div class="product_price" t-if="not request.session.uid">
                 <b style="color: red;">Please Log in to see price.</b>
@@ -44,5 +39,9 @@
             <attribute name="t-if">request.session.uid</attribute>
         </xpath>
     </template>
+
+
+<!--    Pagination template-->
+
 
 </odoo>

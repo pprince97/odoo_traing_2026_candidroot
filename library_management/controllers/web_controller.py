@@ -1,16 +1,14 @@
 from odoo import http, models, fields, tools, _
 from odoo.http import request
 from odoo.addons.website.controllers.main import Website
+from odoo.addons.portal.controllers.portal import pager as portal_pager
 from requests import session
 
 
-# Controller inherit
+# inherit Controller
 class WebsiteTopSelling(Website):
     @http.route('/', type='http', auth='public', website=True)
     def index(self, **kw):
-
-        print("========>", request.session.uid)
-
         res = super(WebsiteTopSelling, self).index(**kw)
 
         top_products = request.env['product.template'].search([
@@ -18,12 +16,11 @@ class WebsiteTopSelling(Website):
         ], limit=4)
 
         res.qcontext['top_selling_products'] = top_products
-
         print("========>", top_products)
         return res
 
 
-
+# Book form controller
 class BookForm(http.Controller):
 
     # @http.route('/', type='http', auth='public', website=True)
@@ -36,17 +33,12 @@ class BookForm(http.Controller):
     #     else:
     #         return request.render('library_management.custom_homepage')
 
-    # @http.route('/shop', type='http', auth='public', website=True)
-    # def shop(self, **post):
-    #     if request.session.uid:
-    #         return
-
     @http.route('/policy', type='http', auth='public', website=True)
     def cookie_policy_func(self):
         return request.render('website.cookie_policy', {})
 
 
-    @http.route('/book-data', type='http', auth='public', website=True)
+    @http.route('/book/data', type='http', auth='public', website=True)
     def book_form_data(self):
         if request.session.uid:
             books = request.env['library.books'].sudo().search([])
@@ -61,13 +53,7 @@ class BookForm(http.Controller):
 
 
     @http.route('/book-create', type='http', auth='public', website=True, methods=['POST'], csrf=True)
-    def create_book(self, **post):
-    #     res = request.env.user.partner_id
-    #     res2 = request.env.user._is_public()
-    #
-    #     print("======================>", res)
-    #
-    #     print("======================>", res2)
+    def create_book(self, **post):\
     #
         request.env['library.books'].sudo().create({
             'id': post.get('id'),
@@ -80,7 +66,40 @@ class BookForm(http.Controller):
             'borrow_price': post.get('borrow_price'),
             'maximum_day_limit': post.get('max_day_limit'),
             'description': post.get('description'),
+            'cover_image': post.get('cover_image'),
+            'book_cover_name': post.get('book_cover_name'),
         })
 
-        return request.redirect('/book-data')
-    #
+        return request.redirect('/book/data')
+
+
+#
+# class BookController(http.Controller):
+#
+#     @http.route('/book/data', type='http', auth='public', website=True)
+#     def book_form_data(self, page=1, **kw):
+#
+#         if not request.session.uid:
+#             return request.render('website.homepage')
+#
+#         books_model = request.env['library.books'].sudo()
+#
+#         total_books = books_model.search_count([])
+#
+#         page = int(page)
+#         limit = 3
+#         offset = (page - 1) * limit
+#
+#         pager = portal_pager(
+#             url='/book/data',
+#             total=total_books,
+#             page=page,
+#             step=limit
+#         )
+#
+#         books = books_model.search([], limit=limit, offset=offset)
+#
+#         return request.render('library_management.book_data', {
+#             'books': books,
+#             'pager': pager,
+#         })
