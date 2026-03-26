@@ -1,0 +1,33 @@
+<odoo>
+
+    <template id="india_hero" name="India Hero Section">
+
+        <section class="categories_section">
+            <div class="container">
+            <div class="india-hero">
+                <h1>India is Shining!!!</h1>
+                <p>Empowering Innovation, Culture &amp; Growth</p>
+                <a href="/shop" class="btn btn-warning">Explore Now</a>
+            </div>
+            </div>
+        </section>
+
+    </template>
+
+    <template id="india_snippets" inherit_id="website.snippets">
+
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+           <t t-snippet="india_theme.india_hero"
+              t-thumbnail="/india_theme/static/src/img/img.png/"/>
+       </xpath>
+
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <t t-snippet="india_theme.india_hero"
+               string="India Hero"/>
+        </xpath>
+
+
+    </template>
+
+
+</odoo>
