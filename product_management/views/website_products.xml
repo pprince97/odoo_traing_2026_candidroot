@@ -68,7 +68,7 @@
                     </div>
                     <div
                             id="o_wsale_area_option_inner"
-                            class="accordion-collapse collapse hide"
+                            class="accordion-collapse collapse show"
                     >
                         <!--                        <input-->
                         <!--                            type="range"-->
@@ -84,13 +84,20 @@
                         <!--                        />-->
                         <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-0 pb-0">
                             <div class="form-check mb-1">
+                                <!--                                <input type="checkbox"-->
+                                <!--                                       name="applications"-->
+                                <!--                                       class="form-check-input"-->
+                                <!--                                       t-attf-id="area_#{area.id}"-->
+                                <!--                                       t-att-value="area.name"-->
+                                <!--                                />-->
+                                <!--                                &lt;!&ndash;                                       t-att-checked="'checked' if area.id in application else None"&ndash;&gt;-->
                                 <input type="checkbox"
                                        name="applications"
                                        class="form-check-input"
-                                       t-attf-id="area_#{area.id}"
-                                       t-att-value="area.name"
+                                       t-att-value="area.id"
+                                       onchange="this.form.submit()"
+                                       t-att-checked="'checked' if str(area.id) in request.httprequest.args.getlist('applications') else None"
                                 />
-                                <!--                                       t-att-checked="'checked' if area.id in application else None"-->
                                 <label class="form-check-label fw-normal" t-attf-for="area_#{area.id}"
                                        t-field="area.name"/>
                             </div>

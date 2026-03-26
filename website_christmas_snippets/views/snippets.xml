@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- SNIPPET CONTENT: TEST -->
+    <template id="christmas_test_snippet" name="Christmas Test">
+        <section class="container py-5 text-center">
+            <h1>Christmas Snippet Works</h1>
+            <p>If you see this block, snippet registration is fixed.</p>
+        </section>
+    </template>
+
+    <!-- SNIPPET CONTENT: HERO -->
+    <template id="christmas_hero_snippet" name="Christmas Hero">
+        <section class="christmas-hero py-5 text-white">
+            <div class="christmas-snow-overlay"></div>
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-3 christmas-heading mb-4">Merry Christmas!</h1>
+                        <p class="lead mb-5">Experience the magic of the holiday season with our exclusive festive
+                            collection.
+                        </p>
+                        <a href="#" class="btn btn-christmas-primary btn-lg">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- SNIPPET CONTENT: FEATURES -->
+    <template id="christmas_features_snippet" name="Christmas Features">
+        <section class="christmas-features py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 text-christmas">Festive Features</h2>
+                    <p class="text-muted">Why choose our Christmas specialties?</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="christmas-card p-4 text-center h-100">
+                            <div class="h1 text-christmas mb-3">
+                                <i class="fa fa-gift"/>
+                            </div>
+                            <h3>Gift Wrapping</h3>
+                            <p>Premium holiday wrapping for all your special gifts.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="christmas-card p-4 text-center h-100">
+                            <div class="h1 text-christmas mb-3">
+                                <i class="fa fa-truck"/>
+                            </div>
+                            <h3>Fast Delivery</h3>
+                            <p>Guaranteed delivery before Christmas Eve.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="christmas-card p-4 text-center h-100">
+                            <div class="h1 text-christmas mb-3">
+                                <i class="fa fa-heart"/>
+                            </div>
+                            <h3>Holiday Joy</h3>
+                            <p>Spreading happiness one order at a time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- SNIPPET REGISTRATION -->
+    <template id="christmas_snippet_registration" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_content']" position="inside">
+            <t t-snippet="website_christmas_snippets.christmas_hero_snippet"
+               string="Christmas Hero"
+               t-thumbnail="/website_christmas_snippets/static/src/img/snippet_hero.png"/>
+            <t t-snippet="website_christmas_snippets.christmas_features_snippet"
+               string="Christmas Features"
+               t-thumbnail="/website_christmas_snippets/static/src/img/snippet_features.png"/>
+            <t t-snippet="website_christmas_snippets.christmas_test_snippet"
+               string="Christmas Test"
+               t-thumbnail="/website_christmas_snippets/static/src/img/test.png"/>
+        </xpath>
+    </template>
+
+<!--    <template id="register_custom_inner_snippet" inherit_id="website.snippets" name="Register Custom Inner Snippet">-->
+<!--        <xpath expr="//snippets[@id='snippet_content']" position="inside">-->
+<!--            <t t-snippet="website_christmas_snippets.christmas_hero_snippet"-->
+<!--               string="Christmas Hero"-->
+<!--               t-thumbnail="/website_christmas_snippets/static/src/img/snippet_hero.png"/>-->
+<!--            <t t-snippet="website_christmas_snippets.christmas_features_snippet"-->
+<!--               string="Christmas Features"-->
+<!--               t-thumbnail="/website_christmas_snippets/static/src/img/snippet_features.png"/>-->
+<!--            <t t-snippet="website_christmas_snippets.christmas_test_snippet"-->
+<!--               string="Christmas Test"-->
+<!--               t-thumbnail="/website_christmas_snippets/static/src/img/test.png"/>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

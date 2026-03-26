@@ -107,77 +107,87 @@
     <template id="template_view_all_books" name="My Books">
         <t t-call="website.layout">
             <div id="wrap" class="container mt-4">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <h1 class="mb-4 ms-0">Library Books</h1>
+                <form action="/book" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h1 class="mb-4 ms-0">Library Books</h1>
+                        </div>
+                        <div class="col-md-6 mb-3 text-end">
+                            <a href="/create/book" role="button" class="btn btn-primary s_website_form_send">Register
+                                Book
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-6 mb-3 text-end">
-                        <a href="/create/book" role="button" class="btn btn-primary s_website_form_send">Register Book
-                        </a>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <t t-foreach="books" t-as="book">
-                        <div class="col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100 shadow-sm">
-                                <div t-if="book.image" class="card-img-top text-center mt-2"
-                                     style="height: 150px; overflow: hidden;">
-                                    <img t-att-src="image_data_uri(book.image)"
-                                         class="img-fluid"
-                                         style="max-height: 100%;"
-                                         alt="Book Image"/>
-                                </div>
-                                <div t-else=""
-                                     class="card-img-top text-center mt-2 bg-light d-flex align-items-center justify-content-center"
-                                     style="height: 150px;">
-                                    <i class="fa fa-book fa-3x text-muted"/>
-                                </div>
+                    <div class="row">
+                        <t t-foreach="books" t-as="book">
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div t-if="book.image" class="card-img-top text-center mt-2"
+                                         style="height: 150px; overflow: hidden;">
+                                        <img t-att-src="image_data_uri(book.image)"
+                                             class="img-fluid"
+                                             style="max-height: 100%;"
+                                             alt="Book Image"/>
+                                    </div>
+                                    <div t-else=""
+                                         class="card-img-top text-center mt-2 bg-light d-flex align-items-center justify-content-center"
+                                         style="height: 150px;">
+                                        <i class="fa fa-book fa-3x text-muted"/>
+                                    </div>
 
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <t t-esc="book.name"/>
-                                        <!-- State Badge -->
-                                        <span t-if="book.state == 'published'" class="badge bg-success float-end">
-                                            Published
-                                        </span>
-                                        <span t-if="book.state == 'unpublished'" class="badge bg-warning float-end">
-                                            Unpublished
-                                        </span>
-                                    </h5>
-                                    <p class="card-text text-muted">
-                                        <small>Barcode:
-                                            <t t-esc="book.barcode"/>
-                                        </small>
-                                        <br/>
-                                        <small>Category:
-                                            <span t-field="book.category"/>
-                                        </small>
-                                    </p>
-                                    <p class="card-text">
-                                        <t t-esc="book.description[:100]"/>
-                                        <t t-if="len(book.description) > 100">...</t>
-                                    </p>
-                                </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <t t-esc="book.name"/>
+                                            <!-- State Badge -->
+                                            <span t-if="book.state == 'published'" class="badge bg-success float-end">
+                                                Published
+                                            </span>
+                                            <span t-if="book.state == 'unpublished'" class="badge bg-warning float-end">
+                                                Unpublished
+                                            </span>
+                                        </h5>
+                                        <p class="card-text text-muted">
+                                            <small>Barcode:
+                                                <t t-esc="book.barcode"/>
+                                            </small>
+                                            <br/>
+                                            <small>Category:
+                                                <span t-field="book.category"/>
+                                            </small>
+                                        </p>
+                                        <p class="card-text">
+                                            <t t-esc="book.description[:100]"/>
+                                            <t t-if="len(book.description) > 100">...</t>
+                                        </p>
+                                    </div>
 
-                                <div class="card-footer bg-white border-top-0">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="h5 mb-0 font-weight-bold">
-                                            <small class="text-muted">Price</small>:
-                                            <span t-field="book.borrow_price"
-                                                  t-options='{"widget": "monetary", "display_currency": book.currency_id}'/>
-                                            <small class="text-muted">/ day</small>
-                                        </span>
-                                        <span class="badge bg-primary">
-                                            <t t-esc="book.available"/>
-                                            Available
-                                        </span>
+                                    <div class="card-footer bg-white border-top-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="h5 mb-0 font-weight-bold">
+                                                <small class="text-muted">Price</small>:
+                                                <span t-field="book.borrow_price"
+                                                      t-options='{"widget": "monetary", "display_currency": book.currency_id}'/>
+                                                <small class="text-muted">/ day</small>
+                                            </span>
+                                            <span class="badge bg-primary">
+                                                <t t-esc="book.available"/>
+                                                Available
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </t>
-                </div>
+                        </t>
+                    </div>
+                    <div class="products_pager d-flex justify-content-center">
+                        <t t-call="website.pager">
+                            <t t-set="_classes">mt-2 ml-md-2 text-center</t>
+                        </t>
+                    </div>
+                    <br/>
+                    <hr class="border-600 s_hr_1px w-100 mx-auto s_hr_dotted"/>
+                </form>
             </div>
         </t>
     </template>

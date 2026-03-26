@@ -7,13 +7,21 @@ import base64
 
 class BookController(http.Controller):
 
-    @http.route('/book', type='http', auth='public', website=True)
-    def public_controller(self):
+    @http.route(['/book','/book/page/<int:page>'], type='http', auth='public', website=True)
+    def public_controller(self,page=0):
         if request.env.user._is_public():
             return request.render("library_management_urvi.book_template_public")
         else:
             books = request.env['library.book'].search([])
-            return request.render('library_management_urvi.template_view_all_books', {'books': books})
+            pager = request.website.pager(
+                url='/book',
+                total=len(books),
+                page=page,
+                step=3,
+            )
+            offset = pager['offset']
+            books = books[offset: offset + 3]
+            return request.render('library_management_urvi.template_view_all_books', {'books': books,'pager': pager})
 
 
 
