@@ -60,8 +60,36 @@
         </section>
     </template>
 
+    <template id="custom_snippet_jui" name="Christmas Hero">
+        <section class="py-5 text-white">
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-3 mb-4">This is the custom snippet test</h1>
+                        <p class="lead mb-5">Experience the magic of the holiday season with our exclusive festive collection.</p>
+                        <a href="#" class="btn btn-christmas-primary btn-lg">Click here</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
     <!-- SNIPPET REGISTRATION -->
     <template id="christmas_snippet_registration" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_content']" position="inside">
+            <t t-snippet="website_christmas_snippets.custom_snippet_jui" string="Test"
+               t-thumbnail="/website_christmas_snippets/static/src/img/test.png" t-grid-column-span="4"/>
+        </xpath>
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <t snippet-group="test" t-snippet="website.s_snippet_group" string="Test"
+                t-thumbnail="/website/static/src/img/snippets_thumbs/s_media_list.svg"/>
+        </xpath>
+        <xpath expr="//t[@t-snippet='website.s_banner']" position="after">
+            <t t-snippet="website_christmas_snippets.custom_snippet_jui"
+               string="Custom snippet"
+               group="test"
+               t-thumbnail="/website_christmas_snippets/static/src/img/test.png"/>
+        </xpath>
         <xpath expr="//t[@t-snippet='website.s_banner']" position="after">
             <t t-snippet="website_christmas_snippets.christmas_hero_snippet"
                string="Christmas Hero"

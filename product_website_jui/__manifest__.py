@@ -12,16 +12,17 @@
     'installable':True,
     'application':True,
 
-    'depends': ['website','website_sale','stock'],
+    'depends': ['website','website_sale','stock','base'],
     'data':[
         'security/ir.model.access.csv',
         'views/product_view.xml',
         'views/template.xml',
+        'views/customer_template.xml',
     ],
 
-    # 'assets':{
-    #     'web.assets_frontend': [
-    #         'website_jui/static/src/scss/style.scss',
-    #     ],
-    # },
+    'assets':{
+        'web.assets_frontend': [
+            'product_website_jui/static/src/js/customer_details.js',
+        ],
+    },
 }

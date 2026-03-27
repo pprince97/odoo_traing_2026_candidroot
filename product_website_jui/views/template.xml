@@ -1,4 +1,4 @@
-<!-- views/product_taxonomy_filters.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="shop_taxonomy_filter" inherit_id="website_sale.product_attribute_filters_form"
               name="Add Taxonomy Filter">

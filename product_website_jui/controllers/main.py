@@ -15,10 +15,6 @@ class ProductTaxonomyController(WebsiteSale):
         domain = [('product_taxonomy_ids.id','in',selected_taxonomy_ids)]
         print(domain)
 
-        products_per_page = 20
-        total = request.env['product.template'].search_count(domain)
-
-
         if selected_taxonomy_ids:
             products = response.qcontext.get('products')
             if products:
@@ -30,9 +26,6 @@ class ProductTaxonomyController(WebsiteSale):
                     'products': products,
                 })
         response.qcontext.update({
-            'total': total,
-            'page': page,
-            'products_per_page': products_per_page,
             'taxonomy_ids': taxonomy_ids,
             'taxonomies': selected_taxonomy_ids,
         })

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="customer_details_template" name="Customer Details">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Customer Details</t>
+            <div class="oe-structure">
+                <section class="title mb-5">
+                    <span class="bg-image d-flex pt-4 pb-4" style="background-image: url('library_management_jui/static/src/image/menu_bg.jpg');background-position: 50% 0;">
+                    <div class="container">
+                        <h1 class="text-white">Create customer</h1>
+                    </div>
+                    </span>
+                </section>
+                <div class="container">
+                    <div class="row">
+                        <div name="customer_div" class="oe_clear_stucture col-12 col-lg-8">
+                            <div>
+                                <div name="customer_details_form" class="address_autoformat customer_detail_form">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                    <div name="c_details" class="row">
+                                        <div id="div_name" class="col-lg-6 mb-2">
+                                            <label class="col-form-label" for="c_name">Your name</label>
+                                            <input id="c_name" type="text" name="name" class="form-control"/>
+                                        </div>
+                                        <div id="div_email" class="col-lg-6 mb-2">
+                                            <label class="col-form-label" for="c_email">Email</label>
+                                            <input id="c_email" type="email" name="email" class="form-control"/>
+                                        </div>
+                                        <div id="div_phone" class="col-lg-6 mb-2">
+                                            <label class="col-form-label" for="c_phone">Phone</label>
+                                            <input id="c_phone" type="tel" name="phone" class="form-control"/>
+                                        </div>
+                                        <div id="div_image" class="col-lg-6 mb-2">
+                                            <label class="col-form-label" for="c_image">Contact Image</label>
+                                            <input id="c_image" type="file" class="form-control" name="image_1920" required=""/>
+                                        </div>
+                                        <div id="div_zip" class="col-md-4 mb-2">
+                                            <label class="col-form-label" for="c_zip">
+                                                Zip Code
+                                            </label>
+                                            <input id="c_zip" type="text" name="zip" class="form-control"/>
+                                        </div>
+                                        <t t-set="countries" t-value="request.env['res.country'].search([])"/>
+                                        <div id="div_country" class="col-lg-8 mb-2">
+                                            <label class="col-form-label" for="c_country_id">
+                                                Country
+                                            </label>
+                                            <select id="c_country_id" name="country_id" class="form-select">
+                                                <option value="">Country...</option>
+                                                <option
+                                                    t-foreach="countries"
+                                                    t-as="c"
+                                                    t-att-value="c.id"
+                                                    t-att-code="c.code"
+                                                    t-out="c.name"
+                                                />
+                                            </select>
+                                        </div>
+                                        <div id="div_state" class="col-lg-6 mb-2"/>
+                                        <div id="div_city" class="col-md-6 mb-2"/>
+                                        <button id="save_details" class="btn btn-primary w-100 w-md-auto order-1 order-md-3 m-3 mt-4 mb-5 ">
+                                            <t name="save_details_label">Save</t>
+                                            <i class="fw-light fa fa-angle-right ms-2"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="custom_menu_customer_details" model="website.menu">
+        <field name="name">Update Your Details</field>
+        <field name="url">/update</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">150</field>
+    </record>
+</odoo>
