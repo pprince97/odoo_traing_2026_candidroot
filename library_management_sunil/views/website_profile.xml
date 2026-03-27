@@ -29,14 +29,14 @@
                             <field name="city"/>
                             <field name="address"/>
                             <field name="zip_code"/>
-                            <field name="pdf_file" widget="binary"/>
+                            <field name="pdf_file" filename="pdf_filename" widget="binary"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-     <record id="profile_action" model="ir.actions.act_window">
+        <record id="profile_action" model="ir.actions.act_window">
             <field name="name">profile</field>
             <field name="res_model">website.profile</field>
             <field name="view_mode">list,form</field>
