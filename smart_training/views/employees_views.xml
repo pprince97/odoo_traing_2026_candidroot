@@ -1,0 +1,35 @@
+<odoo>
+    <record id="form_view_employees" model="ir.ui.view">
+        <field name="name">employees.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page name="training_details" string="Training Details">
+                    <group>
+                        <group>
+                            <field name="total_trainings"/>
+                            <field name="total_certifications"/>
+                            <field name="training_score_avg"/>
+                            <field name="skill_level"/>
+                        </group>
+                        <group>
+                            <field name="mandatory_training_pending"/>
+                            <field name="training_status"/>
+                            <field name="training_notes"/>
+                        </group>
+                    </group>
+                </page>
+                <page name="training_enroll" string="Enrollments">
+                    <field name="training_enrollment_ids"/>
+                </page>
+                <page name="certificates" string="Certificates">
+                    <field name="certificate_ids"/>
+                </page>
+                <page name="programs" string="Programs">
+                    <field name="program_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

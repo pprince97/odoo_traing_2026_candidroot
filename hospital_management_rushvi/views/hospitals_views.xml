@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_hospital_management_hospitals_list" model="ir.ui.view">
+        <field name="name">hospital.management.hospitals.list</field>
+        <field name="model">hospital.management.hospitals</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="registration_number"/>
+                <field name="is_available"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_management_hospitals_form" model="ir.ui.view">
+        <field name="name">hospital.management.hospitals.form</field>
+        <field name="model">hospital.management.hospitals</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="view_counts"
+                                string="Appointments"
+                                icon="fa-star"
+                                context="{'appointment_ids':True}">
+                            <field name="app_count" string="Appointments" widget="statinfo"/>
+                        </button>
+                        <button type="object"
+                                name="view_counts"
+                                string="Doctors"
+                                icon="fa-star"
+                                context="{'doctor_ids':True}">
+                            <field name="doc_count" string="Doctors" widget="statinfo"/>
+                        </button>
+                        <button type="object"
+                            name="view_counts"
+                                string="Appointments"
+                                icon="fa-star"
+                                context="{'patient_ids':True}">
+                            <field name="pat_count" string="Patients" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="registration_number"/>
+                            <field name="is_available"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="department_ids" widget="many2many_tags"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page name="doctor_ids" string="Doctors">
+                            <field name="doctor_ids" >
+                                <list>
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <field name="phone"/>
+                                </list>
+                            </field>
+                        </page>
+<!--                        <page name="patient_ids" string="Patients">-->
+<!--                            <field name="patient_ids">-->
+<!--                                <list>-->
+<!--                                    <field name="name"/>-->
+<!--                                    <field name="phone"/>-->
+<!--                                </list>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                        <page name="appointment_ids" string="Appointments">-->
+<!--                            <field name="appointment_ids">-->
+<!--                                <list>-->
+<!--                                    <field name="patient_id"/>-->
+<!--                                    <field name="appointment_date"/>-->
+<!--                                    <field name="patient_mobile"/>-->
+<!--                                    <field name="status"/>-->
+<!--                                </list>-->
+<!--                            </field>-->
+<!--                        </page>-->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_hospital_management_hospitals" model="ir.actions.act_window">
+        <field name="name">Hospitals</field>
+        <field name="res_model">hospital.management.hospitals</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Hospital Management" id="hospital_menu_root"/>
+    <menuitem name="Hospitals" id="hospital_management_hospitals_menuitem"
+              parent="hospital_menu_root"
+              action="action_hospital_management_hospitals"/>
+</odoo>

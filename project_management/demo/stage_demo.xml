@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="stage1_demo" model="project.stage">
+            <field name="name">stage1</field>
+        </record>
+        <record id="stage2_demo" model="project.stage">
+            <field name="name">stage2</field>
+        </record>
+        <record id="stage3_demo" model="project.stage">
+            <field name="name">stage3</field>
+        </record>
+        <record id="stage5_demo" model="project.stage">
+            <field name="name">Invoiced</field>
+        </record>
+        <record id="stage6_demo" model="project.stage">
+            <field name="name">Done</field>
+        </record>
+    </data>
+</odoo>

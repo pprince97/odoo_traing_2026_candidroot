@@ -1,0 +1,107 @@
+<odoo>
+    <data>
+        <record id="subject_list_view" model="ir.ui.view">
+            <field name="name">subject.list</field>
+            <field name="model">subject.object</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="subject_code"/>
+                    <field name="max_marks"/>
+                    <field name="passing_marks"/>
+                    <field name="subject_type"/>
+                    <field name="is_optional"/>
+                    <field name="syllabus"/>
+                    <field name="reference"/>
+                    <field name="icon"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="subject_form_view" model="ir.ui.view">
+            <field name="name">subject.form</field>
+            <field name="model">subject.object</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="subject_code"/>
+                                <field name="max_marks"/>
+                                <field name="passing_marks"/>
+                            </group>
+
+                            <group>
+                                <field name="subject_type"/>
+                                <field name="is_optional"/>
+                                <field name="syllabus"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Attachments">
+                                <group>
+                                    <field name="reference"/>
+                                    <field name="icon" widget="image" options="{'size': [100, 150]}"/>/>
+                                </group>
+                            </page>
+
+                             <!-- Student and Subject-->
+                            <page name="student" string="Student">
+                                <field name="students_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="roll_no"/>
+                                        <field name="gender"/>
+                                        <field name="dob"/>
+                                        <field name="admission_dt"/>
+                                        <field name="percentage"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Teacher and Subject-->
+                            <page name="teacher" string="Teacher">
+                                <field name="teacher_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="employeeCode"/>
+                                        <field name="experience"/>
+                                        <field name="salary"/>
+                                        <field name="qualification"/>
+                                        <field name="isPermanent"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- School and Subject-->
+                            <page name="school" string="School">
+                                <field name="school_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="code"/>
+                                        <field name="phone"/>
+                                        <field name="email"/>
+                                        <field name="address"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="subject_action_window" model="ir.actions.act_window">
+            <field name="name">Subject Record</field>
+            <field name="res_model">subject.object</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem name="Subject" id="subject_menu_record"
+                  parent="menu_root"
+                  action="subject_action_window"/>
+    </data>
+</odoo>

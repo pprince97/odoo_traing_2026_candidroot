@@ -1,0 +1,58 @@
+<odoo>
+    <record id="view_certificates_list" model="ir.ui.view">
+        <field name="name">smart.training.certificates.list</field>
+        <field name="model">smart.training.certificates</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="session_id"/>
+                <field name="program_id"/>
+                <field name="issue_date"/>
+                <field name="score"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_certificates_form" model="ir.ui.view">
+        <field name="name">smart.training.certificates.form</field>
+        <field name="model">smart.training.certificates</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                     <button type="object"
+                             name="issued_status"
+                             invisible="status in ['issued']"
+                             string="Issue Certificate"
+                             class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,issued"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="session_id"/>
+                            <field name="program_id"/>
+                            <field name="issue_date"/>
+                        </group>
+                        <group>
+                            <field name="score"/>
+                            <field name="certificate_file" widget="binary" filename="certificate_file_name"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_certificates" model="ir.actions.act_window">
+        <field name="name">Certificates</field>
+        <field name="res_model">smart.training.certificates</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="smart_training_certificates" name="Certificates"
+              action="action_certificates" parent="smart_training_root"/>
+</odoo>

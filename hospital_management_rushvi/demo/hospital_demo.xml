@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hospital_1_demo" model="hospital.management.hospitals">
+        <field name="name">Shraddha</field>
+        <field name="phone">4773847233</field>
+        <field name="registration_number">R73847233</field>
+        <field name="email">shraddha@hospital.com</field>
+    </record>
+
+    <record id="hospital_2_demo" model="hospital.management.hospitals">
+        <field name="name">Nidhi</field>
+        <field name="phone">47738433</field>
+        <field name="registration_number">R73847233</field>
+        <field name="email">nidhi@hospital.com</field>
+        <!--    Many 2 many Fields   -->
+         <field name="doctor_ids" eval="[(4, ref('doctor_5_demo')), (4, ref('doctor_6_demo')), (4, ref('doctor_7_demo'))]"/>
+<!--        <field name="appointment_ids" eval="[(5, 0, 0), (4, ref('appointment_5_demo')), (4, ref('appointment_6_demo'))]"/>-->
+    </record>
+
+    <record id="hospital_3_demo" model="hospital.management.hospitals">
+        <field name="name">KD</field>
+        <field name="phone">4773847233</field>
+        <field name="registration_number">R73847233</field>
+        <field name="email">kdp@hospital.com</field>
+    </record>
+</odoo>

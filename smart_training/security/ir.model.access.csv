@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_smart_training_programs,access_smart_training_programs,model_smart_training_programs,,1,1,1,1
+access_smart_training_sessions,access_smart_training_sessions,model_smart_training_sessions,,1,1,1,1
+access_smart_training_enrollments,access_smart_training_enrollments,model_smart_training_enrollments,,1,1,1,1
+access_smart_training_certificates,access_smart_training_certificates,model_smart_training_certificates,,1,1,1,1

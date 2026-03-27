@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hm_guest_list" model="ir.ui.view">
+        <field name="name">hm.guest.list</field>
+        <field name="model">hm.guest</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="is_vip"/>
+                <field name="check_in_time"/>
+                <field name="discount"/>
+            </list>
+        </field>
+    </record>
+    <record id="hm_guest_form" model="ir.ui.view">
+        <field name="name">hm.guest.form</field>
+        <field name="model">hm.guest</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="is_vip"/>
+                        </group>
+                        <group>
+                            <field name="dob"/>
+                            <field name="check_in_time" readonly="not age"/>
+                            <field name="discount" invisible="is_vip"/>
+                            <field name="room_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="remarks" string="Remarks">
+                            <group>
+                                <field name="remarks"/>
+                            </group>
+                        </page>
+                        <page name="id_photo" string="ID Proof">
+                            <group>
+                                <field name="id_proof"/>
+                                <field name="guest_photo" widget="image" class="oe_avatar"/>
+                            </group>
+                        </page>
+                        <page name="booking_ids" string="Bookings">
+                            <group>
+                                <field name="booking_ids"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hm_guest_search" model="ir.ui.view">
+        <field name="name">hm.guest.search</field>
+        <field name="model">hm.guest</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_hm_guest" model="ir.actions.act_window">
+        <field name="name">Guests</field>
+        <field name="res_model">hm.guest</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem id="guest_menu" name="Guests" parent="hm_menu_root"
+              action="action_hm_guest"/>
+</odoo>

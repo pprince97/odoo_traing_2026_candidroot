@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hm_service_list" model="ir.ui.view">
+        <field name="name">hm.service.list</field>
+        <field name="model">hm.service</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="price"/>
+                <field name="quantity"/>
+                <field name="is_chargeable"/>
+                <field name="service_date"/>
+<!--                <field name="maintenance"/>-->
+            </list>
+        </field>
+    </record>
+    <record id="hm_service_form" model="ir.ui.view">
+        <field name="name">hm.service.form</field>
+        <field name="model">hm.service</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="price"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="is_chargeable"/>
+                            <field name="service_date"/>
+<!--                            <field name="last_cleaned"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="service_description" string="Service Description">
+                            <group>
+                                <field name="description"/>
+                                <field name="img" widget="image" class="oe_avatar"/>
+                            </group>
+                        </page>
+                        <page name="room_image" string="Images">
+                            <group>
+                                <field name="attachment"/>
+                            </group>
+                        </page>
+                        <page name="bookings" string="Bookings">
+                            <field name="booking_ids">
+                                <list>
+                                    <field name="booking_ref"/>
+                                    <field name="is_paid"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="hotels" string="Hotels">
+                            <field name="hotel_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="category"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hm_service_search" model="ir.ui.view">
+        <field name="name">hm.service.search</field>
+        <field name="model">hm.service</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="type"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_hm_service" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">hm.service</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem id="service_menu" name="Services" parent="hm_menu_root"
+              action="action_hm_service"/>
+</odoo>

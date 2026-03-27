@@ -1,0 +1,27 @@
+<odoo>
+    <record id="form_view_trainers_partners" model="ir.ui.view">
+        <field name="name">res.partner.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page name="training_details" string="Training Details">
+                    <group>
+                        <group>
+                            <field name="is_trainer"/>
+                            <field name="trainer_code" invisible="not is_trainer"/>
+                            <field name="specialization" invisible="not is_trainer"/>
+                            <field name="certification_level" invisible="not is_trainer"/>
+                        </group>
+                        <group>
+                            <field name="program_ids" widget="many2many_tags" invisible="not is_trainer"/>
+                            <field name="contract_type" invisible="not is_trainer"/>
+                            <field name="availability_status" invisible="not is_trainer"/>
+                            <field name="trainer_notes" invisible="not is_trainer"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

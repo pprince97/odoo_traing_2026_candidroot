@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="subjects_tree">
+            <field name="name">school.list</field>
+            <field name="model">school.subjects</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="subject_code"/>
+                    <field name="name"/>
+                    <field name="subject_type"/>
+                    <field name="max_marks"/>
+                    <field name="passing_marks"/>
+                    <field name="is_optional"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="subjects_form" model="ir.ui.view">
+            <field name="name">school.form</field>
+            <field name="model">school.subjects</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="subject_code"/>
+                                <field name="name"/>
+                                <field name="subject_type"/>
+                                <field name="is_optional"/>
+                                <field name="syllabus"/>
+<!--                                <field name="active"/>-->
+                            </group>
+                            <group>
+                                <field name="max_marks"/>
+                                <field name="passing_marks"/>
+                                <field name="reference_material"/>
+                                <field name="icon"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="students" string="Stuednts">
+                                <field name="student_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="roll_number"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="teachers" string="Teachers">
+                                <field name="teacher_id">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="employee_code"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="school" string="Schools">
+                                <field name="school_ids">
+                                    <list>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="school_subjects" model="ir.actions.act_window">
+            <field name="name">school.window</field>
+            <field name="res_model">school.subjects</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem id="subjects_menu" name="Subjects" parent="school.sms_menu_root"
+                  action="school.school_subjects" sequence="8"/>
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 1. The Document Template (The Actual Content) -->
+    <template id="report_bills_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h3>Tasks</h3>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Task name</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through the 'my_lines' list inside the 'data' dictionary -->
+                        <t t-foreach="data.get('my_lines', [])" t-as="line">
+                            <tr>
+                                <td><span t-esc="line.get('name')"/></td>
+                                <td class="text-center"><span t-esc="line.get('quantity')"/></td>
+                                <td class="text-center"><span t-esc="line.get('price_unit')"/></td>
+                                <td class="text-end"><span t-esc="line.get('price_subtotal')"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <!-- 2. The Main Entry Template -->
+    <template id="report_project_bill1">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <!-- Call the document template ONCE per record and pass the data dictionary -->
+                <t t-call="project_management.report_bills_document">
+                    <t t-set="data" t-value="data"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- 3. The Report Action -->
+    <record id="action_report_bill_data" model="ir.actions.report">
+        <field name="name">Product Bill</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">project_management.report_project_bill1</field>
+        <field name="report_file">project_management.report_project_bill1</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+    </record>
+</odoo>

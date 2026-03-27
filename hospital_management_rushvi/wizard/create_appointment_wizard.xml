@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_create_appointments_form" model="ir.ui.view">
+        <field name="name">view.create.appointments.form</field>
+        <field name="model">wizard.create.appointment.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                    <field name="hospital_id"/>
+                    <field name="patient_id"/>
+                    <field name="department_id"/>
+                    <field name="doctor_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button type="object"
+                            name="create_appointment"
+                            string="Create"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

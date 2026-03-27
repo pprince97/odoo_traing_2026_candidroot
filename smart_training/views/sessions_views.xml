@@ -1,0 +1,133 @@
+<odoo>
+    <record id="view_sessions_list" model="ir.ui.view">
+        <field name="name">smart.training.sessions.list</field>
+        <field name="model">smart.training.sessions</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="location"/>
+                <field name="level"/>
+                <field name="capacity"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_url" id="action_url_implement">
+        <field name="name">Google</field>
+        <field name="url">https://www.google.com</field>
+    </record>
+
+    <record id="view_sessions_form" model="ir.ui.view">
+        <field name="name">smart.training.sessions.form</field>
+        <field name="model">smart.training.sessions</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                     <button type="object"
+                            name="scheduled_state"
+                            invisible="state in ['scheduled','ongoing','completed','cancelled']"
+                             string="Scheduled"
+                            class="oe_highlight"/>
+                     <button type="object"
+                            name="ongoing_state"
+                            invisible="state in ['draft','ongoing','completed','cancelled']"
+                             string="Ongoing"
+                            class="oe_highlight"/>
+                     <button type="object"
+                            name="completed_state"
+                             string="Completed"
+                            invisible="state in ['scheduled','draft','completed','cancelled']"
+                            class="oe_highlight"/>
+                     <button type="object"
+                            name="cancelled_state"
+                            invisible="state in ['ongoing','completed','cancelled']"
+                             string="Cancel"
+                            class="oe_highlight"/>
+                    <button type="action"
+                            name="%(action_url_implement)d"
+                            string="Doubts??"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,scheduled,ongoing,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="program_id"/>
+                        </group>
+                        <group>
+                            <field name="level"/>
+                            <field name="capacity"/>
+                            <field name="trainer_id"/>
+                            <field name="location"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="enrollment_ids" string="Enrollments">
+                    <field name="enrollment_ids"/>
+                </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sessions_kanban" model="ir.ui.view">
+        <field name="name">smart.training.sessions.kanban</field>
+        <field name="model">smart.training.sessions</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card">
+                        <div>
+                            <strong><field name="name"/></strong>
+                        </div>
+                        <div>
+                            <field name="trainer_id"/>
+                        </div>
+                        <div>
+                            <field name="program_id"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_sessions_calendar" model="ir.ui.view">
+        <field name="name">smart.training.sessions.calendar</field>
+        <field name="model">smart.training.sessions</field>
+        <field name="arch" type="xml">
+           <calendar date_start="start_date" date_stop="end_date" string="Session Date">
+                <field name="name"/>
+                <field name="program_id"/>
+                <field name="trainer_id"/>
+           </calendar>
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_state_to_draft">
+            <field name="name">Set To Draft</field>
+            <field name="model_id" ref="model_smart_training_sessions"/>
+            <field name="binding_model_id" ref="model_smart_training_sessions" />
+            <field name="state">code</field>
+            <field name="binding_view_types">list,form</field>
+            <field name="code">
+if records:
+    action = records.action_draft_state()
+            </field>
+        </record>
+
+    <record id="action_sessions" model="ir.actions.act_window">
+        <field name="name">Sessions</field>
+        <field name="res_model">smart.training.sessions</field>
+        <field name="view_mode">list,form,kanban,calendar</field>
+    </record>
+
+    <menuitem id="smart_training_sessions" name="Sessions"
+              action="action_sessions" parent="smart_training_root"/>
+</odoo>

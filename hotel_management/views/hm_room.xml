@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hm_room_list" model="ir.ui.view">
+        <field name="name">hm.room.list</field>
+        <field name="model">hm.room</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="number"/>
+                <field name="room_type"/>
+                <field name="price_per_night"/>
+                <field name="is_available"/>
+                <field name="last_cleaned"/>
+                <field name="maintenance"/>
+            </list>
+        </field>
+    </record>
+    <record id="hm_room_form" model="ir.ui.view">
+        <field name="name">hm.room.form</field>
+        <field name="model">hm.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="number"/>
+                            <field name="room_type"/>
+                            <field name="price_per_night"/>
+                        </group>
+                        <group>
+                            <field name="is_available"/>
+                            <field name="maintenance"/>
+                            <field name="last_cleaned"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="room_notes" string="Notes">
+                            <group>
+                                <field name="notes"/>
+                                <field name="room_document"/>
+                            </group>
+                        </page>
+                        <page name="room_image" string="Images">
+                            <group>
+                                <field name="room_image" widget="image"/>
+                            </group>
+                        </page>
+                        <page name="guests" string="Guests">
+                            <group>
+                                <field name="guest_ids"/>
+                            </group>
+                        </page>
+                        <page name="hotel_ids" string="Hotels">
+                            <field name="hotel_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hm_room_search" model="ir.ui.view">
+        <field name="name">hm.room.search</field>
+        <field name="model">hm.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="room_type"/>
+                <field name="price_per_night"/>
+                <field name="number"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_hm_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">hm.room</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem id="room_menu" name="Rooms" parent="hm_menu_root"
+              action="action_hm_room"/>
+</odoo>

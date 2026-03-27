@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hm_booking_list" model="ir.ui.view">
+        <field name="name">hm.booking.list</field>
+        <field name="model">hm.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="booking_ref"/>
+                <field name="no_of_nights"/>
+                <field name="total_amt"/>
+                <field name="booking_status"/>
+                <field name="is_paid"/>
+                <field name="booking_date"/>
+            </list>
+        </field>
+    </record>
+    <record id="hm_booking_form" model="ir.ui.view">
+        <field name="name">hm.booking.form</field>
+        <field name="model">hm.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="booking_ref"/>
+                            <field name="no_of_nights"/>
+                            <field name="booking_status"/>
+                            <field name="is_paid"/>
+                            <field name="guest_id"/>
+                        </group>
+                        <group>
+                            <field name="booking_date"/>
+                            <field name="check_in_dt"/>
+                            <field name="total_amt"/>
+                            <field name="bhotel_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="special_requests" string="Special Requests">
+                            <group>
+                                <field name="special_req"/>
+                            </group>
+                        </page>
+                        <page name="img_proof" string="Booking proof">
+                            <group>
+                                <field name="invoice"/>
+                                <field name="booking_img_proof" widget="image"/>
+                            </group>
+                        </page>
+                        <page name="service_ids" string="Services">
+                            <field name="service_ids">
+                                <list>
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="hm_booking_search" model="ir.ui.view">
+        <field name="name">hm.booking.search</field>
+        <field name="model">hm.booking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="booking_ref"/>
+                <field name="booking_status"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_hm_booking" model="ir.actions.act_window">
+        <field name="name">Bookings</field>
+        <field name="res_model">hm.booking</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem id="booking_menu" name="Bookings" parent="hm_menu_root"
+              action="action_hm_booking"/>
+</odoo>

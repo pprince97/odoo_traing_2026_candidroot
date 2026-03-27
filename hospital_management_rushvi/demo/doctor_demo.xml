@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="doctor_5_demo" model="res.partner" context="{'doctor': True}">
+        <field name="name">Doctor Anjali</field>
+        <field name="department_id" ref="department_1_demo"/>
+    </record>
+    <record id="doctor_6_demo" model="res.partner" context="{'doctor': True}">
+        <field name="name">Doctor Rushvi</field>
+        <field name="department_id" ref="department_1_demo"/>
+    </record>
+    <record id="doctor_7_demo" model="res.partner" context="{'doctor': True}">
+        <field name="name">Doctor Shivangi</field>
+        <field name="department_id" ref="department_1_demo"/>
+    </record>
+</odoo>

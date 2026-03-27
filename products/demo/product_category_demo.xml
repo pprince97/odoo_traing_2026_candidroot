@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_category_name" model="product.category">
+        <field name="name">Accessory</field>
+    </record>
+
+<!--    <record id="product_category" model="product.product">-->
+<!--        <field name-->
+<!--        <field name="categ_id" ref="products.product_category_name"/>-->
+<!--    </record>-->
+</odoo>

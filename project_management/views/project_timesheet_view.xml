@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_timesheet_view_list" model="ir.ui.view">
+        <field name="name">project.timesheet.list</field>
+        <field name="model">project.timesheet</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="task_id"/>
+                <field name="assignee_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="hours_spent" widget="float_time"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="project_timesheet_view_form" model="ir.ui.view">
+        <field name="name">project.timesheet.form</field>
+        <field name="model">project.timesheet</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="task_id"/>
+                            <field name="assignee_id" domain="[('id', 'in', allowed_assignees)]" invisible="not task_id"
+                                   options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="assignee_id" invisible="task_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="hours_spent" widget="float_time"/>
+                            <field name="amount"/>
+                            <field name="allowed_assignees" invisible="1"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                              <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_timesheet_action" model="ir.actions.act_window">
+        <field name="name">Timesheets</field>
+        <field name="res_model">project.timesheet</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="project_timesheet_menu" name="Timesheets"
+              parent="project_menu_root" action="project_timesheet_action"/>
+</odoo>

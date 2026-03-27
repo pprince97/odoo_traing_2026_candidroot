@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_custom" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='performance']" position="after">
+                    <block title="Test" id="test">
+                        <setting id="test_setting" >
+                            <div class="content-group mb-3">
+                                <div>
+                                    <div class="mt8">
+                                        <field name="test_demo" string="Test Demo"/>
+                                        <label for="test_demo">Test Demo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+    </record>
+</odoo>
+ 

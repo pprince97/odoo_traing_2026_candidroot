@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    Many 2 One fields    -->
+    <record id="appointment_3_demo" model="hospital.management.appointments">
+        <field name="hospital_id" ref="hospital_2_demo"/>
+<!--        <field name="appointment_date">2026-02-23</field>-->
+    </record>
+
+    <record id="appointment_4_demo" model="hospital.management.appointments">
+        <field name="hospital_id" ref="hospital_1_demo"/>
+<!--        <field name="appointment_date">2026-02-23</field>-->
+    </record>
+    <record id="appointment_5_demo" model="hospital.management.appointments">
+        <field name="hospital_id" ref="hospital_2_demo"/>
+        <field name="patient_address">ABCDDDDDDDDDDDD</field>
+        <field name="appointment_date">2026-02-25</field>
+    </record>
+     <record id="appointment_6_demo" model="hospital.management.appointments">
+         <field name="hospital_id" ref="hospital_2_demo"/>
+        <field name="patient_address">XXXXXYYYYYYYYYYYZZZZZZZZZZZZZZZZZ</field>
+        <field name="appointment_date">2026-02-25</field>
+    </record>
+</odoo>

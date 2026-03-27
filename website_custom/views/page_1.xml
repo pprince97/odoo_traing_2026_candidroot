@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--Template for page 2-->
+    <template id="page2_view" name="Page 2">
+        <t t-call="website.layout">
+            <div class="custom-page">
+                <div class="custom-card">
+                    <h3>Welcome To my page 2</h3>
+                </div>
+            </div>
+        </t>
+    </template>
+<!--Page 2-->
+     <record id="website_page_2" model="website.page">
+        <field name="url">/page2</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="website_custom.page2_view"/>
+        <field name="track">True</field>
+        <field name="website_meta_description">This is the page 2 of the website</field>
+    </record>
+
+<!--    template for page 1-->
+    <template id="page1_view" name="Page 1">
+        <t t-call="website.layout">
+            <div class="custom-page">
+                <div class="custom-card">
+                   <h3>Welcome To my page 1</h3>
+                    <button class="btn-custom">
+                        <a href="/page2">Redirect To page 2</a>
+                    </button>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Page 1-->
+    <record id="website_page_1" model="website.page">
+        <field name="url">/page1</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="website_custom.page1_view"/>
+        <field name="track">True</field>
+        <field name="website_meta_description">This is the page 1 of the website</field>
+    </record>
+
+    <!-- Website Menu -->
+    <record id="website_menu_1" model="website.menu">
+        <field name="name">Page 1</field>
+        <field name="url">/page1</field>
+        <field name="page_id" ref="website_custom.website_page_1"/>
+        <field name="sequence">20</field>
+    </record>
+</odoo>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_hospital_management_appointments_list" model="ir.ui.view">
+        <field name="name">hospital.management.appointments.list</field>
+        <field name="model">hospital.management.appointments</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hospital_id"/>
+                <field name="patient_id"/>
+                <field name="department_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="appointment_date" widget="remaining_days" string="Days Left"/>
+                <field name="patient_mobile"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_management_appointments_form" model="ir.ui.view">
+        <field name="name">hospital.management.appointments.form</field>
+        <field name="model">hospital.management.appointments</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="in_progress_status"
+                            string="In Progress"
+                            invisible="status in['in_progress','done','cancelled']"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="cancel_status"
+                            string="Cancel"
+                            invisible="status in['in_progress','done','cancelled']"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="done_status"
+                            string="Done"
+                            invisible="status in['new','done','cancelled']"
+                            class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="new,in_progress,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="view_appointments"
+                                string="Appointments"
+                                icon="fa-star">
+                            <field name="appointment_count" string="Appointments" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+
+                            <field name="hospital_id" invisible="department_id or doctor_id"/>
+                            <field name="hospital_id" domain="[('department_ids', 'in', department_id)]"
+                                   invisible="not department_id or doctor_id"/>
+                            <field name="hospital_id" domain="[('doctor_ids', 'in', doctor_id)]"
+                                   invisible="not doctor_id or department_id"/>
+                            <field name="hospital_id" domain="[('doctor_ids', 'in', doctor_id) , ('department_ids', 'in', department_id)]"
+                                   invisible="not doctor_id or not department_id"/>
+
+                            <field name="department_id" invisible="hospital_id or doctor_id"/>
+                            <field name="department_id" domain="[('hospital_ids', 'in', hospital_id)]"
+                                   invisible="not hospital_id or doctor_id"/>
+                            <field name="department_id" domain="[('doctor_ids', 'in', doctor_id)]"
+                                   invisible="not doctor_id or hospital_id"/>
+                            <field name="department_id" domain="[('doctor_ids', 'in', doctor_id) , ('hospital_ids', 'in', hospital_id)]"
+                                   invisible="not doctor_id or not hospital_id"/>
+
+                            <field name="doctor_id" invisible="department_id or hospital_id"
+                                   context="{'new_doctor':True,
+                                            'form_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_form',
+                                            'list_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_list'}"/>
+                            <field name="doctor_id" domain="[('hospital_ids', '=', hospital_id)]"
+                                   invisible="not hospital_id or department_id"
+                                   context="{'new_doctor':True,
+                                            'form_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_form',
+                                            'list_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_list'}"/>
+                            <field name="doctor_id" domain="[('department_id', '=', department_id)]"
+                                   invisible="not department_id or hospital_id"
+                                   context="{'new_doctor':True,
+                                            'form_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_form',
+                                            'list_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_list'}"/>
+                            <field name="doctor_id" domain="[('department_id', '=', department_id) , ('hospital_ids', '=', hospital_id)]"
+                                   invisible="not department_id or not hospital_id"
+                                   context="{'new_doctor':True,
+                                            'form_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_form',
+                                            'list_view_ref':'hospital_management_rushvi.view_hospital_management_doctors_list'}"/>
+
+                            <field name="patient_id" context="{'new_patient':True,
+                            'form_view_ref':'hospital_management_rushvi.view_hospital_management_patients_form',
+                            'list_view_ref':'hospital_management_rushvi.view_hospital_management_patients_list'}"/>
+                            <field name="patient_address"/>
+                        </group>
+                        <group>
+                            <field name="appointment_date"/>
+                            <field name="patient_dob"/>
+                            <field name="patient_age"/>
+                            <field name="patient_mobile"/>
+                            <field name="patient_email"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_management_appointments_search" model="ir.ui.view">
+        <field name="name">hospital.management.appointments.search</field>
+        <field name="model">hospital.management.appointments</field>
+        <field name="arch" type="xml">
+            <search>
+             <filter string="Today's Appointment"
+                    name="today_appointments"
+                    domain="[('appointment_date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))),
+                            ('appointment_date', '&lt;', datetime.datetime.combine(context_today() + datetime.timedelta(days=1), datetime.time(0,0,0)))]"/>
+            </search>
+        </field>
+    </record>
+
+     <record id="action_hospital_management_appointments" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.management.appointments</field>
+        <field name="view_mode">list,form,search</field>
+        <field name="context">{'search_default_today_appointments':1}</field>
+    </record>
+
+    <menuitem name="Appointments" id="hospital_management_appointments_menuitem"
+              parent="hospital_management_rushvi.hospital_menu_root"
+              action="hospital_management_rushvi.action_hospital_management_appointments"/>
+</odoo>

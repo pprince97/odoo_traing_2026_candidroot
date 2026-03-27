@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hm_hotel_list" model="ir.ui.view">
+        <field name="name">hm.hotel.list</field>
+        <field name="model">hm.hotel</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="total_rooms"/>
+                <field name="rating"/>
+                <field name="category"/>
+                <field name="is_active"/>
+                <field name="opening_date"/>
+            </list>
+        </field>
+    </record>
+    <record id="hm_hotel_form" model="ir.ui.view">
+        <field name="name">hm.hotel.form</field>
+        <field name="model">hm.hotel</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="total_rooms"/>
+                            <field name="rating"/>
+                        </group>
+                        <group>
+                            <field name="category"/>
+                            <field name="opening_date"/>
+                            <field name="is_active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="hotel_description" string="Description">
+                            <group>
+                                <field name="description"/>
+                                <field name="license_doc"/>
+                            </group>
+                        </page>
+                        <page name="hotel_image" string="Images">
+                            <group>
+                                <field name="image" widget="image" class="oe_avatar"/>
+                            </group>
+                        </page>
+                        <page name="hotel_rooms" string="Rooms">
+                            <group>
+                                <field name="room_ids"/>
+                            </group>
+                        </page>
+                        <page name="hotel_bookings" string="Bookings">
+                            <group>
+                                <field name="booking_ids"/>
+                            </group>
+                        </page>
+                        <page name="service_ids" string="Services">
+                            <field name="service_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="Extra Note">
+                            <field name="extra_note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hm_hotel_search" model="ir.ui.view">
+        <field name="name">hm.hotel.search</field>
+        <field name="model">hm.hotel</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="rating"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_hm_hotel" model="ir.actions.act_window">
+        <field name="name">Hotels</field>
+        <field name="res_model">hm.hotel</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem id="hm_menu_root" name="Hotel Management"/>
+    <menuitem id="hotel_menu" name="Hotels" parent="hm_menu_root"
+              action="action_hm_hotel"/>
+</odoo>

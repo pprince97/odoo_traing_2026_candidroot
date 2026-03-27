@@ -1,0 +1,34 @@
+<odoo>
+    <record id="view_create_departments_form" model="ir.ui.view">
+        <field name="name">view.create.departments.form</field>
+        <field name="model">wizard.create.department.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="dept_code"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button type="object"
+                            name="create_department"
+                            string="Create"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hospital_management_departments_wizard" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">wizard.create.department.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_create_departments_form"/>
+        <field name="target">new</field>
+    </record>
+
+<!--    <menuitem name="Departments" id="hospital_management_departments_menuitem"-->
+<!--              parent="hospital_management_rushvi.hospital_menu_root"-->
+<!--              action="action_hospital_management_departments_wizard"/>-->
+</odoo>

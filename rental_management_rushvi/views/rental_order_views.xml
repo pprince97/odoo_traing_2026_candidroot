@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="rental_order_view_list" model="ir.ui.view">
+        <field name="name">rental.order.list</field>
+        <field name="model">rental.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="rental_number" readonly="1"/>
+                <field name="customer_id"/>
+                <field name="rent_start_date"/>
+                <field name="rent_end_date"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rental_order_view_form" model="ir.ui.view">
+        <field name="name">rental.order.form</field>
+        <field name="model">rental.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="order_state_rent"
+                            invisible="state in ['rent','canceled','returned','partially_invoiced','invoiced']"
+                            class="oe_highlight"
+                            string="Rent"/>
+                    <button type="object"
+                            name="order_state_returned"
+                            invisible="state in ['draft','canceled','returned','partially_invoiced','invoiced']"
+                            class="oe_highlight"
+                            string="Returned"/>
+                    <button type="object"
+                            name="order_state_canceled"
+                            invisible="state in ['rent','canceled','returned','partially_invoiced','invoiced']"
+                            class="oe_highlight"
+                            string="Canceled"/>
+                    <button type="object"
+                            name="order_state_partially_invoiced"
+                            invisible="state in ['draft','issued','canceled','partially_invoiced','invoiced','rent']"
+                            class="oe_highlight"
+                            string="Partially Invoiced"/>
+                    <button type="object"
+                            name="order_state_invoiced"
+                            invisible="state in ['draft','issued','canceled','returned','invoiced','rent']"
+                            class="oe_highlight"
+                            string="Invoiced"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,rent,returned,partially_invoiced,invoiced,canceled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                         <button name="view_bills" type="object" string="Tasks"
+                                widget="statinfo" icon="fa-star">
+                            <field name="bill_count" string="Bills" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="rental_number" readonly="1"/>
+                            <field name="customer_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="rent_start_date" readonly="state != 'draft'"/>
+                            <field name="rent_end_date" readonly="state != 'draft'"/>
+                            <field name="amount_to_invoice" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="order_lines" string="Order Lines">
+                          <field name="rental_order_line_ids" readonly="state != 'draft'">
+                              <list editable="bottom">
+                                  <field name="product_id" context="{'default_is_storable':True,'default_tacking':'serial'}"/>
+                                  <field name="product_amount"/>
+                                  <field name="lot_id" domain="[('product_id','=',product_id)]" widget="many2many_tagss" context="{'default_product_id':product_id}"/>
+                                  <field name="total_amount"/>
+                              </list>
+                          </field>
+                            <group>
+                                <group></group>
+                                <group class="text-end">
+                                    <field name="total_amount"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rental_order_action" model="ir.actions.act_window">
+        <field name="name">Rental Orders</field>
+        <field name="res_model">rental.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="rental_menu_root" name="Rental Management"/>
+    <menuitem id="rental_order_menu" name="Rental Orders"
+              parent="rental_menu_root" action="rental_order_action"/>
+    <menuitem id="rental_history_menu" name="Rental History"
+              parent="rental_menu_root" action="rental_management_rushvi.action_reporting_rental_history_wizard"/>
+</odoo>

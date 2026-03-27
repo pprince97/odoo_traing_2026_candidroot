@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rental_order,access_rental_order,model_rental_order,,1,1,1,1
+access_rental_order_lines,access_rental_order_lines,model_rental_order_lines,,1,1,1,1
+access_wizard_rental_history,access_wizard_rental_history,model_wizard_rental_history,,1,1,1,1
+access_wizard_invoice_rental_orders,access_wizard_invoice_rental_orders,model_wizard_invoice_rental_orders,base.group_user,1,1,1,1

@@ -1,0 +1,90 @@
+<odoo>
+        <data>
+            <record model="ir.ui.view" id="admission_list">
+            <field name="name">school.list</field>
+            <field name="model">school.admission</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="dob"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="school_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="admission_form" model="ir.ui.view">
+            <field name="name">school.form</field>
+            <field name="model">school.admission</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <header>
+                        <button name="in_progress_stage"
+                                string="In Progress"
+                                type="object"
+                                invisible="stage in ['inprogress','confirm']"
+                                class="oe_highlight"/>
+                        <button name="confirm_stage"
+                                string="Confirm"
+                                type="object"
+                                invisible="stage in ['new','confirm']"
+                                class="oe_highlight"/>
+                        <button name="new_stage"
+                                string="Back to new"
+                                type="object"
+                                invisible="stage in ['inprogress','new']"
+                                class="oe_highlight"/>
+<!--                       <button name="school.school_school"-->
+<!--                               string="View Schools"-->
+<!--                               type="action"-->
+<!--                               class="oe_highlight"-->
+<!--                               data-hotkey="v"/>-->
+                        <button name="get_admission_details"
+                                type="object"
+                                string="Get Details"
+                                class="oe_highlight"
+                                target="new"/>
+                        <field name="stage" widget="statusbar" statusbar_visible="new,inprogress,confirm"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="gender"/>
+                                <field name="dob"/>
+                                <field name="phone" widget="email"/>
+                                <field name="blood_group" widget="domain"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="fees"/>
+                                <field name="email"/>
+                                <field name="school_id" options="{'no_create':True, 'no_edit':True}" context="{'kanban_view_ref':'school.kanban_view'}"/>
+                                <field name="id_proof"/>
+                                <field name="student_photo"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+<!--        <record id="go_to_school_actions" model="ir.actions.act_window">-->
+<!--            <field name="name">Schools</field>-->
+<!--            <field name="res_model">school.admission</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--        </record>-->
+
+        <record id="school_admissions_action" model="ir.actions.act_window">
+            <field name="name">Admissions</field>
+            <field name="res_model">school.admission</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem id="admission_menu" name="Admissions" parent="school.sms_menu_root"
+                  action="school.school_admissions_action" sequence="9"/>
+    </data>
+</odoo>
+

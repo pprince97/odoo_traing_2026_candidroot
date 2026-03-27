@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_wizard_bill_generation_form" model="ir.ui.view">
+        <field name="name">wizard.bill.generation.form</field>
+        <field name="model">wizard.bill.generation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                    <field name="bill_type"/>
+                    <field name="start_date" invisible="bill_type in [False,'task_wise']"/>
+                    <field name="end_date" invisible="bill_type in [False,'task_wise']"/>
+                    <field name="task_ids" widget="many2many_tags" invisible="bill_type in [False,'date_wise']"
+                           domain="[('project_id','in',project_id),('stage_id.name', '=', 'Done')]"/>
+<!--                           options="{'no_create_edit': True}"/>-->
+                    </group>
+                </sheet>
+                <footer>
+                    <button type="object"
+                            name="generate_bill"
+                            string="Generate"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="generate_bill_print_report"
+                            string="Generate and Print Report"
+                            class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
