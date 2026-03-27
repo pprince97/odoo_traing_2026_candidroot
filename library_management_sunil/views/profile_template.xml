@@ -1,0 +1,65 @@
+<odoo>
+    <template id="profile_form_template" name="Profile Form">
+        <t t-call="website.layout">
+            <div class="container mt-4">
+                <h2 class="text-center mb-4">Profile Form</h2>
+                <form id="profile_form" action="/submit-profile" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" required="1"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" required="1"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Phone</label>
+                        <input type="text" name="phone" class="form-control"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Zip Code</label>
+                        <input type="text" name="zip" class="form-control"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Country</label>
+                        <select name="country" id="country" class="form-control">
+                            <option value="">Select Country</option>
+                            <t t-foreach="countries" t-as="country">
+                                <option t-att-value="country.id">
+                                    <t t-esc="country.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>State</label>
+                        <select name="state" id="state_dropdown" style="display:none;"></select>
+                        <input type="text" id="state_text" name="state_text" style="display:none;"
+                               placeholder="Enter State"/>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>City</label>
+
+                    <select id="city_dropdown" name="city" style="display:none;"></select>
+                    <input type="text" id="city_text" name="city_text" style="display:none;"
+                           placeholder="Enter City"/>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Address</label>
+                    <textarea name="address" class="form-control"></textarea>
+                </div>
+                    <div class="col-md-6 mb-3">
+                    <label>Pdf</label>
+                    <input type="file" name="pdf_file" class="form-control"></input>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</t>
+        </template>
+        </odoo>

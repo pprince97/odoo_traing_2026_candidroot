@@ -1,0 +1,59 @@
+<odoo>
+
+    <record id="book_bhagavad_gita" model="book.book">
+        <field name="name">Bhagavad Gita</field>
+        <field name="barcode">BG001</field>
+        <field name="borrow_price_per_day">10</field>
+    </record>
+
+    <record id="book_ramayan" model="book.book">
+        <field name="name">Ramayan</field>
+        <field name="barcode">RM001</field>
+        <field name="borrow_price_per_day">12</field>
+    </record>
+
+    <record id="book_bhagavatam" model="book.book">
+        <field name="name">Bhagavatam</field>
+        <field name="barcode">BV001</field>
+        <field name="borrow_price_per_day">15</field>
+    </record>
+
+    <record id="book_mahabharat" model="book.book">
+        <field name="name">Mahabharat</field>
+        <field name="barcode">MB001</field>
+        <field name="borrow_price_per_day">20</field>
+    </record>
+
+    <record id="book_history_shivaji" model="book.book">
+        <field name="name">History Of Shivaji Maharaj</field>
+        <field name="barcode">SM001</field>
+        <field name="borrow_price_per_day">18</field>
+    </record>
+
+
+    <record id="student_1" model="res.partner">
+        <field name="name">Smit</field>
+        <field name="email">smit@gmail.com</field>
+        <field name="phone">9876543210</field>
+        <field name="gender">male</field>
+        <field name="member">student</field>
+    </record>
+
+    <record id="student_2" model="res.partner">
+        <field name="name">Sankit</field>
+        <field name="email">sankit@gmail.com</field>
+        <field name="phone">9123456780</field>
+        <field name="gender">female</field>
+        <field name="member">student</field>
+    </record>
+
+    <record id="student_3" model="res.partner">
+        <field name="name">Amit</field>
+        <field name="email">amit@gmail.com</field>
+        <field name="phone">9988776655</field>
+        <field name="gender">male</field>
+        <field name="member">student</field>
+
+    </record>
+</odoo>
+

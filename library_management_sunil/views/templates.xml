@@ -1,0 +1,299 @@
+<odoo>
+    <template id="my_page_template" name="My Page">
+        <t t-call="website.layout">
+            <div class="container my-page text-center">
+                <h1>Home Page</h1>
+                <a href="/target-page" class="btn btn-primary">
+                    Go to Target Page
+                </a>
+            </div>
+        </t>
+    </template>
+
+    <template id="target_page_template" name="Target Page">
+        <t t-call="website.layout">
+            <div class="container target-page">
+
+                <h1>Sports Matches</h1>
+
+                <div class="match-card">
+                    <h3>India vs Australia</h3>
+
+                    <img src="/library_management_sunil/static/src/img/india_vs_aus.png"
+                         class="match-img"/>
+
+                    <p>Date: 25 March 2026</p>
+
+                    <a href="https://www.espncricinfo.com/"
+                       target="_blank"
+                       class="btn btn-success">
+                        View Details
+                    </a>
+                </div>
+
+                <div class="match-card">
+                    <h3>Barcelona vs Real Madrid</h3>
+
+                    <img src="/library_management_sunil/static/src/img/barcelona_vs_real.png"
+                         class="match-img"/>
+
+                    <p>Date: 28 March 2026</p>
+
+                    <a href="https://www.laliga.com/"
+                       class="btn btn-primary">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--    <template id="public_homepage" name="Public Homepage">-->
+    <!--        <t t-call="website.layout">-->
+    <!--            <div class="container text-center mt-5">-->
+    <!--                <h1>Welcome Guest!</h1>-->
+    <!--                <p>Please login to access more features.</p>-->
+    <!--            </div>-->
+    <!--        </t>-->
+    <!--    </template>-->
+    <!--    <template id="loggedin_homepage" name="Logged In Homepage">-->
+    <!--        <t t-call="website.layout">-->
+    <!--            <div class="container text-center mt-5">-->
+    <!--                <h1>Welcome-->
+    <!--                    <t t-esc="request.env.user.name"/>-->
+    <!--                </h1>-->
+    <!--                <p>Here is your dashboard and personalized content.</p>-->
+    <!--            </div>-->
+    <!--        </t>-->
+    <!--    </template>-->
+
+    <template id="website_book_menu_view" name="Book Menu View">
+        <t t-call="website.layout">
+            <section class="container py-5">
+                <div class="row justify-content-center">
+                    <h3 class="mb-4 text-center">Welcome to Ganpat university Library</h3>
+                    <form action="/book/form" method="get">
+                        <p class="my-3">
+                            <button type="submit" class="btn btn-primary">New</button>
+                        </p>
+                    </form>
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Available Copies</th>
+                                <th>Stock</th>
+                                <th>Borrow Price</th>
+                                <th>Maximum Day Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="books" t-as="book">
+                                <tr>
+                                    <td>
+                                        <span t-field="book.name"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="book.available_copies"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.stock"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.borrow_price_per_day"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="book.maximum_day_limit"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <template id="book_form_view" name="Book Form">
+        <t t-call="website.layout">
+            <section class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="card shadow rounded-3 border-0">
+                            <div class="card-body p-4">
+                                <h3 class="mb-4 text-center">Create New Book</h3>
+                                <form action="/book/create" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" name="name" required="required" class="form-control"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Available Copies</label>
+                                        <input type="number" name="available_copies" class="form-control"/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Stock</label>
+                                        <input type="number" name="stock" required="required" class="form-control"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Borrow Price</label>
+                                        <input type="number" name="borrow_price_per_day" class="form-control"/>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Maximum Day Limit</label>
+                                        <input type="number" name="maximum_day_limit" class="form-control"/>
+                                    </div>
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+
+    <template id="portal_my_orders_template">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <h2>Your Orders</h2>
+                <table class="table">
+                    <tr>
+                        <th>Book Name</th>
+                        <th>User</th>
+                    </tr>
+
+                    <t t-foreach="orders"
+                       t-as="order">
+                        <tr>
+                            <td>
+                                <t t-esc="order.name"/>
+                            </td>
+                            <td>
+                                <t t-esc="order.user_id.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </t>
+    </template>
+
+<!--    <template id="library_header" inherit_id="website.layout">-->
+<!--        &lt;!&ndash;        <xpath expr="//header" position="attributes">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <attribute name="t-if">False</attribute>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </xpath>&ndash;&gt;-->
+<!--        <xpath expr="//header" position="after">-->
+<!--            <header class="bg-black text-white p-3">-->
+<!--                <div class="container d-flex justify-content-between align-items-center">-->
+<!--                    <div>-->
+<!--                        <h3>Ganpat University Library</h3>-->
+<!--                    </div>-->
+<!--                    <nav>-->
+<!--                        <ul class="d-flex list-unstyled m-0">-->
+<!--                            <li class="mx-3">-->
+<!--                                <a href="/" class="text-white">Home</a>-->
+<!--                            </li>-->
+<!--                            <li class="mx-3">-->
+<!--                                <a href="/books" class="text-white">Books</a>-->
+<!--                            </li>-->
+<!--                            <li class="mx-3">-->
+<!--                                <a href="/members" class="text-white">Members</a>-->
+<!--                            </li>-->
+<!--                            <li class="mx-3">-->
+<!--                                <a href="/issue" class="text-white">Issue Books</a>-->
+<!--                            </li>-->
+<!--                            <li class="mx-3">-->
+<!--                                <a href="/contact" class="text-white">Contact</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </div>-->
+<!--            </header>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+<!--    <template id="library_footer" inherit_id="website.layout">-->
+<!--        <xpath expr="//footer" position="before">-->
+<!--            <footer class="bg-dark text-white p-4 mt-5">-->
+<!--                <div class="container text-center">-->
+<!--                    <h5>Ganpat University Library</h5>-->
+<!--                    <p>-->
+<!--                        Library Management System for managing books,-->
+<!--                        members, and issue records efficiently.-->
+<!--                    </p>-->
+<!--                    <p>-->
+<!--                        Email: library@ganpatuniversity.ac.in |-->
+<!--                        Phone: +91 99999 99999-->
+<!--                    </p>-->
+<!--                    <p class="mb-0">-->
+<!--                        © 2026 Ganpat University Library. All Rights Reserved.-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </footer>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+<!--    <template id="library_homepage_inherit" inherit_id="website.homepage">-->
+<!--        <xpath expr="//div[@id='wrap']" position="inside">-->
+<!--            <section class="container mt-5">-->
+<!--                <h1>Welcome to Ganpat University Library Portal</h1>-->
+<!--                <p>-->
+<!--                    This system helps students manage books,-->
+<!--                    members, and issue records efficiently.-->
+<!--                </p>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-4">-->
+<!--                        <h3>Books</h3>-->
+<!--                        <p>View all available books.</p>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <h3>Members</h3>-->
+<!--                        <p>Manage library members.</p>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-4">-->
+<!--                        <h3>Issue Books</h3>-->
+<!--                        <p>Issue and return books easily.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+
+<!--    <template id="crickets_homepage" name="Crickets Homepage">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="container text-center mt-5">-->
+<!--                <h1>Welcome to Cricket Website</h1>-->
+<!--                <p>Latest cricket news, live scores, and match updates</p>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+<!--    <template id="kabaddis_homepage" name="Kabaddis Homepage">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="container text-center mt-5">-->
+<!--                <h1>Welcome to Kabaddi Website</h1>-->
+<!--                <p>All Kabaddi tournaments, players, and live updates</p>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+
+
+
+
+</odoo>
+
+
+
+
+

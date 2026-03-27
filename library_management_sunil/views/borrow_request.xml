@@ -1,0 +1,200 @@
+<!--<odoo>-->
+
+<!--    <record id="seq_borrow_request" model="ir.sequence">-->
+<!--        <field name="name">Borrow Request</field>-->
+<!--        <field name="code">borrow.request</field>-->
+<!--        <field name="prefix">BR</field>-->
+<!--        <field name="padding">4</field>-->
+<!--    </record>-->
+
+<!--    <record id="borrow_request_list_view" model="ir.ui.view">-->
+<!--        <field name="name">borrow_request.list</field>-->
+<!--        <field name="model">borrow_request.borrow_request</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <list>-->
+<!--                <field name="name"/>-->
+<!--                <field name="book_id"/>-->
+<!--                <field name="student_id"/>-->
+<!--                <field name="librarian_id"/>-->
+<!--                <field name="state"/>-->
+<!--                <field name="issue_date"/>-->
+<!--                <field name="return_date"/>-->
+<!--            </list>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="borrow_request_form_view" model="ir.ui.view">-->
+<!--        <field name="name">borrow_request.form</field>-->
+<!--        <field name="model">borrow_request.borrow_request</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <header>-->
+
+<!--                    <button name="action_issue" type="object" string="Issue" class="btn-primary"-->
+<!--                            invisible="state != 'draft'"/>-->
+
+<!--                    <button name="action_return" type="object" string="Return" class="btn-primary"-->
+<!--                            invisible="state != 'issued'"/>-->
+
+<!--                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary"/>-->
+
+<!--                    <field name="state" widget="statusbar"/>-->
+<!--                </header>-->
+
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <field name="name"/>-->
+<!--                        <field name="book_id"/>-->
+<!--                        <field name="student_id" domain="[('member', '=', 'student')]"/>-->
+<!--                        <field name="librarian_id" domain="[('member', '=', 'librarian')]"/>-->
+<!--                        <field name="issue_date"/>-->
+<!--                        <field name="return_date"/>-->
+<!--                        <field name="cancel_date"/>-->
+<!--                        <field name="fine_amount"/>-->
+<!--                        <field name="total_amount"/>-->
+<!--                        <field name="cancellation_reason"/>-->
+<!--                    </group>-->
+<!--                    <notebook>-->
+<!--                        <page string="Borrowed Request Lines">-->
+<!--                            <field name="request_line_ids">-->
+<!--                                <list editable="top">-->
+<!--                                    <field name="book_id"/>-->
+<!--                                    <field name="quantity"/>-->
+<!--                                    <field name="amount_per_unit_per_day"/>-->
+<!--                                    <field name="amount_per_unit_per_day"/>-->
+<!--                                    <field name="issue_date"/>-->
+<!--                                    <field name="return_date"/>-->
+<!--                                    <field name="issue_days"/>-->
+<!--                                    <field name="today"/>-->
+<!--                                    <field name="fine_amount"/>-->
+<!--                                    <field name="total_amount"/>-->
+<!--                                </list>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+<!--                </sheet>-->
+
+
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+<!--    <record id="borrow_request_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Borrow Request</field>-->
+<!--        <field name="res_model">borrow_request.borrow_request</field>-->
+<!--        <field name="view_mode">list,form</field>-->
+<!--    </record>-->
+
+<!--    <menuitem id="borrow_request_menu_root" name="Borrow Request"-->
+<!--              parent="menu_root"-->
+<!--              action="borrow_request_action"/>-->
+<!--</odoo>-->
+
+<odoo>
+
+    <record id="seq_borrow_request" model="ir.sequence">
+        <field name="name">Borrow Request</field>
+        <field name="code">borrow.request</field>
+        <field name="prefix">BR</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="borrow_request_list_view" model="ir.ui.view">
+        <field name="name">borrow_request.list</field>
+        <field name="model">borrow_request.borrow_request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="librarian_id"/>
+                <field name="state"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="borrow_request_form_view" model="ir.ui.view">
+        <field name="name">borrow_request.form</field>
+        <field name="model">borrow_request.borrow_request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <button name="action_issue" type="object" string="Issue" class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_return" type="object" string="Return" class="btn-primary"
+                            invisible="state != 'issued'"/>
+
+                    <!-- Cancel visible only in draft -->
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+
+                        <!-- readonly after issue -->
+                        <field name="name" readonly="state != 'draft'"/>
+
+                        <field name="student_id" domain="[('member', '=', 'student')]"
+                               readonly="state != 'draft'"/>
+
+                        <field name="librarian_id" domain="[('member', '=', 'librarian')]"
+                               readonly="state != 'draft'"/>
+
+                        <field name="issue_date" readonly="1"/>
+
+                        <field name="return_date" readonly="1"/>
+
+                        <!-- cancel fields visible only when cancelled -->
+                        <field name="cancel_date" invisible="state != 'cancel'"/>
+
+                        <!-- fine fields visible only when returned -->
+                        <field name="fine_amount" invisible="state != 'returned'"/>
+
+                        <field name="total_amount" invisible="state != 'returned'"/>
+
+                        <field name="cancellation_reason" invisible="state != 'cancel'"/>
+
+                    </group>
+
+                    <notebook>
+                        <page string="Borrowed Request Lines">
+                            <field name="request_line_ids" readonly="state != 'draft'">
+                                <list editable="top">
+                                    <field name="book_id"/>
+                                    <field name="quantity"/>
+                                    <field name="amount_per_unit_per_day"/>
+                                    <field name="amount_per_unit_per_day"/>
+                                    <field name="issue_date"/>
+                                    <field name="return_date"/>
+                                    <field name="issue_days"/>
+                                    <field name="fine_amount"/>
+                                    <field name="total_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="borrow_request_action" model="ir.actions.act_window">
+        <field name="name">Borrow Request</field>
+        <field name="res_model">borrow_request.borrow_request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="borrow_request_menu_root" name="Borrow Request"
+              parent="menu_root"
+              action="borrow_request_action"/>
+
+</odoo>

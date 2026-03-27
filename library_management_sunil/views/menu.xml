@@ -1,0 +1,75 @@
+<odoo>
+
+    <record id="menu_my_page" model="website.menu">
+        <field name="name">My Page</field>
+        <field name="url">/my-page</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">10</field>
+    </record>
+    <record id="book_menu" model="website.menu">
+        <field name="name">Books</field>
+        <field name="url">/books</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">20</field>
+    </record>
+
+    <record id="sub_menu" model="website.menu">
+        <field name="name">Sunil</field>
+        <field name="url">/sunil</field>
+        <field name="parent_id" model="website.menu"
+               search="[('website_id','=',ref('website.default_website')), ('parent_id','=',False)]"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="books_java_menu" model="website.menu">
+        <field name="name">Java</field>
+        <field name="url">/java</field>
+        <field name="parent_id" ref="sub_menu"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="books_python_menu" model="website.menu">
+        <field name="name">Python</field>
+        <field name="url">/python</field>
+        <field name="parent_id" ref="sub_menu"/>
+        <field name="website_id" ref="website.default_website"/>
+        <field name="sequence">2</field>
+    </record>
+
+
+    <record id="books_collection" model="website.menu">
+        <field name="name">Books Hub</field>
+        <field name="url">/books</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">20</field>
+        <field name="mega_menu_content" type="html">
+            <section class="container py-4">
+                <div class="row">
+                    <div class="col-lg-4 text-center">
+                        <h5 class="mb-3">Programming</h5>
+                        <ul class="list-styled">
+                            <li>java</li>
+                            <li>
+                                <a href="/python">Python</a>
+                            </li>
+                            <li>
+                                <a href="/javascript">JavaScript</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </field>
+    </record>
+
+    <record id="website_profile" model="website.menu">
+        <field name="name">Profile</field>
+        <field name="url">/profile-form</field>
+        <field name="sequence">10</field>
+    </record>
+
+
+</odoo>
+

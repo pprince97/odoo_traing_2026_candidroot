@@ -1,0 +1,100 @@
+<odoo>
+    <template id="borrow_request_receipt_template">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Borrow Request Receipt</h2>
+                    <div>
+                        <div>
+                            <strong>Student:</strong>
+                            <t t-esc="o.student_id.name"/>
+                            <br/>
+                            <strong>Email:</strong>
+                            <t t-esc="o.student_id.email"/>
+                        </div>
+                        <div>
+                            <strong>Librarian:</strong>
+                            <t t-esc="o.librarian_id.name"/>
+                            <br/>
+                            <strong>Email:</strong>
+                            <t t-esc="o.librarian_id.email"/>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <table class="table table-bordered" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                                <th>Issue Date</th>
+                                <th>Return Date</th>
+                                <th>Issue Days</th>
+                                <th>Fine Amount</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.request_line_ids" t-as="line">
+                                <td>
+                                    <t t-esc="line.book_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line.quantity"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line.issue_date"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line.return_date"/>
+                                </td>
+                                <td>
+                                    <t t-set="days" t-value="(line.return_date - line.issue_date).days"/>
+                                    <t t-esc="days"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line.fine_amount"/>
+                                </td>
+                                <td>
+                                    <t t-set="total"
+                                       t-value="(line.quantity * line.amount_per_unit_per_day * line.issue_days) + line.fine_amount"/>
+                                    <t t-esc="total"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <strong>Total Amount</strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <t t-esc="sum([ (l.quantity * l.amount_per_unit_per_day * l.issue_days) + l.fine_amount for l in o.request_line_ids ])"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_borrow_request_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="library_management_sunil.borrow_request_receipt_template" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_borrow_request_receipt_action" model="ir.actions.report">
+        <field name="name">Borrow Request Receipt</field>
+        <field name="model">borrow_request.borrow_request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management_sunil.report_borrow_request_receipt</field>
+        <field name="report_file">library_management_sunil.report_borrow_request_receipt</field>
+        <field name="binding_model_id" ref="model_borrow_request_borrow_request"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+

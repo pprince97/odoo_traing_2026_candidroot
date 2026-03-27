@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="websites_cricket" model="website">
+            <field name="name">Crickets Website</field>
+        </record>
+
+        <record id="website_kabaddi" model="website">
+            <field name="name">Kabaddis Website</field>
+            <field name="domain">192.168.1.38:8069</field>
+        </record>
+    </data>
+</odoo>

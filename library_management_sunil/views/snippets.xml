@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <template id="my_custom_snippet" name="My Custom Snippet">
+        <section class="my_custom_snippet oe_snippet_body">
+            <div class="container">
+                <h2>Hare Krishna, Welcome to the spiritual world</h2>
+                <p>WELCOME TO THE VRINDAVAN DHAM</p>
+                <button class="btn btn-primary">
+                    Click Me
+                </button>
+            </div>
+        </section>
+    </template>
+
+    <template id="snippet_structure" inherit_id="website.snippets" name="My Snippet">
+
+        <xpath expr="//t[@t-snippet='website.s_banner']" position="before">
+
+            <t t-snippet="library_management_sunil.my_snippet"
+               t-thumbnail="/library_management_sunil/static/src/img/snippet.png"/>
+
+        </xpath>
+
+    </template>
+
+
+</odoo>

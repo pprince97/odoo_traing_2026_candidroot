@@ -1,0 +1,21 @@
+<odoo>
+    <template id="price_hide_for_form" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@name='product_price']" position="attributes">
+            <attribute name="t-if">request.session.uid</attribute>
+            <p style="color:red;">
+                Sign in to View Price
+            </p>
+        </xpath>
+    </template>
+
+    <template id="price_hide_for_list" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-if">request.session.uid</attribute>
+            <p style="color:red;">
+                Sign in to View Price
+            </p>
+        </xpath>
+    </template>
+
+
+</odoo>

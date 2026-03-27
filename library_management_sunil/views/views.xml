@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+        <menuitem name = "library Management" id = "menu_root"/>
+    </data>
+</odoo>
