@@ -24,3 +24,4 @@
 ('Eat That Frog.png', datetime.date(2026, 3, 26), 5)
 (False, datetime.date(2026, 3, 26), False)
 (False, datetime.date(2026, 3, 26), False)
+('book-svgrepo-com.svg', datetime.date(2026, 3, 26), 20)

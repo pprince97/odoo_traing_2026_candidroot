@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════
+         1. Add "My Profile" link in the portal dropdown menu
+         ══════════════════════════════════════════════════════════ -->
+    <template id="my_profile_menu" name="Profile Button in Portal"
+              inherit_id="portal.user_dropdown">
+        <xpath expr="//*[@id='o_logout_divider']" position="before">
+            <a href="/my/profile" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-user me-1 small text-primary-emphasis"/>
+                My Profile
+            </a>
+        </xpath>
+    </template>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         2. Main Profile Page  –  Route: /my/profile
+         ══════════════════════════════════════════════════════════ -->
+    <template id="user_profile_dropdown" name="User Profile">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+
+                <!-- Hero Banner -->
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24"
+                         data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image');
+                                 background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1 class="text-white">My Profile</h1>
+                        <p class="text-white-50">Fill in your details below and save your profile.</p>
+                    </div>
+                </section>
+
+                <!-- Form Section -->
+                <section class="s_text_block pt48 pb48 o_colored_level" data-snippet="s_text_block">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-md-10">
+
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fa fa-user-circle me-2"/>
+                                            Profile Information
+                                        </h5>
+                                    </div>
+                                    <div class="card-body p-4">
+
+                                        <!-- Alert box - JS writes here via _showAlert() -->
+                                        <div id="profileAlert" class="alert" style="display:none;"/>
+
+                                        <!--
+                                            NO action/method on this form.
+                                            Submission is handled 100% by JS (RPC call).
+                                            id="userProfileForm" is used by JS _resetForm().
+                                        -->
+                                        <form id="userProfileForm" class="row g-3">
+
+                                            <!-- Row 1: Name + Profile Image -->
+                                            <div class="col-md-7">
+                                                <label for="inputName" class="form-label fw-semibold">
+                                                    Full Name <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" id="inputName" name="name"
+                                                       class="form-control" placeholder="Enter full name"
+                                                       required="required"/>
+                                            </div>
+
+                                            <div class="col-md-5">
+                                                <label for="inputUserImage" class="form-label fw-semibold">
+                                                    Profile Image
+                                                </label>
+                                                <!--
+                                                    Binary field.
+                                                    JS _onImageChange() reads this file, converts it
+                                                    to Base64 via FileReader, stores in this._imageBase64.
+                                                -->
+                                                <input type="file" id="inputUserImage" name="user_image"
+                                                       class="form-control"
+                                                       accept="image/png, image/jpeg, image/jpg, image/gif"/>
+                                                <div class="form-text">PNG, JPG, GIF accepted</div>
+                                            </div>
+
+                                            <!-- Row 2: Email + Phone -->
+                                            <div class="col-md-6">
+                                                <label for="inputEmail" class="form-label fw-semibold">
+                                                    Email <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="email" id="inputEmail" name="email"
+                                                       class="form-control" placeholder="example@email.com"
+                                                       required="required"/>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="inputPhone" class="form-label fw-semibold">Phone</label>
+                                                <input type="tel" id="inputPhone" name="phone"
+                                                       class="form-control" placeholder="+91 99999 00000"/>
+                                            </div>
+
+                                            <!-- Row 3: Country + State -->
+                                            <!--
+                                                Country: server-rendered via QWeb loop.
+                                                JS _onCountryChange() fires on change →
+                                                RPC fetches states → _populateStateDropdown() fills #inputState.
+                                            -->
+                                            <div class="col-md-6">
+                                                <label for="inputCountry" class="form-label fw-semibold">Country</label>
+                                                <select id="inputCountry" name="country_id" class="form-select">
+                                                    <option disabled="disabled" selected="selected" value="">
+                                                        ----- Select Country -----
+                                                    </option>
+                                                    <t t-foreach="request.env['res.country'].sudo().search([], order='name asc')"
+                                                       t-as="country">
+                                                        <option t-att-value="country.id">
+                                                            <t t-esc="country.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+
+                                            <!--
+                                                State: starts empty.
+                                                JS fills options after country RPC returns.
+                                            -->
+                                            <div class="col-md-6">
+                                                <label for="inputState" class="form-label fw-semibold">State</label>
+                                                <select id="inputState" name="state_id" class="form-select">
+                                                    <option disabled="disabled" selected="selected" value="">
+                                                        ----- Select State -----
+                                                    </option>
+                                                    <!-- Populated dynamically by JS after country selection -->
+                                                </select>
+                                            </div>
+
+                                            <!-- Row 4: City + Zip -->
+                                            <!--
+                                                #cityWrapper: container div.
+                                                JS _onStateChange() RPC-checks res.city for chosen state:
+                                                  → Cities found    : _populateCityDropdown() replaces
+                                                                       text input with <select>
+                                                  → No cities found  : _resetCityToInput() keeps plain <input>
+                                            -->
+                                            <div class="col-md-7">
+                                                <label for="inputCity" class="form-label fw-semibold">City</label>
+                                                <div id="cityWrapper">
+                                                    <!-- Default plain input; JS may replace with <select> -->
+                                                    <input type="text" id="inputCity" name="city_text"
+                                                           class="form-control" placeholder="Enter city name"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-5">
+                                                <label for="inputZipCode" class="form-label fw-semibold">Zip Code</label>
+                                                <input type="text" id="inputZipCode" name="zip_code"
+                                                       class="form-control" placeholder="e.g. 380001"/>
+                                            </div>
+
+                                            <!-- Row 5: Address -->
+                                            <div class="col-12">
+                                                <label for="inputAddress" class="form-label fw-semibold">Address</label>
+                                                <input type="text" id="inputAddress" name="address"
+                                                       class="form-control"
+                                                       placeholder="Street, Apartment, Area"/>
+                                            </div>
+
+                                            <!-- Submit -->
+                                            <div class="col-12 mt-3">
+                                                <!--
+                                                    type="button" (not "submit") prevents native HTML form post.
+                                                    id="profileSubmitBtn" matches JS events map → _onFormSubmit()
+                                                -->
+                                                <button type="button" id="profileSubmitBtn"
+                                                        class="btn btn-primary px-4">
+                                                    <i class="fa fa-save me-2"/>
+                                                    Save Profile
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

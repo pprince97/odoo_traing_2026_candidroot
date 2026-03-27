@@ -38,6 +38,7 @@ class BookForm(http.Controller):
         return request.render('website.cookie_policy', {})
 
 
+
     @http.route('/book/data', type='http', auth='public', website=True)
     def book_form_data(self):
         if request.session.uid:
@@ -73,33 +74,7 @@ class BookForm(http.Controller):
         return request.redirect('/book/data')
 
 
-#
-# class BookController(http.Controller):
-#
-#     @http.route('/book/data', type='http', auth='public', website=True)
-#     def book_form_data(self, page=1, **kw):
-#
-#         if not request.session.uid:
-#             return request.render('website.homepage')
-#
-#         books_model = request.env['library.books'].sudo()
-#
-#         total_books = books_model.search_count([])
-#
-#         page = int(page)
-#         limit = 3
-#         offset = (page - 1) * limit
-#
-#         pager = portal_pager(
-#             url='/book/data',
-#             total=total_books,
-#             page=page,
-#             step=limit
-#         )
-#
-#         books = books_model.search([], limit=limit, offset=offset)
-#
-#         return request.render('library_management.book_data', {
-#             'books': books,
-#             'pager': pager,
-#         })
+    # User Profile Dropdown Render
+    @http.route('/my/profile', type='http', auth='public', website=True, methods=['GET'])
+    def user_profile_menu(self):
+        return request.render('library_management.user_profile_dropdown')

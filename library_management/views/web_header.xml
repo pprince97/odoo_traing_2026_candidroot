@@ -80,7 +80,7 @@
 
     <template id="homepage_top_selling" inherit_id="website.homepage" name="Top Selling Products Section">
         <xpath expr="//div[@id='wrap']" position="inside">
-            <div class="oe_structure"> </div>
+            <div class="oe_structure"></div>
             <div class="container mt-5 mb-5">
                 <h2 class="text-center mb-4">Top Selling Products</h2>
                 <div class="row">
@@ -115,6 +115,5 @@
             </div>
         </xpath>
     </template>
-
 
 </odoo>

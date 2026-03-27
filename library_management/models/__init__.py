@@ -5,3 +5,4 @@ from . import borrow_request
 from . import borrow_request_lines
 from . import res_config_setting
 from . import file_history
+from . import user_profile

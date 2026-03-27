@@ -21,7 +21,8 @@
 
                                     <div class="col-md-9">
                                         <label for="inputBook" class="form-label">Student Name</label>
-                                        <select id="inputBook" name="student_id" class="form-select" required="required">
+                                        <select id="inputBook" name="student_id" class="form-select"
+                                                required="required">
                                             <option t-att-selected="not default_value" disabled="disabled" value="">
                                                 -----Select student name-----
                                             </option>
@@ -36,13 +37,15 @@
 
                                     <div class="col-md-3">
                                         <label for="inputBarcode" class="form-label">Barcode</label>
-                                        <input type="text" name="name" class="form-control" id="inputBarcode" required="required"/>
+                                        <input type="text" name="name" class="form-control" id="inputBarcode"
+                                               required="required"/>
                                     </div>
 
 
                                     <div class="col-md-6">
                                         <label for="inputBook" class="form-label">Book Name</label>
-                                        <input type="text" name="name" class="form-control" id="inputBook" required="required"/>
+                                        <input type="text" name="name" class="form-control" id="inputBook"
+                                               required="required"/>
                                     </div>
 
                                     <div class="col-md-6">
@@ -65,7 +68,8 @@
 
                                     <div class="col-md-6">
                                         <label for="inputCategory" class="form-label">Category</label>
-                                        <select id="inputCategory" name="category" class="form-select" required="required">
+                                        <select id="inputCategory" name="category" class="form-select"
+                                                required="required">
                                             <option t-att-selected="not default_value" disabled="disabled" value="">
                                                 ---Select Option---
                                             </option>
@@ -79,7 +83,8 @@
 
                                     <div class="col-md-4">
                                         <label for="inputStock" class="form-label">Stock</label>
-                                        <input type="text" name="stock" class="form-control" id="inputStock" required="required"/>
+                                        <input type="text" name="stock" class="form-control" id="inputStock"
+                                               required="required"/>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="inputBorrowPrice" class="form-label">Borrow Price</label>
@@ -156,7 +161,7 @@
                         <tbody>
                             <t t-foreach="books" t-as="book">
                                 <tr>
-                                    <td>
+                                    <td id="book">
                                         <span t-field="book.id"/>
                                     </td>
                                     <td>
@@ -193,41 +198,6 @@
                             </t>
                         </tbody>
                     </table>
-
-                    <!--                    <div t-if="pager">-->
-                    <!--                        <div class="mt-4 d-flex justify-content-center">-->
-                    <!--                            <ul class="pagination">-->
-
-                    <!--                                &lt;!&ndash; Previous: only show when not on page 1 &ndash;&gt;-->
-                    <!--                                <li t-if="pager['page'] > 1" class="page-item">-->
-                    <!--                                    <a class="page-link"-->
-                    <!--                                       t-att-href="pager['url'](pager['page'] - 1)">-->
-                    <!--                                         Previous-->
-                    <!--                                    </a>-->
-                    <!--                                </li>-->
-
-                    <!--                                &lt;!&ndash; Page numbers &ndash;&gt;-->
-                    <!--                                <t t-foreach="range(1, pager['page_count'] + 1)" t-as="p">-->
-                    <!--                                    <li t-att-class="'page-item active' if p == pager['page'] else 'page-item'">-->
-                    <!--                                        <a class="page-link"-->
-                    <!--                                           t-att-href="pager['url'](p)">-->
-                    <!--                                            <t t-esc="p"/>-->
-                    <!--                                        </a>-->
-                    <!--                                    </li>-->
-                    <!--                                </t>-->
-
-                    <!--                                &lt;!&ndash; Next: only show when not on last page &ndash;&gt;-->
-                    <!--                                <li t-if="pager['page'] &lt; pager['page_count']" class="page-item">-->
-                    <!--                                    <a class="page-link"-->
-                    <!--                                       t-att-href="pager['url'](pager['page'] + 1)">-->
-                    <!--                                        Next-->
-                    <!--                                    </a>-->
-                    <!--                                </li>-->
-
-                    <!--                            </ul>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-
                 </div>
             </section>
         </t>
@@ -313,9 +283,7 @@
     </record>
 
 
-
-
-<!--    Custom Snippets-->
+    <!--    Custom Snippets-->
     <template id="custom_snippet_register" inherit_id="website.snippets">
         <xpath expr="//snippets[@id='snippet_groups']" position="inside">
             <t t-snippet="library_management.custom_snippet_template"
