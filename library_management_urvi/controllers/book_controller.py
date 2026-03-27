@@ -66,3 +66,40 @@ class BookController(http.Controller):
         return request.redirect("/my/profile")
 
 
+    @http.route(['/profile'], type='http', auth="user", website=True)
+    def get_profile_form(self):
+        return request.render("library_management_urvi.partner_info_template")
+
+    @http.route('/get_partner_info', type='jsonrpc', auth='user')
+    def get_info(self):
+        partner = http.request.env.user.partner_id
+        return {
+            'part': partner,
+            'name': partner.name,
+            'email': partner.email,
+            'phone': partner.phone,
+            'gender': partner.gender,
+            'country_id': partner.country_id.id,
+            'state_id': partner.state_id.id,
+        }
+
+    @http.route('/get_states', type='jsonrpc', auth='user')
+    def get_states(self,country):
+        states = request.env['res.country.state'].search_read([('country_id','=',country)],['id', 'name'])
+        return states
+
+    @http.route('/get_city', type='jsonrpc', auth='user')
+    def get_city(self, country,state):
+        city = request.env['res.city'].search_read([('country_id', '=', country),('state_id','=',state)], ['id', 'name'])
+        return city
+
+    @http.route('/create_partner', type='jsonrpc', auth='user', website=True)
+    def create_partner(self, params):
+        # partner = http.request.env.user.partner_id
+        print('>>>>>>>>>>>>>>>>>>', params)
+        request.env['res.partner'].create(params)
+        print('>>>>>>>>>>>>>>>>>py')
+        return {'success': True}
+
+
+

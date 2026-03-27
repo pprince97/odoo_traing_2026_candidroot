@@ -5,6 +5,7 @@ class Student(models.Model):
 
     gender = fields.Selection([('male','male'),('female','female')],string="Gender",default='male')
     borrow_request_count = fields.Integer(string="Borrow Request Count",compute="_compute_borrow_request_count")
+    pdffile = fields.Binary(string="PDF File")
 
     # @api.model_create_multi
     # def create(self, vals):

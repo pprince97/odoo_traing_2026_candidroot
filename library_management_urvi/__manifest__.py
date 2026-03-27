@@ -12,7 +12,10 @@
         'web.assets_backend': [
             'library_management_urvi/static/src/fields/history_field/*.xml',
             'library_management_urvi/static/src/fields/history_field/*.js',
-        ]
+        ],
+        'web.assets_frontend': [
+            'library_management_urvi/static/src/js/profile_info.js'
+        ],
     },
     'data': [
         'security/library_security.xml',
