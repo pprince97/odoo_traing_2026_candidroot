@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="user_information_website" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('wrapper')]" position="inside">
+            <div id="user_information">
+                <a href="/user-information" class="btn btn-primary">User Information</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="user_information_form_website" name="User Information">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="pt40 pb40">
+                    <div class="container">
+                        <h3>User Information Form</h3>
+                        <section>
+                            <div class="container">
+                                <div id="user_info_form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mt-3">
+                                                <label for="name">Name *</label>
+                                                <input id="name" type="text" class="form-control" name="name"
+                                                       style="width: 400px"/>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="email">Email *</label>
+                                                <input id="email" type="email" class="form-control" name="email"
+                                                       style="width: 400px"/>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="phone">Phone *</label>
+                                                <input id="phone" type="tel" class="form-control" name="phone"
+                                                       style="width: 400px"/>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="address">Address *</label>
+                                                <textarea id="address" class="form-control" name="address"
+                                                          style="width: 400px" rows="4"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mt-3">
+                                                <label for="country">Country *</label>
+                                                <div>
+                                                    <select id="country" name="country"
+                                                            class="from-select form-control"
+                                                            style="width: 400px">
+                                                        <option hidden="1" selected="1" disabled="1">Select Country</option>
+                                                        <t t-foreach="request.env['res.country'].search([])" t-as="country">
+                                                            <option t-att-value="country.id">
+                                                                <t t-out="country.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="state">State *</label>
+                                                <div>
+                                                    <select id="state" name="state"
+                                                            class="from-select form-control"
+                                                            style="width: 400px">
+                                                        <option hidden="1" selected="1" disabled="1">Select State</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="city">City *</label>
+                                                <div id="city_block">
+                                                    <select id="city" name="city"
+                                                            class="from-select form-control"
+                                                            style="width: 400px">
+                                                        <option hidden="1" selected="1" disabled="1">Select City</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <label for="zip_code">Zip code *</label>
+                                                <input id="zip_code" type="char" class="form-control" name="zip_code"
+                                                       style="width: 400px"/>
+                                            </div>
+                                            <div class="mt-3 s_website_form_field">
+                                                <label for="binary_file">Document *</label>
+                                                <input id="binary_file" type="file"
+                                                       class="form-control" name="binary_file"
+                                                       style="width: 400px"/>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button id="user_info_submit_btn" class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+</odoo>
