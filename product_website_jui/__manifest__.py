@@ -12,9 +12,10 @@
     'installable':True,
     'application':True,
 
-    'depends': ['website','website_sale','stock','base'],
+    'depends': ['website','website_sale','stock','base','base_address_extended'],
     'data':[
         'security/ir.model.access.csv',
+        'views/customer_view.xml',
         'views/product_view.xml',
         'views/template.xml',
         'views/customer_template.xml',

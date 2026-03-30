@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_inherited_form_view" model="ir.ui.view">
+            <field name="name">customer.inherited.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='contact_addresses']" position="inside">
+                    <group>
+                        <field name="document" filename="doc_name" width="30px"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

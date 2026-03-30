@@ -33,7 +33,11 @@
                                         </div>
                                         <div id="div_image" class="col-lg-6 mb-2">
                                             <label class="col-form-label" for="c_image">Contact Image</label>
-                                            <input id="c_image" type="file" class="form-control" name="image_1920" required=""/>
+                                            <input id="c_image" type="file" class="form-control" name="image_1920" required="" accept="image/*"/>
+                                        </div>
+                                        <div id="div_document" class="col-lg-12 mb-2">
+                                            <label class="col-form-label" for="c_image">Upload Document (pdf)</label>
+                                            <input id="c_document" type="file" class="form-control" name="document" required="" accept="application/pdf"/>
                                         </div>
                                         <div id="div_zip" class="col-md-4 mb-2">
                                             <label class="col-form-label" for="c_zip">

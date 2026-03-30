@@ -3,32 +3,50 @@
     <template id="shop_taxonomy_filter" inherit_id="website_sale.product_attribute_filters_form"
               name="Add Taxonomy Filter">
         <xpath expr="//form" position="inside">
-            <div class="accordion-header h6 mb-0">
-                <button class="accordion-button px-0 bg-transparent shadow-none"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        aria-expanded="true"
-                        t-attf-data-bs-target="#custom_filter_taxonomy"
-                        t-attf-aria-controls="custom_filter_taxonomy">
-                    <b>Taxonomy</b>
-                </button>
-            </div>
-            <div id="custom_filter_taxonomy" class="accordion-collapse collapse show">
-                <div class="flex-column mb-3">
-                    <t t-foreach="taxonomy_ids" t-as="tax">
-                        <div class="form-check">
-                            <input type="checkbox"
-                                   class="form-check-input"
-                                   name="taxonomies"
-                                   t-att-value="tax.id"
-                                   t-att-checked="'checked' if str(tax.id) in request.httprequest.args.getlist('taxonomies') else None"
-                                   onchange="this.form.submit()"/>
-                            <label class="form-check-label fw-normal" t-attf-for="tax_#{tax.id}"
-                                   t-field="tax.name"/>
-                        </div>
-                    </t>
+            <div t-attf-class="{{'border-bottom pb-2 mx-n3 px-3' if isMobile else ''}}">
+                <div class="accordion-header h6 mb-0" t-attf-class="{{'mx-4' if isMobile else ''}}">
+                    <button class="accordion-button px-0 bg-transparent shadow-none"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            aria-expanded="true"
+                            t-attf-data-bs-target="#custom_filter_taxonomy"
+                            t-attf-aria-controls="custom_filter_taxonomy">
+                        <b>Taxonomy</b>
+                    </button>
+                </div>
+                <div id="custom_filter_taxonomy" class="accordion-collapse collapse show" t-attf-class="{{'mx-4' if isMobile else ''}}">
+                    <div class="flex-column mb-3">
+                        <t t-foreach="taxonomies" t-as="tax">
+                            <div class="form-check">
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       name="taxonomies"
+                                       t-att-value="tax.id"
+                                       t-att-checked="'checked' if str(tax.id) in request.httprequest.args.getlist('taxonomies') else None"
+                                       onchange="this.form.submit()"/>
+                                <label class="form-check-label fw-normal" t-attf-for="tax_#{tax.id}"
+                                       t-field="tax.name"/>
+                            </div>
+                        </t>
+                    </div>
                 </div>
             </div>
+        </xpath>
+    </template>
+    <template id="clear_filters" inherit_id="website_sale.products" name="Clear Filters">
+        <xpath expr="//div[hasclass('border-bottom')]" position="attributes">
+            <attribute name="t-if">attrib_values or tags or request.httprequest.args.getlist('taxonomies') or (show_price_filter and isFilteringByPrice)</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('border-bottom')]/a" position="attributes">
+            <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, taxonomies=0)</attribute>
+        </xpath>
+    </template>
+    <template id="clear_filters_mobile" inherit_id="website_sale.o_wsale_offcanvas" name="Clear Filters">
+        <xpath expr="//div[hasclass('offcanvas-body')]/a" position="attributes">
+            <attribute name="t-attf-class" add="{{(not attrib_values and not isFilteringByPrice and not tags and not request.httprequest.args.getlist('taxonomies')) and 'disabled'}}"
+                       remove="{{(not attrib_values and not isFilteringByPrice and not tags) and 'disabled' }}" separator=" "/>
+            <attribute name="t-att-aria-disabled">(not attrib_values and not isFilteringByPrice and not tags and not request.httprequest.args.getlist('taxonomies')) and 'true' or 'false'</attribute>
+            <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, taxonomies=0)</attribute>
         </xpath>
     </template>
 </odoo>
