@@ -1,12 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+        <template id="template_librarian_form" name="Librarian Form">
+            <t t-call="website.layout">
+                <div class="container mt-5">
+                    <h2>Create Librarian</h2>
+                    <form id="partner_form" > <!--method="post" action="/librarians/create" enctype="multipart/form-data"-->
+<!--                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+
+                        <input type="text" name="name" placeholder="Name" required="1" id="name"/><br/><br/>
+                        <input type="email" name="email" placeholder="Email" id="email" required="1"/><br/><br/>
+                        <input type="text" name="phone" placeholder="Phone" id="phone"/><br/><br/>
+                        Resume: <input type="file" id="resume" name="resume" accept="application/pdf"/>(max size: 10MB, type: .pdf)
+                        <!--accept="application/pdf"-->
+                        <div class="file_error_msg text-danger d-none"></div>
+                        <br/><br/>
+                        <select id="gender" name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                         <br/><br/>
+                        <input type="text" name="zip" placeholder="Zip Code"/><br/><br/>
+                         <select id="country_id" name="country_id">
+                            <option value="">Select Country</option>
+                            <t t-foreach="countries" t-as="c">
+                                <option t-att-value="c.id"><t t-esc="c.name"/></option>
+                            </t>
+                        </select>
+                        <select id="state_id" name="state_id">
+                            <option value="">Select State</option>
+                        </select>
+                        <select id="city_dropdown" name="city_id" style="display:none;">
+                            <option value="">Select City</option>
+                        </select>
+                        <input type="text" id="city_input" name="city" placeholder="Enter City"/>
+                        <button type="submit" id="submit_btn" class="submit btn btn-primary mt-3">
+                            Submit
+                        </button><br/>
+                    </form>
+                </div>
+            </t>
+        </template>
+
     <template id="librarians_template">
         <t t-call="website.layout">
             <div id="wrap" class="container my-5">
                 <div class="row">
-                    <div class="col-12 mb-4">
-                        <h5 class="display-6">Librarians</h5>
+                    <div class="d-flex align-items-center w-100">
+                        <h4 class="mb-0">Librarians</h4>
+                        <t t-if="user.has_group('library_management_rushvi.group_library_admin')">
+                            <a href="/librarians/register-form" class="btn btn-primary ms-auto">
+                                Create New
+                            </a>
+                        </t>
                     </div>
                 </div>
+                <br/>
 
                 <div class="row d-flex flex-wrap justify-content-start">
                     <t t-foreach="librarians" t-as="librarian">
@@ -37,6 +85,14 @@
                                 </div>
                             </div>
                         </div>
+                    </t>
+                </div>
+            </div>
+                        <!--  PAGINATION    -->
+            <div class="row mt-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <t t-call="website.pager">
+                        <t t-set="_classes">mt-2 ml-md-2 text-center</t>
                     </t>
                 </div>
             </div>

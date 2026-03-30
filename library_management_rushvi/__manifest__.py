@@ -7,6 +7,12 @@
     'category': "Uncategorized",
     'version': '1.0',
     'depends': ['base','portal','web','product','website_sale','stock','website'],
+    'assets': {
+        'web.assets_frontend': [
+            'web.core',
+            'library_management_rushvi/static/src/js/main.js',
+        ],
+    },
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',

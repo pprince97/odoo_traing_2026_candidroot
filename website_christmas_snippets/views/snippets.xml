@@ -74,4 +74,19 @@
                t-thumbnail="/website_christmas_snippets/static/src/img/test.png"/>
         </xpath>
     </template>
+
+    <template id="christmas_snippet_registration2" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_content']" position="inside">
+            <t t-snippet="website_christmas_snippets.christmas_hero_snippet"
+               string="Christmas Hero"
+               t-thumbnail="/website_christmas_snippets/static/src/img/snippet_hero.png"/>
+            <t t-snippet="website_christmas_snippets.christmas_features_snippet"
+               string="Christmas Features"
+               t-thumbnail="/website_christmas_snippets/static/src/img/snippet_features.png"/>
+            <t t-snippet="website_christmas_snippets.christmas_test_snippet"
+               string="Christmas Test"
+               t-thumbnail="/website_christmas_snippets/static/src/img/test.png"/>
+        </xpath>
+    </template>
+
 </odoo>

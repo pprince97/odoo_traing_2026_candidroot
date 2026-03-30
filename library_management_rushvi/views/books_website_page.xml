@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
         <template id="header_borrow_request" inherit_id="website.layout">
-    <!--        <xpath expr="//header" position="attributes">-->
-    <!--            <attribute name="t-attf-class" add="d-none" separator=" "/>-->
-    <!--        </xpath>-->
+            <xpath expr="//header" position="attributes">
+                <attribute name="t-attf-class" add="d-none" separator=" "/>
+            </xpath>
         <xpath expr="//header" position="after">
             <header id="header_borrow" class="o_main_header">
                 <div class="oe_structure oe_structure_solo border text-break" style="--box-border-left-width: 0px; --box-border-right-width: 0px;">
                     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
                         <div class="container">
                             <ul class="nav navbar-nav">
-                                <a data-name="Navbar Logo" href="/" class="navbar-brand logo me-1">
-                                    <span role="img" aria-label="Logo of My Website" title="My Website">
-                                        <img src="library_management_rushvi/static/src/img/library_logo.jpg" class="img img-fluid" alt="Library" loading="lazy"/>
-                                    </span>
-                                </a>
+<!--                                <a data-name="Navbar Logo" href="/" class="navbar-brand logo me-1">-->
+<!--                                    <span role="img" aria-label="Logo of My Website" title="My Website">-->
+<!--                                        <img src="library_management_rushvi/static/src/img/library_logo.jpg" class="img img-fluid" alt="Library" loading="lazy"/>-->
+<!--                                    </span>-->
+<!--                                </a>-->
                                 <t t-foreach="website.menu_id.child_id" t-as="submenu">
                                    <li t-attf-class="nav-item #{'dropdown' if submenu.child_id or submenu.is_mega_menu else ''} #{'position-static' if submenu.is_mega_menu else ''}">
                                         <t t-if="not submenu.child_id and not submenu.is_mega_menu">

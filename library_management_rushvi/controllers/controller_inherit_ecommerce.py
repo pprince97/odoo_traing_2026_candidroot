@@ -4,6 +4,16 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 
 class ProductInheritController(WebsiteSale):
 
+    def _shop_lookup_products(self, options, post, search, website):
+        product_count, details, fuzzy_search_term = website._search_with_fuzzy("products_only", search,
+                                                                               limit=None,
+                                                                               order=self._get_search_order(post),
+                                                                               options=options)
+        search_result = details[0].get('results', request.env['product.template']).with_context(bin_size=True)
+        return fuzzy_search_term, product_count, search_result
+
+
+
     def _shop_get_query_url_kwargs(
         self, search=None, min_price=None, max_price=None, order=None, tags=None, **kwargs
     ):

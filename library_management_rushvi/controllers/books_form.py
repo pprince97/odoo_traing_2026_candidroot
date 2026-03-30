@@ -30,6 +30,7 @@ class BooksForm(http.Controller):
         cover_image = post.get('cover_image')
         image_base64 = False
         if cover_image:
+
             image_base64 = base64.b64encode(cover_image.read())
         vals = {
             'name': post.get('name'),
@@ -150,9 +151,11 @@ class BooksForm(http.Controller):
     #         'total_pages': total_pages
     #     })
 
-    @http.route('/librarians', type='http', auth='user', website=True)
-    def librarians(self):
-        print(request.env.user)
+    @http.route(['/librarians','/librarians/page/<int:page>'], type='http', auth='user', website=True)
+    def librarians(self, page=0, **kwargs):
+        # print(request.env.user)
+        page = int(page)
+
         if request.env.user.has_group('library_management_rushvi.group_library_admin'):
             librarians = request.env['res.partner'].search([('is_librarian', '=', True)])
         elif request.env.user.has_group('library_management_rushvi.group_library_librarian'):
@@ -160,8 +163,17 @@ class BooksForm(http.Controller):
                 [('is_librarian', '=', True), ('id', '=', request.env.user.partner_id.id)])
         else:
             librarians = request.env['res.partner'].browse()
+        pager = request.website.pager(
+            url='/librarians',
+            total=len(librarians),
+            page=page,
+           step=9,
+        )
+        offset = pager['offset']
+        librarians = librarians[offset: offset + 9]
         return request.render('library_management_rushvi.librarians_template', {
             'librarians': librarians,
-            'user': request.env.user
+            'user': request.env.user,
+            'pager': pager,
         })
 

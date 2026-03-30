@@ -7,7 +7,6 @@
                         <h5 class="display-6">Students</h5>
                     </div>
                 </div>
-
                 <div class="row d-flex flex-wrap justify-content-start">
                     <t t-foreach="students" t-as="student">
                         <div class="col-md-4 col-sm-6 mb-4">
@@ -40,6 +39,8 @@
                     </t>
                 </div>
             </div>
+
+            <!--  PAGINATION    -->
             <div class="row mt-4">
                 <div class="col-12 d-flex justify-content-center">
                     <t t-call="website.pager">

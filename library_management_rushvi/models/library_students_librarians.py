@@ -15,7 +15,8 @@ class LibraryStudentsLibrarian(models.Model):
     is_librarian = fields.Boolean('Librarian')
     borrow_request_librarian_ids = fields.One2many('library.borrow.requests', 'librarian_id', string="Borrow History Librarian")
     borrow_request_librian_count = fields.Integer(string="Borrow History Count", compute='_compute_librarian_count')
-
+    resume = fields.Binary(string="Resume")
+    resume_filename = fields.Char(string="Resume Filename")
 
     @api.model_create_multi
     def create(self, vals_list):
