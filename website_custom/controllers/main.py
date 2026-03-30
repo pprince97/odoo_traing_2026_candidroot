@@ -1,15 +1,14 @@
 import odoo.http as http
 from odoo.http import request
-from odoo.addons.website.controllers.main import Website
+# from odoo.addons.website.controllers.main import Website
 
-class CustomHome(Website):
-    @http.route()
-    def index(self, **kw):
-        print("------1---------")
-        response = super(CustomHome, self).index(**kw)
-        requests = request.env['library.book.borrow'].sudo().search([])
-        response.qcontext['requests'] = requests
-        return response
+class CustomHome(http.Controller):
+    @http.route('/', type='http', auth='public', website=True)
+    def index(self, **kwargs):
+
+        books = request.env['library.book.borrow'].sudo().search([])
+        return request.render('website.homepage', {'requests': books})
+
 
 class PartnerFormController(http.Controller):
 
@@ -17,7 +16,7 @@ class PartnerFormController(http.Controller):
     def partner_form(self, **kwargs):
         return request.render('website_custom.partner_form_template')
 
-    @http.route('/borrow', type='http', auth='public', website=True)
+    @http.route('/borrow', type='http', auth='public',  website=True)
     def borrow_requests(self, **post):
         requests = request.env['library.book.borrow'].sudo().search([('librarian_id', '=', 1)])
 
@@ -25,7 +24,7 @@ class PartnerFormController(http.Controller):
 
     @http.route('/contactus', type='http', auth='public', website=True)
     def index_contact(self, **kwargs):
-        print("------1---------")
+        # print("------1---------")
         return request.render('website.contactus')
 
     @http.route('/partner/form/submit', type='http', auth='public', methods=['POST'], website=True)

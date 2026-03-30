@@ -18,17 +18,14 @@ class PartnerFormController(http.Controller):
     @http.route('/borrow', type='http', auth='public', website=True)
     def borrow_requests(self, **post):
         requests = request.env['library.book.borrow'].sudo().search([('librarian_id', '=', 1)])
-
         return request.render('website_custom.website_book_borrow_template', {'requests': requests})
 
     @http.route('/contactus', type='http', auth='public', website=True)
     def index_contact(self, **kwargs):
-        # print("------1---------")
         return request.render('website.contactus')
 
     @http.route('/partner/form/submit', type='http', auth='public', methods=['POST'], website=True)
     def partner_form_submit(self, **post):
-
         request.env['res.partner'].sudo().create({
             'name': post.get('name'),
             'email': post.get('email'),

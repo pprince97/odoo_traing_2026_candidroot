@@ -10,7 +10,7 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web', 'website'],
 
     'demo': [
         'demo/book_demo.xml',
@@ -26,6 +26,7 @@
         'wizard/cancellation_wizard.xml',
         'report/book_history_report.xml',
         'report/report_borrow_request.xml',
+        'views/template.xml',
         'views/librarian_view.xml',
         'views/borrow_request_view.xml',
         'views/student_view.xml',

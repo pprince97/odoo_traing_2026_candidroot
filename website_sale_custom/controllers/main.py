@@ -1,27 +1,50 @@
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.http import request
+from odoo.addons.website.controllers.main import QueryURL
+from odoo.http import request, route
 
-class WebsiteSaleRibbonFilter(WebsiteSale):
 
-    def _shop_lookup_products(self, options, post, search, website):
+class CustomWebsiteSale(WebsiteSale):
 
-        fuzzy_search_term, product_count, search_product = super()._shop_lookup_products(
-            options, post, search, website
+    @route(['/shop'], type='http', auth="public", website=True)
+    def shop(self, page=0, category=None, search='', **post):
+
+        ribbons_param = request.params.get('ribbons')
+
+        if ribbons_param:
+            selected_ribbons = {
+                request.env['ir.http']._unslug(r)[1]
+                for r in ribbons_param.split(',')
+            }
+        else:
+            selected_ribbons = set()
+
+        response = super().shop(page=page, category=category, search=search, **post)
+
+        products = response.qcontext.get('search_product')
+
+        response.qcontext['ribbons'] = selected_ribbons
+        response.qcontext['ribbon_records'] = products.mapped('website_ribbon_id')
+
+        response.qcontext['keep'] = QueryURL(
+            '/shop',
+            category=category and int(category),
+            search=search,
+            tags=post.get('tags'),
+            ribbons=ribbons_param,
         )
 
-        ribbon_ids = request.httprequest.args.getlist('ribbon')
+        return response
 
-        if ribbon_ids:
-            try:
-                ribbon_ids = [int(r) for r in ribbon_ids]
+    def _get_search_domain(self, search, category, attrib_values):
+        domain = super()._get_search_domain(search, category, attrib_values)
 
-                search_product = search_product.filtered(
-                    lambda p: p.website_ribbon_id.id in ribbon_ids
-                )
+        ribbons = request.params.get('ribbons')
 
-                product_count = len(search_product)
+        if ribbons:
+            ribbon_ids = {
+                request.env['ir.http']._unslug(r)[1]
+                for r in ribbons.split(',')
+            }
+            domain.append(('website_ribbon_id', 'in', list(ribbon_ids)))
 
-            except:
-                pass
-
-        return fuzzy_search_term, product_count, search_product
+        return domain

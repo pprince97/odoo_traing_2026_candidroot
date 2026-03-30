@@ -10,10 +10,9 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['website', 'library_management_smit', 'product', 'website_sale'],
+    'depends': ['website'],
 
     'data': [
-        'security/ir.model.access.csv',
         'views/product_attribute.xml',
     ],
 

@@ -2,80 +2,102 @@
 
 
 <odoo>
-    <template id="ribbon_filter_multi" inherit_id="website_sale.product_attribute_filters_form">
 
-        <xpath expr="//form" position="inside">
 
-            <div class="accordion-item">
-                <div class="accordion-header h6 mb-0">
-                    <button class="accordion-button px-0 bg-transparent shadow-none" type="button"
-                            data-bs-toggle="collapse" aria-expanded="true" data-oe-model="ir.ui.view" data-oe-id="1935"
-                            data-oe-field="arch" data-oe-xpath="/t[1]/div[1]/div[1]/button[1]"
-                            data-bs-target="#o_wsale_tags_option_inner" aria-controls="o_wsale_tags_option_inner">
-                        <b>Tags</b>
-                    </button>
-                </div>
-                <div id="o_wsale_tags_option_inner" class="accordion-collapse collapse show">
-                    <div class="flex-column mb-3">
-                        <div class="form-check mb-1">
-                            <input type="checkbox" name="tags" class="form-check-input" data-oe-model="ir.ui.view"
-                                   data-oe-id="1936" data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/div[1]/input[1]"
-                                   id="tag_1" value="1" checked="checked">
-                            <label class="form-check-label fw-normal" data-oe-xpath="/t[1]/t[1]/div[1]/label[1]"
-                                   for="tag_1" data-oe-model="product.tag" data-oe-id="1" data-oe-field="name"
-                                   data-oe-type="char" data-oe-expression="tag.name">e4cftr
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <template id="hide_price_card_tile" inherit_id="website_sale.products_item">
 
-            <!--            <t t-set="products" t-value="search_product"/>-->
-
-            <!--            <t t-set="ribbons" t-value="products.mapped('website_ribbon_id')"/>-->
-
-            <!--            <t t-set="selected" t-value="request.httprequest.args.getlist('ribbon')"/>-->
-
-            <!--            <div class="mb-3">-->
-            <!--                <h6>Ribbon</h6>-->
-
-            <!--                <t t-foreach="request.httprequest.args.items()" t-as="param">-->
-            <!--                    <t t-if="param[0] != 'ribbon'">-->
-            <!--                        <input type="hidden" t-att-name="param[0]" t-att-value="param[1]"/>-->
-            <!--                    </t>-->
-            <!--                </t>-->
-
-            <!--                <t t-foreach="ribbons" t-as="r">-->
-
-            <!--                    <div class="form-check">-->
-
-            <!--                        <input type="checkbox"-->
-            <!--                               name="ribbon"-->
-            <!--                               t-att-value="r.id"-->
-            <!--                               t-att-checked="'checked' if str(r.id) in selected else None"/>-->
-
-            <!--                        <label>-->
-            <!--                            <t t-esc="r.name"/>-->
-            <!--                        </label>-->
-
-            <!--                    </div>-->
-
-            <!--                </t>-->
-
-            <!--            </div>-->
-
+        <xpath expr="//div[contains(@class, 'product_price')]" position="attributes">
+            <attribute name="t-if">not request.env.user._is_public()</attribute>
+        </xpath>
+        <xpath expr="//div[contains(@class, 'product_price')]" position="replace">
+            <attribute name="t-if">not request.env.user._is_public()</attribute>
         </xpath>
 
     </template>
 
-    <record id="product_product_website_form_view" model="ir.ui.view">
-        <field name="name">product.product.website.form</field>
-        <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='is_published']" position="after">
-                <field name="suitable_ids" widget="many2many_tags"/>
-            </xpath>
-        </field>
-    </record>
+    <template id="hide_price_shop_tile" inherit_id="website_sale.product">
+
+        <xpath expr="//div[contains(@class, 'o_wsale_product_details_content_section_price')]" position="attributes">
+            <attribute name="t-if">not request.env.user._is_public()</attribute>
+        </xpath>
+
+    </template>
+
+
+    <!--    <template id="ribbon_filter_multi" inherit_id="website_sale.product_attribute_filters_form">-->
+    <!---->
+    <!--        <xpath expr="//form" position="inside">-->
+    <!---->
+    <!--            <div class="accordion-item">-->
+    <!--                <div class="accordion-header h6 mb-0">-->
+    <!--                    <button class="accordion-button px-0 bg-transparent shadow-none" type="button"-->
+    <!--                            data-bs-toggle="collapse" aria-expanded="true" data-oe-model="ir.ui.view" data-oe-id="1935"-->
+    <!--                            data-oe-field="arch" data-oe-xpath="/t[1]/div[1]/div[1]/button[1]"-->
+    <!--                            data-bs-target="#o_wsale_tags_option_inner" aria-controls="o_wsale_tags_option_inner">-->
+    <!--                        <b>Tags</b>-->
+    <!--                    </button>-->
+    <!--                </div>-->
+    <!--                <div id="o_wsale_tags_option_inner" class="accordion-collapse collapse show">-->
+    <!--                    <div class="flex-column mb-3">-->
+    <!--                        <div class="form-check mb-1">-->
+    <!--                            <input type="checkbox" name="tags" class="form-check-input" data-oe-model="ir.ui.view"-->
+    <!--                                   data-oe-id="1936" data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/div[1]/input[1]"-->
+    <!--                                   id="tag_1" value="1" checked="checked">-->
+    <!--                            <label class="form-check-label fw-normal" data-oe-xpath="/t[1]/t[1]/div[1]/label[1]"-->
+    <!--                                   for="tag_1" data-oe-model="product.tag" data-oe-id="1" data-oe-field="name"-->
+    <!--                                   data-oe-type="char" data-oe-expression="tag.name">e4cftr-->
+    <!--                            </label>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--                        <t t-set="products" t-value="search_product"/>-->
+
+    <!--                        <t t-set="ribbons" t-value="products.mapped('website_ribbon_id')"/>-->
+
+    <!--            <t t-set="selected" t-value="request.httprequest.args.getlist('ribbon')"/>-->
+
+    <!--            <div class="mb-3">-->
+    <!--                <h6>Ribbon</h6>-->
+
+    <!--                <t t-foreach="request.httprequest.args.items()" t-as="param">-->
+    <!--                    <t t-if="param[0] != 'ribbon'">-->
+    <!--                        <input type="hidden" t-att-name="param[0]" t-att-value="param[1]"/>-->
+    <!--                    </t>-->
+    <!--                </t>-->
+
+    <!--                <t t-foreach="ribbons" t-as="r">-->
+
+    <!--                    <div class="form-check">-->
+
+    <!--                        <input type="checkbox"-->
+    <!--                               name="ribbon"-->
+    <!--                               t-att-value="r.id"-->
+    <!--                               t-att-checked="'checked' if str(r.id) in selected else None"/>-->
+
+    <!--                        <label>-->
+    <!--                            <t t-esc="r.name"/>-->
+    <!--                        </label>-->
+
+    <!--                    </div>-->
+
+    <!--                </t>-->
+
+    <!--            </div>-->
+
+    <!--        </xpath>-->
+
+    <!--    </template>-->
+
+    <!--    <record id="product_product_website_form_view" model="ir.ui.view">-->
+    <!--        <field name="name">product.product.website.form</field>-->
+    <!--        <field name="model">product.product</field>-->
+    <!--        <field name="inherit_id" ref="product.product_template_form_view"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='is_published']" position="after">-->
+    <!--                <field name="suitable_ids" widget="many2many_tags"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
 </odoo>
