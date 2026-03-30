@@ -2,35 +2,71 @@ from odoo import http, _
 from odoo.http import request, route
 from odoo.addons.website_sale.controllers.main import WebsiteSale,TableCompute
 from odoo.fields import Domain
-from odoo.osv import expression
+# from odoo.osv import expression
 
 class ProductController(WebsiteSale):
-    #
-    @route()
+
+    @http.route()
     def shop(self, **post):
-        selected_apps = request.httprequest.args.getlist('applications')
         response = super(ProductController, self).shop(**post)
+
+        selected_apps = request.httprequest.args.getlist('applications')
         if selected_apps:
             app_ids = [int(i) for i in selected_apps if i.isdigit()]
             if app_ids:
-                products = response.qcontext.get('products')
-                if products:
-                    # filtered_products = products.filtered(lambda products: any(id in app_ids for id in products.application_area.ids))
-                    filtered_products = []
-                    for p in products:  # <--- This 'p' is exactly the same as the lambda 'p'
-                        for pid in p.application_area.ids:
-                            if pid in app_ids and p not in filtered_products:
-                                filtered_products.append(p)
-                    print('filtered_products:', filtered_products)
-                    print(products.search([('application_area', 'in', app_ids)]))
+                search_product = response.qcontext.get('search_product')
+                if search_product:
+                    filtered_products = search_product.filtered(
+                        lambda p: any(id in app_ids for id in p.application_area.ids)
+                    )
+
                     ppg = response.qcontext.get('ppg')
                     ppr = response.qcontext.get('ppr')
+                    pager = request.website.pager(
+                        url="/shop",
+                        total=len(filtered_products),
+                        page=int(post.get('page', 1)),
+                        step=ppg,
+                        scope=7,
+                        url_args=post  # Keeps the 'applications' in the URL
+                    )
+
+                    offset = pager['offset']
+                    products = filtered_products[offset:offset + ppg]
+
+                    variants = request.env['product.product'].sudo().browse(
+                        product._get_first_possible_variant_id() for product in products)
+                    variants.fetch()
+                    product_variants = dict(zip(products, variants))
+
+                    website = request.env['website'].get_current_website()
+                    new_products_prices = products._get_sales_prices(website)
+
                     response.qcontext.update({
-                                    'products': filtered_products,
-                                    'search_count': len(filtered_products),
-                                    'bins': TableCompute().process(filtered_products, ppg, ppr),
+                        'products': products,
+                        'bins': TableCompute().process(products, ppg, ppr),
+                        'search_count': len(filtered_products),
+                        'search_product': filtered_products,
+                        'pager': pager,
+                        'product_variants': product_variants,
+                        'get_product_prices': lambda product: new_products_prices[product.id],
                     })
 
-        application = request.env['product.application.area'].search([])
+        application = request.env['product.application.area'].sudo().search([])
         response.qcontext['application'] = application
         return response
+
+    def _shop_get_query_url_kwargs(
+            self, search, min_price, max_price, order=None, tags=None, **kwargs
+    ):
+        attribute_values = request.session.get('attribute_values', [])
+        my_prod = request.httprequest.args.getlist('applications')
+        return {
+            'search': search,
+            'min_price': min_price,
+            'max_price': max_price,
+            'order': order,
+            'tags': tags,
+            'attribute_values': attribute_values,
+            'applications': my_prod,
+        }

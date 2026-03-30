@@ -3,11 +3,6 @@
     <template id="attribute_addition_product" inherit_id="website_sale.product_attribute_filters_form"
               name="Custom attribute">
         <xpath expr="//form" position="inside">
-            <!--        <xpath expr="//div[@id='o_wsale_price_range_option']" position="before">-->
-            <!--            <t-->
-            <!--                    t-if="show_price_filter"-->
-            <!--                    t-call="product_management.area_attribute"-->
-            <!--            >-->
             <t
                     t-call="product_management.area_attribute"
             >
@@ -20,41 +15,58 @@
     </template>
 
     <template id="area_attribute" name="Area Attribute">
-        <!--        <t t-foreach="a.value_ids" t-as="v">-->
-        <!--            <t t-set="img_style"-->
-        <!--               t-value="'background:url(/web/image/product.attribute.value/%s/image); background-size:cover;' % v.id if v.image else ''"-->
-        <!--            />-->
-        <!--            <t t-set="color_style"-->
-        <!--               t-value="'background: ' + str(v.html_color or v.name if not v.is_custom else '')"-->
-        <!--            />-->
-        <!--            <label t-attf-style="#{img_style or color_style}"-->
-        <!--                   t-attf-class="css_attribute_color cursor-pointer #{'active' if v.id in attrib_set else ''}"-->
-        <!--            >-->
-        <!--                <input type="checkbox"-->
-        <!--                       name="attribute_value"-->
-        <!--                       class="cursor-pointer"-->
-        <!--                       t-att-value="'%s-%s' % (a.id, v.id)"-->
-        <!--                       t-att-checked="'checked' if v.id in attrib_set else None"-->
-        <!--                       t-att-title="v.name"-->
-        <!--                />-->
-        <!--            </label>-->
-        <!--        </t>-->
-        <!--        <t t-set="is_disabled" t-value="available_min_price == available_max_price"/>-->
-        <div
-                id="o_wsale_area_option"
-                t-attf-class="position-relative {{_classes}} {{is_disabled and 'opacity-75 pe-none user-select-none'}}"
-        >
-            <t t-if="is_sidebar_collapsible">
+        <t t-if="isMobile">
+            <t t-set="_status" t-value="'inactive'"/>
+            <div
+                    id="o_wsale_area_option"
+                    t-attf-class="position-relative {{_classes}} {{is_disabled and 'opacity-75 pe-none user-select-none'}}"
+            >
+                <div class="accordion-item border-top border-bottom rounded-0">
+                    <div class="accordion-header h6 mb-0">
+                        <button
+                                t-attf-class="o_wsale_offcanvas_title accordion-button collapsed"
+                                type="button"
+                                t-att-data-status="_status"
+                                data-bs-toggle="collapse"
+                                t-attf-data-bs-target="#o_wsale_area_option_inner"
+                                t-attf-aria-controls="o_wsale_area_option_inner"
+                                t-att-aria-expanded="_status == 'active' and 'True' or 'False'"
+                        >
+                            <b>Applicable Area</b>
+                        </button>
+                    </div>
+                    <div
+                            id="o_wsale_area_option_inner"
+                            class="accordion-collapse collapse hidden"
+                    >
+                        <div class="accordion-body pt-0">
+                            <div class="list-group list-group-flush">
+                                <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-0 pb-0">
+                                    <div class="form-check mb-1">
+                                        <input type="checkbox"
+                                               name="applications"
+                                               class="form-check-input"
+                                               t-att-value="area.id"
+                                               onchange="this.form.submit()"
+                                               t-att-checked="'checked' if str(area.id) in request.httprequest.args.getlist('applications') else None"
+                                        />
+                                        <label class="form-check-label fw-normal" t-attf-for="area_#{area.id}"
+                                               t-field="area.name"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <t t-else="">
+            <div
+                    id="o_wsale_area_option"
+                    t-attf-class="position-relative {{_classes}} {{is_disabled and 'opacity-75 pe-none user-select-none'}}"
+            >
                 <div class="accordion-item">
                     <div class="accordion-header h6 mb-0">
-                        <!--                        <button-->
-                        <!--                                class="accordion-button px-0 bg-transparent shadow-none"-->
-                        <!--                                type="button"-->
-                        <!--                                data-bs-toggle="collapse"-->
-                        <!--                                t-attf-data-bs-target="#o_wsale_price_range_option_inner"-->
-                        <!--                                t-attf-aria-controls="o_wsale_price_range_option_inner"-->
-                        <!--                                aria-expanded="true"-->
-                        <!--                        >-->
                         <button
                                 class="accordion-button px-0 bg-transparent shadow-none"
                                 type="button"
@@ -70,27 +82,8 @@
                             id="o_wsale_area_option_inner"
                             class="accordion-collapse collapse show"
                     >
-                        <!--                        <input-->
-                        <!--                            type="range"-->
-                        <!--                            multiple="multiple"-->
-                        <!--                            t-attf-class="form-range range-with-input {{_classes_input}}"-->
-                        <!--                            t-att-data-currency="website.currency_id.symbol"-->
-                        <!--                            t-att-data-currency-position="website.currency_id.position"-->
-                        <!--                            t-att-data-url="keep(min_price=0, max_price=0)"-->
-                        <!--                            t-att-step="website.currency_id.rounding"-->
-                        <!--                            t-att-min="'%f' % (available_min_price)"-->
-                        <!--                            t-att-max="'%f' % (available_max_price)"-->
-                        <!--                            t-att-value="'%f,%f' % (min_price, max_price)"-->
-                        <!--                        />-->
-                        <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-0 pb-0">
+                        <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-1 pb-0">
                             <div class="form-check mb-1">
-                                <!--                                <input type="checkbox"-->
-                                <!--                                       name="applications"-->
-                                <!--                                       class="form-check-input"-->
-                                <!--                                       t-attf-id="area_#{area.id}"-->
-                                <!--                                       t-att-value="area.name"-->
-                                <!--                                />-->
-                                <!--                                &lt;!&ndash;                                       t-att-checked="'checked' if area.id in application else None"&ndash;&gt;-->
                                 <input type="checkbox"
                                        name="applications"
                                        class="form-check-input"
@@ -102,28 +95,31 @@
                                        t-field="area.name"/>
                             </div>
                         </t>
-                        <!--                        <div>ABC</div>-->
                     </div>
                 </div>
-            </t>
-            <!--            <t t-else="">-->
-            <!--                <label t-attf-class="h6 m-0 {{_classes_title}}">-->
-            <!--                    <b>Applicable Area</b>-->
-            <!--                </label>-->
-            <!--                <input-->
-            <!--                    type="range"-->
-            <!--                    multiple="multiple"-->
-            <!--                    t-attf-class="form-range range-with-input {{_classes_input}}"-->
-            <!--                    t-att-data-currency="website.currency_id.symbol"-->
-            <!--                    t-att-data-currency-position="website.currency_id.position"-->
-            <!--                    t-att-data-url="keep(min_price=0, max_price=0)"-->
-            <!--                    t-att-step="website.currency_id.rounding"-->
-            <!--                    t-att-min="'%f' % (available_min_price)"-->
-            <!--                    t-att-max="'%f' % (available_max_price)"-->
-            <!--                    t-att-value="'%f,%f' % (min_price, max_price)"-->
-            <!--                />-->
-            <!--                <div>DFG</div>-->
-            <!--            </t>-->
-        </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="clear_filters" inherit_id="website_sale.products" name="Clear Filters">
+    <xpath expr="//div[hasclass('border-bottom')]" position="attributes">
+        <attribute name="t-if">attrib_values or tags or request.httprequest.args.getlist('applications') or (show_price_filter and isFilteringByPrice)</attribute>
+    </xpath>
+    <xpath expr="//div[hasclass('border-bottom')]/a" position="attributes">
+        <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, applications=0)</attribute>
+    </xpath>
+</template>
+    <template id="clear_filters_mobile" inherit_id="website_sale.o_wsale_offcanvas" name="Clear Filters">
+        <xpath expr="//div[hasclass('offcanvas-body')]/a" position="attributes">
+            <attribute name="t-attf-class"
+                       add="{{(not attrib_values and not isFilteringByPrice and not tags and not request.httprequest.args.getlist('applications')) and 'disabled'}}"
+                       remove="{{(not attrib_values and not isFilteringByPrice and not tags) and 'disabled' }}"
+                       separator=" "/>
+            <attribute name="t-att-aria-disabled">(not attrib_values and not isFilteringByPrice and not tags and not
+                request.httprequest.args.getlist('applications')) and 'true' or 'false'
+            </attribute>
+            <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, applications=0)
+            </attribute>
+        </xpath>
     </template>
 </odoo>
