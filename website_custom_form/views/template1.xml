@@ -1,0 +1,23 @@
+<odoo>
+    <record id="res_partner_form_view_inherit_city" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='city']" position="after">
+                <field name="city_id" placeholder="City" invisible="city"/>
+            </xpath>
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="invisible">city_id</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="PDF">
+                    <group>
+                        <field name="file_pdf" filename="file_pdf_name" widget="binary"/>
+                        <field name="file_pdf_name" invisible="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

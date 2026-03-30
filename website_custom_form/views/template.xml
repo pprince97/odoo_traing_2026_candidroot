@@ -1,0 +1,92 @@
+<odoo>
+    <template id="country_state_form" name="Country State Form">
+        <t t-call="website.layout">
+            <section class="container mt-5 o_country_state_form">
+
+                <h3>Select Location</h3>
+
+                <form method="post" action="/city/form/" enctype="multipart/form-data" onSubmit="return confirm('Really????')">
+
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="mb-3 field-name">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" t-att-value="name" id="name" class="form-control"
+                               placeholder="You Name"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="email" t-att-value="email" id="email" class="form-control"
+                               placeholder="You Email"/>
+                    </div>
+
+                    <!-- Country -->
+                    <div class="mb-3">
+                        <label>Country</label>
+                        <select class="form-control country_select" name="country">
+                            <option value="">Select Country</option>
+
+                            <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                <option t-att-value="country.id">
+                                    <t t-esc="country.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <!-- State -->
+                    <div class="mb-3">
+                        <label>State</label>
+                        <select class="form-control state_select" name="state">
+                            <option value="">Select State</option>
+                        </select>
+                    </div>
+
+                    <!-- City -->
+                    <div class="mb-3">
+                        <label>City</label>
+                        <select class="form-control city_select" name="city">
+                            <option value="">Select City</option>
+                        </select>
+                        <input type="text" name="city_name" t-att-value="city_name" id="city_name" class="form-control city_name"
+                               t-att-style="'display: none;'" placeholder="City Name"/>
+                    </div>
+
+                    <!-- File -->
+                    <div class="mb-3">
+                        <label>Upload PDF (Max 10MB)</label>
+                        <input type="file" name="document" accept="application/pdf"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                </form>
+
+            </section>
+        </t>
+
+    </template>
+
+    <template id="thank_you" name="Thank You">
+        <t t-call="website.layout">
+            <div class="container">
+                <h1>
+                    Thank You For Your Time!
+                </h1>
+            </div>
+        </t>
+    </template>
+
+    <record id="contact_details_page" model="website.page">
+        <field name="url">/contact-details</field>
+        <field name="view_id" ref="country_state_form"/>
+    </record>
+
+    <record id="contact_details_menu" model="website.menu">
+        <field name="name">Contact</field>
+        <field name="url">/contact-details</field>
+        <field name="page_id" ref="contact_details_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+</odoo>
