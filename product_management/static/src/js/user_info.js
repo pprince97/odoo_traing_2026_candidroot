@@ -64,15 +64,26 @@ publicWidget.registry.UserInformation = publicWidget.Widget.extend({
             state_id : this.$('#state').val() || false,
             city_id : this.$('#city_id').val() || false,
             city : this.$('#city').val() || false,
-            zip : this.$('#zip_code').val()
+            zip : this.$('#zip_code').val() || false
         };
         const values = await rpc('/get/user/information', { 'values': dict });
 
     },
 
     async _onChangeFile() {
-        var document = this.$('binary_file')
-        console.log("-----------file",document)
+        var document = this.$('#binary_file')[0].files[0];
+        if (!document) return;
+        var doc_type = document.type;
+        var doc_size = document.size;
+        const max_size = 10*1024*1024;
+        if (doc_type != 'application/pdf') {
+            alert("Document type must be PDF!!")
+            return;
+        }
+        else if (doc_size > max_size) {
+            alert("File size must be less or equal to 10MB!!")
+            return;
+        }
     },
 
 });

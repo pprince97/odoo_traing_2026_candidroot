@@ -6,26 +6,63 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale,TableCompute
 class ProductController(WebsiteSale):
 
     @http.route()
-    def shop(self,**post):
-        raw_ids = request.httprequest.args.getlist('functionality')
+    def shop(self, **post):
         response = super(ProductController, self).shop(**post)
+        raw_ids = request.httprequest.args.getlist('functionality')
         if raw_ids:
+            search_product = response.qcontext.get('search_product')
             selected_funct_ids = [int(i) for i in raw_ids if i.isdigit()]
-            print("---------selected_funct_ids", selected_funct_ids)
-            if selected_funct_ids:
-                filtered_products = []
-                products = response.qcontext.get('products')
-                print("----------products-----------",products)
-                for p in products:
-                    for pro_func in p.functionality_ids.ids:
-                        if pro_func in selected_funct_ids:
-                            filtered_products.append(p)
-                print("------------filtered_products-----------",filtered_products)
+            if search_product:
+                filtered_products = search_product.filtered(
+                    lambda p: any(id in selected_funct_ids for id in p.functionality_ids.ids)
+                )
+                ppg = response.qcontext.get('ppg')
+                ppr = response.qcontext.get('ppr')
+                pager = request.website.pager(
+                    url="/shop",
+                    total=len(filtered_products),
+                    page=int(post.get('page', 1)),
+                    step=ppg,
+                    scope=7,
+                    url_args=post
+                )
+                offset = pager['offset']
+                products = filtered_products[offset:offset + ppg]
+                variants = request.env['product.product'].sudo().browse(product._get_first_possible_variant_id() for product in products)
+                variants.fetch()
+                product_variants = dict(zip(products, variants))
+
+                website = request.env['website'].get_current_website()
+                new_products_prices = products._get_sales_prices(website)
+
+                response.qcontext.update({
+                    'products': products,
+                    'bins': TableCompute().process(products, ppg, ppr),
+                    'search_count': len(filtered_products),
+                    'search_product': filtered_products,
+                    'pager': pager,
+                    'product_variants': product_variants,
+                    'get_product_prices': lambda product: new_products_prices[product.id],
+                })
         functionalities = request.env['product.functionality'].search([])
         response.qcontext.update({
             'functionalities': functionalities,
         })
         return response
+
+    def _shop_get_query_url_kwargs(self, search, min_price, max_price, order=None, tags=None, **kwargs):
+        attribute_values = request.session.get('attribute_values', [])
+        raw_ids = request.httprequest.args.getlist('functionality')
+        return {
+            'search': search,
+            'min_price': min_price,
+            'max_price': max_price,
+            'order': order,
+            'tags': tags,
+            'attribute_values': attribute_values,
+            'functionality': raw_ids,
+        }
+
 
 class UserInfoController(http.Controller):
 

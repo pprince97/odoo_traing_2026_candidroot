@@ -2,39 +2,76 @@
 
     <template id="product_functionality_website" inherit_id="website_sale.product_attribute_filters_form">
         <xpath expr="//form" position="inside">
-            <div class="accordion-item">
-                <div class="accordion-header h6 mb-0">
-                    <button
-                            class="accordion-button px-0 bg-transparent shadow-none"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            t-attf-data-bs-target="#product_functionalities"
-                            t-attf-aria-controls="product_functionalities"
-                            aria-expanded="true"
+            <t t-if="isMobile">
+                <div class="accordion-item border-top border-bottom">
+                    <div class="accordion-header h6 mb-0">
+                        <button
+                                class="accordion-button mx-6 bg-transparent shadow-none rounded-0"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                t-attf-data-bs-target="#product_functionalities"
+                                t-attf-aria-controls="product_functionalities"
+                                aria-expanded="true"
+                        >
+                            <b>Functionality</b>
+                        </button>
+                    </div>
+                    <div
+                            id="product_functionalities"
+                            class="accordion-collapse collapse show"
                     >
-                        <b>Functionality</b>
-                    </button>
+                        <t t-foreach="functionalities" t-as="funct" class="list-group-item border-0 ps-0 pb-0">
+                            <div class="form-check mb-1">
+                                <input type="checkbox"
+                                       name="functionality"
+                                       class="form-check-input ms-auto"
+                                       t-attf-id="funct_#{funct.id}"
+                                       t-att-value="funct.id"
+                                       t-att-checked="'checked' if str(funct.id) in request.httprequest.args.getlist('functionality') else None"
+                                       onchange="this.form.submit()"
+                                />
+                                <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}"
+                                       t-field="funct.name"/>
+                            </div>
+                        </t>
+                    </div>
                 </div>
-                <div
-                        id="product_functionalities"
-                        class="accordion-collapse collapse show"
-                >
-                    <t t-foreach="functionalities" t-as="funct" class="list-group-item border-0 ps-0 pb-0">
-                        <div class="form-check mb-1">
-                            <input type="checkbox"
-                                   name="functionality"
-                                   class="form-check-input"
-                                   t-attf-id="funct_#{funct.id}"
-                                   t-att-value="funct.id"
-                                   t-att-checked="'checked' if str(funct.id) in request.httprequest.args.getlist('functionality') else None"
-                                   onchange="this.form.submit()"
-                            />
-                            <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}"
-                                   t-field="funct.name"/>
-                        </div>
-                    </t>
+            </t>
+            <t t-else="">
+                <div class="accordion-item">
+                    <div class="accordion-header h6 mb-0">
+                        <button
+                                class="accordion-button px-0 bg-transparent shadow-none"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                t-attf-data-bs-target="#product_functionalities"
+                                t-attf-aria-controls="product_functionalities"
+                                aria-expanded="true"
+                        >
+                            <b>Functionality</b>
+                        </button>
+                    </div>
+                    <div
+                            id="product_functionalities"
+                            class="accordion-collapse collapse show"
+                    >
+                        <t t-foreach="functionalities" t-as="funct" class="list-group-item border-0 ps-0 pb-0">
+                            <div class="form-check mb-1">
+                                <input type="checkbox"
+                                       name="functionality"
+                                       class="form-check-input"
+                                       t-attf-id="funct_#{funct.id}"
+                                       t-att-value="funct.id"
+                                       t-att-checked="'checked' if str(funct.id) in request.httprequest.args.getlist('functionality') else None"
+                                       onchange="this.form.submit()"
+                                />
+                                <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}"
+                                       t-field="funct.name"/>
+                            </div>
+                        </t>
+                    </div>
                 </div>
-            </div>
+            </t>
         </xpath>
     </template>
 
