@@ -27,6 +27,7 @@
         'views/librarian_website_view.xml',
         'views/product_inherit_view.xml',
         'views/product_website_filter_inherit_view.xml',
+        'views/website_profile_view.xml',
         # 'views/portal_view.xml',
         'wizard/borrow_cancel_wizard_view.xml',
         'wizard/book_borrow_hitory_wizard_view.xml',
@@ -40,6 +41,12 @@
         'demo/borrow_request_demo.xml',
         'demo/borrow_request_line_demo.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'library_management/static/src/js/main.js',
+            'library_management/static/src/js/student.js',
+        ],
+    },
     'installable': True,
     'application': True,
     'license':'LGPL-3',
