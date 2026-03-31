@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="name">product.template.product.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page name="service_details" string="Service Details">
+                    <group>
+                        <field name="service_category_id" invisible="service_company_id"/>
+                        <field name="service_category_id" domain="[('company_id','in',service_company_id)]" invisible="not service_company_id"/>
+                        <field name="service_company_id"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="product_template_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">product.template</field>
+        <field name="view_ids" eval="[Command.clear(),
+        Command.create({'view_mode': 'kanban'}),
+        Command.create({'view_mode': 'list', 'view_id': ref('account.product_template_list_view_sellable_inherit')}),
+        Command.create({'view_mode': 'form'}),
+        Command.create({'view_mode': 'activity'})]"/>
+        <field name="search_view_id" ref="product.product_template_search_view"/>
+        <field name="context">{'default_type':'service'}</field>
+    </record>
+    <menuitem name="Services" id="menuitem_services"
+              parent="service_menu_root"
+              action="product_template_action"
+              sequence="30"/>
+</odoo>

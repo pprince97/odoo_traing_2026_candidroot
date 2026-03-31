@@ -1,5 +1,4 @@
 from odoo import models,fields,api,_
-
 from odoo.exceptions import ValidationError
 
 
@@ -22,6 +21,7 @@ class LibraryBooks(models.Model):
     borrow_request_line_ids = fields.One2many('library.borrow.request.lines','book_id',string='Borrow History')
     borrow_history_count = fields.Integer(string='Borrow History Cnt',compute='_compute_history_count')
     genre_ids = fields.Many2many('library.books','book_genre_rel','book_id','genre_id')
+    history_ids = fields.One2many('library.image.history','book_id',string='History')
 
     def book_state_issued(self):
         self.state = 'published'
@@ -36,6 +36,13 @@ class LibraryBooks(models.Model):
             book.available_copies = book.stock
             if book.barcode and self.env['library.books'].search([('id','!=',book.id),('barcode','=',book.barcode)]):
                 raise ValidationError(_("2 Books cannot have same barcode"))
+        return res
+
+    def write(self, vals):
+        res = super(LibraryBooks, self).write(vals)
+        for rec in self:
+            if rec.cover_image:
+                self.env['library.image.history'].create({'book_id': rec['id'],'images': rec['cover_image']})
         return res
 
     @api.depends('available_copies','stock')

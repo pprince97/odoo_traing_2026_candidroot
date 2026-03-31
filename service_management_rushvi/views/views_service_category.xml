@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_service_category_list" model="ir.ui.view">
+        <field name="name">service.category.list</field>
+        <field name="model">service.category</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_libirary_category" model="ir.actions.act_window">
+        <field name="name">Category</field>
+        <field name="res_model">service.category</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem name="Category" id="menuitem_service_category"
+              parent="service_menu_root"
+              action="action_libirary_category"
+              sequence="20"/>
+</odoo>

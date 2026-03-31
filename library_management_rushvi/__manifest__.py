@@ -12,6 +12,10 @@
             'web.core',
             'library_management_rushvi/static/src/js/main.js',
         ],
+        'web.assets_backend': [
+                    # 'library_management_rushvi/static/src/fields/history_field/*.js',
+                    # 'library_management_rushvi/static/src/fields/history_field/*.xml',
+                ],
     },
     'data': [
         'security/security.xml',

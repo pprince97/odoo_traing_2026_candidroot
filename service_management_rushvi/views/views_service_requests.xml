@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_service_request_list" model="ir.ui.view">
+        <field name="name">service.request.list</field>
+        <field name="model">service.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="company_id"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_service_request_form" model="ir.ui.view">
+        <field name="name">service.request.form</field>
+        <field name="model">service.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="status_confirmed"
+                            invisible="status in ['confirmed','cancelled','done']"
+                            class="oe_highlight"
+                            string="confirmed"
+                            />
+                    <button type="object"
+                            name="status_done"
+                            invisible="status in ['draft','cancelled','done']"
+                            class="oe_highlight"
+                            string="done"
+                            />
+                    <button type="object"
+                            name="status_cancelled"
+                            invisible="status in ['confirmed','cancelled','done']"
+                            class="oe_highlight"
+                            string="cancelled"
+                            />
+                    <field name="status" widget="statusbar" statusbar_visible="draft,confirmed,done,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="category_id"/>
+<!--                            <field name="category_id" domain="[('company_id','in','company_id')]" invisible="not company_id"/>-->
+                            <field name="company_id" readonly="1" force_save="1"/>
+                            <field name="customer_id"/>
+                        </group>
+                        <group>
+                            <field name="service_date"/>
+                            <field name="zip"/>
+                            <field name="city"/>
+                            <field name="state_id"/>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="request_lines" string="Request Lines">
+                            <field name="request_line_ids">
+                                <list editable="bottom">
+                                    <field name="service_id"/>
+                                    <field name="quantity"/>
+                                    <field name="amount"/>
+                                    <field name="total_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_service_request" model="ir.actions.act_window">
+        <field name="name">Service Requests</field>
+        <field name="res_model">service.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Service Requests" id="menuitem_service_request"
+              parent="service_menu_root"
+              action="action_service_request"
+              sequence="40"/>
+
+</odoo>
+

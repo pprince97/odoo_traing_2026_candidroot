@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="service_requests_template_form" name="Service Request Portal View">
+        <t t-call="portal.portal_layout">
+            <div class="container py-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="text-primary mb-0">
+                            Request #
+                            <span t-field="service_request.name"/>
+                        </h2>
+                    </div>
+                    <div class="text-end">
+                        <span t-attf-class="badge rounded-pill #{'bg-success' if service_request.status == 'done' else 'bg-warning'} px-3 py-2">
+                            <t t-esc="service_request.status.upper() if service_request.status else 'DRAFT'"/>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0">General Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 border-end">
+                                <p>
+                                    <strong>Category:</strong>
+                                    <span t-field="service_request.category_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>Company:</strong>
+                                    <span t-field="service_request.company_id.name"/>
+                                </p>
+                            </div>
+                            <div class="col-md-6 ps-md-4">
+                                <p>
+                                    <strong>Customer:</strong>
+                                    <span t-field="service_request.customer_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>Service Date:</strong>
+                                    <span t-field="service_request.service_date"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0">Service Lines</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Service name</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-center">Amount</th>
+                                    <th class="text-end pe-4">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="service_request.request_line_ids" t-as="line">
+                                    <tr>
+                                        <td class="ps-4">
+                                            <span t-field="line.service_id.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td class="text-center"
+                                            t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'>
+                                            <span t-field="line.amount"/>
+                                        </td>
+                                        <td class="text-end pe-4 font-weight-bold">
+                                            <span t-field="line.total_amount"
+                                                  t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="service_requests_template">
+        <t t-call="portal.portal_layout">
+            <div class="mt-1 container">
+                <h3 class="d-flex justify-content-between align-items-center w-90">
+                    <span>All Service Requests</span>
+                </h3>
+                <table class="table">
+                    <thead>
+                        <th>
+                            <b>Serial Number</b>
+                        </th>
+                        <th>
+                            <b>Category</b>
+                        </th>
+                        <th>
+                            <b>Company</b>
+                        </th>
+                        <th>
+                            <b>Customer</b>
+                        </th>
+                        <th>
+                            <b>Service Date</b>
+                        </th>
+                        <th>
+                            <b>Status</b>
+                        </th>
+                    </thead>
+                    <t t-foreach="service_requests" t-as="service_request">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/my/service-requests/#{service_request.id}">
+                                    <t t-esc="service_request.name"/>
+                                </a>
+                            </td>
+                            <td>
+                                <t t-esc="service_request.category_id.name"/>
+                            </td>
+                            <td>
+                                <t t-esc="service_request.company_id.name"/>
+                            </td>
+                            <td>
+                                <t t-esc="service_request.customer_id.name"/>
+                            </td>
+                            <td>
+                                <t t-esc="service_request.service_date"/>
+                            </td>
+                            <td>
+                                <t t-esc="service_request.status"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+            <!--  PAGINATION    -->
+            <div class="row mt-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <t t-call="website.pager">
+                        <t t-set="_classes">mt-2 ml-md-2 text-center</t>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--    Breadcrumb   -->
+    <template id="portal_service_request_menu" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'service_request'"
+                t-attf-class="breadcrumb-item #{'active ' if not service_request else ''}">
+                <a t-if="service_request" t-attf-href="/my/service-requests">Service Requests</a>
+                <t t-else="">Service Requests</t>
+            </li>
+            <li t-if="service_request" class="breadcrumb-item active">
+                <t t-out="service_request.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_service_create_form">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="card shadow-sm border-0 custom-book-form">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h4 class="mb-0 text-light">Add Service</h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/my/borrow-requests/create" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold">Service Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="date" name="service_date" class="form-control form-control-lg"
+                                           required="1" t-att-value="post.get('service_date') if post else ''"/>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold">Category
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <select name="category_id" class="form-select">
+                                        <t t-foreach="request.env['service.category'].sudo().search([])"
+                                           t-as="ser">
+                                            <option t-att-value="ser.id">
+                                                <t t-esc="ser.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-5 text-end">
+                                <a href="/my/service-requests" class="btn btn-link text-muted me-3">Cancel</a>
+                                <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm">Request
+                                    Services
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- TILE -->
+    <template id="portal_my_home_custom" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Service Requests</t>
+                <t t-set="url" t-value="'/my/service-requests'"/>
+                <t t-set="text">View Your Service Requests</t>
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="icon" t-value="'service_management_rushvi/static/src/img/service-request.svg'"/>
+            </t>
+        </xpath>
+<!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="after">-->
+<!--            <div class="d-flex justify-content-between align-items-center w-90">-->
+<!--                <span/>-->
+<!--                <span>-->
+<!--                    <a href="/my/service-requests/new">-->
+<!--                        <button type="button"-->
+<!--                                class="btn btn-primary">-->
+<!--                            <i class="fa fa-plus me-1"/>-->
+<!--                            New Request-->
+<!--                        </button>-->
+<!--                    </a>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </xpath>-->
+    </template>
+</odoo>

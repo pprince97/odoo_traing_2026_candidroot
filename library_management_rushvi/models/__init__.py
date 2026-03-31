@@ -4,3 +4,4 @@ from . import library_borrow_requests
 from . import library_borrow_request_lines
 from . import res_config_settings
 from . import product_template_inherit
+from . import image_history

@@ -79,7 +79,8 @@
                             <field name="barcode"/>
                             <field name="currency"/>
                             <field name="category"/>
-                            <field name="cover_image" widget="image" class="oe_avatar" options="{'img_class': 'object-fit-cover'}"/>
+                            <field name="cover_image" widget="image" class="oe_avatar"/>
+<!--                            options="{'img_class': 'object-fit-cover'}"-->
                         </group>
                         <group>
                             <field name="stock"/>
