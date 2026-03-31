@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="services_list_view" model="ir.ui.view">
+        <field name="name">product.template.list</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="category_id"/>
+                <field name="belong_company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="services_form_view" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type" widget="radio" options="{'horizontal': true}"/>
+                        <field name="category_id"/>
+                        <field name="belong_company_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="services_menu_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_type': 'service'}</field>
+        <field name="domain">[('type','=','service')]</field>
+    </record>
+
+    <record id="services_list_action" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="services_list_view"/>
+        <field name="act_window_id" ref="services_menu_action"/>
+    </record>
+
+    <record id="services_form_action" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="services_form_view"/>
+        <field name="act_window_id" ref="services_menu_action"/>
+    </record>
+
+
+    <menuitem name="Services" id="services_menu" parent="service_root_menu" action="services_menu_action"/>
+
+</odoo>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <template id="request_service_button_website" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_my_home')]" position="after">
+            <div id="request_service_btn" class="mt-3">
+                <a href="/service-request-form" class="btn btn-primary">Request Service</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="service_request_form_website" name="Service Request Form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="pt40 pb40">
+                    <div class="container">
+                        <h3>Service Request Form</h3>
+                        <section>
+                            <div class="container">
+                                <div id="service_request_form">
+                                    <div class="mt-3">
+                                        <label for="service_date">Service Date *</label>
+                                        <input id="service_date" type="date" class="form-control" name="service_date"
+                                               style="width: 400px" required="1"/>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="category">Category *</label>
+                                        <div>
+                                            <select id="category" name="category"
+                                                    class="from-select form-control"
+                                                    style="width: 400px">
+                                                <option hidden="1" selected="1" disabled="1">Select Category</option>
+                                                <t t-foreach="request.env['service.category'].search([])"
+                                                   t-as="category">
+                                                    <option t-att-value="category.id">
+                                                        <t t-out="category.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="service">Service *</label>
+                                        <div>
+                                            <select id="service" name="service"
+                                                    class="from-select form-control"
+                                                    style="width: 400px">
+                                                <option hidden="1" selected="1" disabled="1">Select Service</option>
+                                            </select>
+                                        </div>
+                                        <p id="service_readonly_text">
+
+                                        </p>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="country">Country *</label>
+                                        <div id="country_block">
+                                            <select id="country" name="country"
+                                                    class="from-select form-control"
+                                                    style="width: 400px">
+                                                <option hidden="1" selected="1" disabled="1">Select Country</option>
+                                                <t t-foreach="request.env['res.country'].search([])" t-as="country">
+                                                    <option t-att-value="country.id">
+                                                        <t t-out="country.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="state">State *</label>
+                                        <div id="state_block">
+                                            <select id="state" name="state"
+                                                    class="from-select form-control"
+                                                    style="width: 400px">
+                                                <option hidden="1" selected="1" disabled="1">Select State</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="city">City *</label>
+                                        <div id="city_block">
+                                            <select id="city" name="city"
+                                                    class="from-select form-control"
+                                                    style="width: 400px">
+                                                <option hidden="1" selected="1" disabled="1">Select City</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="street_address">Street Address</label>
+                                        <input id="street_address" type="char" class="form-control"
+                                               name="street_address"
+                                               style="width: 400px"/>
+                                    </div>
+                                    <div class="mt-3">
+                                        <button id="request_service_submit_btn" class="btn btn-primary" type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="my_service_request_tile_website" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[@id='portal_vendor_category']" position="after">
+            <div id="portal_borrow_request">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/web/static/img/rfq.svg'"/>
+                    <t t-set="title">My Service Requests</t>
+                    <t t-set="url" t-value="'/my/service-requests'"/>
+                    <t t-set="text">View Your Service Requests</t>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="my_service_requests_list" name="My Service Requests">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h3>Service Requests</h3>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Serial Number</th>
+                            <th>Company</th>
+                            <th>Stage</th>
+                            <th>Date</th>
+                            <th>Country</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Street Address</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="service_requests" t-as="req">
+                            <tr>
+                                <td>
+                                    <t t-if="req.serial_no">
+                                        <span t-field="req.serial_no"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.company_id">
+                                        <span t-field="req.company_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.state">
+                                        <span t-field="req.state"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.date">
+                                        <span t-field="req.date"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.country_id">
+                                        <span t-field="req.country_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.state_id">
+                                        <span t-field="req.state_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.city_id">
+                                        <span t-field="req.city_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.street_address">
+                                        <span t-field="req.street_address"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.customer_id">
+                                        <span t-field="req.customer_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.service_id">
+                                        <span t-field="req.service_id"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="req.category_id">
+                                        <span t-field="req.category_id"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+</odoo>

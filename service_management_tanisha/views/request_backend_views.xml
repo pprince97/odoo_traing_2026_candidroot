@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="service_request_list_view" model="ir.ui.view">
+        <field name="name">service.request.list</field>
+        <field name="model">service.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_no"/>
+                <field name="company_id"/>
+                <field name="country_id"/>
+                <field name="state_id"/>
+                <field name="city_id"/>
+                <field name="street_address"/>
+                <field name="state"/>
+                <field name="date"/>
+                <field name="customer_id"/>
+                <field name="service_id"/>
+                <field name="category_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="service_request_form_view" model="ir.ui.view">
+        <field name="name">service.request.form</field>
+        <field name="model">service.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="country_id"/>
+                            <field name="state_id"/>
+                            <field name="city_id"/>
+                            <field name="street_address"/>
+                        </group>
+                        <group>
+                            <field name="state" widget="radio" options="{'horizontal': true}"/>
+                            <field name="date"/>
+                            <field name="customer_id"/>
+                            <field name="service_id" domain="[('type','=','service')]"/>
+                            <field name="category_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="service_request_menu_action" model="ir.actions.act_window">
+        <field name="name">Company</field>
+        <field name="res_model">service.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Service Request" id="service_request_menu" parent="service_root_menu" action="service_request_menu_action"/>
+
+</odoo>

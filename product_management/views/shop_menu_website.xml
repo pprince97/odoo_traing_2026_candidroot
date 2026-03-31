@@ -68,8 +68,38 @@
                                 <label class="form-check-label fw-normal" t-attf-for="funct_#{funct.id}"
                                        t-field="funct.name"/>
                             </div>
+                            <t t-foreach="request.httprequest.args.items()" t-as="arg">
+                                <t t-if="arg[0] not in ['functionality', 'page']">
+                                    <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>
+                                </t>
+                            </t>
                         </t>
                     </div>
+                    <!--                    <div id="wsale_my_products_collapse" class="collapse show">-->
+                    <!--                        <div class="nav flex-column mb-3 ps-2">-->
+                    <!--                            <form method="get" action="/shop">-->
+                    <!--                                <t t-foreach="functionalities" t-as="funct">-->
+                    <!--                                    <div class="form-check">-->
+                    <!--                                        <input type="checkbox"-->
+                    <!--                                               name="functionality"-->
+                    <!--                                               t-att-value="funct.id"-->
+                    <!--                                               t-att-checked="'checked' if funct.id in request.httprequest.args.getlist('functionality') else None"-->
+                    <!--                                               class="form-check-input"-->
+                    <!--                                               onchange="this.form.submit()"/>-->
+                    <!--                                        <label class="form-check-label fw-normal text-muted"-->
+                    <!--                                               t-att-for="'funct_%s' % funct.id">-->
+                    <!--                                            <span t-field="funct.name"/>-->
+                    <!--                                        </label>-->
+                    <!--                                    </div>-->
+                    <!--                                </t>-->
+                    <!--                                <t t-foreach="request.httprequest.args.items()" t-as="arg">-->
+                    <!--                                    <t t-if="arg[0] not in ['functionality', 'page']">-->
+                    <!--                                        <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>-->
+                    <!--                                    </t>-->
+                    <!--                                </t>-->
+                    <!--                            </form>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                 </div>
             </t>
         </xpath>

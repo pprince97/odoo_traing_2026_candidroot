@@ -47,6 +47,7 @@ class ProductController(WebsiteSale):
         functionalities = request.env['product.functionality'].search([])
         response.qcontext.update({
             'functionalities': functionalities,
+            'raw_ids': raw_ids,
         })
         return response
 

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_service_company,access_service_company,model_service_company,,1,1,1,1
+
+access_service_category,access_service_category,model_service_category,,1,1,1,1
+
+access_service_request,access_service_request,model_service_request,,1,1,1,1
