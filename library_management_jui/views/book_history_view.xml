@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="book_history_view_list" model="ir.ui.view">
+            <field name="name">library.book.history</field>
+            <field name="model">library.book.history</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="book_id" width="25px"/>
+                <field name="image" width="25px" widget="contact_image"/>
+            </list>
+            </field>
+        </record>
+    </data>
+</odoo>

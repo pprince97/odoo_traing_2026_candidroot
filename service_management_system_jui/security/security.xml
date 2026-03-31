@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Groups Category -->
+
+       <record model="ir.module.category" id="service_management_group_catgory">
+            <field name="name">Service Management</field>
+            <field name="sequence">40</field>
+       </record>
+
+        <!-- Group Privilege -->
+
+        <record model="res.groups.privilege" id="service_management_group_privilege">
+            <field name="name">Role</field>
+            <field name="sequence">1</field>
+            <field name="category_id" ref="service_management_system_jui.service_management_group_catgory"/>
+        </record>
+
+        <!-- Groups -->
+
+        <record id="service_group_customer" model="res.groups">
+            <field name="name">Customer</field>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="privilege_id" ref="service_management_system_jui.service_management_group_privilege"/>
+        </record>
+
+        <record id="service_group_owner" model="res.groups">
+            <field name="name">Owner</field>
+            <field name="sequence">20</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="service_management_system_jui.service_management_group_privilege"/>
+        </record>
+
+        <record id="service_group_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="sequence">30</field>
+            <field name="implied_ids" eval="[(4, ref('service_management_system_jui.service_group_owner'))]"/>
+            <field name="privilege_id" ref="service_management_system_jui.service_management_group_privilege"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

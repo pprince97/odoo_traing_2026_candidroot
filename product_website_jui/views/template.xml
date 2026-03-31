@@ -4,6 +4,14 @@
               name="Add Taxonomy Filter">
         <xpath expr="//form" position="inside">
             <div t-attf-class="{{'border-bottom pb-2 mx-n3 px-3' if isMobile else ''}}">
+                <t t-foreach="request.httprequest.args.items()" t-as="arg">
+                    <t t-if="arg[0] not in ['my_product', 'page', 'taxonomies']">
+                        <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>
+                    </t>
+                </t>
+                <t t-foreach="request.httprequest.args.getlist('tags')" t-as="tag">
+                    <input type="hidden" name="tags" t-att-value="tag"/>
+                </t>
                 <div class="accordion-header h6 mb-0" t-attf-class="{{'mx-4' if isMobile else ''}}">
                     <button class="accordion-button px-0 bg-transparent shadow-none"
                             type="button"
@@ -21,6 +29,7 @@
                                 <input type="checkbox"
                                        class="form-check-input"
                                        name="taxonomies"
+                                       t-att-id="'tax_%s' % tax.id"
                                        t-att-value="tax.id"
                                        t-att-checked="'checked' if str(tax.id) in request.httprequest.args.getlist('taxonomies') else None"
                                        onchange="this.form.submit()"/>

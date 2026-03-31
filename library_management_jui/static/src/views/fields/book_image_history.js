@@ -17,8 +17,9 @@ patch(BinaryField.prototype, {
             name: 'File Upload History',
             type: 'ir.actions.act_window',
             res_model: 'library.book.history',
-            view_mode: [[false,'list']],
-            target: 'new'
+            views: [[false,"list"],[false,"form"]],
+            target: 'new',
+            domain: [['book_id', '=', this.props.record.resId]]
         })
     },
 });

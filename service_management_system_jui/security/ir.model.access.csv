@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+service_management_system_jui.access_service_company,access_service_company,service_management_system_jui.model_custom_service_company,,1,1,1,1
+service_management_system_jui.access_service_category,access_service_category,service_management_system_jui.model_service_category,,1,1,1,1
+service_management_system_jui.access_service_request,access_service_request,service_management_system_jui.model_service_request,,1,1,1,1

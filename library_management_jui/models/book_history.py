@@ -6,4 +6,4 @@ class BookHistoryModel(models.Model):
     _description = 'Book History'
 
     book_id = fields.Many2one('library.books',string='Books')
-    image = fields.Image(string='Image')
+    image = fields.Image(string='Image',related='book_id.cover_image')

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="service_management_system_menu" name="Service Management System"/>
+    </data>
+</odoo>

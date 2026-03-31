@@ -37,6 +37,7 @@
         'views/borrow_request_lines_view.xml',
         'views/librarian_view.xml',
         'views/student_view.xml',
+        'views/book_history_view.xml',
     ],
 
     'demo' :[

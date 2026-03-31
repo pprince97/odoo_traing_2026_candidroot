@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="service_management_system_jui.inheritedaccountservicesbtn" name="Service Request Form" inherit_id="portal.side_content">
+        <xpath expr="//a[hasclass('btn-link')]" position="after">
+            <br/>
+            <a role="button" href="/my/service/request/form" class="btn btn-primary p-2 mt-3">Request Service</a>
+        </xpath>
+    </template>
+
+    <template id="service_management_system_jui.inheritedaccountservices" name="Service Request" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@id='portal_common_category']" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                    <t t-set="title">Service Request List</t>
+                    <t t-set="text">My service request list</t>
+                    <t t-set="url" t-value="'/my/service/request/list'"/>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </xpath>
+    </template>
+
+    <record id="service_management_system_jui.model_service_request" model="ir.model">
+      <field name="website_form_access">True</field>
+    </record>
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>service.request</value>
+        <value eval="[
+            'request_number',
+            'date',
+            'company_id_s',
+            'category_id',
+            'service_id',
+            'customer_id',
+            'country_id',
+            'state_id',
+            'city_id',
+            'street',
+            'state',
+            ]"/>
+    </function>
+
+    <template id="service_management_system_jui.service_request_template_list" name="Service Request">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+
+                    <!-- HEADER -->
+                    <section class="title mb-5">
+                        <span class="bg-primary d-flex pt-4 pb-4"
+                              style="background-position: 50% 0;">
+                            <div class="container">
+                                <h1 class="text-white">Service Request List</h1>
+                            </div>
+                        </span>
+                    </section>
+
+                    <section class="body mt-5 mb-5">
+                        <div class="container" id="service_request_list">
+                            <a role="button" href="/my/service/request/form" class="btn btn-primary p-2 mt-3">Request Service</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="service_management_system_jui.service_request_template_form" name="Service Request Form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+
+                    <!-- HEADER -->
+                    <section class="title mb-5">
+                        <span class="bg-primary d-flex pt-4 pb-4"
+                              style="background-position: 50% 0;">
+                            <div class="container">
+                                <h1 class="text-white">Service Request Form</h1>
+                            </div>
+                        </span>
+                    </section>
+
+                    <section class="body mt-5 mb-5">
+                        <div class="container" id="service_request_form">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="row">
+                                <div class="mb-2 col-12">
+                                    <label class="me-3">State :</label>
+                                    <t t-set="state_options" t-value="request.env['service.request']._fields['state'].selection"/>
+                                    <t t-foreach="state_options" t-as="option">
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio"
+                                                   id="s_state"
+                                                   name="state"
+                                                   class="form-check-input"
+                                                   t-att-value="option[0]"
+                                                   t-att-checked="option[0] == (requests.state if requests else 'draft')"/>
+                                            <label class="form-check-label">
+                                                <t t-esc="option[1]"/>
+                                            </label>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <div id="div_date" class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="s_date">
+                                        Date*
+                                    </label>
+                                    <input id="s_date" type="date" name="date" class="form-control"/>
+                                </div>
+                                <div id="div_customer" class="mb-2 col-lg-6">
+                                    <t t-set="current_customer" t-value="request.env.user"/>
+
+                                    <label class="py-2">Customer*</label>
+                                    <select id="s_customer_id" name="customer_id" class="form-control"
+                                            readonly="1"
+                                            style="pointer-events:none; background:#e9ecef;">
+                                        <option t-att-value="current_customer.id" selected="selected">
+                                            <t t-esc="current_customer.name"/>
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <t t-set="countries" t-value="request.env['res.country'].search([])"/>
+                                <div id="div_country" class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="s_country_id">
+                                        Country*
+                                    </label>
+                                    <select id="s_country_id" name="country_id" class="form-select">
+                                        <option value="">Country...</option>
+                                        <option
+                                            t-foreach="countries"
+                                            t-as="c"
+                                            t-att-value="c.id"
+                                            t-att-code="c.code"
+                                            t-out="c.name"
+                                        />
+                                    </select>
+                                </div>
+
+                                <div id="div_category" class="mb-2 col-lg-6">
+                                    <t t-set="categories" t-value="request.env['service.category'].search([])"/>
+                                    <label class="py-2">Categories*</label>
+                                    <select id="s_category_id" name="category_id" class="form-select">
+                                        <option value="">Categories...</option>
+                                        <t t-foreach="categories" t-as="catg">
+                                            <option t-att-value="catg.id">
+                                                <t t-esc="catg.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div id="div_services" class="col-lg-6 mb-2"/>
+                                <div id="div_company" class="col-lg-6 mb-2"/>
+                                <div id="div_state" class="col-lg-6 mb-2"/>
+                                <div id="div_city" class="col-md-6 mb-2"/>
+                                <div id="div_street" class="col-lg-6 mb-2">
+                                    <label class="col-form-label" for="s_street">
+                                        street
+                                    </label>
+                                    <input id="s_street" type="text" name="street" class="form-control"/>
+                                </div>
+
+                            </div>
+
+                            <div id="myModal" class="modal">
+                              <div class="modal-content">
+                                  <h4>Please Fill up Mandatory Fields</h4>
+                                  <br/>
+                                  <span class="close" id="close_modal">close</span>
+                              </div>
+                            </div>
+
+                            <div id="mySubmitModal" class="modal">
+                              <div class="modal-content">
+                                  <h4>Your Form has been submitted successfully</h4>
+                                  <br/>
+                                  <span class="close" id="close_submit_modal">close</span>
+                              </div>
+                            </div>
+
+                            <!-- FINAL SUBMIT -->
+                            <div class="mt-4">
+                                <button id="save_details" type="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

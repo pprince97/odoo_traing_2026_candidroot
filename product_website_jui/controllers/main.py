@@ -2,6 +2,7 @@ from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 
+
 class ProductTaxonomyController(WebsiteSale):
     def _shop_get_query_url_kwargs(self, search, min_price, max_price, order=None, tags=None, **kwargs):
         attribute_values = request.session.get('attribute_values', [])
@@ -18,7 +19,9 @@ class ProductTaxonomyController(WebsiteSale):
 
     @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
-        selected_taxonomy = request.httprequest.args.getlist('taxonomies')
+        selected_taxonomy = request.httprequest.args.getlist('taxonomies') or post.get('taxonomies', [])
+        if isinstance(selected_taxonomy, str):
+            selected_taxonomy = [selected_taxonomy]
         response = super(ProductTaxonomyController, self).shop(page=page, category=category, search=search,
                                                                ppg=ppg, **post)
 
@@ -38,7 +41,7 @@ class ProductTaxonomyController(WebsiteSale):
                     page=int(post.get('page', 1)),
                     step=ppg,
                     scope=7,
-                    url_args=post  # Keeps the 'applications' in the URL
+                    url_args = dict(request.httprequest.args)
                 )
 
                 offset = pager['offset']
@@ -61,7 +64,6 @@ class ProductTaxonomyController(WebsiteSale):
                     'product_variants': product_variants,
                     'get_product_prices': lambda product: new_products_prices[product.id],
                 })
-
 
         taxonomies = request.env['product.taxonomy'].sudo().search([])
         response.qcontext['taxonomies'] = taxonomies

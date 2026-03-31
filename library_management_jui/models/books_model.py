@@ -50,7 +50,7 @@ class BooksModel(models.Model):
         res = super(BooksModel, self).write(vals)
         for rec in self:
             if rec.cover_image:
-                self.env['library.book.history'].create({'book_id':rec['id'],'image':rec['cover_image']})
+                self.env['library.book.history'].create({'book_id':rec['id']})
         return res
 
     def history_of_borrowed(self):

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="service_request_list" model="ir.ui.view">
+            <field name="name">service.request</field>
+            <field name="model">service.request</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="request_number" width="30px"/>
+                <field name="date" width="30px"/>
+                <field name="category_id" width="15px"/>
+                <field name="company_id_s" width="40px"/>
+                <field name="service_id" width="40px"/>
+                <field name="customer_id" width="40px"/>
+                <field name="country_id" width="40px"/>
+                <field name="state_id" width="40px"/>
+                <field name="city_id" width="40px"/>
+                <field name="street" width="40px"/>
+            </list>
+            </field>
+        </record>
+
+        <record id="service_request_form" model="ir.ui.view">
+            <field name="name">service.request</field>
+            <field name="model">service.request</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <header>
+                        <button name="confirm_state"
+                                string="Confirm"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['confirm','cancel']"
+                        />
+                        <button name="cancel_state"
+                                string="Cancel"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['confirm','cancel']"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="request_number" width="30px"/>
+                                <field name="date" width="30px"/>
+                                <field name="category_id" width="15px"/>
+                                <field name="company_id_s" width="40px"/>
+                                <field name="service_id" width="40px"/>
+                            </group>
+                            <group>
+                                <field name="customer_id" width="40px"/>
+                                <field name="country_id" width="40px"/>
+                                <field name="state_id" width="40px"/>
+                                <field name="city_id" width="40px"/>
+                                <field name="street" width="40px"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_request_action_id" model="ir.actions.act_window">
+            <field name="name">Service Request</field>
+            <field name="res_model">service.request</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="service_request_menu" name="Service Request" parent="service_management_system_jui.service_management_system_menu" action="service_management_system_jui.service_request_action_id"/>
+
+    </data>
+</odoo>
