@@ -1,0 +1,22 @@
+.product-grid {
+    background-color: #ACC7B4;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: raw;
+}
+
+.product-card {
+    background-color: #331B3F;
+    color: white;
+    padding: 20px;
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-image {
+    font-size: 30px;
+}

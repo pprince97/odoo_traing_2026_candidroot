@@ -1,6 +1,5 @@
 import odoo.http as http
 from odoo.http import request
-# from odoo.addons.website.controllers.main import Website
 
 class CustomHome(http.Controller):
     @http.route('/', type='http', auth='public', website=True)
@@ -24,7 +23,6 @@ class PartnerFormController(http.Controller):
 
     @http.route('/contactus', type='http', auth='public', website=True)
     def index_contact(self, **kwargs):
-        # print("------1---------")
         return request.render('website.contactus')
 
     @http.route('/partner/form/submit', type='http', auth='public', methods=['POST'], website=True)
