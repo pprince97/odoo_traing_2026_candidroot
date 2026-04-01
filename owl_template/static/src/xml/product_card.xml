@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl_template.ProductCard">
+
+        <div class="product-card">
+            <span class="product-image">
+                <t t-esc="props.image || '?'"/>
+            </span>
+            <div class="product-info">
+                <span class="product-name">
+                    <t t-esc="props.name"/>
+                </span>
+                <span class="product-price">
+                    $<t t-esc="props.price.toFixed(2)"/>
+                </span>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,13 @@
+<odoo>
+    <record id="product_action_window" model="ir.actions.client">
+        <field name="name">Products</field>
+        <field name="tag">owl_template.product_action</field>
+    </record>
+
+    <menuitem id="owl_parent_js" name="OWL JS"/>
+
+    <menuitem id="menu_products"
+              name="Products"
+              action="product_action_window"
+              parent="owl_parent_js"/>
+</odoo>
