@@ -1,0 +1,26 @@
+<odoo>
+    <record id="company_demo_data1" model="service.company">
+        <field name="name">Candidroot Solutions</field>
+        <field name="email">info@candidroot.com</field>
+        <field name="phone">1594872634</field>
+    </record>
+    
+    <record id="company_demo_data2" model="service.company">
+        <field name="name">Moon Technolab</field>
+        <field name="email">info@moontechno.com</field>
+        <field name="phone">844646454654</field>
+    </record>
+    
+    <record id="company_demo_data3" model="service.company">
+        <field name="name">Urban Company</field>
+        <field name="email">info@urbancompany.com</field>
+        <field name="phone">6546545646</field>
+    </record>
+    
+    <record id="company_demo_data4" model="service.company">
+        <field name="name">Lenskart</field>
+        <field name="email">info@lenskart.com</field>
+        <field name="phone">7978459625</field>
+    </record>
+    
+</odoo>

@@ -1,0 +1,57 @@
+<odoo>
+    <record id="request_list_view" model="ir.ui.view">
+        <field name="name">request.list.view</field>
+        <field name="model">service.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="companies_id"/>
+                <field name="product"/>
+                <field name="customer_id"/>
+                <field name="category_id"/>
+                <field name="country_id"/>
+                <field name="state_id"/>
+                <field name="date"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="request_form_view" model="ir.ui.view">
+        <field name="name">request.form.view</field>
+        <field name="model">service.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="companies_id"/>
+                            <field name="product" domain="[('type', '=', 'service')]"/>
+                            <field name="customer_id" />
+                            <field name="category_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="country_id"/>
+                            <field name="state_id"/>
+                            <field name="city_id"/>
+                            <field name="address"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="service_request_action_window" model="ir.actions.act_window">
+        <field name="name">Service request Record</field>
+        <field name="res_model">service.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="request_record"
+              name="Service Request"
+              parent="service_menu_root"
+              action="service_request_action_window"/>
+
+</odoo>

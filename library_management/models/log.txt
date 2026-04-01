@@ -25,3 +25,4 @@
 (False, datetime.date(2026, 3, 26), False)
 (False, datetime.date(2026, 3, 26), False)
 ('book-svgrepo-com.svg', datetime.date(2026, 3, 26), 20)
+('One Piece.png', datetime.date(2026, 3, 31), 1)

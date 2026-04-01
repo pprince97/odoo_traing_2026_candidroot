@@ -1,0 +1,151 @@
+<odoo>
+    <template id="my_profile_menu" name="Profile Button in Portal"
+              inherit_id="portal.user_dropdown">
+        <xpath expr="//*[@id='o_logout_divider']" position="before">
+            <a href="/service-request" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-user me-1 small text-primary-emphasis"/>
+                Service Request
+            </a>
+        </xpath>
+    </template>
+
+
+    <template id="service_request_form" name="Service Request Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Service Request</h1>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt40 pb40 o_colored_level" data-snippet="s_text_block">
+                    <div class="container s_allow_columns">
+                        <div class="row">
+                            <div class="col-lg-6 mt-2 mt-lg-0 container w-72 mx-auto">
+                                <form class="row g-3" action="/service-request-create" method="post"
+                                      enctype="multipart/form-data" id="serviceFormRequest">
+
+                                    <div class="col-md-6">
+                                        <label for="inputServiceCompany" class="form-label fw-semibold">Service
+                                            Company
+                                        </label>
+                                        <select id="inputServiceCompany" class="form-select">
+                                            <option disabled="disabled" selected="selected" value="">
+                                                Select Company
+                                            </option>
+                                            <t t-foreach="request.env['service.company'].sudo().search([])"
+                                               t-as="service">
+                                                <option t-att-value="service.id">
+                                                    <t t-esc="service.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="inputCustomer" class="form-label fw-semibold">Customer</label>
+                                        <select id="inputCustomer" class="form-select">
+                                            <option disabled="disabled" selected="selected" value="">
+                                                Select Customer
+                                            </option>
+                                            <t t-foreach="request.env['res.partner'].sudo().search([])"
+                                               t-as="service">
+                                                <option t-att-value="service.id">
+                                                    <t t-esc="service.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <label for="inputBarcode" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="inputBarcode"/>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <label for="inputServiceCategory" class="form-label fw-semibold">Service
+                                            Category
+                                        </label>
+                                        <select id="inputServiceCategory" class="form-select category_select">
+                                            <option disabled="disabled" selected="selected" value="">
+                                                Select Service Category
+                                            </option>
+                                            <t t-foreach="request.env['service.category'].sudo().search([])"
+                                               t-as="service">
+                                                <option t-att-value="service.id">
+                                                    <t t-esc="service.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="inputService" class="form-label fw-semibold">Service</label>
+                                        <select class="form-control service_select" id="inputService">
+                                            <option value="">Select Service</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Country</label>
+                                        <select class="form-control country_select" name="country">
+                                            <option value="">Select Country</option>
+
+                                            <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                                <option t-att-value="country.id">
+                                                    <t t-esc="country.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
+                                    <!-- State -->
+                                    <div class="col-md-6">
+                                        <label>State</label>
+                                        <select class="form-control state_select" name="state">
+                                            <option value="">Select State</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- City -->
+                                    <div class="col-md-6">
+                                        <label>City</label>
+                                        <select class="form-control city_select" name="city">
+                                            <option value="">Select City</option>
+                                        </select>
+                                        <input type="text" name="city_name" t-att-value="city_name" id="city_name"
+                                               class="form-control city_name"
+                                               t-att-style="'display: none;'" placeholder="City Name"/>
+                                    </div>
+
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="description" type="checkbox"
+                                                   id="gridCheck"/>
+                                            <label class="form-check-label" for="gridCheck">
+                                                Check me out
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <button id="submitPopUp" type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

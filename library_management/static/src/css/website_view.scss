@@ -46,3 +46,122 @@ $is-active: true;
     color: #875A7B;
     padding-left: 4px;
 }
+
+// =============================================
+//  Custom Alert / Popup Styles
+// =============================================
+
+.custom-alert {
+    position: fixed;
+    top: 24px;
+    right: -420px;              // hidden off-screen by default
+    width: 320px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    transition: right 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 9999;
+
+    // Auto-dismiss progress bar
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+        border-radius: 0 0 12px 12px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 4s linear;
+    }
+
+    &.show {
+        right: 24px;
+
+        &::after {
+            transform: scaleX(1);
+        }
+    }
+
+    // ---- Success ----
+    &.success {
+        border-left: 5px solid #22c55e;
+
+        &::after {
+            background: #22c55e;
+        }
+
+        .alert-icon-wrap {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+    }
+
+    // ---- Error ----
+    &.error {
+        border-left: 5px solid #ef4444;
+
+        &::after {
+            background: #ef4444;
+        }
+
+        .alert-icon-wrap {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+    }
+
+    // Icon circle
+    .alert-icon-wrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 18px;
+    }
+
+    // Text block
+    .alert-body {
+        flex: 1;
+
+        strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.45;
+        }
+    }
+
+    // Close button
+    .alert-close {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        flex-shrink: 0;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #475569;
+        }
+    }
+}

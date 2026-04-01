@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_service_company_admin,service.company.admin,model_service_company,service_management_amitkumar.group_admin,1,1,1,1
+access_service_company_owner,service.company.owner,model_service_company,service_management_amitkumar.group_owner,1,1,0,0
+
+
+access_service_category,service.category,model_service_category,,1,1,1,1
+access_service_request,service.request,model_service_request,,1,1,1,1

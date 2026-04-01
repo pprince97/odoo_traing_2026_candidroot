@@ -1,0 +1,69 @@
+<odoo>
+    <record id="inherit_product_template_list_view" model="ir.ui.view">
+        <field name="name">inherit.product.template.list.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="service_category_id"/>
+                <field name="companies_id"/>
+            </list>
+        </field>
+    </record>
+
+        <record id="product_template_inherit" model="ir.ui.view">
+            <field name="name">product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="service_category_id"/>
+                    <field name="companies_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="placeholder">Enter service name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+<!--    <record id="inherit_product_template_form_view" model="ir.ui.view">-->
+<!--        <field name="name">inherit.product.template.form.view</field>-->
+<!--        <field name="model">product.template</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <group>-->
+<!--                    <group>-->
+<!--                        <group>-->
+<!--                            <field name="name" placeholder="Enter service"/>-->
+<!--                            <field name="type" widget="radio" options="{'horizontal': true}"/>-->
+
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="service_category_id"/>-->
+<!--                            <field name="companies_id"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </group>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="inherit_product_template_action" model="ir.actions.act_window">
+        <field name="name">Product Record</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="context" eval="{'default_type':'service'}"/>
+        <field name="domain">[('type','=','service')]</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('inherit_product_template_list_view')})]"/>
+<!--        <field name="view_ids"-->
+<!--               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('inherit_product_template_form_view')})]"/>-->
+    </record>
+
+    <menuitem id="inherit_product_template"
+              name="Product"
+              parent="service_menu_root"
+              action="inherit_product_template_action"/>
+</odoo>

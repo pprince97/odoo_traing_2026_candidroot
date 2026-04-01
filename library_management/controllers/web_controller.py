@@ -48,14 +48,14 @@ class BookForm(http.Controller):
             return request.render('website.homepage')
 
 
+
     @http.route('/book/form', type='http', auth='public', website=True, methods=['GET'])
     def book_form_func(self):
         return request.render('library_management.book_form')
 
 
     @http.route('/book-create', type='http', auth='public', website=True, methods=['POST'], csrf=True)
-    def create_book(self, **post):\
-    #
+    def create_book(self, **post):
         request.env['library.books'].sudo().create({
             'id': post.get('id'),
             'student_id': post.get('student_id'),
