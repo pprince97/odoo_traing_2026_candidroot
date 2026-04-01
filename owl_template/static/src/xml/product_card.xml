@@ -1,0 +1,37 @@
+<templates>
+    <t t-name="my_module.MyClientActionTemplate">
+        <div class="p-4">
+            <h2>🛒 Product List</h2>
+
+            <div class="product-container">
+                <t t-foreach="state.products" t-as="product" t-key="product.id">
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <t t-esc="product.image"/>
+                        </div>
+
+                        <h4><t t-esc="product.name"/></h4>
+                        <p>Price: ₹ <t t-esc="product.price"/></p>
+
+                        <div class="qty-controls">
+                            <button class="qty-btn"
+                                    t-on-click="() => this.decreaseQty(product)">-</button>
+
+                            <span><t t-esc="product.qty"/></span>
+
+                            <button class="qty-btn"
+                                    t-on-click="() => this.increaseQty(product)">+</button>
+                        </div>
+
+                        <div class="total-price">
+                            Total: ₹ <t t-esc="this.getTotal(product)"/>
+                        </div>
+                    </div>
+
+                </t>
+            </div>
+
+        </div>
+    </t>
+</templates>

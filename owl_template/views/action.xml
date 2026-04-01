@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="action_my_client" model="ir.actions.client">
+            <field name="name">My Client Action</field>
+            <field name="tag">my_client_action</field>
+        </record>
+
+        <menuitem id="menu_my_client"
+                  name="My Client Action Menu"
+                  action="action_my_client"/>
+    </data>
+</odoo>
