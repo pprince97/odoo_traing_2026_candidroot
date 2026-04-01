@@ -1,0 +1,20 @@
+<odoo>
+    <record id="action_shoping_counter" model="ir.actions.client">
+        <field name="name">OWL Shoping Counter</field>
+        <field name="tag">owl_shoping_cart.counter_action</field>
+    </record>
+
+    <menuitem id="menu_shoping_counter"
+              name="OWL Shoping Counter"
+              action="action_shoping_counter"/>
+
+
+    <record id="action_swiper_component" model="ir.actions.client">
+        <field name="name">Action Swiper Component</field>
+        <field name="tag">owl_shoping_cart.action_swiper</field>
+    </record>
+
+    <menuitem id="menu_swiper_component"
+              name="Action Swiper Component"
+              action="action_swiper_component"/>
+</odoo>

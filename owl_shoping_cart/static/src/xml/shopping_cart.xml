@@ -1,0 +1,65 @@
+<templates>
+    <t t-name="owl_shoping_cart.ShoppingCart">
+        <div class="cart">
+            <h2 class="product-highlight">Shopping Cart</h2>
+
+            <div class="product-table-container">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="filteredProducts" t-as="p" t-key="p.id">
+                            <tr>
+                                <td class="product-name">
+                                    <t t-out="p.name"/>
+                                </td>
+
+                                <td class="product-price">
+                                    $
+                                    <t t-out="p.price"/>
+                                </td>
+
+                                <td class="product-qty">
+                                    <t t-out="p.qty"/>
+                                </td>
+
+                                <td class="product-actions">
+                                    <button class="btn decrease"
+                                            t-on-click="() => this.decrease(p, 1)">
+                                        −
+                                    </button>
+
+                                    <button class="btn increase"
+                                            t-on-click="() => this.increase(p, 1)">
+                                        +
+                                    </button>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <hr/>
+            <div class="total product-highlight">Total: $
+                <t t-out="total"/>
+            </div>
+            <!--            this is for custom pop up-->
+            <div class="outer">
+                <div class="popup">
+                    <h2 class="center">Qty is Zero</h2>
+                    <br/>
+                    <button id="closebtn">Close</button>
+                </div>
+            </div>
+<!--            Owl Advance Component -->
+
+
+        </div>
+    </t>
+</templates>

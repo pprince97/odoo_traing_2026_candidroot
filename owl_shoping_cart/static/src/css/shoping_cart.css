@@ -1,0 +1,178 @@
+.product-highlight {
+    width: 100%;
+    font-size: 24px;
+    overflow-x: auto;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.product-table thead {
+    background-color: #f5f7fa;
+}
+
+.product-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.product-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #555;
+}
+
+.product-table tbody tr:hover {
+    background-color: #fafafa;
+    transition: 0.2s ease;
+}
+
+/* Column styling */
+.product-name {
+    font-weight: 500;
+}
+
+.product-price {
+    color: #2e7d32;
+    font-weight: 500;
+}
+
+.product-qty {
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Actions */
+.product-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Buttons */
+.btn {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.btn.decrease {
+    background-color: #ffe5e5;
+    color: #d32f2f;
+}
+
+.btn.decrease:hover {
+    background-color: #ffcdd2;
+}
+
+.btn.increase {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.btn.increase:hover {
+    background-color: #bbdefb;
+}
+/* this part is for custom pop up */
+/*.popup {*/
+/*    background-color: #d05454;*/
+/*    width: 366px;*/
+/*    height: 222px;*/
+/*    border-radius: 26px;*/
+/*    text-align: center;*/
+
+/*    !* Positioning *!*/
+/*    position: fixed;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+
+/*    !* Visibility *!*/
+/*    display: none;*/
+/*    opacity: 0;*/
+
+/*    !* Smooth animation *!*/
+/*    transition: opacity 0.5s ease, transform 0.5s ease;*/
+
+/*    !* Styling *!*/
+/*    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);*/
+/*    padding: 20px;*/
+/*    color: #a8714a;*/
+/*}*/
+
+/* When popup is active */
+/*.popup.show {*/
+/*    display: block;*/
+/*    opacity: 1;*/
+/*    transform: translate(-50%, -50%) scale(1);*/
+/*}*/
+
+
+.popup {
+    background-color: #ffd3bc;
+    width: 366px;
+    height: 222px;
+    border-radius: 26px;
+    text-align: center;
+    display: none;
+    /*transition: opacity 0.5s ease, transform 0.5s ease;*/
+    transition-duration: 1s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.popup .center{
+    margin-top: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#closebtn {
+    margin-top: 3px;
+}
+
+.popup button {
+    margin-top: 6px;
+}
+/* To this*/
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-table th,
+    .product-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+}
