@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl_hooks.Counter">
+        <div class="p-3 border rounded shadow-sm bg-light">
+            <h3>Count: <t t-esc="state.value"/></h3>
+            <div class="btn-group mt-2">
+                <button class="btn btn-primary" t-on-click="increment">+</button>
+                <button class="btn btn-secondary" t-on-click="decrement">-</button>
+                <button class="btn btn-success" t-on-click="reset">Reset</button>
+            </div>
+        </div>
+    </t>
+</templates>

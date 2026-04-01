@@ -97,13 +97,26 @@
         </field>
     </record>
 
+    <record id="book_history_view_list" model="ir.ui.view">
+        <field name="name">library.image.history</field>
+        <field name="model">library.image.history</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id" width="25px"/>
+                <field name="history_image" width="25px" widget="image"/>
+            </list>
+        </field>
+    </record>
+
     <record id="book_action" model="ir.actions.act_window">
         <field name="name">Book</field>
         <field name="res_model">library.book</field>
         <field name="view_mode">kanban,form</field>
     </record>
 
-    <menuitem id="library_book" name="Book" parent="library_root" action="book_action" groups="library_management_urvi.group_library_librarian,library_management_urvi.group_library_admin" sequence="2"/>
+    <menuitem id="library_book" name="Book" parent="library_root" action="book_action"
+              groups="library_management_urvi.group_library_librarian,library_management_urvi.group_library_admin"
+              sequence="2"/>
 </odoo>
 
 

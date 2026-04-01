@@ -41,6 +41,7 @@
                     >
                         <div class="accordion-body pt-0">
                             <div class="list-group list-group-flush">
+                                
                                 <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-0 pb-0">
                                     <div class="form-check mb-1">
                                         <input type="checkbox"
@@ -53,6 +54,11 @@
                                         <label class="form-check-label fw-normal" t-attf-for="area_#{area.id}"
                                                t-field="area.name"/>
                                     </div>
+                                </t>
+                                <t t-foreach="request.httprequest.args.items()" t-as="arg">
+                                    <t t-if="arg[0] not in ['applications', 'page']">
+                                        <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>
+                                    </t>
                                 </t>
                             </div>
                         </div>
@@ -82,19 +88,26 @@
                             id="o_wsale_area_option_inner"
                             class="accordion-collapse collapse show"
                     >
-                        <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-1 pb-0">
-                            <div class="form-check mb-1">
-                                <input type="checkbox"
-                                       name="applications"
-                                       class="form-check-input"
-                                       t-att-value="area.id"
-                                       onchange="this.form.submit()"
-                                       t-att-checked="'checked' if str(area.id) in request.httprequest.args.getlist('applications') else None"
-                                />
-                                <label class="form-check-label fw-normal" t-attf-for="area_#{area.id}"
-                                       t-field="area.name"/>
-                            </div>
-                        </t>
+                        <form method="get" action="/shop">
+                            <t t-foreach="application" t-as="area" class="list-group-item border-0 ps-1 pb-0">
+                                <div class="form-check mb-1">
+                                    <input type="checkbox"
+                                           name="applications"
+                                           class="form-check-input"
+                                           t-att-value="area.id"
+                                           onchange="this.form.submit()"
+                                           t-att-checked="'checked' if str(area.id) in request.httprequest.args.getlist('applications') else None"
+                                    />
+                                    <label class="form-check-label fw-normal" t-attf-for="area_#{area.id}"
+                                           t-field="area.name"/>
+                                </div>
+                            </t>
+                            <t t-foreach="request.httprequest.args.items()" t-as="arg">
+                                <t t-if="arg[0] not in ['applications', 'page']">
+                                    <input type="hidden" t-att-name="arg[0]" t-att-value="arg[1]"/>
+                                </t>
+                            </t>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -102,13 +115,16 @@
     </template>
 
     <template id="clear_filters" inherit_id="website_sale.products" name="Clear Filters">
-    <xpath expr="//div[hasclass('border-bottom')]" position="attributes">
-        <attribute name="t-if">attrib_values or tags or request.httprequest.args.getlist('applications') or (show_price_filter and isFilteringByPrice)</attribute>
-    </xpath>
-    <xpath expr="//div[hasclass('border-bottom')]/a" position="attributes">
-        <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, applications=0)</attribute>
-    </xpath>
-</template>
+        <xpath expr="//div[hasclass('border-bottom')]" position="attributes">
+            <attribute name="t-if">attrib_values or tags or request.httprequest.args.getlist('applications') or
+                (show_price_filter and isFilteringByPrice)
+            </attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('border-bottom')]/a" position="attributes">
+            <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, applications=0)
+            </attribute>
+        </xpath>
+    </template>
     <template id="clear_filters_mobile" inherit_id="website_sale.o_wsale_offcanvas" name="Clear Filters">
         <xpath expr="//div[hasclass('offcanvas-body')]/a" position="attributes">
             <attribute name="t-attf-class"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_inherit_view_service" model="ir.ui.view">
+        <field name="name">inherit.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="service_category_id"/>
+                <field name="service_company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="service_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_type': 'service'}</field>
+    </record>
+
+    <menuitem id="service_service" name="Services" parent="service_root" action="service_action" sequence="3"/>
+</odoo>

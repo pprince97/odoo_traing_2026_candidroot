@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <template id="template_view_request" name="My Service Requests">
+        <t t-call="website.layout">
+            <div id="wrap" class="container mt-4">
+                <form action="/my/request" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h1 class="mb-4 ms-0">My Service Requests</h1>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <t t-foreach="requests" t-as="r">
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <t t-esc="r.req_number"/>
+                                            <span t-if="r.state == 'cancel'" class="badge bg-warning float-end">
+                                                Cancel
+                                            </span>
+                                            <span t-if="r.state == 'confirm'" class="badge bg-success float-end">
+                                                Confirm
+                                            </span>
+                                            <span t-if="r.state == 'draft'" class="badge bg-primary float-end">
+                                                Draft
+                                            </span>
+                                            <span t-if="r.state == 'done'" class="badge bg-primary float-end">
+                                                Done
+                                            </span>
+                                        </h5>
+                                        <p class="card-text text-muted">
+                                            <small>Service:
+                                                <t t-esc="r.service_id.name"/>
+                                            </small>
+                                            <br/>
+                                            <small>Category:
+                                                <span t-field="r.category_id.name"/>
+                                            </small>
+                                        </p>
+                                    </div>
+
+                                    <div class="card-footer bg-white border-top-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="h5 mb-0 font-weight-bold">
+                                                <small class="text-muted">Company</small>:
+                                                <span t-esc="r.category_id.company_id.name"/>
+                                            </span>
+                                            <span class="h5 mb-0 font-weight-bold">
+                                                <span t-field="r.date"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="products_pager d-flex justify-content-center">
+                        <t t-call="website.pager">
+                            <t t-set="_classes">mt-2 ml-md-2 text-center</t>
+                        </t>
+                    </div>
+                    <br/>
+                    <hr class="border-600 s_hr_1px w-100 mx-auto s_hr_dotted"/>
+                </form>
+            </div>
+        </t>
+    </template>
+
+        <template id="addons_in_account_service_" inherit_id="portal.side_content">
+        <xpath expr="//div[hasclass('o_portal_my_details')]" position="before">
+            <a role="button" href="/create/request" class="btn btn-link p-0 mt-3"><i class="fa fa-fw fa-info-circle"/>Request Service</a>
+        </xpath>
+    </template>
+
+</odoo>

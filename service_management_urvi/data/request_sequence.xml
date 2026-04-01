@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="borrow_serial_seq" model="ir.sequence">
+            <field name="name">Service Request Sequence</field>
+            <field name="code">request.sequence</field>
+            <field name="prefix">S</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

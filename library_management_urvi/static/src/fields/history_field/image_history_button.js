@@ -44,7 +44,8 @@ patch(ImageField.prototype, {
             type: 'ir.actions.act_window',
             res_model: 'library.image.history',
             views: [[false, "list"]],
-            target: 'new'
+            target: 'new',
+            domain: [['book_id', '=', this.props.record.resId]]
         })
 
 

@@ -76,3 +76,10 @@ class Book(models.Model):
         self._onchange_barcode()
         rec = super(Book,self).create(vals)
         return rec
+
+    def write(self, vals):
+        res = super(Book, self).write(vals)
+        for rec in self:
+            if rec.image:
+                self.env['library.image.history'].create({'book_id': rec['id']})
+        return res
