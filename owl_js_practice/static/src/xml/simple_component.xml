@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl_js_practice.Counter">
+        <div class="container text-center my-4">
+            <div class="container counter py-3">
+                <h2>Counter</h2>
+                <t t-out="state.count"/>
+            </div>
+            <div class="container">
+                <button class="btn btn-primary m-4" t-on-click="increment">increment</button>
+                <button class="btn btn-primary m-4" t-on-click="decrement">decrement</button>
+                <button class="btn btn-primary m-4" t-on-click="reset">reset</button>
+            </div>
+        </div>
+    </t>
+</templates>

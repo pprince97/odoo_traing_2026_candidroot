@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="owl_js_practice.ProductCard">
+        <div class="product-card">
+            <span class="product-image" t-out="props.image or '📦'"/>
+            <div class="product-info">
+                <span class="product-name" t-out="props.name"/>
+                <span class="product-price">$<t t-out="props.price"/></span>
+            </div>
+        </div>
+    </t>
+</templates>

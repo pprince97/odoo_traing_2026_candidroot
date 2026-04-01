@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl_js_practice.Root">
+        <div class="container my-4 text-center">Hello <t t-out="state.appName"/></div>
+    </t>
+</templates>
