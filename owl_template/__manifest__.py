@@ -19,8 +19,8 @@
     'assets': {
         'web.assets_backend': [
             'owl_template/static/src/js/main.js',
+            'owl_template/static/src/js/patching.js',
             'owl_template/static/src/xml/product_card.xml',
-            # 'owl_template/static/src/js/product_card.js',
             'owl_template/static/src/css/counter.css',
         ]
     },

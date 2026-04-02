@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import {registry} from "@web/core/registry";
-import {Component, useState} from "@odoo/owl";
+import {Component, useState, onWillStart} from "@odoo/owl";
 
 class MyClientAction extends Component {
     setup() {
@@ -28,6 +28,11 @@ class MyClientAction extends Component {
                 // {id: 19, name: "Smart TV Stick", price: 49.99, qty: 1, image: "📺"},
             ]
         });
+        // onWillStart(async () => {
+        //         this.data = await this.loadData();
+        //     });
+        //
+        // }
     }
 
     increaseQty(product) {
