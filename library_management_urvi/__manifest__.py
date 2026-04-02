@@ -12,6 +12,8 @@
         'web.assets_backend': [
             'library_management_urvi/static/src/fields/history_field/*.xml',
             'library_management_urvi/static/src/fields/history_field/*.js',
+            'library_management_urvi/static/src/js/patch_lib.js',
+            'library_management_urvi/static/src/js/widget_upper.js',
         ],
         'web.assets_frontend': [
             'library_management_urvi/static/src/js/profile_info.js'

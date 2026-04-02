@@ -5,25 +5,49 @@ from odoo import http, _
 from odoo.http import request
 import base64
 
+
 class BookController(http.Controller):
 
-    @http.route(['/book','/book/page/<int:page>'], type='http', auth='public', website=True)
-    def public_controller(self,page=0):
+    @http.route(['/book', '/book/page/<int:page>'], type='http', auth='public', website=True)
+    def public_controller(self, page=0, filterby='all'):
         if request.env.user._is_public():
             return request.render("library_management_urvi.book_template_public")
         else:
-            books = request.env['library.book'].search([])
+            Book = request.env['library.book'].search([])
+            searchbar_filters = {
+                'all': {
+                    'label': 'All',
+                    'domain': [],
+                },
+                'registered': {
+                    'label': 'Published',
+                    'domain': [('state', '=', 'published')],
+                },
+                'downgraded': {
+                    'label': 'unpublished',
+                    'domain': [('state', '=', 'unpublished')],
+                },
+            }
+            filter_domain = searchbar_filters.get(filterby, searchbar_filters['all'])['domain']
+            domain = filter_domain
+            book_count = Book.search_count(domain)
             pager = request.website.pager(
                 url='/book',
-                total=len(books),
+                total=book_count,
+                url_args={
+                    'filterby': filterby,
+                },
                 page=page,
                 step=3,
             )
-            offset = pager['offset']
-            books = books[offset: offset + 3]
-            return request.render('library_management_urvi.template_view_all_books', {'books': books,'pager': pager})
-
-
+            book_records = Book.search(domain,
+                limit = 3,
+                offset = pager['offset'],
+                order = 'name asc',
+            )
+        # offset = pager['offset']
+        # books = books[offset: offset + 3]
+        return request.render('library_management_urvi.template_view_all_books', {'books': book_records, 'pager': pager,'searchbar_filters': searchbar_filters,'filterby': filterby,})
 
     @http.route(['/book/submit'], type='http', auth="user", website=True, sitemap=False)
     def book_form_submit(self, **post):
@@ -41,7 +65,7 @@ class BookController(http.Controller):
             'image': post['image'] if post.get('image') else False,
         })
         books = request.env['library.book'].search([])
-        return request.render("library_management_urvi.template_view_all_books",{'books': books})
+        return request.render("library_management_urvi.template_view_all_books", {'books': books})
 
     @http.route(['/create/book'], type='http', auth='user', website=True)
     def book_create(self):
@@ -59,12 +83,13 @@ class BookController(http.Controller):
     @http.route(['/my/profile/update'], type='http', auth="user", website=True)
     def update_partner_profile(self, **post):
         partner = request.env.user.partner_id
-        partner.update({'name': post.get('name') or '','email': post.get('email') or '','phone': post.get('phone') or '','gender': post.get('gender') or ''})
+        partner.update(
+            {'name': post.get('name') or '', 'email': post.get('email') or '', 'phone': post.get('phone') or '',
+             'gender': post.get('gender') or ''})
         values = {
             'partner': partner,
         }
         return request.redirect("/my/profile")
-
 
     @http.route(['/profile'], type='http', auth="user", website=True)
     def get_profile_form(self):
@@ -84,13 +109,14 @@ class BookController(http.Controller):
         }
 
     @http.route('/get_states', type='jsonrpc', auth='user')
-    def get_states(self,country):
-        states = request.env['res.country.state'].search_read([('country_id','=',country)],['id', 'name'])
+    def get_states(self, country):
+        states = request.env['res.country.state'].search_read([('country_id', '=', country)], ['id', 'name'])
         return states
 
     @http.route('/get_city', type='jsonrpc', auth='user')
-    def get_city(self, country,state):
-        city = request.env['res.city'].search_read([('country_id', '=', country),('state_id','=',state)], ['id', 'name'])
+    def get_city(self, country, state):
+        city = request.env['res.city'].search_read([('country_id', '=', country), ('state_id', '=', state)],
+                                                   ['id', 'name'])
         return city
 
     @http.route('/create_partner', type='jsonrpc', auth='user', website=True)
@@ -100,6 +126,3 @@ class BookController(http.Controller):
         request.env['res.partner'].create(params)
         print('>>>>>>>>>>>>>>>>>py')
         return {'success': True}
-
-
-

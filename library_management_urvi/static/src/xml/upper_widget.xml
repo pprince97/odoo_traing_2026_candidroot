@@ -1,0 +1,7 @@
+<templates xml:space="preserve">
+    <t t-name="my_module.UpperCaseCharField" t-inherit="web.CharField" t-inherit-mode="extension">
+        <xpath expr="//input" position="attributes">
+            <attribute name="style">text-transform: uppercase;</attribute>
+        </xpath>
+    </t>
+</templates>

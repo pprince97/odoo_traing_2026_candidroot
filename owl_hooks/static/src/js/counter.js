@@ -9,7 +9,7 @@ export class Counter extends Component {
 
         onWillStart(()=>{
             console.log("on will start",new Date().toLocaleTimeString())
-        })
+        });
 
         onWillRender(()=>{
             console.log("on will renderrr",new Date().toLocaleTimeString())
@@ -33,11 +33,11 @@ export class Counter extends Component {
 
         onWillPatch(()=>{
             console.log("on will patch",new Date().toLocaleTimeString())
-        })
+        });
 
         onPatched(()=>{
             console.log("on patcheddd",new Date().toLocaleTimeString())
-        })
+        });
     }
 
     increment() {

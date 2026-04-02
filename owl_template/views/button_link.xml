@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="button_link_mail" model="ir.ui.view">
+        <field name="name">inherit.mail.compose.message</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//footer" position="inside">
+                <field name="scheduled_date" widget="link_button"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

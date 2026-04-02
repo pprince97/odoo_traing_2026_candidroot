@@ -10,16 +10,21 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['base'],
+    'depends': ['base','web','mail'],
 
     'data': [
         'views/action.xml',
+        'views/button_link.xml'
     ],
 
     'assets': {
         'web.assets_backend': [
             'owl_template/static/src/js/counter.js',
+            'owl_template/static/src/js/link_button.js',
+            'owl_template/static/src/js/custom_dialog.js',
+            'owl_template/static/src/xml/custom_dialog.xml',
             'owl_template/static/src/xml/counter.xml',
+            'owl_template/static/src/xml/link_button.xml',
             'owl_template/static/src/css/counter.css',
         ]
     },
