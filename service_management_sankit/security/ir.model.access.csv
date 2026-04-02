@@ -1,0 +1,17 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+
+access_company_object,company_object,model_company_object,service_management_sankit.group_service_admin,1,1,1,1
+access_company_object_2,company_object,model_company_object,service_management_sankit.group_service_owner,1,0,0,0
+
+
+access_service_category,service_category,model_service_category,service_management_sankit.group_service_admin,1,1,1,1
+access_service_category_2,service_category,model_service_category,service_management_sankit.group_service_owner,1,1,1,0
+
+
+access_service_request,service_request,model_service_request,service_management_sankit.group_service_admin,1,1,1,1
+access_service_request_2,service_request,model_service_request,service_management_sankit.group_service_owner,1,1,1,1
+access_service_request_3,service_request,model_service_request,service_management_sankit.group_service_customer,1,0,0,0
+
+access_product_template,product_template,model_product_template,service_management_sankit.group_service_admin,1,1,1,1
+access_product_template_2,product_template,model_product_template,service_management_sankit.group_service_owner,1,1,1,1
+

@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+        <template id="button_inherit_view" inherit_id="website.contactus" name="Custom Website Footer">
+            <xpath expr="//form[@id='contactus_form']" position="before">
+                <!--        <xpath expr="//div[hasclass('container')]" position="before">-->
+                <p class="text-muted">This is inherit note.</p>
+                <div class="mb-0 py-2 col-12"
+                     data-name="Submit Button">
+                    <div style="width: 200px;"/>
+                    <a class="btn btn-lg btn-primary" href="/service-request/form">Service Request
+                    </a>
+                </div>
+            </xpath>
+        </template>
+
+
+        <template id="service_request_form" name="Service Request">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                             data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1>Service Request Form</h1>
+                        </div>
+                    </section>
+
+                    <div class="container my-5 o_country_state_form">
+                        <div class="row container w-75 mx-auto">
+                            <form action="/service-request/create" method="post">
+
+                                <div class="mb-3">
+                                    <label class="form-label">Customer Name</label>
+                                    <select name="customer_id" class="form-control">
+                                        <t t-foreach="request.env['res.partner'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Service Date</label>
+                                    <input type="date" name="service_date" required="required" class="form-control"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Country</label>
+                                    <select name="country_id" class="form-control country_select">
+                                        <t t-foreach="request.env['res.country'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">State</label>
+                                    <select name="state_id" class="form-control state_select">
+                                        <t t-foreach="request.env['res.country.state'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">City</label>
+                                    <select name="city_id" class="form-control city_select">
+                                        <t t-foreach="request.env['res.city'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+<!--                                    <input type="text" name="city_name" t-att-value="city_name" id="city_name" class="form-control city_name"-->
+<!--                               t-att-style="'display: none;'" placeholder="City Name"/>-->
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label class="form-label">Company</label>
+                                    <select name="company_id" class="form-control company_select">
+                                        <t t-foreach="request.env['company.object'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                 <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select name="service_category_id" class="form-control category_select">
+                                        <t t-foreach="request.env['service.category'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.service_name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Service</label>
+                                    <select name="service_id" class="form-control service_select">
+                                        <t t-foreach="request.env['product.template'].sudo().search([])" t-as="record">
+                                            <option t-att-value="record.id">
+                                                <t t-esc="record.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+
+                                <!--                                This is Edit-->
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
