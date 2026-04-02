@@ -7,7 +7,7 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['base', 'website', 'web'],
+    'depends': ['base', 'website', 'web', 'sale_management', 'mail'],
 
     'data': [
         'security/ir.model.access.csv',
@@ -19,8 +19,10 @@
         'web.assets_backend': [
             '/owl_template/static/src/js/main.js',
             '/owl_template/static/src/js/product_card.js',
+            '/owl_template/static/src/js/patching.js',
             '/owl_template/static/src/xml/product_card.xml',
             '/owl_template/static/src/css/product_card.css',
+            # '/owl_template/static/src/views/web/fields/upload_mail_button.xml',
         ]
     },
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="mail.ScheduledDateField">
+    <xpath expr="//button[hasclass('#{scheduledDate ? 'text-info' : ''}')]" position="after">
+            <button t-attf-class="btn btn-light #{scheduledDate ? 'text-info' : ''}" data-hotkey="s"
+                    t-on-click="onClick"
+                    title="Upload File">
+                <i class="fa fa-user"/>
+                <span t-if="scheduledDate">
+                    Sending <t t-out="scheduledDate.toLocaleString(this.dateTimeFormat)"/>
+                </span>
+            </button>
+        </xpath>
+</t>
+</templates>

@@ -3,7 +3,9 @@
 import { Component, xml, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { ProductCard } from "./product_card";
-import { useService } from "@web/core/utils/hooks";
+// import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
+
 
 export class Root extends Component {
     static components = { ProductCard };
@@ -52,15 +54,37 @@ export class Root extends Component {
 
             console.log("Thik hai yaha tak!")
 
-            // if (txt1) {
-            this.products.push({ id: this.nextId++, name: txt1, price:txt2, image: txt3 });
-                // input.value = "";
-            // }
+            if (txt1 && txt2 && txt3) {
+                this.products.push({ id: this.nextId++, name: txt1, price:txt2, image: txt3 });
 
-            console.log("Ab sab kuchh Thik hai!")
-
+                rpc("/owl/save_data", {
+                    name: txt1,
+                    price: txt2,
+                    image: txt3
+                }).then((res) => {
+                    console.log("Data Saved!", res)
+                })
+            }
+            else {
+                alert("Some data was missing!")
+            }
         }
     }
 }
 
 registry.category("actions").add("owl_template.product_action", Root);
+
+
+
+// import { useService } from "@web/core/utils/hooks";
+//
+// setup() {
+//     this.orm = useService("orm");
+// }
+//
+// async saveData(data) {
+//     await this.orm.call("your.model", "create", [{
+//         name: data.name,
+//         field_name: data.value,
+//     }]);
+// }

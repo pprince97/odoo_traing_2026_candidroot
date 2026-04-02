@@ -1,13 +1,11 @@
-from odoo import http
+from odoo import http, models, fields, tools, _
 from odoo.http import request
 
-class OwlDataController(http.Controller):
-    @http.route('/owl/save_data', type='json', auth='user', methods=['POST'])
-    def save_owl_data(self, **post):
-        return request.env['owl.data.storage'].create({
-            'name': post.get('name'),
-            'price': post.get('price'),
-            'image': request.get('image'),
-        })
+class OwlController(http.Controller):
 
-    
+    @http.route('/owl/save_data', type='jsonrpc', auth='public')
+    def save_owl_data(self, **kwargs):
+        request.env['owl.data.storage'].sudo().create(kwargs)
+        return {'status': 'success', 'message': 'Owl data saved'}
+
+
