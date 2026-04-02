@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="price_object_form_view">
+            <field name="name">price.object.form.view</field>
+            <field name="model">price.object</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group string="Product Details">
+                            <field name="name"/>
+                            <field name="price_subtotal" widget="amount_widget"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="price_object_list_view">
+            <field name="name">price.object.list.view</field>
+            <field name="model">price.object</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="price_subtotal"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_price_object">
+            <field name="name">Price Action</field>
+            <field name="res_model">price.object</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem name="Owl Widget demo" id="menu_root"/>
+
+        <menuitem name="Widget" id="menu_widget" action="action_price_object" parent="owl_widget.menu_root"/>
+
+    </data>
+</odoo>

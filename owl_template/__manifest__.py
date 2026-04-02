@@ -10,7 +10,7 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['website'],
+    'depends': ['base','web'],
 
     'data': [
         'views/action.xml',

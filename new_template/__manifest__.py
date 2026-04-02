@@ -1,5 +1,5 @@
 {
-    'name': "Owl Template",
+    'name': "New Template",
 
     'summary': "This module is for understanding the purpose of owl.",
 
@@ -10,17 +10,11 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['base','web'],
-
-    'data': [
-        'views/action.xml',
-    ],
+    'depends': ['base', 'web'],
 
     'assets': {
         'web.assets_backend': [
-            'owl_template1/static/src/js/counter.js',
-            'owl_template1/static/src/js/product_card.js',
-            'owl_template1/static/src/css/counter.css',
+            'new_template/static/src/js/counter.js',
         ]
     },
 

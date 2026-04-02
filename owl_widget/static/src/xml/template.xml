@@ -1,0 +1,36 @@
+<templates xml:space="preserve">
+    <t t-name="owl_widget.AmountWidget">
+
+        <div style="display: flex" class="gap-1">
+
+<!--            <span t-att-class="props.record.data[props.name] &lt;= 0 ? 'text-danger' : 'text-success'" class="text">-->
+<!--                <t t-esc="props.record.data[props.name]"/>-->
+<!--            </span>-->
+
+            <button class="btn btn-sm btn-primary decrement"
+                    t-on-click="decrement">
+                -
+            </button>
+
+            <input type="number"
+                   t-att-value="props.record.data[props.name]"
+                   t-on-input="onInput"
+                   t-att-class="props.record.data[props.name] &lt;= 0 ? 'text-danger' : 'text-success'"
+                   style="width: 40px;"/>
+
+            <button class="btn btn-sm btn-primary increment"
+                    t-on-click="increment">
+                +
+            </button>
+
+
+
+            <button class="btn btn-sm btn-warning"
+                    t-on-click="validate">
+                Check
+            </button>
+
+        </div>
+
+    </t>
+</templates>
