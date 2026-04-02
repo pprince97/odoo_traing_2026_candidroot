@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="owl_js_practice.RoundedField">
+        <input type="text"
+               t-att-id="props.id"
+               class="o_input"
+               t-att-value="props.record.data[props.name]"
+               t-ref="input"
+               t-on-change="onInputChange"
+               t-att-readonly="props.readonly"/>
+    </t>
+
+</templates>

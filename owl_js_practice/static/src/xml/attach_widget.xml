@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl_js_practice.attach_internal_files">
+        <div class="o_field_binary">
+            <button class="btn btn-primary" t-on-click="onBtnClick">
+                Attach files
+            </button>
+        </div>
+    </t>
+</templates>

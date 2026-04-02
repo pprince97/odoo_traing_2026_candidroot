@@ -50,3 +50,17 @@
     font-weight: 500;
   }
 }
+.o_custom_file_explorer {
+    min-height: 400px;
+    height: 60vh; /* Fixed height for the explorer */
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Ensure the list item doesn't hide text when active */
+.list-group-item.active {
+    background-color: #714b67; /* Odoo Purple */
+    border-color: #714b67;
+}

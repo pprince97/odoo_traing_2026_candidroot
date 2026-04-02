@@ -1,6 +1,6 @@
-import {Component, useState } from "@odoo/owl";
+import {Component, useState,onWillStart, onWillRender, onRendered, onMounted, onWillUpdateProps, onWillPatch, onPatched, onWillUnmount, onWillDestroy } from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import {browser} from "@web/core/browser/browser"
+import {browser} from "@web/core/browser/browser";
 
 class Counter extends Component{
     static template = "owl_js_practice.Counter"
@@ -9,6 +9,52 @@ class Counter extends Component{
         this.state = useState({
             count:savedValue ? parseInt(savedValue,10):0
         });
+
+        onWillStart(()=>{
+            const date = new Date;
+            console.log(`The onWillStart is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onWillRender(()=>{
+            const date = new Date;
+            console.log(`The onWillRender is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onRendered(()=>{
+            const date = new Date;
+            console.log(`The onRendered is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onMounted(()=>{
+            const date = new Date;
+            console.log(`The onMounted is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onWillUpdateProps(()=>{
+            const date = new Date;
+            console.log(`The onWillUpdateProps is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onWillPatch(()=>{
+            const date = new Date;
+            console.log(`The onWillPatch is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onPatched(()=>{
+            const date = new Date;
+            console.log(`The onPatched is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onWillUnmount(()=>{
+            const date = new Date;
+            console.log(`The onWillUnmount is executed at ${date.toLocaleTimeString()}`);
+        });
+
+        onWillDestroy(()=>{
+            const date = new Date;
+            console.log(`The onWillDestroy is executed at ${date.toLocaleTimeString()}`);
+        });
+
     }
     _update(val){
         this.state.count = val;

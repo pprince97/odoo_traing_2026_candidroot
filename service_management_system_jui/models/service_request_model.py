@@ -32,7 +32,7 @@ class ServiceRequest(models.Model):
     def _onchange_state(self):
         for rec in self:
             if rec.state == 'confirm':
-                order = self.env['sale.order'].with_context(({'default_type': 'invoice'})).create({'state': 'sale', 'partner_id': rec.customer_id.partner_id})
+                order = self.env['sale.order'].with_context({'default_state' : 'sale'}).create({'partner_id': rec.customer_id.partner_id})
                 self.env['sale.order.line'].create({'product_template_id':rec.service_id.id,'price_unit':rec.service_id.list_price,'order_id':order.id})
 
     def confirm_state(self):
