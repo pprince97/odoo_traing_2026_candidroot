@@ -16,9 +16,9 @@ export class Counter extends Component {
         this.counter_state.count--;
     }
 
-    increment_fontsize() {
-        var p_tag = document.querySelector("p");
-    }
+    // increment_fontsize() {
+    //     var p_tag = document.querySelector("p");
+    // }
 }
 
 Counter.template = "owl_components.CounterTemplate";

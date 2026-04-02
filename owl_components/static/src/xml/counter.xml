@@ -5,10 +5,10 @@
             <button class="btn btn-primary mx-1" t-on-click="increment_counter">Increment</button>
             <button class="btn btn-primary mx-1" t-on-click="decrement_counter">Decrement</button>
         </div>
-        <div class="container mt-3">
-            <p style="font-size: 10px">Changing font size</p>
-            <button class="btn btn-primary mx-1" t-on-click="increment_fontsize">Increment FontSize</button>
-        </div>
+<!--        <div class="container mt-3">-->
+<!--            <p style="font-size: 10px">Changing font size</p>-->
+<!--            <button class="btn btn-primary mx-1" t-on-click="increment_fontsize">Increment FontSize</button>-->
+<!--        </div>-->
 <!--        <div class="container mt-3">-->
 <!--            <h1>Click below button to change background color</h1>-->
 <!--            <button class="btn btn-primary mx-1" t-on-click="change_bgcolor">Change BgColor</button>-->

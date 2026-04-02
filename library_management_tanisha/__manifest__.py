@@ -28,6 +28,14 @@
         'views/library_website.xml',
         'views/library_website_2.xml',
     ],
+    "assets": {
+        "web.assets_backend": [
+            "library_management_tanisha/static/src/css/custom_widget_password.css",
+            "library_management_tanisha/static/src/js/patching_sale_order.js",
+            "library_management_tanisha/static/src/js/cutom_widget_password.js",
+            "library_management_tanisha/static/src/xml/custom_widget_password.xml",
+        ],
+    },
     'demo': [
         'demo/book_demo_data.xml',
         'demo/student_demo_data.xml',

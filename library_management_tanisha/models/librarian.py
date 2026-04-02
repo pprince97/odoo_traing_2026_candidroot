@@ -8,6 +8,7 @@ class LibraryLibrarian(models.Model):
     is_librarian = fields.Boolean()
     borrow_request_ids = fields.One2many(comodel_name='library.borrow.request', inverse_name='librarian_id',
                                          string='Borrow Requests')
+    password = fields.Char(string='Password')
 
     def borrowed_requests(self):
         return {
