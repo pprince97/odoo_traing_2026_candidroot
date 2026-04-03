@@ -1,7 +1,5 @@
 import { registry } from "@web/core/registry";
-import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { BinaryField, binaryField } from "@web/views/fields/binary/binary_field";
-import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { CustomFileUpload } from "./custom_file_dialog";
 import { useService } from "@web/core/utils/hooks"; // Added this
 
@@ -14,14 +12,13 @@ export class AttachInternalFiles extends BinaryField {
     }
 
     async onBtnClick() {
+    debugger
         this.dialogService.add(CustomFileUpload, {
             title: "Select Attachments",
-            confirm: () => {
-//                this.props.fileUpload.xhr.abort();
-            },
+            resModel: this.props.record.model.config.context.default_model,
+            resId: this.props.record.model.config.context.default_res_ids,
             close: ()=>{},
-            confirmLabel: "✔️ Confirm",
-            cancelLabel:"Cancel",
+            record: this.props.record,
         });
     }
 }

@@ -1,68 +1,84 @@
-import { Component, useState } from "@odoo/owl";
+import { Component, useState,onWillStart } from "@odoo/owl";
+import { Dialog } from "@web/core/dialog/dialog";
+import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
+import { dataUrlToBlob } from "@mail/core/common/attachment_uploader_hook";
+import { useX2ManyCrud } from "@web/views/fields/relational_utils";
 
 export class CustomFileUpload extends Component {
+    static template = "owl_js_practice.custom_file_upload";
+    static components = { Dialog };
     static props = {
+        title: {
+            validate: (m) => {
+                return (
+                    typeof m === "string" ||
+                    (typeof m === "object" && typeof m.toString === "function")
+                );
+            },
+            optional: true,
+        },
         acceptedFiles: { type: String, optional: true },
-        onChangeFileInput: { type: Function, optional: true  },
-        selectFileLabel: { type: String, optional: true },
-        close: { type: Function },
-        confirm: { type: Function },
-        send: { type: Function , optional: true },
-        title: { type: String },
-        confirmLabel: { type: String },
-        cancelLabel: { type: String },
+        close: Function,
+        resModel: String,
+        resId: Array,
+        record: Object,
     };
+
     setup() {
         this.state = useState({
-            files: [],          // Array of {id, name, type, url, size}
-            selectedFile: null, // The file currently showing in the right pane
+            files: [],
+            selectedFileId: null,
+            previewUrl: null,
+            previewType: null,
         });
-        console.log('>>>>>>>>>>>>>>>>>>..')
-    }
-    static template = "owl_js_practice.CustomFileUpload";
-}
 
-//    static components = { FileUploader }; // Register the uploader component
-//
-//    setup() {
-//        this.state = useState({
-//            files: [],          // Array of {id, name, type, url, size}
-//            selectedFile: null, // The file currently showing in the right pane
-//        });
-//    }
-//
-//    /**
-//     * Logic when a new file is added via the FileUploader
-//     */
-//    async onFileUploaded(file) {
-//        // Create a local URL for the preview (works for images/PDFs)
-//        const fileUrl = URL.createObjectURL(file.data);
-//
-//        const newFile = {
-//            id: Date.now(),
-//            name: file.name,
-//            type: file.type,
-//            size: (file.size / 1024).toFixed(2) + " KB",
-//            url: fileUrl,
-//            data: file.data, // Raw data for saving later
-//        };
-//
-//        this.state.files.push(newFile);
-//        this.state.selectedFile = newFile; // Auto-select the newest file
-//    }
-//
-//    /**
-//     * Logic when user clicks a file in the left sidebar
-//     */
-//    onFileClick(file) {
-//        this.state.selectedFile = file;
-//    }
-//
-//    /**
-//     * Optional: Logic for the 'Confirm' button to pass files back
-//     */
-//    onConfirm() {
-//        this.props.confirm(this.state.files);
-//        this.props.close();
-//    }
-//}
+        this.mailStore = useService("mail.store");
+        this.attachmentUploadService = useService("mail.attachment_upload");
+        this.operations = useX2ManyCrud(() => {
+            return this.props.record.data["attachment_ids"];
+        }, true);
+
+        onWillStart(async () => {
+            this.state.files = await rpc("/web/dataset/call_kw/ir.attachment/search_read", {
+                model: "ir.attachment",
+                method: "search_read",
+                args: [[
+                    ["res_model", "=", this.props.record.model.config.context.default_model],
+                    ["res_id", "in", this.props.record.model.config.context.default_res_ids],
+                ]],
+                kwargs: {
+                    fields: ["name", "res_model", "res_id", "mimetype", "create_date","datas"],
+                    order: "create_date desc",
+               },
+            });
+        });
+    }
+
+    async selectFile(file) {
+        this.state.selectedFileId = file.id;
+        this.state.previewType = file.mimetype.includes('image') ? 'image' : 'pdf';
+        this.state.previewUrl = `data:${file.mimetype};base64,${file.datas}`;
+    }
+
+    async onConfirm(ev) {
+        for (const rec of ev.currentTarget.parentElement.parentElement.querySelectorAll('input')) {
+            if(rec.checked){
+                for(let file of this.state.files){
+                    if(rec.value == file.id){
+                        const thread = await this.mailStore.Thread.insert({
+                            model: this.props.record.model.config.context.default_model,
+                            id: this.props.record.model.config.context.default_res_ids,
+                        });
+                        const file_s = new File([dataUrlToBlob(file.datas, file.mimetype)], file.name, { type: file.mimetype });
+                        const attachment = await this.attachmentUploadService.upload(thread, thread.composer, file_s);
+                        if (attachment) {
+                            await this.operations.saveRecord([attachment.id]);
+                        }
+                    }
+                }
+            }
+        }
+        this.props.close();
+    }
+}

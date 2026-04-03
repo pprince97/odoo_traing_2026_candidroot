@@ -10,5 +10,4 @@
                t-on-change="onInputChange"
                t-att-readonly="props.readonly"/>
     </t>
-
 </templates>
