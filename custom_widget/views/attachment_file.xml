@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="attachment_file_custom_button" model="ir.ui.view">
+        <field name="name">attachment.file.custom</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//footer" position="inside">
+                <button string="Attachment Record"
+                        type="object"
+                        class="btn-secondary o_custom_dialog_btn"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

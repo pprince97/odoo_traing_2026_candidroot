@@ -1,0 +1,35 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_sale.CustomerDialog">
+            <Dialog title="'Add Customer'" size="'md'">
+
+            <div class="p-3">
+                <div class="mb-2">
+                    <label>Name</label>
+                    <input class="form-control" type="text" t-model="state.name"/>
+                </div>
+
+                <div class="mb-2">
+                    <label>Phone</label>
+                    <input class="form-control" type="text" t-model="state.phone"/>
+                </div>
+
+                <div class="mb-2">
+                    <label>Address</label>
+                    <input class="form-control" type="text" t-model="state.street"/>
+                </div>
+            </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="confirm">
+                    Save
+                </button>
+                <button class="btn btn-secondary" t-on-click="cancel">
+                    Cancel
+                </button>
+            </t>
+
+        </Dialog>
+    </t>
+
+</templates>
