@@ -7,8 +7,8 @@ patch(FormController.prototype, {
     setup() {
         super.setup();
         console.log("Patch is loaded");
-    },
 
+    },
     async saveButtonClicked() {
         const modelName = this.model.root.resModel;
         const data = this.model.root.data.origin;
@@ -30,9 +30,9 @@ patch(FormController.prototype, {
         //     });
         // }
 
-        if (total === 0){
+        if (total === 0) {
             alert("you are Not add any Product")
-            return ;
+            return;
         }
         // console.log(subTotal)
         console.log("111111", data);

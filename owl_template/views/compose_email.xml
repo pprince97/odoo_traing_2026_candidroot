@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inherit_compose_email" model="ir.ui.view">
+            <field name="name">Inherit Compose Email</field>
+            <field name="model">mail.compose.message</field>
+            <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//footer//field[@name='scheduled_date']" position="after">
+                    <button string="Attachments" type="button" class="btn btn-primary o_custom_attach_btn"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

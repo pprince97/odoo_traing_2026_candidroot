@@ -3,6 +3,16 @@
         <div class="p-4">
             <h2>🛒 Product List</h2>
 
+            <div t-att-class="'popup-overlay ' + (state.showPopup ? 'active' : '')"
+                 t-on-click="closePopUp">
+
+                <div class="popup-box" t-on-click.stop="">
+                    <span class="close-btn" t-on-click="closePopUp">×</span>
+                    <p>Quantity is Not a 0</p>
+                    <button class="close-btn" t-on-click="closePopUp">Close</button>
+                </div>
+            </div>
+
             <div class="product-container">
                 <t t-foreach="state.products" t-as="product" t-key="product.id">
 
@@ -11,21 +21,30 @@
                             <t t-esc="product.image"/>
                         </div>
 
-                        <h4><t t-esc="product.name"/></h4>
-                        <p>Price: ₹ <t t-esc="product.price"/></p>
+                        <h4>
+                            <t t-esc="product.name"/>
+                        </h4>
+                        <p>Price: ₹
+                            <t t-esc="product.price"/>
+                        </p>
 
                         <div class="qty-controls">
                             <button class="qty-btn"
-                                    t-on-click="() => this.decreaseQty(product)">-</button>
+                                    t-on-click="() => this.decreaseQty(product)">-
+                            </button>
 
-                            <span><t t-esc="product.qty"/></span>
+                            <span>
+                                <t t-esc="product.qty"/>
+                            </span>
 
                             <button class="qty-btn"
-                                    t-on-click="() => this.increaseQty(product)">+</button>
+                                    t-on-click="() => this.increaseQty(product)">+
+                            </button>
                         </div>
 
                         <div class="total-price">
-                            Total: ₹ <t t-esc="this.getTotal(product)"/>
+                            Total: ₹
+                            <t t-esc="this.getTotal(product)"/>
                         </div>
                     </div>
 

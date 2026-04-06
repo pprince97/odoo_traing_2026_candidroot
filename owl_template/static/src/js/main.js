@@ -35,6 +35,14 @@ class MyClientAction extends Component {
         // }
     }
 
+    openPopUp() {
+        this.state.showPopup = true;
+    }
+
+    closePopUp() {
+        this.state.showPopup = false;
+    }
+
     increaseQty(product) {
         product.qty++;
     }
@@ -42,6 +50,8 @@ class MyClientAction extends Component {
     decreaseQty(product) {
         if (product.qty > 1) {
             product.qty--;
+        }else{
+            this.openPopUp();
         }
     }
 
@@ -51,5 +61,4 @@ class MyClientAction extends Component {
 }
 
 MyClientAction.template = "my_module.MyClientActionTemplate";
-
 registry.category("actions").add("my_client_action", MyClientAction);
