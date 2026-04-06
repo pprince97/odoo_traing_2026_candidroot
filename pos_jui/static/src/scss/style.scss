@@ -1,0 +1,31 @@
+.custom-form-container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Spaces out the rows */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column; /* Stack label over input */
+    align-items: flex-start;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #4c4c4c;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    border-color: #714B67; /* Odoo's purple color */
+    outline: none;
+}

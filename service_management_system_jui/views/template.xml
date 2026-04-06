@@ -53,15 +53,160 @@
                             </div>
                         </span>
                     </section>
+                    <section class="container body mt-5 mb-5">
+                        <div class="row">
+                            <div class="col-md-6" id="service_request_list">
+                                <a role="button" href="/my/service/request/form" class="btn btn-primary">Request Service</a>
+                            </div>
 
-                    <section class="body mt-5 mb-5">
-                        <div class="container" id="service_request_list">
-                            <a role="button" href="/my/service/request/form" class="btn btn-primary p-2 mt-3">Request Service</a>
+                            <div class="col-md-6 text-end">
+                                <span class="small me-1 navbar-text">States:</span>
+                                <div class="btn-group">
+                                    <button id="service_searchbar_filters" data-bs-toggle="dropdown" class="btn btn-light dropdown-toggle">
+                                        <t t-esc="state_filters.get(state,state_filters.get('all')).get('label', 'All')"/>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="service_searchbar_filters">
+                                        <t t-foreach="state_filters" t-as="option">
+                                            <a t-att-href="default_url + '?' + keep_query('*', state=option)"
+                                               t-attf-class="dropdown-item#{state == option and ' active' or ''}">
+                                                <span t-esc="state_filters[option].get('label')"/>
+                                            </a>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
+                    <div class="container">
+                        <table class="table table-hover mb-5 bg-white">
+                            <thead>
+                                <tr class="active">
+                                    <th name="request_number">Request No</th>
+                                    <th name="date">Date</th>
+                                    <th name="customer_id">Customer</th>
+                                    <th name="company_id_s">Company</th>
+                                    <th name="category_id">Category</th>
+                                    <th name="service_id">Service</th>
+                                    <th name="service_id">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="requests" t-as="req">
+                                    <tr>
+                                        <td>
+                                            <a t-attf-data-bs-target="#service_request_#{req.id}" href="#" data-bs-toggle="modal">
+                                                <span t-field="req.request_number"/>
+                                            </a>
+                                        </td>
+                                        <td><span t-field="req.date"/></td>
+                                        <td><span t-field="req.customer_id" /></td>
+                                        <td><span t-field="req.company_id_s" /></td>
+                                        <td><span t-field="req.category_id" /></td>
+                                        <td><span t-field="req.service_id" /></td>
+                                        <td><span t-field="req.state" /></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <t t-foreach="requests" t-as="req">
+                            <div class="modal fade" t-attf-id="service_request_#{req.id}" tabindex="-1">
+                                <t t-call="service_management_system_jui.service_record_modal_template">
+                                    <t t-set="record" t-value="req"/>
+                                </t>
+                            </div>
+                        </t>
+                        <div class="d-flex justify-content-center mt-3 mb-5">
+                            <t t-call="website.pager">
+                                <t t-set="_classes">mt-2 ml-md-2</t>
+                            </t>
+                        </div>
+                    </div>
                 </div>
             </div>
         </t>
+    </template>
+
+    <template id="service_record_modal_template" name="Service Record Modal Template">
+        <div id="wrap" class="oe_structure">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title m-3 mb-0 mt-0">Details:
+                            <t t-out="record.request_number"/>
+                        </h5>
+                    </div>
+                    <div class="modal-body pt-0">
+                        <div class="container">
+                            <h1 class="mt-4">Service Request Details</h1>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Request Number:
+                                        <span t-field="record.request_number"/>
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">Date:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.date"/>
+                                        </div>
+
+                                        <div class="col-sm-3">Customer:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.customer_id.name"/>
+                                        </div>
+
+                                        <div class="col-sm-3">Company:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.company_id_s"/>
+                                        </div>
+
+                                        <div class="col-sm-3">Category:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.category_id"/>
+                                        </div>
+
+                                        <div class="col-sm-3">Service:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.service_id"/>
+                                        </div>
+
+                                        <div class="col-sm-3">Country:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.country_id"/>
+                                        </div>
+
+                                        <div class="col-sm-3">State:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.state_id"/>
+                                        </div>
+
+                                        <div class="col-sm-3">City:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.city"/>
+                                        </div>
+
+                                        <div class="col-sm-3">Street:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.street"/>
+                                        </div>
+
+                                        <div class="col-sm-3">State:</div>
+                                        <div class="col-sm-9">
+                                            <span t-field="record.state"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-start m-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </template>
 
     <template id="service_management_system_jui.service_request_template_form" name="Service Request Form">
@@ -93,13 +238,14 @@
                                                    name="state"
                                                    class="form-check-input"
                                                    t-att-value="option[0]"
-                                                   t-att-checked="option[0] == (requests.state if requests else 'draft')"/>
+                                                   t-att-checked="option[0] == requests.state if requests and requests.state else option[0] == 'draft'"/>
                                             <label class="form-check-label">
                                                 <t t-esc="option[1]"/>
                                             </label>
                                         </div>
                                     </t>
                                 </div>
+                                <input type="hidden" id="s_dynamic_state" name="dynamic_state" value=""/>
 
                                 <div id="div_date" class="col-lg-6 mb-2">
                                     <label class="col-form-label" for="s_date">
@@ -162,19 +308,19 @@
 
                             </div>
 
-                            <div id="myModal" class="modal">
-                              <div class="modal-content">
+                            <div id="myModal" class="cmodal">
+                              <div class="cmodal-content">
                                   <h4>Please Fill up Mandatory Fields</h4>
                                   <br/>
-                                  <span class="close" id="close_modal">close</span>
+                                  <span class="cclose" id="close_modal">close</span>
                               </div>
                             </div>
 
-                            <div id="mySubmitModal" class="modal">
-                              <div class="modal-content">
+                            <div id="mySubmitModal" class="cmodal">
+                              <div class="cmodal-content">
                                   <h4>Your Form has been submitted successfully</h4>
                                   <br/>
-                                  <span class="close" id="close_submit_modal">close</span>
+                                  <span class="cclose" id="close_submit_modal">close</span>
                               </div>
                             </div>
 
@@ -186,7 +332,6 @@
                             </div>
                         </div>
                     </section>
-
                 </div>
             </div>
         </t>

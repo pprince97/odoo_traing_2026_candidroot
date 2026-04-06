@@ -1,7 +1,8 @@
 from odoo import http, _,fields
 from odoo.http import request
 from odoo.exceptions import AccessError
-import base64
+from collections import OrderedDict
+
 
 class ServiceManagementController(http.Controller):
 
@@ -9,9 +10,36 @@ class ServiceManagementController(http.Controller):
     def service_request_form_controller(self, **kwargs):
         return request.render('service_management_system_jui.service_request_template_form')
 
-    @http.route('/my/service/request/list', type='http', auth='user', website=True)
-    def service_request_list_controller(self, **kwargs):
-        return request.render('service_management_system_jui.service_request_template_list')
+    @http.route(['/my/service/request/list','/my/service/request/list/page/<int:page>'], type='http', auth='user', website=True)
+    def service_request_list_controller(self,page=0,state=None, **kwargs):
+        total = request.env['service.request'].search_count([])
+        domain = []
+        state_filters = {
+            'all': {'label': 'All', 'domain': []},
+            'draft': {
+                'label': 'Draft',
+                'domain': [('state', '=', 'draft')]},
+            'confirm': {
+                'label': 'Confirm',
+                'domain': [('state', '=', 'confirm')]},
+            'cancel': {
+                'label': 'Cancel',
+                'domain': [('state', '=', 'cancel')]},
+        }
+        if not state:
+            state = 'all'
+        domain += state_filters[state]['domain']
+        pager = request.website.pager(
+            url='/my/service/request/list',
+            url_args={'state': state},
+            total=total,
+            page=page,
+            step=5,
+        )
+        offset = pager['offset']
+        values = request.env['service.request'].search(domain)
+        values = values[offset: offset + 5]
+        return request.render('service_management_system_jui.service_request_template_list',{'requests': values,'pager': pager,'default_url': '/my/service/request/list','state_filters': OrderedDict(sorted(state_filters.items())),'state': state,})
 
     @http.route('/update/country', type='jsonrpc', auth='user', website=True)
     def details_country(self, country_key):
@@ -38,13 +66,21 @@ class ServiceManagementController(http.Controller):
     def details_submit(self, details_dict):
         print(details_dict)
         record = request.env['product.template'].search([('id', '=', int(details_dict['services_id']))])
+
         if details_dict['city_id']:
             res = request.env['res.city'].browse(int(details_dict['city_id']))
+
+        if details_dict['state'] == 'confirm':
+            customer = request.env['res.users'].browse(int(details_dict['customer_id']))
+            service = request.env['product.template'].browse(int(details_dict['services_id']))
+            order = self.env['sale.order'].with_context({'search_default_sales' : 1}).create({'partner_id': customer.partner_id.id, 'state': 'sale'})
+            self.env['sale.order.line'].create({'product_id': service.id, 'price_unit': service.list_price, 'order_id': order.id})
+
         request.env['service.request'].sudo().create({
             'date': details_dict['date'],
             'state': details_dict['state'],
-            'customer_id': details_dict['customer_id'],
-            'category_id': details_dict['category_id'],
+            'customer_id': int(details_dict['customer_id']),
+            'category_id': int(details_dict['category_id']),
             'street': details_dict['street'],
             'country_id': int(details_dict['country_id']),
             'state_id': int(details_dict['state_id']),

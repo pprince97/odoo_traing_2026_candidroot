@@ -68,7 +68,7 @@ export class CustomFileUpload extends Component {
                     if(rec.value == file.id){
                         const thread = await this.mailStore.Thread.insert({
                             model: this.props.record.model.config.context.default_model,
-                            id: this.props.record.model.config.context.default_res_ids,
+                            id: this.props.record.model.config.context.default_res_ids[0],
                         });
                         const file_s = new File([dataUrlToBlob(file.datas, file.mimetype)], file.name, { type: file.mimetype });
                         const attachment = await this.attachmentUploadService.upload(thread, thread.composer, file_s);

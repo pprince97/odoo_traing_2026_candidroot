@@ -28,15 +28,11 @@ class ServiceRequest(models.Model):
         res = super(ServiceRequest, self).create(vals)
         return res
 
-    @api.onchange('state')
-    def _onchange_state(self):
-        for rec in self:
-            if rec.state == 'confirm':
-                order = self.env['sale.order'].with_context({'default_state' : 'sale'}).create({'partner_id': rec.customer_id.partner_id})
-                self.env['sale.order.line'].create({'product_template_id':rec.service_id.id,'price_unit':rec.service_id.list_price,'order_id':order.id})
-
     def confirm_state(self):
         self.state = 'confirm'
+        for rec in self:
+            order = self.env['sale.order'].with_context({'search_default_sales' : 1}).create({'partner_id': rec.customer_id.partner_id.id,'state':'sale'})
+            self.env['sale.order.line'].create({'product_id':rec.service_id.id,'price_unit':rec.service_id.list_price,'order_id':order.id})
 
     def cancel_state(self):
         self.state = 'cancel'

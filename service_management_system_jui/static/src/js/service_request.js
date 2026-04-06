@@ -105,7 +105,7 @@ publicWidget.registry.ServiceRequestForm = publicWidget.Widget.extend({
     },
 
     async _onClickSave() {
-        var state = this.$('#s_state').val();
+        var state = this.$('input[name="state"]:checked').val();
         var customer_id = this.$('#s_customer_id').val();
         var country_id = this.$('#s_country_id').val();
         var category_id = this.$('#s_category_id').val();
@@ -117,7 +117,7 @@ publicWidget.registry.ServiceRequestForm = publicWidget.Widget.extend({
         var state_id = this.$('#s_state_id').val();
         var date = this.$('#s_date').val();
 
-        if(customer_id && country_id && category_id && street && services_id && state_id && (city_id || city)){
+        if(date && customer_id && country_id && category_id && street && services_id && state_id && (city_id || city)){
             if (city_id){
                 rpc("/service/form/submit", {
                     details_dict: {

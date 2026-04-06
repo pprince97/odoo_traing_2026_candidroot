@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="pos_jui.custom_dialog">
+        <Dialog size="'md'" title="props.title" modalRef="modalRef">
+            <div class="custom-form-container">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone No:</label>
+                    <input type="text" name="phone" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea name="notes" class="form-control"/>
+                </div>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary" t-on-click="props.close">Cancel</button>
+                <button class="btn btn-secondary" t-on-click="() => this.save()">Save</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>
