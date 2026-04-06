@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath
+                expr="//t[@t-if='props.showRemainingButtons']/div/button[hasclass('o_pricelist_button')]"
+                position="after">
+            <button class="buttonClass" t-on-click="onClickPopup">
+                <i class="fa fa-user me-1"/>
+                Add Customer
+            </button>
+        </xpath>
+    </t>
+
+
+    <t t-name="AddCustomerPopup">
+        <Dialog size="'md'" title="props.title">
+            <div class="modal-body">
+                <input placeholder="Name" t-model="state.name" class="form-control mb-2"/>
+                <input placeholder="Email" t-model="state.email" class="form-control mb-2"/>
+                <textarea placeholder="Address" t-model="state.address" class="form-control"/>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" t-on-click="confirm">Save</button>
+            </div>
+        </Dialog>
+    </t>
+</templates>

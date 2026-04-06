@@ -6,7 +6,7 @@ import { ListController } from "@web/views/list/list_controller";
 
 patch(FormController.prototype, {
     setup() {
-        super.setup()
+        super.setup();
 
         console.log("I am From Form Controller!");
     },

@@ -7,7 +7,7 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['base', 'website', 'web', 'sale_management', 'mail'],
+    'depends': ['base', 'website', 'web', 'sale_management', 'mail', 'point_of_sale', 'pos_restaurant'],
 
     'data': [
         'security/ir.model.access.csv',
@@ -16,10 +16,15 @@
     ],
 
     'assets': {
+        'point_of_sale._assets_pos': [
+            '/owl_template/static/src/xml/add_customer_popup.xml',
+            '/owl_template/static/src/js/add_customer.js',
+        ],
+
         'web.assets_backend': [
             '/owl_template/static/src/js/main.js',
             '/owl_template/static/src/js/product_card.js',
-            '/owl_template/static/src/js/patching.js',
+            # '/owl_template/static/src/js/patching.js',
             '/owl_template/static/src/xml/product_card.xml',
             '/owl_template/static/src/css/product_card.css',
             # '/owl_template/static/src/views/web/fields/upload_mail_button.xml',
