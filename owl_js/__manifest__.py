@@ -1,0 +1,37 @@
+{
+    'name': 'owl js',
+    'version': '1.0',
+    'category': 'Uncategorized',
+    'summary': 'owl js',
+    'description': "",
+    'author': 'ME',
+    'website': '',
+    'depends': ['base', 'web','mail' ],
+
+    'data': [
+        'security/ir.model.access.csv',
+        'views/custom_widget.xml',
+        'views/views_simple_component.xml',
+        'views/mail_composer.xml',
+        # 'views/attachment_dialog.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'owl_js/static/src/js/my_widget.js',
+            'owl_js/static/src/js/simple_component.js',
+            'owl_js/static/src/css/simple_component.css',
+            'owl_js/static/src/js/props_list_components.js',
+            'owl_js/static/src/xml/props_list_components.xml',
+            'owl_js/static/src/css/props_list_components.css',
+            'owl_js/static/src/js/patching.js',
+            'owl_js/static/src/js/lifecycle.js',
+            'owl_js/static/src/xml/lifecycle.xml',
+            'owl_js/static/src/js/attachment_dialog.js',
+            'owl_js/static/src/js/mail_composer.js',
+            'owl_js/static/src/xml/attachment_dialog.xml',
+        ],
+    },
+    'installable': True,
+    'license': 'LGPL-3',
+    'application': True,
+}

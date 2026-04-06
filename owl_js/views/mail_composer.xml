@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="email_compose_message_wizard_form">
+        <field name="name">mail.compose.message.form</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//footer" position="inside">
+                <button name="attachment_button"
+                        type="object"
+                        string="Select Attachments"
+                        class="btn-primary"/>
+            </xpath>
+
+            <xpath expr="//footer" position="before">
+                <field name="attachment_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    <record id="view_mail_compose_form_inherit" model="ir.ui.view">-->
+    <!--    <field name="name">mail.compose.message.form.inherit</field>-->
+    <!--    <field name="model">mail.compose.message</field>-->
+    <!--    <field name="inherit_id" ref="mail.view_compose_message_form"/>-->
+    <!--    <field name="arch" type="xml">-->
+    <!--        <xpath expr="//footer" position="inside">-->
+    <!--            <button name="%(action_mail_attachment_selector)d"-->
+    <!--                    string="Select Attachments"-->
+    <!--                    type="action"-->
+    <!--                    class="btn-primary"/>-->
+    <!--        </xpath>-->
+    <!--    </field>-->
+    <!--                <button name="%(action_ir_attachments)d" type="action" id="attachments_ir">Attachments</button>-->
+    <!--</record>-->
+
+</odoo>
