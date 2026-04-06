@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" name="pos_learning" xml:space="preserve">
+    <t t-name="pos_sale.ControlCustomButton" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath
+                expr="//t[@t-if='props.showRemainingButtons']/div/button[hasclass('o_pricelist_button')]"
+                position="before">
+            <button t-att-class="buttonClass"
+                    t-on-click="() => this.onclickinfobutton()">Custom Button Info</button>
+        </xpath>
+    </t>
+
+    <t t-name="info_display">
+        <Dialog title="props.title" size="'md'">
+        <div class="form-group mb-3">
+        <label for="name">Name</label>
+            <input id="name" type="text" class="form-control" t-model="state.name"/>
+        </div>
+        <div class="form-group mb-3">
+        <label for="email">Email</label>
+        <input id="email" type="email" class="form-control" t-model="state.email"/>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="confirm">Save</button>
+            <button class="btn btn-secondary" t-on-click="() => props.close()">Cancel</button>
+        </t>
+        </Dialog>
+    </t>
+
+</templates>
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<templates id="template" xml:space="preserve">-->
+        <!--    <t t-name="pos_sale.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">-->
+        <!--        <xpath-->
+        <!--            expr="//t[@t-if='props.showRemainingButtons']/div/button[hasclass('o_pricelist_button')]"-->
+        <!--            position="before">-->
+        <!--            <button t-if="this.pos.cashier._role != 'minimal'" t-att-class="buttonClass" t-on-click="() => this.onClickQuotation()">-->
+        <!--                <i class="fa fa-link me-1" role="img" aria-label="Set Sale Order" title="Set Sale Order" /> Quotation/Order-->
+        <!--            </button>-->
+        <!--        </xpath>-->
+        <!--    </t>-->
+        <!--</templates>-->
