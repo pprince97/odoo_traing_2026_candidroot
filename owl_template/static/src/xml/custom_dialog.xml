@@ -4,54 +4,36 @@
 <t t-name="owl_template.custom_dialog">
     <Dialog title.translate="Add Files To mail" size="'md'">
         <div role="radiogroup">
-            <div> Hellooooooooooo</div>
-<!--            <div class="d-flex justify-content-between justify-content-md-start my-3 my-sm-2">-->
-<!--                <div class="form-check w-md-50">-->
-<!--                    <input type="radio" class="form-check-input ms-0 me-2" id="input_tomorrow_morning" value="morning" t-model="state.selectedOption"/>-->
-<!--                    <label class="form-check-label" for="input_tomorrow_morning">-->
-<!--                        Tomorrow Morning-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <span class="text-muted" t-out="tomorrowMorning.toLocaleString(this.dateTimeFormat)"/>-->
-<!--            </div>-->
-<!--            <div class="d-flex justify-content-between justify-content-md-start my-3 my-sm-2">-->
-<!--                <div class="form-check w-md-50">-->
-<!--                    <input type="radio" class="form-check-input ms-0 me-2" id="input_tomorrow_afternoon" value="afternoon" t-model="state.selectedOption"/>-->
-<!--                    <label class="form-check-label" for="input_tomorrow_afternoon">-->
-<!--                        Tomorrow Afternoon-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <span class="text-muted" t-out="tomorrowAfternoon.toLocaleString(this.dateTimeFormat)"/>-->
-<!--            </div>-->
-<!--            <div class="d-flex justify-content-between justify-content-md-start my-3 my-sm-2">-->
-<!--                <div class="form-check w-md-50">-->
-<!--                    <input type="radio" class="form-check-input ms-0 me-2" id="input_monday_morning" value="monday" t-model="state.selectedOption"/>-->
-<!--                    <label class="form-check-label" for="input_monday_morning">-->
-<!--                        Next Monday Morning-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <span class="text-muted" t-out="mondayMorning.toLocaleString(this.dateTimeFormat)"/>-->
-<!--            </div>-->
-<!--            <div class="d-flex justify-content-between justify-content-md-start my-3 my-sm-2">-->
-<!--                <div class="form-check my-auto w-md-50">-->
-<!--                    <input type="radio" class="form-check-input ms-0 me-2" id="input_specific_date" value="custom" t-model="state.selectedOption"/>-->
-<!--                    <label class="form-check-label" for="input_specific_date">-->
-<!--                        Pick a specific time-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <div class="my-2 my-sm-0" t-if="state.selectedOption === 'custom'">-->
-<!--                    <DateTimeInput t-props="dateTimePickerProps"/>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="o_attachment_list mt-2">
+            <h6>Linked Attachments</h6>
+                <ul class="list-group">
+                    <t t-foreach="state.attachments" t-as="attachment" t-key="attachment.id">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <input type="checkbox" class="form-check-input" t-att-value="attachment.id"/>
+                            <label class="form-label"><i class="fa fa-file-o mx-2"/><t t-esc="attachment.name"/></label>
+                        </span>
+                        <a t-attf-href="/web/content/{{attachment.id}}?download=true"
+                           class="btn btn-sm btn-secondary"
+                           title="Download">
+                            <i class="fa fa-download"/>
+                        </a>
+                    </li>
+                </t>
+                    <t t-if="state.attachments.length === 0">
+                    <li class="list-group-item text-muted italic">No attachments found.</li>
+                </t>
+            </ul>
+            </div>
         </div>
         <t t-set-slot="footer">
-            <button class="btn btn-primary"  >
+            <button class="btn btn-primary" t-on-click="(ev) => this.save(ev)">
                 Save
             </button>
-            <button class="btn btn-secondary"  >
+            <button class="btn btn-secondary" t-on-click="props.close">
                 Close
             </button>
-            <button class="btn btn-secondary ms-auto" >
+            <button class="btn btn-secondary ms-auto" t-on-click="(ev) => this.clear(ev)">
                 Clear Selection
             </button>
         </t>

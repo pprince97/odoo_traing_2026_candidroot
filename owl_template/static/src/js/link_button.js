@@ -2,7 +2,7 @@ import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
 import {ConfirmationDialog} from "@web/core/confirmation_dialog/confirmation_dialog";
 import {Component} from "@odoo/owl";
-import { CustomDialog } from "./custom_dialog";
+import {CustomDialog} from "./custom_dialog";
 
 export class LinkButtonCustom extends Component {
     static template = "owl_template.linkbuttoncustom";
@@ -15,20 +15,19 @@ export class LinkButtonCustom extends Component {
 
     ButtonClicked(ev) {
         this.dialogService.add(CustomDialog, {
-            // title: "Add Your Documents",
-            // body: "Hellow",
-            // confirm: () => {
-            //     console.log("confirm")
-            // },
-            // cancel: () => {
-            //     console.log("cancel")
-            // },
+            record: this.props.record,
+            data: {
+                ids: this.props.record.model.config.context.default_res_ids,
+                model: this.props.record.model.config.context.default_model
+            },
         });
         ev.currentTarget.blur();
     }
 
 }
 
+// this.props.record.model.config.context.default_res_ids
+// this.props.record.model.config.context.default_model
 
 export const linkButtonCustom = {
     component: LinkButtonCustom,

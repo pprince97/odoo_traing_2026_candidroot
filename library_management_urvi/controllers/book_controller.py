@@ -9,7 +9,7 @@ import base64
 class BookController(http.Controller):
 
     @http.route(['/book', '/book/page/<int:page>'], type='http', auth='public', website=True)
-    def public_controller(self, page=0, filterby='all'):
+    def public_controller(self, page=0, filterby='all',search=None):
         if request.env.user._is_public():
             return request.render("library_management_urvi.book_template_public")
         else:
@@ -19,35 +19,40 @@ class BookController(http.Controller):
                     'label': 'All',
                     'domain': [],
                 },
-                'registered': {
+                'published': {
                     'label': 'Published',
                     'domain': [('state', '=', 'published')],
                 },
-                'downgraded': {
+                'unpublished': {
                     'label': 'unpublished',
                     'domain': [('state', '=', 'unpublished')],
                 },
             }
+            search_domain = []
+            if search:
+                search_domain += ['|','|',('name', 'ilike', search),('barcode', 'ilike', search),('category', 'ilike', search)]
             filter_domain = searchbar_filters.get(filterby, searchbar_filters['all'])['domain']
-            domain = filter_domain
+            domain =  search_domain + filter_domain
             book_count = Book.search_count(domain)
             pager = request.website.pager(
                 url='/book',
                 total=book_count,
                 url_args={
+                    'search': search,
                     'filterby': filterby,
                 },
                 page=page,
-                step=3,
+                step=6,
             )
             book_records = Book.search(domain,
-                limit = 3,
+                limit = 6,
                 offset = pager['offset'],
                 order = 'name asc',
             )
         # offset = pager['offset']
         # books = books[offset: offset + 3]
-        return request.render('library_management_urvi.template_view_all_books', {'books': book_records, 'pager': pager,'searchbar_filters': searchbar_filters,'filterby': filterby,})
+        return request.render('library_management_urvi.template_view_all_books', {'books': book_records, 'pager': pager,
+            'search': search,'searchbar_filters': searchbar_filters,'filterby': filterby,})
 
     @http.route(['/book/submit'], type='http', auth="user", website=True, sitemap=False)
     def book_form_submit(self, **post):

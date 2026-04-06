@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_restaurant.ControlButtons_cutomer" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//button[@t-if=&quot;this.pos.cashier._role != 'minimal'&quot;]" position="after">
+            <button class="course-btn"
+                    t-if="pos.config.module_pos_restaurant and this.pos.cashier._role != 'minimal'"
+                    t-att-class="buttonClass" t-on-click="custominfo">
+                 <span><i class="fa fa-pencil me-1" role="img" />Add Customer Info</span>
+            </button>
+        </xpath>
+    </t>
+</templates>

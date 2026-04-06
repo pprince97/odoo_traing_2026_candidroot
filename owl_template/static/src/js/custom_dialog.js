@@ -1,82 +1,90 @@
-import { DateTimeInput } from "@web/core/datetime/datetime_input";
+import { Component, useState, onWillStart } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
-import { today } from "@web/core/l10n/dates";
-
-import { Component, useState } from "@odoo/owl";
+import { dataUrlToBlob } from "@mail/core/common/attachment_uploader_hook";
+import { useX2ManyCrud } from "@web/views/fields/relational_utils";
 
 export class CustomDialog extends Component {
+    static props = {
+        data : Object,
+        close: Function,
+        record: Object,
+    };
     static template = "owl_template.custom_dialog";
-    // static props = {
-    //     close: Function,
-    //     save: Function,
-    // };
     static components = {
         Dialog
     };
 
     setup() {
-        // const now = luxon.DateTime.now();
-        // this.tomorrowMorning = today().plus({ days: 1 }).set({ hour: 8 });
-        // this.tomorrowAfternoon = this.tomorrowMorning.set({ hour: 13 });
-        // this.mondayMorning = today()
-        //     .plus({ days: (1 - today().weekday + 7) % 7 || 7 })
-        //     .set({ hour: 8 });
-        //
-        // this.state = useState({
-        //     customDateTime: now
-        //         .plus({ hours: 1 })
-        //         .set({ minutes: Math.ceil(now.minute / 5) * 5, seconds: 0, milliseconds: 0 }),
-        //     selectedOption: undefined,
-        // });
-        //
-        // if (!this.props.scheduledDate || this.props.scheduledDate.equals(this.tomorrowMorning)) {
-        //     this.state.selectedOption = "morning";
-        // } else if (this.props.scheduledDate.equals(this.tomorrowAfternoon)) {
-        //     this.state.selectedOption = "afternoon";
-        // } else if (this.props.scheduledDate.equals(this.mondayMorning)) {
-        //     this.state.selectedOption = "monday";
-        // } else {
-        //     this.state.selectedOption = "custom";
-        //     this.state.customDateTime = this.props.scheduledDate;
-        // }
-        // this.dateTimeFormat = {
-        //     day: "numeric",
-        //     hour: "numeric",
-        //     minute: "numeric",
-        //     month: "short",
-        // };
+        this.orm = useService("orm");
+        this.state = useState({
+            attachments: [],
+        });
+        this.mailStore = useService("mail.store");
+        this.attachmentUploadService = useService("mail.attachment_upload");
+        this.operations = useX2ManyCrud(() => {
+            return this.props.record.data["attachment_ids"];
+        }, true);
+
+        onWillStart(async () => {
+            await this.loadAttachments();
+        });
         console.log('custom dialog setup')
     }
 
-    // get dateTimePickerProps() {
-    //     return {
-    //         minDate: luxon.DateTime.now(),
-    //         onSelect: (value) => (this.state.customDateTime = value),
-    //         type: "datetime",
-    //         value: this.state.customDateTime,
-    //         rounding: 1,
-    //     };
-    // }
-    //
-    // get scheduledDate() {
-    //     if (this.state.selectedOption === "morning") {
-    //         return this.tomorrowMorning;
-    //     } else if (this.state.selectedOption === "afternoon") {
-    //         return this.tomorrowAfternoon;
-    //     } else if (this.state.selectedOption === "monday") {
-    //         return this.mondayMorning;
-    //     } else {
-    //         return this.state.customDateTime;
-    //     }
-    // }
+    async loadAttachments() {
+        // Example: fetching for a specific record passed via props
+        this.state.attachments = await this.orm.searchRead(
+            "ir.attachment",
+            [
+                ["res_model", "=", this.props.data.model],
+                ["res_id", "in", this.props.data.ids]
+            ],
+            ["id", "name", "mimetype",'datas']
+        );
+        console.log(this.state.attachments[0])
+    }
+    
+    clear(ev) {
+        const dataToSend = ev.currentTarget.parentElement.parentElement.querySelectorAll("input")
+        for(let d of dataToSend) {
+            d.checked = false
+        }
+        // this.props.close();
+    }
 
-    // clear() {
-    //     this.props.save(false);
-    //     this.props.close();
-    // }
 
-    // save() {
-    //     // this.props.save(this.scheduledDate);
-    //     this.props.close();
+    async save(ev) {
+        const dataToSend = ev.currentTarget.parentElement.parentElement.querySelectorAll("input")
+        for(let d of dataToSend){
+            if (d.checked){
+                const att = this.state.attachments.find(att => att.id == d.value);
+                const thread = await this.mailStore.Thread.insert({
+                    model: this.props.data.model,
+                    id: this.props.data.ids[0],
+                });
+                // const t=att.mimetype
+                const file = new File([dataUrlToBlob(att.datas, att.mimetype)], att.name, {type:att.mimetype});
+                const attachment = await this.attachmentUploadService.upload(thread, thread.composer, file);
+                if (attachment) {
+                    await this.operations.saveRecord([attachment.id]);
+                }
+            }
+        }
+        this.props.close();
+
+        // async onSave() {
+        // const ids = [...this.state.selectedIds];
+        // console.log("Selected Attachments:", ids);
+        // if (ids.length > 0 && this.props.record) {
+        //     console.log('>>>>>>>>>>>>>>>>>>>',this.props.record)
+        //     const commands = ids.map(id => [4, id]);
+        //     await this.props.record.update({
+        //         attachment_ids: commands
+        //     });
+        //     await this.props.record.save();
+        // }
+        // this.props.close();
     // }
+}
 }
