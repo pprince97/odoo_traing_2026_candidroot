@@ -73,18 +73,3 @@ export class Root extends Component {
 }
 
 registry.category("actions").add("owl_template.product_action", Root);
-
-
-
-// import { useService } from "@web/core/utils/hooks";
-//
-// setup() {
-//     this.orm = useService("orm");
-// }
-//
-// async saveData(data) {
-//     await this.orm.call("your.model", "create", [{
-//         name: data.name,
-//         field_name: data.value,
-//     }]);
-// }

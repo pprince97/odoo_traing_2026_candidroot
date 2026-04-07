@@ -13,6 +13,7 @@ patch(FormController.prototype, {
 
     async saveButtonClicked(params = {}) {
         // debugger
+
         // Fields validation
         const saleModel = this.model.root.resModel;
         console.log(this.model.root.data.user_id.display_name);
