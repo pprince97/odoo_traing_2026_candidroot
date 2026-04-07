@@ -9,6 +9,9 @@
 <!--                <t t-esc="active_order.date_order"/>-->
                 <t t-esc="getTableDuration(table)"/>
             </t>
+            <t t-else="">
+                <p>00:00</p>
+            </t>
         </xpath>
     </t>
 </templates>

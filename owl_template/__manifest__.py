@@ -20,6 +20,7 @@
     'assets': {
         'point_of_sale._assets_pos': [
             'owl_template/static/src/app/components/screens/product_screen/control_buttons/control_buttons.xml',
+            'owl_template/static/src/app/components/screens/floor_screen/pos_order.js',
             'owl_template/static/src/app/components/screens/floor_screen/floor_screen.js',
             'owl_template/static/src/app/components/screens/floor_screen/floor_screen.xml',
             'owl_template/static/src/app/components/screens/product_screen/control_buttons/control_buttons.js',
@@ -27,6 +28,7 @@
             'owl_template/static/src/app/components/popup/customer_popup.js',
         ],
         'web.assets_backend': [
+            'owl_template/static/src/app/components/screens/floor_screen/pos_order.js',
             'owl_template/static/src/js/counter.js',
             'owl_template/static/src/js/link_button.js',
             'owl_template/static/src/js/custom_dialog.js',
