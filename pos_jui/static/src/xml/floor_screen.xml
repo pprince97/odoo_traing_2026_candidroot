@@ -2,7 +2,12 @@
 <templates id="template" xml:space="preserve">
     <t t-name="pos_jui.TableCounter" t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('info')]" position="inside">
-            <p class="label text-center p-2" id="counter_p">Counter</p>
+<!--            <p class="label text-center p-2" id="counter_p">Counter</p>-->
+            <t t-set="currentTime" t-value="state.tableTimers[table.id]"/>
+            <div class="floor-table-timer"
+                 style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: white; font-weight: bold; background: rgba(0,0,0,0.5); font-size: 0.7rem; border-radius: 4px;">
+                <t t-esc="currentTime"/>
+            </div>
         </xpath>
     </t>
 </templates>
