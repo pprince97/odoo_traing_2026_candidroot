@@ -1,0 +1,11 @@
+<templates xml:space="preserve">
+    <t t-inherit="pos_restaurant.FloorScreenTable" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'table')]" position="inside">
+            <div class="table-timer">
+                <t t-set="seconds" t-value="component.getTableTime(props.table)"/>
+                <t t-esc="Math.floor(seconds / 60)"/>:
+                <t t-esc="(seconds % 60).toString().padStart(2, '0')"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

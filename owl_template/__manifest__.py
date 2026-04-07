@@ -20,7 +20,9 @@
     'assets': {
          'point_of_sale._assets_pos': [
              'owl_template/static/src/xml/pos_extend.xml',
+             'owl_template/static/src/xml/pos_table_timer.xml',
              'owl_template/static/src/js/pos_extend.js',
+             'owl_template/static/src/js/pos_table_timer.js',
          ],
 
         'web.assets_backend': [
