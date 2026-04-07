@@ -15,8 +15,9 @@
             "owl_components/static/src/js/counter.js",
             "owl_components/static/src/xml/counter.xml",
             "owl_components/static/src/js/attach_button.js",
+            "owl_components/static/src/js/custom_dialog.js",
             "owl_components/static/src/xml/attach_button_template.xml",
-
+            "owl_components/static/src/xml/custom_dialog.xml",
         ],
     },
     'installable': True,

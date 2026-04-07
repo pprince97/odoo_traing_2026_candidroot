@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<templates xml:space="preserve">
+
+    <t t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('translate-middle')]" position="before">
+            <t t-esc="getTableTimer(table)"/>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('control-buttons')]" position="inside">
+            <button t-att-class="buttonClass">
+                <i class="fa fa-files-o me-1"/>Customer Info
+            </button>
+        </xpath>
+    </t>
+</templates>

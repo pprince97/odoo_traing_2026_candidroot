@@ -2,7 +2,8 @@
 <template xml:space="preserve">
     <t t-name="owl_components.AttachButtonWidget">
         <button
-            t-on-click="onAttachClick"
+            t-on-click="openCustomDialog"
+            class="btn btn-primary"
         >
             Add Files
         </button>

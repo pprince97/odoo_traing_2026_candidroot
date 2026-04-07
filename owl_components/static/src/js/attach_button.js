@@ -1,7 +1,7 @@
-import {registry} from "@web/core/registry";
-import {Component} from "@odoo/owl";
-import {AlertDialog} from "@web/core/confirmation_dialog/confirmation_dialog";
-import { _t } from "@web/core/l10n/translation";
+import { registry } from "@web/core/registry";
+import { Component } from "@odoo/owl";
+import { CustomDialog } from "./custom_dialog";
+import { useService } from "@web/core/utils/hooks";
 
 
 export class AttachButtonWidgetComponent extends Component {
@@ -10,13 +10,12 @@ export class AttachButtonWidgetComponent extends Component {
 
     setup() {
         super.setup();
+        this.dialogService = useService("dialog");
     }
 
-    onAttachClick() {
-        console.log("Attach Button Clicked!");
-        this.env.services.dialog.add(AlertDialog, {
-            title: _t("Add Files Dialog"),
-            body: _t("Body of dialog"),
+    openCustomDialog() {
+        this.dialogService.add(CustomDialog, {
+            close: "Close Button",
         });
     }
 
@@ -24,7 +23,6 @@ export class AttachButtonWidgetComponent extends Component {
 
 export const attachButtonWidget = {
     component: AttachButtonWidgetComponent,
-
 };
 
 registry.category("fields").add("attach_button", attachButtonWidget);
