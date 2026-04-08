@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xml:space="preserve">
+    <t t-name="pos_custom_tanisha.GuestDetailsDialog">
+        <Dialog size="'md'" title.translate="Guest Details">
+            <div class="container">
+                <p>Guest Details Dialog Body</p>
+            </div>
+<!--            <t t-set-slot="footer">-->
+<!--                <button class="btn btn-primary">Save</button>-->
+<!--                <button class="btn btn-secondary" t-on-click="props.close">Close</button>-->
+<!--            </t>-->
+        </Dialog>
+    </t>
+</template>

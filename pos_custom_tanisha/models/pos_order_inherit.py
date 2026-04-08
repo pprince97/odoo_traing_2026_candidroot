@@ -7,4 +7,11 @@ class PosOrder(models.Model):
     end_date_time = fields.Datetime()
 
 
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
+
+    guest_details_bool = fields.Boolean("Guest Details")
+    guest_details_timing = fields.Selection([('order_before','Order Before'),('order_after','Order After')],string="Guest Details Timing", default='order_before')
+    guest_details_req_bool = fields.Boolean("Guest Details Required")
+
 
