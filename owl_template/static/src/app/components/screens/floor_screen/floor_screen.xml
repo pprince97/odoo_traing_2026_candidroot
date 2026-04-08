@@ -3,15 +3,15 @@
     <t t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('label fw-bolder fs-4 position-absolute top-50 start-50 translate-middle')]"
                position="before">
-            <t t-if="pos.tableHasOrders(table)">
-                <t t-set="active_order" t-value="pos.models['pos.order'].find(o => o.table_id and o.table_id.id === table.id)"/>
+<!--            <t t-if="pos.tableHasOrders(table)">-->
+<!--                <t t-set="active_order" t-value="pos.models['pos.order'].find(o => o.table_id and o.table_id.id === table.id)"/>-->
 <!--                <t t-esc="active_order.preset_time"/>-->
 <!--                <t t-esc="active_order.date_order"/>-->
                 <t t-esc="getTableDuration(table)"/>
-            </t>
-            <t t-else="">
-                <p>00:00</p>
-            </t>
+<!--            </t>-->
+<!--            <t t-else="">-->
+<!--                <p>00:00</p>-->
+<!--            </t>-->
         </xpath>
     </t>
 </templates>

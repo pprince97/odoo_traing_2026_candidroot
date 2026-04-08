@@ -3,6 +3,7 @@ import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product
 import { PosOrder } from "@point_of_sale/app/models/pos_order";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import OrderPaymentValidation from "@point_of_sale/app/utils/order_payment_validation";
+import {GuestPopup} from "../../popup/guest_popup";
 const { DateTime } = luxon;
 
 patch(PosOrder.prototype, {
@@ -32,6 +33,10 @@ patch(ProductScreen.prototype, {
         const order = this.currentOrder;
         if (!order.start_time && order.lines.length > 0) {
             order.start_time = serializeDateTime(DateTime.now());
+            // console.log('>>>>>>>>>>>>>>>>>>>stdate',order.start_time)
+        }
+        if (order.lines.length === 1 && this.pos.config.guest_details && this.pos.config.timing === 'after') {
+            this.env.services.dialog.add(GuestPopup, {});
         }
         return result;
     },

@@ -15,6 +15,7 @@
     'data': [
         'views/action.xml',
         'views/button_link.xml',
+        'views/config_para.xml',
     ],
 
     'assets': {
@@ -25,10 +26,13 @@
             'owl_template/static/src/app/components/screens/floor_screen/floor_screen.xml',
             'owl_template/static/src/app/components/screens/product_screen/control_buttons/control_buttons.js',
             'owl_template/static/src/app/components/popup/customer_popup.xml',
+            'owl_template/static/src/app/components/popup/guest_popup.xml',
+            'owl_template/static/src/app/components/popup/detail_popup.xml',
             'owl_template/static/src/app/components/popup/customer_popup.js',
+            'owl_template/static/src/app/components/popup/detail_popup.js',
+            'owl_template/static/src/app/components/popup/guest_popup.js',
         ],
         'web.assets_backend': [
-            'owl_template/static/src/app/components/screens/floor_screen/pos_order.js',
             'owl_template/static/src/js/counter.js',
             'owl_template/static/src/js/link_button.js',
             'owl_template/static/src/js/custom_dialog.js',

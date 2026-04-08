@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-name="pos_restaurant.DetailPopup">
+    <Dialog title.translate="Guest Detail" size="'md'">
+        <div class="row m-2">
+            <div class="col-md-4">
+                <label for="age" class="form-label mb-0">Age:</label>
+                <input type="number" id="age" name="age" required="" class="form-control mb-1"/>
+            </div>
+
+            <div class="col-md-4">
+                <label for="female_no" class="form-label mb-0">Nationality:</label>
+                <input type="text" id="nationality" name="nationality" required="" class="form-control mb-1"/>
+            </div>
+
+            <div class="col-md-4">
+                <label for="gender" class="form-label mb-0">Gender:</label>
+                <textarea id="text" name="gender" class="form-control mb-1"/>
+            </div>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="props.close">
+                Next
+            </button>
+            <button class="btn btn-secondary" t-on-click="props.close">
+                Previous
+            </button>
+            <button class="btn btn-secondary" t-on-click="props.close">
+                Skip
+            </button>
+        </t>
+    </Dialog>
+</t>
+</templates>

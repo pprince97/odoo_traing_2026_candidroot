@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-name="pos_restaurant.GuestPopup">
+    <Dialog title.translate="No Of Guest" size="'md'">
+        <div class="row m-2">
+            <div class="col-md-4">
+                <label for="male_no" class="form-label mb-0">No of Male:</label>
+                <input type="number" id="male_no" name="male_no" required="" class="form-control mb-1"/>
+            </div>
+
+            <div class="col-md-4">
+                <label for="female_no" class="form-label mb-0">No of Female:</label>
+                <input type="number" id="female_no" name="female_no" required="" class="form-control mb-1"/>
+            </div>
+
+            <div class="col-md-4">
+                <label for="guest_no" class="form-label mb-0">No of Guest:</label>
+                <textarea id="number" name="guest_no" class="form-control mb-1"/>
+            </div>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="next">
+                Next
+            </button>
+            <button class="btn btn-secondary" t-on-click="props.close">
+                Close
+            </button>
+            <button class="btn btn-secondary" t-on-click="props.close">
+                Skip
+            </button>
+        </t>
+    </Dialog>
+</t>
+</templates>
