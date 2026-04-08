@@ -1,28 +1,25 @@
 from odoo import fields, models, api
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 class PosOrder(models.Model):
     _inherit = 'pos.order'
 
     table_duration = fields.Char(string="Table Duration")
     amount = fields.Float(related="")
-    date_table = fields.Datetime(string="Date Table" , compute="_compute_date_table")
+    date_table = fields.Datetime(string="Date Table" )
     # amount_total = fields.Monetary(related="amount_total")
 
     # async addProductToOrder(product)
 
-    @api.depends("amount_total")
-    def _compute_date_table(self):
-        for record in self:
-            if not record.amount_total:
-                print("record.amount_total ---------->  ",record.amount_total)
-                return
-            else:
-                print("record.date_order  ---------->  ", record.date_order)
-                record.date_table = record.date_order
-                print("record.date_table ---------->  ", record.date_table)
     #
-    # @api.model
-    # def _order_fields(self, ui_order):
-    #     res = super()._order_fields(ui_order)
-    #     res['table_duration'] = ui_order.get('table_duration', "")
-    #     return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        for val in vals_list:
+            time_1 = datetime.now(ZoneInfo('Asia/Kolkata'))
+            time_2 = time_1.replace(tzinfo=None)
+            val["date_table"] = time_2
+            print(val["date_table"], " ------val:date_table")
+        res = super().create(vals_list)
+        return res
+

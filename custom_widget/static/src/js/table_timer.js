@@ -23,18 +23,24 @@ patch(FloorScreen.prototype, {
         });
     },
 
+
+    // async onClickTable(table, ev) {
+    //         console.log(`Table number ${table.table_number} clicked!`)
+    //         return super.onClickTable(table, ev);
+    //     },
+
     // async addProductToOrder(product)
 
     _setOrderDuration(order) {
         if (!order || !order.date_order || (order.amount_total === undefined)) return;
         // if (order.date_order === order.date_table) return ;
         const start = new Date(order.date_table);
-        console.log(order.date_table,"-------order.date_table")
-        console.log(order.date_order,"-------order.date_order")
-        console.log(order.amount_total,"-------order.amount_total")
+        // console.log(order.date_table,"-------order.date_table")
+        // console.log(order.date_order,"-------order.date_order")
+        // console.log(order.amount_total,"-------order.amount_total")
         // console.log(new Date(),"-------new Date()")
         // console.log(start,"-------start")
-        const diff = Math.floor((new Date() - start) / 1000);
+        const diff = Math.floor((new Date() - start) / 1000) + 19800;
         // console.log(diff,"-------diff")
         const h = Math.floor(diff / 3600);
         const m = Math.floor((diff % 3600) / 60);
@@ -48,4 +54,10 @@ patch(FloorScreen.prototype, {
         const order = this.pos.models['pos.order'].find(o => o.table_id && o.table_id.id === table.id && !o.finalized);
         return order ? order.table_duration : "";
     }
+
+
+
 });
+
+
+// order.setPreset(preset);
