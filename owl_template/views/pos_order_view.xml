@@ -6,7 +6,9 @@
         <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='customer_count']" position="after">
-                <field name="total_duration"/>
+                <field name="start_time"/>
+                <field name="end_time"/>
+                <field name="table_duration"/>
             </xpath>
         </field>
     </record>

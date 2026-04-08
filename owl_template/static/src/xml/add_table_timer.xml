@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
+    <!-- Updated template name for Odoo 19 -->
     <t t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
-        <xpath expr="//div[hasclass('info')]" position="inside">
-            <p class="table-timer" t-att-data-table-id="table.id" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); text-align: center; margin: 0; color: #ff6b6b; font-weight: bold; font-size: 12px; background: rgba(255,255,255,0.8); padding: 2px 4px; border-radius: 3px;">
-                00:00
-            </p>
+        <xpath expr="//div[hasclass('info')]" position="after">
+            <t t-if="pos.tableHasOrders(table)">
+                <t t-set="active_order" t-value="pos.models['pos.order'].find(o => o.table_id and o.table_id.id === table.id)"/>
+                <t t-esc="getTableDuration(table)"/>
+            </t>
+            
+            <t t-else="">
+                <p>00:00</p>
+            </t>
         </xpath>
     </t>
+ 
 </templates>
