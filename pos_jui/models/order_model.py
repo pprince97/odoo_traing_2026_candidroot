@@ -1,5 +1,4 @@
 from odoo import models,fields,api,_
-from datetime import datetime
 
 class OrderModel(models.Model):
     _inherit = "pos.order"
@@ -13,5 +12,6 @@ class OrderModel(models.Model):
             if order.start_date and order.end_date:
                 diff = order.end_date - order.start_date
                 order.differ = str(diff)
+                print(order.differ,'>>>>>>>>>>>>>>>>>>>>>>>>difference')
             else:
                 order.differ = "N/A"

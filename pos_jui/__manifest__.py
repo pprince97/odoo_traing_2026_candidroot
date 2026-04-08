@@ -14,6 +14,7 @@
 
     'depends': ['base','point_of_sale','pos_restaurant'],
     'data':[
+       'views/res_config_settings.xml',
     ],
 
     'assets':{

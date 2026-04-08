@@ -2,13 +2,12 @@ import { FloorScreen } from "@pos_restaurant/app/screens/floor_screen/floor_scre
 import { patch } from "@web/core/utils/patch";
 import { onWillUnmount, onMounted } from "@odoo/owl";
 import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
-import { PosStore } from "@point_of_sale/app/services/pos_store";
 import { PosOrder } from "@point_of_sale/app/models/pos_order";
 import OrderPaymentValidation from "@point_of_sale/app/utils/order_payment_validation";
 import { serializeDateTime } from "@web/core/l10n/dates";
+import {GuestDetail} from "./guest_detail_dialog";
 const { DateTime } = luxon;
-
-
+import { useService } from "@web/core/utils/hooks";
 
 patch(PosOrder.prototype, {
     setup(_defaultObj, options) {
@@ -36,7 +35,7 @@ patch(ProductScreen.prototype, {
         const result =await super.addProductToOrder(...arguments);
         const order = this.currentOrder;
         if (!order.start_date && order.lines.length > 0) {
-            this.order.start_date = serializeDateTime(DateTime.now());
+            order.start_date = serializeDateTime(DateTime.now());
         }
         return result;
     },
@@ -56,6 +55,8 @@ patch(FloorScreen.prototype, {
         super.setup();
         this.state.tableTimers = {};
         let interval;
+        this.orm = useService("orm");
+        this.dialogService = useService("dialog");
 
         onMounted(()=>{
             interval = setInterval(() => {
@@ -66,8 +67,7 @@ patch(FloorScreen.prototype, {
                         (o) => o.table_id?.id === table.id && !o.finalized
                     );
                     order = order[0]
-                    if (order && order.lines.length > 0) {
-
+                    if (order && order.lines.length > 0 && order.start_date) {
                         const diff = Math.floor((new Date() - new Date(order.start_date)) / 1000);
                         const mins = Math.floor(diff / 60).toString().padStart(2, '0');
                         const secs = (diff % 60).toString().padStart(2, '0');
@@ -80,5 +80,15 @@ patch(FloorScreen.prototype, {
         });
 
         onWillUnmount(() => {if(interval){clearInterval(interval)}});
-    }
+    },
+    async onClickTable(table, ev){
+        console.log(this.pos.config.guest_details,'>>>>>>>>>>>>>',this.pos.config.guest_details_timing)
+        if(this.pos.config.guest_details && this.pos.config.guest_details_timing === 'order_before'){
+            this.dialogService.add(GuestDetail, {
+                title: "Guest Details",
+                close: ()=>{},
+            });
+        }
+        return await super.onClickTable(...arguments);
+    },
 });
