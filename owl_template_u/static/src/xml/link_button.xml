@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="owl_template_u.linkbuttoncustom">
+    <button t-attf-class="btn btn-light test-info" t-on-click="ButtonClicked" title="Link Files from attachments">
+        <i class="fa fa-pencil"/>
+        Link Files
+    </button>
+</t>
+</templates>

@@ -1,0 +1,21 @@
+<templates>
+
+    <t t-name="chatter_inherit.AttachmentSelector">
+        <div style="padding:15px;">
+            <t t-if="props.attachments.length === 0">
+                <p>No attachments found for this record.</p>
+            </t>
+
+            <t t-foreach="props.attachments" t-as="file" t-key="file.id">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span t-esc="file.name"/>
+                    <button t-att-data-id="file.id"
+                            class="btn btn-sm btn-primary select_attachment">
+                        Select
+                    </button>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

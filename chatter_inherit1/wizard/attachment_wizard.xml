@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="attachment_wizard_view_form" model="ir.ui.view">
+            <field name="name">attachment.wizard.view.form</field>
+            <field name="model">attachment.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="Files">
+                            <field name="file_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Attach" type="object" name="action_attach_files" class="btn-primary"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+
+    <record id="action_attachment_wizard" model="ir.actions.act_window">
+        <field name="name">Attach Files</field>
+        <field name="res_model">attachment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

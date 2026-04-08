@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_compose_message_view_form" model="ir.ui.view">
+        <field name="name">mail.compose.message.view.form.inherit.mail</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//footer" position="inside">
+                <div class="container">
+                    <button type="button" class="btn-primary open-second-wizard" string="Attach Files"/>
+                </div>
+                <!--                <button string="Custom Files" name="action_send_mail" type="object" class="btn-primary" data-hotkey="q"/>-->
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

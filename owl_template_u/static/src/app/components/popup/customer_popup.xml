@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-name="pos_restaurant.CutomerInfoPopup">
+    <Dialog title.translate="Add Customer Info" size="'md'">
+        <div class="row m-2">
+            <label for="name" class="form-label mb-0">Name:</label>
+            <input type="text" t-ref="name" id="name" name="name" required="" class="form-control mb-1"/>
+
+            <label for="phone" class="form-label mb-0">Phone:</label>
+            <input type="tel" t-ref="phone" id="phone" name="phone" class="form-control mb-1"/>
+
+            <label for="notes" class="form-label mb-0">Notes:</label>
+            <textarea id="notes" t-ref="notes" name="notes" rows="4" cols="30" class="form-control mb-1"/>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="save">
+                Save
+            </button>
+            <button class="btn btn-secondary" t-on-click="props.close">
+                Close
+            </button>
+        </t>
+    </Dialog>
+</t>
+</templates>

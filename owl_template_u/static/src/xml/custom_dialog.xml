@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="owl_template_u.custom_dialog">
+    <Dialog title.translate="Add Files To mail" size="'md'">
+        <div role="radiogroup">
+            <div class="o_attachment_list mt-2">
+            <h6>Linked Attachments</h6>
+                <ul class="list-group">
+                    <t t-foreach="state.attachments" t-as="attachment" t-key="attachment.id">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <input type="checkbox" class="form-check-input" t-att-value="attachment.id"/>
+                            <label class="form-label"><i class="fa fa-file-o mx-2"/><t t-esc="attachment.name"/></label>
+                        </span>
+                        <a t-attf-href="/web/content/{{attachment.id}}?download=true"
+                           class="btn btn-sm btn-secondary"
+                           title="Download">
+                            <i class="fa fa-download"/>
+                        </a>
+                    </li>
+                </t>
+                    <t t-if="state.attachments.length === 0">
+                    <li class="list-group-item text-muted italic">No attachments found.</li>
+                </t>
+            </ul>
+            </div>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="(ev) => this.save(ev)">
+                Save
+            </button>
+            <button class="btn btn-secondary" t-on-click="props.close">
+                Close
+            </button>
+            <button class="btn btn-secondary ms-auto" t-on-click="(ev) => this.clear(ev)">
+                Clear Selection
+            </button>
+        </t>
+    </Dialog>
+</t>
+</templates>
