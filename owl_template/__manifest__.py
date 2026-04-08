@@ -13,25 +13,26 @@
     'depends': ['website', 'mail', 'point_of_sale'],
 
     'data': [
-        'views/action.xml',
-        'views/compose_email.xml',
+        # 'views/action.xml',
+        # 'views/compose_email.xml',
+        'views/table_timer.xml',
     ],
 
     'assets': {
          'point_of_sale._assets_pos': [
-             'owl_template/static/src/xml/pos_extend.xml',
+             # 'owl_template/static/src/xml/pos_extend.xml',
              'owl_template/static/src/xml/pos_table_timer.xml',
-             'owl_template/static/src/js/pos_extend.js',
+             # 'owl_template/static/src/js/pos_extend.js',
              'owl_template/static/src/js/pos_table_timer.js',
          ],
 
-        'web.assets_backend': [
-            'owl_template/static/src/js/compose_mail.js',
-            'owl_template/static/src/js/main.js',
-            'owl_template/static/src/js/patching.js',
-            'owl_template/static/src/xml/product_card.xml',
-            'owl_template/static/src/css/counter.css',
-        ],
+        # 'web.assets_backend': [
+        #     'owl_template/static/src/js/compose_mail.js',
+        #     'owl_template/static/src/js/main.js',
+        #     'owl_template/static/src/js/patching.js',
+        #     'owl_template/static/src/xml/product_card.xml',
+        #     'owl_template/static/src/css/counter.css',
+        # ],
     },
     'installable': True,
     'application': True,

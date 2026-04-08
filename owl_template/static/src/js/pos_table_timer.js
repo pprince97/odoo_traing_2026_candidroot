@@ -1,93 +1,47 @@
 /** @odoo-module **/
-
+import {FloorScreen} from "@pos_restaurant/app/screens/floor_screen/floor_screen";
 import {patch} from "@web/core/utils/patch";
-import {useService} from "@web/core/utils/hooks";
-import {FloorScreen} from "@pos_restaurant/app/floor_screen/floor_screen";
-import {Order} from "@point_of_sale/app/store/models";
-import {PaymentScreen} from "@point_of_sale/app/screens/payment_screen/payment_screen";
+import {onMounted, onWillUnmount} from "@odoo/owl";
 
-// -------------------
-// ORDER TIMER LOGIC
-// -------------------
-patch(Order.prototype, {
-    setup() {
-        super.setup(...arguments);
-        this.start_time = this.start_time || null;
-        this.end_time = this.end_time || null;
-    },
-
-    startTimer() {
-        if (!this.start_time) {
-            this.start_time = Date.now();
-            console.log("✅ Timer started:", this.start_time);
-        }
-    },
-
-    stopTimer() {
-        if (!this.end_time) {
-            this.end_time = Date.now();
-            console.log("🛑 Timer stopped:", this.end_time);
-        }
-    },
-
-    getElapsedTime() {
-        if (!this.start_time) return 0;
-
-        const end = this.end_time || Date.now();
-        return Math.floor((end - this.start_time) / 1000);
-    }
-});
-
-// -------------------
-// FLOOR SCREEN PATCH
-// -------------------
 patch(FloorScreen.prototype, {
     setup() {
         super.setup();
-        this.dialogService = useService("dialog");
+        // this.timerState = useState({currentTime: new Date()});
+        let interval;
 
-        // 🔥 Force UI update every second
-        setInterval(() => {
-            this.env.bus.trigger("update");
-        }, 1000);
+        onMounted(() => {
+            interval = setInterval(() => {
+                // this.timerState.currentTime = new Date();
+                this.pos.models['pos.order'].filter(o => !o.finalized).forEach(order => {
+                    this._setOrderDuration(order);
+                });
+            }, 1000);
+        });
+
+        onWillUnmount(() => {
+            clearInterval(interval);
+        });
     },
 
-    onClickTable(table) {
-        super.onClickTable(table);
+    _setOrderDuration(order) {
+        if (!order || !order.date_order || (order.amount_total === undefined)) return;
+        const start = new Date(order.date_table);
+        console.log("111111111111111111", order.date_table, "-------order.date_table")
 
-        const order = this.env.pos.get_order();
-        if (order) {
-            order.startTimer();
-        }
+        console.log("22222222222222", new Date(), "-------new Date()")
+
+        const diff = Math.floor((new Date() - start) / 1000);
+        console.log("555555555", Math.floor((new Date() - start) / 1000))
+        console.log(diff, "-------diff")
+        const h = Math.floor(diff / 3600);
+        const m = Math.floor((diff % 3600) / 60);
+        const s = diff % 60;
+
+        order.table_duration = `${h > 0 ? h + ':' : ''}${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     },
-
-    getTableTime(table) {
-        const order = this.env.pos.get_order();  // 🔥 use current order
-
-        if (order && order.tableId === table.id) {
-
-            if (!order.start_time) {
-                order.startTimer();
-            }
-
-            return order.getElapsedTime();
-        }
-
-        return 0;
+    getTableDuration(table) {
+        const order = this.pos.models['pos.order'].find(o => o.table_id && o.table_id.id === table.id && !o.finalized);
+        return order ? order.table_duration : "";
     }
-});
 
-// -------------------
-// PAYMENT SCREEN PATCH
-// -------------------
-patch(PaymentScreen.prototype, {
-    async validateOrder(isForceValidate) {
-        const order = this.env.pos.get_order();
-
-        if (order) {
-            order.stopTimer();
-        }
-
-        return await super.validateOrder(isForceValidate);
-    },
 });
