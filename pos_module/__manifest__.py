@@ -5,7 +5,7 @@
     'category': 'uncategorized',
     'description': 'POS Management',
     'author': 'Aayush',
-    'depends': ['base', 'point_of_sale'],
+    'depends': ['base', 'pos_restaurant'],
 
     'data': [
         'security/ir.model.access.csv',
