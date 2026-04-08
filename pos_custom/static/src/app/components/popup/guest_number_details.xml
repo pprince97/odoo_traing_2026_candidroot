@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_custom.AddGuestNumberDetialsPopup">
+        <Dialog title.translate="Guest Details">
+            <div class="row">
+                <div class="col-4">
+                    Number of Male: <input type="number" t-model="state.male" t-on-input="compute_total"/>
+                </div>
+                <div class="col-4">
+                    Number of Female: <input type="number" t-model="state.female" t-on-input="compute_total"/>
+                </div>
+                <div class="col-4">
+                    Total Number of Guests: <input type="number" t-model="state.total_no_of_guests" readonly="1"/>
+                </div>
+            </div>
+            <br/>
+            <hr/>
+            <footer>
+                <button class="oe_highlight" string="Next" on-click="openCustomerDetialsPopUp">Next</button>
+            </footer>
+        </Dialog>
+    </t>
+</templates>
+<!--<templates id="template" xml:space="preserve">-->
+<!--    <t t-name="pos_custom.AddGuestNumberDetialsPopup">-->
+<!--        <Dialog title.translate="Guest Details">-->
+<!--            <div class="row">-->
+<!--            <div class="col-4">-->
+<!--                 Number of Male: <input type="number" name="male" t-on-change="compute_total"/>-->
+<!--                </div>-->
+<!--            <div class="col-4">-->
+<!--                    Total Number of Female: <input type="number" name="female" t-on-change="compute_total"/>-->
+<!--            </div>-->
+<!--            <div class="col-4">-->
+<!--                    Total Number of Guest-->
+<!--                    <input type="number">-->
+<!--                        <t t-esc="total_no_of_guests"/>-->
+<!--                    </input>-->
+<!--            </div>-->
+<!--            </div>-->
+<!--            <footer>-->
+<!--                <button class="oe_primary" string="Submit" t-on-click="save_guest_number_details">SUBMIT</button>-->
+<!--            </footer>-->
+<!--        </Dialog>-->
+<!--    </t>-->
+<!--</templates>-->

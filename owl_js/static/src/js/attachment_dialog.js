@@ -5,7 +5,7 @@ export class AttachmentDialog extends Component {
     static props = {
         active_model: {type: String, required: true},
         active_id: {type: Number, required: true},
-        // wizard_id: {type: Number, required: true},
+        record : {type: Object, required:true},
         close: {type: Function, required: true},
     };
     static components = {Dialog}
@@ -41,12 +41,15 @@ export class AttachmentDialog extends Component {
     }
 
     async confirm() {
-        console.log("ACTIVE ID:", this.props.resId);
-        await this.env.services.orm.call(
-            "mail.compose.message",
-            "add_selected_attachments",
-            [this.props.wizard_id, [...this.state.selected]]  // ✅ correct
-        );
+        const ids = [...this.state.selected];
+        // console.log("Selected Attachments:", ids);
+        if (ids.length > 0 && this.props.record) {
+            const commands = ids.map(id => [4, id]);
+            await this.props.record.update({
+                attachment_ids: commands
+            });
+            await this.props.record.save();
+        }
         this.props.close();
     }
 }

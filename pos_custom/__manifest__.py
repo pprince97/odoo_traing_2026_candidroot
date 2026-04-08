@@ -1,0 +1,30 @@
+{
+    'name': 'POS',
+    'version': '1.0',
+    'category': 'Uncategorized',
+    'summary': 'pos',
+    'description': "",
+    'author': 'ME',
+    'website': '',
+    'depends': ['base', 'web', 'sale', 'point_of_sale', 'pos_restaurant'],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'pos_custom/static/src/app/components/popup/customer_dialog.js',
+            'pos_custom/static/src/app/components/popup/customer_dialog.xml',
+            'pos_custom/static/src/app/screens/product_screen/control_buttons/pos_action_button.js',
+            'pos_custom/static/src/app/screens/product_screen/control_buttons/pos_action_button.xml',
+            'pos_custom/static/src/app/components/popup/guest_number_details.js',
+            'pos_custom/static/src/app/components/popup/guest_number_details.xml',
+            'pos_custom/static/src/app/screens/floor_screen/setTable.js',
+            'pos_custom/static/src/app/screens/floor_screen/floor_screen.js',
+            'pos_custom/static/src/app/screens/floor_screen/floor_screen.xml',
+
+        ],
+    },
+    'data': [
+        'views/res_config_settings.xml',
+    ],
+    'installable': True,
+    'license': 'LGPL-3',
+    'application': True,
+}

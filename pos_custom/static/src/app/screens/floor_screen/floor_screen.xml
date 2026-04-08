@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('label')]" position="before">
+            <t t-set="tableDuration" t-value="getTableDuration"/>
+            <div t-if="tableDuration !== null"
+                 class="table-timer position-absolute top-0 start-50 translate-middle-x mt-1 fw-bolder d-flex align-items-center"
+                 style="font-size: 0.7rem; background: rgba(0,0,0,0.6); color: #ffffff; padding: 1px 5px; border-radius: 4px; font-family: monospace;">
+                <t t-esc="getTableDuration(table)"/>
+            </div>
+        </xpath>
+    </t>
+</templates>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
+<!--    <t t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">-->
+<!--        <xpath expr="//div[hasclass('label')]" position="before">-->
+<!--            <t t-set="tableDuration" t-value="this.getTableDuration(table)"/>-->
+<!--            <div t-if="tableDuration !== null"-->
+<!--                 class="table-timer position-absolute top-0 start-50 translate-middle-x mt-1 fw-bolder d-flex align-items-center"-->
+<!--                 style="font-size: 0.7rem; background: rgba(0,0,0,0.6); color: #ffffff; padding: 1px 5px; border-radius: 4px; font-family: monospace;">-->
+<!--                <t t-esc="tableDuration"/>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--    </t>-->
+<!--</templates>-->

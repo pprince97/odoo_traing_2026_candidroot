@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_custom.AddCustomerDetailsPopup">
+        <Dialog title.translate="Customer Details">
+            Customer Name: <input type="text" name="customer_name"/><br/><br/>
+            Customer Mobile: <input type="text" name="customer_mobile"/><br/><br/>
+            Note: <textarea name="note"/><br/><br/>
+            <footer>
+                <button class="oe_highlight" string="Add"/>
+            </footer>
+        </Dialog>
+    </t>
+</templates>

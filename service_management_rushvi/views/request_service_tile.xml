@@ -93,6 +93,22 @@
                 <h3 class="d-flex justify-content-between align-items-center w-90">
                     <span>All Service Requests</span>
                 </h3>
+                 <div t-if="searchbar_filters" class="ms-lg-2">
+                        <span class="small me-1 navbar-text">Filter By:</span>
+                        <div class="btn-group">
+                            <button id="portal_searchbar_filters" data-bs-toggle="dropdown" class="btn btn-light dropdown-toggle">
+                                <t t-esc="searchbar_filters.get(filterby,searchbar_filters.get('all')).get('label', 'All')"/>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="portal_searchbar_filters">
+                                <t t-foreach="searchbar_filters" t-as="option">
+                                    <a t-att-href="default_url + '?' + keep_query('*', filterby=option)"
+                                       t-attf-class="dropdown-item#{filterby == option and ' active' or ''}">
+                                        <span t-esc="searchbar_filters[option].get('label')"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
                 <table class="table">
                     <thead>
                         <th>
