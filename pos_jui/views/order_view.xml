@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pos_order_inherited_form_view" model="ir.ui.view">
+            <field name="name">pos.order.inherited.form.view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='notes']" position="after">
+                    <page name="guest_details" string="Guest Details">
+                        <group>
+                            <field name="male_count"/>
+                            <field name="female_count"/>
+                        </group>
+                        <group string="Guest Details">
+                            <field name="guest_ids" string="">
+                                <list editable="bottom">
+                                    <field name="nationality_id" width="25px"/>
+                                    <field name="gender" width="25px"/>
+                                    <field name="age" width="25px"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

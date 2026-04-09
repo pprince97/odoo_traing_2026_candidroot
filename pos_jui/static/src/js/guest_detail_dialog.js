@@ -1,5 +1,6 @@
-import { Component, useState } from "@odoo/owl";
+import { Component, useRef } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
+
 
 export class GuestDetail extends Component {
     static template = "pos_jui.guest_detail_dialog";
@@ -15,21 +16,24 @@ export class GuestDetail extends Component {
             optional: true,
         },
         close: Function,
-        save:{ type: Function, optional: true },
+        save: Function,
+        male:Number,
+        female:Number,
+        guests:Number,
     };
 
     setup(){
-        this.state = useState({
-            guest: 0,
-        });
+        this.maleRef = useRef('male_c')
+        this.femaleRef = useRef('female_c')
+        this.guestRef = useRef('guest_c')
     }
 
-    save(){
+    next(){
         this.props.close();
+        this.props.save(this.maleRef.el.value,this.femaleRef.el.value,this.guestRef.el.value);
     }
 
-    guest_no(ev){
-        console.log(ev.currentTarget)
-        this.state.guest = parseInt(document.getElementById('male').value) + parseInt(document.getElementById('female').value);
+    guest_no(){
+        this.guestRef.el.value = parseInt(this.maleRef.el?.value || 0) + parseInt(this.femaleRef.el?.value || 0);
     }
 }

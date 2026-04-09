@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
     <t t-name="pos_jui.guest_detail_dialog">
-        <Dialog size="'md'" title="props.title" modalRef="modalRef">
+        <Dialog size="'lg'" title="props.title" modalRef="modalRef">
             <div class="row">
                 <div class="form-group col-4">
                     <div class="row">
@@ -9,7 +9,7 @@
                             <label for="male">No of Male:</label>
                         </div>
                         <div class="col-6">
-                            <input id="male" type="number" name="male" class="form-control" t-on-change="guest_no"/>
+                            <input id="male" type="number" name="male" class="form-control" t-ref="male_c" t-att-value="props.male || 0"  t-on-change="guest_no"/>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                             <label for="female">No of Female:</label>
                         </div>
                         <div class="col-6">
-                            <input id="female" type="number" name="female" class="form-control" t-on-change="guest_no"/>
+                            <input id="female" type="number" name="female" class="form-control" t-ref="female_c" t-att-value="props.female || 0" t-on-change="guest_no"/>
                         </div>
                     </div>
                 </div>
@@ -29,13 +29,13 @@
                             <label for="guests">No of Guests:</label>
                         </div>
                         <div class="col-6">
-                            <input type="number" name="guests" class="form-control" t-att-value="this.state.guest" readonly="1"/>
+                            <input type="number" name="guests" class="form-control" t-ref="guest_c" t-att-value="props.guests || 0" readonly="1"/>
                         </div>
                     </div>
                 </div>
             </div>
             <t t-set-slot="footer">
-                <button class="btn btn-primary" t-on-click="() => this.save()">Next</button>
+                <button class="btn btn-primary" t-on-click="() => this.next()">Next</button>
                 <button class="btn btn-secondary" t-on-click="props.close">Close</button>
                 <button class="btn btn-secondary" t-on-click="props.close">Skip</button>
             </t>

@@ -14,6 +14,8 @@
 
     'depends': ['base','point_of_sale','pos_restaurant'],
     'data':[
+        "security/ir.model.access.csv",
+       'views/order_view.xml',
        'views/res_config_settings.xml',
     ],
 
