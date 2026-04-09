@@ -6,7 +6,7 @@ export class Timer extends Component {
 
     setup() {
         this.pos = usePos();
-        this.state = useState({ name: "", email: "" });
+        this.state = useState({timer: ""});
     }
 
 
