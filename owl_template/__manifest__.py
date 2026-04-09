@@ -13,6 +13,7 @@
     'depends': ['base', 'web', 'mail', 'point_of_sale', 'pos_restaurant'],
 
     'data': [
+        'security/ir.model.access.csv',
         'views/action.xml',
         'views/button_link.xml',
         'views/config_para.xml',

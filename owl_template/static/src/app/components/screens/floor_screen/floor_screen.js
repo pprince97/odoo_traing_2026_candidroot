@@ -2,8 +2,9 @@
 import {FloorScreen} from "@pos_restaurant/app/screens/floor_screen/floor_screen";
 import {patch} from "@web/core/utils/patch";
 import {onMounted, onWillUnmount, useState} from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
-import { GuestPopup } from "../../popup/guest_popup"
+import {useService} from "@web/core/utils/hooks";
+import {GuestPopup} from "../../popup/guest_popup"
+import {DetailPopup} from "../../popup/detail_popup";
 
 patch(FloorScreen.prototype, {
     setup() {
@@ -43,9 +44,27 @@ patch(FloorScreen.prototype, {
     },
 
     async onClickTable(table, ev) {
-        if (this.pos.config.guest_details && this.pos.config.timing === 'before') {
-            this.dialogService.add(GuestPopup, {});
+        if (this.pos.config.guest_details && this.pos.config.timing === 'before' && !this.pos.tableHasOrders(table)) {
+            const closeGuestPopup = this.dialogService.add(GuestPopup, {
+                data : {},
+                next: async (data) => {
+                    await this.dialogService.add(DetailPopup, {
+                        data : data,
+                        next: async (data) => {
+                            await super.onClickTable(table, ev)
+                            const order = table.getOrder()
+                            console.log('>>>>>>>>>>>>>>',data.guest_ids)
+                            order.guest_ids = [[0, 0, {'gender': 'male', 'age': 15}]]
+                            console.log('>>>>>>>>>>>>>',order.guest_ids)
+                            order.update(data)
+                            closeGuestPopup();
+                        },
+                    });
+                }
+            });
+
+        } else {
+            return super.onClickTable(table, ev)
         }
-        return super.onClickTable(table, ev)
     }
 });

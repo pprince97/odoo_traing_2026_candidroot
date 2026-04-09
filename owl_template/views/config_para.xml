@@ -11,7 +11,7 @@
                     <div class="content-group mb-3">
                         <div class="p-1" invisible="not guest_details">
                             <div class="mt-3">
-                                <label for="timing"  class="me-2" name="Guest Details Timing"/>
+                                <label for="timing" class="me-2" name="Guest Details Timing"/>
                                 <field name="timing"/>
                             </div>
                             <div class="mt-2">
@@ -21,6 +21,32 @@
                         </div>
                     </div>
                 </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pos_order_inherited_form_view" model="ir.ui.view">
+        <field name="name">pos.order.inherited.form.view</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='notes']" position="after">
+                <page name="guest_details" string="Guest Details">
+                    <group string="Product Information">
+                        <field name="male_no"/>
+                        <field name="female_no"/>
+                        <field name="guest_no"/>
+                    </group>
+                    <group string="GUEST INFO">
+                        <field name="guest_ids" string="">
+                            <list>
+                                <field name="country_id" width="35px"/>
+                                <field name="gender" width="35px"/>
+                                <field name="age" width="30px"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>

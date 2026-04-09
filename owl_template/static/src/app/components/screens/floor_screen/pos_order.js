@@ -11,6 +11,7 @@ patch(PosOrder.prototype, {
         super.setup(...arguments);
         this.start_time = this.start_time || null;
         this.end_time = this.end_time || null;
+        this.guest_ids = this.guest_ids || [];
     },
     export_as_JSON() {
         const json = super.export_as_JSON(...arguments);
@@ -18,12 +19,14 @@ patch(PosOrder.prototype, {
             json.start_time = this.start_time;
             json.end_time = this.end_time;
         }
+        json.guest_ids = this.guest_ids || [];
         return json;
     },
     init_from_JSON(json) {
         super.init_from_JSON(...arguments);
         this.start_time = json.start_time;
         this.end_time = json.end_time;
+        this.guest_ids = json.guest_ids || [];
     },
 });
 
