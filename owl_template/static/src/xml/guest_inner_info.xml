@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="GuestInnerInfo">
+        <Dialog size="'md'" title="props.title">
+            <t t-foreach="state.guests" t-as="guest" t-key="guest.id">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <t t-esc="'Customer - ' + guest.id"/>
+                    </h5>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input id="age" type="number" class="form-control" t-model="guest.age" min="0" max="120"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="nationality" class="form-label">Nationality</label>
+                                    <input id="nationality" type="text" class="form-control" t-model="guest.nationality"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select id="gender" class="form-select" t-model="guest.gender">
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </t>
+
+            <div class="modal-footer" style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" t-on-click="next">Next</button>
+                <button class="btn btn-secondary" t-on-click="previous">Previous</button>
+                <button class="btn btn-secondary" t-on-click="skip">Skip</button>
+            </div>
+        </Dialog>
+    </t>
+</templates>
+
+
+<!--id="'gender_' + guest.id"-->

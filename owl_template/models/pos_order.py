@@ -32,6 +32,9 @@ class PosOrder(models.Model):
 
         if vals.get('state') == 'paid':
             vals['end_time'] = fields.Datetime.now()
+        
+        if vals.get('state') == 'cancel':
+            vals['end_time'] = fields.Datetime.now()
 
         print("\n\n\n==========>", vals.get('state'))
 

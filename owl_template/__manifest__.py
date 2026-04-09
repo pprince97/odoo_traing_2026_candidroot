@@ -14,6 +14,7 @@
         'views/action.xml',
         'views/owl_data_view.xml',
         'views/pos_order_view.xml',
+        'views/res_config_setting_view.xml',
     ],
 
     'assets': {
@@ -22,6 +23,13 @@
             '/owl_template/static/src/js/add_customer.js',
             '/owl_template/static/src/xml/add_table_timer.xml',
             '/owl_template/static/src/js/add_table_timer.js',
+
+            '/owl_template/static/src/js/guest_info.js',
+            '/owl_template/static/src/xml/guest_outer_info.xml',
+            '/owl_template/static/src/js/guest_outer_info.js',
+
+            '/owl_template/static/src/xml/guest_inner_info.xml',
+            '/owl_template/static/src/js/guest_inner_info.js',
         ],
 
         'web.assets_backend': [
