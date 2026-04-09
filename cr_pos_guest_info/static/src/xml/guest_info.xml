@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="NumberOfGuest">
+    <Dialog title="props.title" size="'md'">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="male">No of Male:</label>
+                    <input type="number"
+                           min="0"
+                           class="form-control"
+                           t-att-value="state.male"
+                           t-on-input="updateMale"/>
+                </div>
+                <div class="col-md-4">
+                    <label for="female">No of Female:</label>
+                    <input type="number"
+                           min="0"
+                           class="form-control"
+                           t-att-value="state.female"
+                           t-on-input="updateFemale"/>
+                </div>
+                <div class="col-md-4">
+                    <label for="guest">No of Guest:</label>
+                    <input type="number"
+                           class="form-control"
+                           t-att-value="totalGuests"
+                           readonly="readonly"/>
+                </div>
+            </div>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="next">Next</button>
+            <button class="btn btn-secondary" t-on-click="() => props.close()">Close</button>
+            <button class="btn btn-secondary" t-on-click="skip">Skip</button>
+        </t>
+    </Dialog>
+    </t>
+</templates>
+
