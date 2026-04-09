@@ -1,14 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<template xml:space="preserve">
-    <t t-name="pos_custom_tanisha.GuestDetailsDialog">
-        <Dialog size="'md'" title.translate="Guest Details">
+<templates xml:space="preserve">
+
+    <t t-name="pos_custom_tanisha.NoOfGuestDialog">
+        <Dialog size="'lg'" title.translate="No of Guest">
             <div class="container">
-                <p>Guest Details Dialog Body</p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="no_of_male">No of Male: </label>
+                    </div>
+                    <div class="col-md-2">
+                        <input id="no_of_male" type="number" class="form-control" value="0" t-on-input="onChangeInput"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="no_of_female">No of Female: </label>
+                    </div>
+                    <div class="col-md-2">
+                        <input id="no_of_female" type="number" class="form-control" value="0"
+                               t-on-input="onChangeInput"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="no_of_guest">No of Guest: </label>
+                    </div>
+                    <div class="col-md-2">
+                        <input id="no_of_guest" type="number" class="form-control" value="1" readonly="1"/>
+                    </div>
+                </div>
             </div>
-<!--            <t t-set-slot="footer">-->
-<!--                <button class="btn btn-primary">Save</button>-->
-<!--                <button class="btn btn-secondary" t-on-click="props.close">Close</button>-->
-<!--            </t>-->
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="next">Next</button>
+                <button class="btn btn-secondary" t-on-click="props.close">Close</button>
+                <button class="btn btn-secondary">Skip</button>
+            </t>
         </Dialog>
     </t>
-</template>
+
+    <t t-name="pos_custom_tanisha.GuestDetailsDialog">
+        <Dialog size="'lg'" title.translate="Guest Details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="age">Age: </label>
+                    </div>
+                    <div class="col-md-2">
+                        <input id="age" type="number" class="form-control"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="nationality">Nationality: </label>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="nationality" name="nationality"
+                                class="from-select form-control">
+                            <option hidden="1" selected="1" disabled="1">Select Country</option>
+                            <t t-foreach="countries" t-as="country" t-key="country.id">
+                                <option t-att-value="country.id">
+                                    <t t-out="country.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="gender">Gender: </label>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="gender" name="gender"
+                                class="from-select form-control">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="next">Next</button>
+                <button class="btn btn-secondary" t-on-click="props.close">Previous</button>
+                <button class="btn btn-secondary">Skip</button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

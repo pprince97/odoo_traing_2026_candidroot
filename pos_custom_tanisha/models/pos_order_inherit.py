@@ -6,6 +6,14 @@ class PosOrder(models.Model):
     start_date_time = fields.Datetime()
     end_date_time = fields.Datetime()
 
+    guest_data = fields.Json(string="Guest Data")
+
+    def _order_fields(self, ui_order):
+        res = super()._order_fields(ui_order)
+        res['guest_data'] = ui_order.get('guest_data', {})
+        return res
+
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'

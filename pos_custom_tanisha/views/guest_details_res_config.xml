@@ -18,10 +18,6 @@
                         <label for="guest_details_req_bool" class="pe-3">Guest Details Required </label>
                         <field name="guest_details_req_bool"/>
                     </setting>
-                    <setting id="res_config_guest_details_timing">
-                    </setting>
-                    <setting id="res_config_guest_details_required">
-                    </setting>
                 </div>
             </xpath>
         </field>
