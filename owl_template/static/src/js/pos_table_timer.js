@@ -27,16 +27,15 @@ patch(FloorScreen.prototype, {
         if (!order || !order.date_order || (order.amount_total === undefined)) return;
         const start = new Date(order.date_table);
         console.log("111111111111111111", order.date_table, "-------order.date_table")
-
         console.log("22222222222222", new Date(), "-------new Date()")
-
         const diff = Math.floor((new Date() - start) / 1000);
         console.log("555555555", Math.floor((new Date() - start) / 1000))
         console.log(diff, "-------diff")
         const h = Math.floor(diff / 3600);
         const m = Math.floor((diff % 3600) / 60);
         const s = diff % 60;
-
+        // console.log("88888888888",order.start_date)
+        // console.log("99999999999",order.end_date)
         order.table_duration = `${h > 0 ? h + ':' : ''}${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     },
     getTableDuration(table) {
