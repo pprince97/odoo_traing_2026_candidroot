@@ -54,32 +54,6 @@ patch(FloorScreen.prototype, {
     }
 });
 
-patch(PosStore.prototype, {
-    setup() {
-        super.setup(...arguments);
-    },
-
-    async onDeleteOrder(order) {
-        const result = await this.beforeDeleteOrder(order);
-        console.log(result);
-
-        if(!result){
-            return false;
-        }
-
-        console.log("callleeeeed fa;lseee")
-
-        if(result && order && !order.end_time) {
-            order.end_time = serializeDateTime(DateTime.now());
-            console.log("END TIME SET (before delete):", order.end_time);
-        }
-
-        this.syncAllOrders({ orders: [order] });
-        return await super.onDeleteOrder(...arguments);
-    },
-
-});
-
 // patch(PosOrder.prototype, {
 //     setup(_defaultObj, options) {
 //         super.setup(...arguments);
@@ -123,12 +97,12 @@ patch(ProductScreen.prototype, {
 });
 
 
-patch(OrderPaymentValidation.prototype, {
-    async validateOrder() {
-        if (!this.order.end_time) {
-            this.order.end_time = serializeDateTime(DateTime.now());
-        }
-        return await super.validateOrder(...arguments);
-    },
-});
+// patch(OrderPaymentValidation.prototype, {
+//     async validateOrder() {
+//         if (!this.order.end_time) {
+//             this.order.end_time = serializeDateTime(DateTime.now());
+//         }
+//         return await super.validateOrder(...arguments);
+//     },
+// });
 
