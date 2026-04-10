@@ -1,0 +1,13 @@
+<odoo>
+    <record id="guest_detail_list_view" model="ir.ui.view">
+        <field name="name">guest.detail.list</field>
+        <field name="model">guest.detail</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="age"/>
+                <field name="country"/>
+                <field name="gender"/>
+            </list>
+        </field>
+    </record>
+</odoo>

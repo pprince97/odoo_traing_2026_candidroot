@@ -1,0 +1,40 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_guest_info.CustomerDetail">
+            <Dialog title="'Customer Details'" size="'md'">
+
+            <t t-foreach="state.guests" t-as="person" t-key="person_index">
+                <div class="mb-4">
+                <p>Customer Number: <t t-esc="person_index + 1"/></p>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Age</label>
+                            <input class="form-control" type="number" t-model="person.age"/>
+                        </div>
+
+                        <div class="col-4">
+                            <label>Country</label>
+                            <input class="form-control" type="text" t-model="person.country"/>
+                        </div>
+
+                        <div class="col-4">
+                            <label>Gender</label>
+                            <input class="form-control" type="text" t-model="person.gender"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+                <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="confirm">
+                    Confirm
+                </button>
+                    <button class="btn btn-secondary" t-on-click="cancel">
+                    Close
+                </button>
+            </t>
+
+        </Dialog>
+    </t>
+
+</templates>

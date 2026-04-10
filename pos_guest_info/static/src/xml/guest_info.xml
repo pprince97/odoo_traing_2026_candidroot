@@ -1,0 +1,35 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_guest_info.CustomerDialog">
+            <Dialog title="'No of Guest'" size="'md'">
+
+            <div class="p-3">
+                <div class="mb-2">
+                    <label>No. of Male</label>
+                    <input class="form-control" type="number" t-model="state.no_of_male" t-on-input="updateGuestCount"/>
+                </div>
+
+                <div class="mb-2">
+                    <label>No. of Female</label>
+                    <input class="form-control" type="number" t-model="state.no_of_female" t-on-input="updateGuestCount"/>
+                </div>
+
+                <div class="mb-2">
+                    <label>No. of Guest</label>
+                    <input class="form-control" type="number" t-model="state.no_of_guest" readonly=""/>
+                </div>
+            </div>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="confirm">
+                    Next
+                </button>
+                <button class="btn btn-secondary" t-on-click="cancel">
+                    Close
+                </button>
+            </t>
+
+        </Dialog>
+    </t>
+
+</templates>

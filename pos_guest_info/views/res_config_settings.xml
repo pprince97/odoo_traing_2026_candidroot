@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_config_settings_view_form_menu" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.pos_self_order.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='restaurant_section']" position="after">
+                <block title="Restaurant Option" id="restaurant_option_section">
+                    <setting string="Guest Details" help="Guest Details">
+                        <field name="guest_details"/>
+                        <div class="content-group row mb-2" invisible="not guest_details">
+                            <label for="guest_details_timing" class="col-lg-6" string="Details Timing"/>
+                            <field name="guest_details_timing" class="col-lg-6"/>
+                        </div>
+                        <div class="content-group row" invisible="not guest_details">
+                            <label for="guest_details_required" class="col-lg-6" string="Details Details Required"/>
+                            <field name="guest_details_required" class="col-lg-6"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
