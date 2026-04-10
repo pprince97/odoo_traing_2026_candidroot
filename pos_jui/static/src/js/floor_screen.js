@@ -2,7 +2,6 @@ import { FloorScreen } from "@pos_restaurant/app/screens/floor_screen/floor_scre
 import { patch } from "@web/core/utils/patch";
 import { onWillUnmount, onMounted } from "@odoo/owl";
 import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
-import { PosOrder } from "@point_of_sale/app/models/pos_order";
 import OrderPaymentValidation from "@point_of_sale/app/utils/order_payment_validation";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import {GuestDetail} from "./guest_detail_dialog";
@@ -10,54 +9,7 @@ import {GuestInfo} from "./guest_info";
 const { DateTime } = luxon;
 import { useService } from "@web/core/utils/hooks";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
-
-
-patch(PosOrder.prototype, {
-    setup(_defaultObj, options) {
-        super.setup(...arguments);
-        this.start_date = this.start_date || null;
-        this.end_date = this.end_date || null;
-    },
-    export_as_JSON() {
-        const json = super.export_as_JSON(...arguments);
-        if (json) {
-            json.start_date = this.start_date;
-            json.end_date = this.end_date;
-            json.guest_ids = (this.guest_ids || []).map(guest => [0, 0, {
-                age: guest.age,
-                nationality_id: guest.nationality_id,
-                gender: guest.gender
-            }]);
-            json.male_count = this.male_count;
-            json.female_count = this.female_count;
-            json.customer_count = this.customer_count;
-            }
-        return json;
-    },
-    init_from_JSON(json) {
-        super.init_from_JSON(...arguments);
-        this.start_date = json.start_date;
-        this.end_date = json.end_date;
-        this.male_count = json.male_count || 0;
-        this.female_count = json.female_count || 0;
-        this.customer_count = json.customer_count || 0;
-
-        // Initialize guest_ids as an array
-        this.guest_ids = [];
-        if (json.guest_ids) {
-            // json.guest_ids is usually an array of IDs or objects from the backend
-            // In POS, we typically store the actual record objects in the field
-            for (let guestData of json.guest_ids) {
-                // If it's the standard Odoo command [0, 0, {...}]
-                const values = Array.isArray(guestData) ? guestData[2] : guestData;
-
-                // We create/get the local record to keep the model consistent
-                const guestRecord = this.models["pos.order.guest"].create(values);
-                this.guest_ids.push(guestRecord);
-            }
-        }
-    },
-});
+import { PosOrder } from "@point_of_sale/app/models/pos_order";
 
 patch(ProductScreen.prototype, {
     async addProductToOrder(product, options) {
@@ -131,23 +83,23 @@ patch(FloorScreen.prototype, {
                                 await super.onClickTable(...arguments);
                                 const order = this.pos.models["pos.order"].filter((o) => o.table_id?.id === table.id && !o.finalized);
                                 const order_obj = this.pos.models["pos.order"].getBy("uuid", order[0].uuid);
-                                const guest_ids = [];
-                                for (const g of guest_data) {
-                                    const newGuest = await this.pos.models["pos.order.guest"].create({
-                                        'age': parseInt(g.age),
-                                        'nationality_id': parseInt(g.nationality_id),
-                                        'gender': g.gender
-                                    });
-                                    guest_ids.push(newGuest);
-                                }
+                                const guest_ids_commands = [];
+                                // for (const g of guest_data) {
+                                //     const newGuest = await this.pos.models["pos.order.guest"].create({
+                                //         'age': parseInt(g.age),
+                                //         'nationality_id': parseInt(g.nationality_id),
+                                //         'gender': g.gender
+                                //     });
+                                //     guest_ids_commands.push(newGuest.id);
+                                // }
                                 order_obj.update({
                                     'male_count': male_no,
                                     'female_count': female_no,
                                     'customer_count': guests_no,
-                                    'guest_ids': guest_ids,
+                                    // 'guest_ids': [1],
                                 });
                                 console.log(this.pos.models['pos.order.guest'].getAll());
-                                console.log(order_obj.customer_count, '>>>>>>>', order_obj.male_count, '>>>>>>>>', order_obj.female_count,order_obj.guest_ids)
+                                console.log(order_obj.customer_count, '>>>>>>>', order_obj.male_count, '>>>>>>>>', order_obj.female_count)
                             },
                             male: male_no,
                             female: female_no,
