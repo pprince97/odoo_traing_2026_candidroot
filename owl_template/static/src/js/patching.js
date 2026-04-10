@@ -16,14 +16,14 @@ patch(FormController.prototype, {
 
         let total = 0;
 
-        console.log(orderLine)
+        // console.log(orderLine)
         orderLine.records.forEach(line => {
             // console.log(line.data.price_total)
             total += line.data.price_total
         });
-        console.log(total)
+        // console.log(total)
 
-        //
+        //conso
         // if (orderLine && orderLine.length > 0) {
         //     orderLine.forEach(line => {
         //         subTotal += line.data.price_subtotal || 0;
@@ -35,8 +35,8 @@ patch(FormController.prototype, {
             return;
         }
         // console.log(subTotal)
-        console.log("111111", data);
-        console.log(modelName);
+        // console.log("111111", data);
+        // console.log(modelName);
 
         // if(modelName === "sale.order" ){
         //     alert("you are Creating the sale Order")

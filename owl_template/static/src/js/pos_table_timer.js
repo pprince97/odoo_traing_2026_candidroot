@@ -26,11 +26,11 @@ patch(FloorScreen.prototype, {
     _setOrderDuration(order) {
         if (!order || !order.date_order || (order.amount_total === undefined)) return;
         const start = new Date(order.date_table);
-        console.log("111111111111111111", order.date_table, "-------order.date_table")
-        console.log("22222222222222", new Date(), "-------new Date()")
+        // console.log("111111111111111111", order.date_table, "-------order.date_table")
+        // console.log("22222222222222", new Date(), "-------new Date()")
         const diff = Math.floor((new Date() - start) / 1000);
-        console.log("555555555", Math.floor((new Date() - start) / 1000))
-        console.log(diff, "-------diff")
+        // console.log("555555555", Math.floor((new Date() - start) / 1000))
+        // console.log(diff, "-------diff")
         const h = Math.floor(diff / 3600);
         const m = Math.floor((diff % 3600) / 60);
         const s = diff % 60;
