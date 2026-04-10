@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record id="score_form_view" model="ir.ui.view">
+            <field name="name">score.score.form</field>
+            <field name="model">score.score</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="best_score"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="score_list_view" model="ir.ui.view">
+            <field name="name">score.score.list</field>
+            <field name="model">score.score</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="best_score"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="score_action" model="ir.actions.act_window">
+            <field name="name">Score</field>
+            <field name="res_model">score.score</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="root" name="Score Game"/>
+        <menuitem id="score" name="Score Data" parent="root" action="score_action"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<t t-name="owl_understand_module.Counter">
+        <h1>
+            <div>Click buttons to increase or decrease score.</div>
+            <div>Click Reset to Reset current score.</div>
+        </h1>
+    <div class="counter-box">
+
+        <h2>
+            <span style="margin-right: 39px;">Current Score:
+                <t t-esc="state.new_score"/>
+            </span>
+            <span>Best Score:
+                <t t-esc="state.best_score"/>
+            </span>
+        </h2>
+        <div>
+            <button t-on-click="increment1" class="button-class">+1</button>
+            <button t-on-click="increment2" class="button-class">+2</button>
+            <button t-on-click="increment3" class="button-class">+3</button>
+            <button t-on-click="decrement5" class="button-class">-5</button>
+        </div>
+        <div style="margin-top: 10px;">
+            <button t-on-click="reset_score" style="background-color: red; color: white;" class="button-class">
+                Reset
+            </button>
+        </div>
+    </div>
+</t>
