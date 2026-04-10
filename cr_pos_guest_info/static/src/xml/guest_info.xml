@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="NumberOfGuest">
-    <Dialog title="props.title" size="'md'">
+    <Dialog t-props="{title: props.title, size: 'md'}">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <label for="male">No of Male:</label>
+                    <label>Male</label>
                     <input type="number"
-                           min="0"
                            class="form-control"
                            t-att-value="state.male"
                            t-on-input="updateMale"/>
                 </div>
                 <div class="col-md-4">
-                    <label for="female">No of Female:</label>
+                    <label>Female</label>
                     <input type="number"
-                           min="0"
                            class="form-control"
                            t-att-value="state.female"
                            t-on-input="updateFemale"/>
                 </div>
                 <div class="col-md-4">
-                    <label for="guest">No of Guest:</label>
+                    <label>Total</label>
                     <input type="number"
                            class="form-control"
                            t-att-value="totalGuests"
@@ -31,10 +29,52 @@
         </div>
         <t t-set-slot="footer">
             <button class="btn btn-primary" t-on-click="next">Next</button>
-            <button class="btn btn-secondary" t-on-click="() => props.close()">Close</button>
             <button class="btn btn-secondary" t-on-click="skip">Skip</button>
         </t>
     </Dialog>
-    </t>
+</t>
+
+    <t t-name="GuestDetails">
+    <Dialog t-props="{title: 'Guest Detail', size: 'lg'}">
+        <div class="container">
+            <t t-foreach="state.customers" t-as="cust" t-key="cust_index">
+                <div class="mb-4 p-2 border rounded">
+                    <h5 class="mb-3">
+                        Customer-<t t-esc="cust_index + 1"/>
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Age:</label>
+                            <input type="number"
+                                   class="form-control"
+                                   t-att-value="cust.age"
+                                   t-on-input="(ev) => updateCustomer(cust_index, 'age', ev)"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Nationality:</label>
+                            <input type="text"
+                                   class="form-control"
+                                   t-att-value="cust.nationality"
+                                   t-on-input="(ev) => updateCustomer(cust_index, 'nationality', ev)"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Gender:</label>
+                            <input type="text"
+                                   class="form-control"
+                                   t-att-value="cust.gender"
+                                   t-on-input="(ev) => updateCustomer(cust_index, 'gender', ev)"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+        <t t-set-slot="footer">
+            <button class="btn btn-primary" t-on-click="next">Next</button>
+            <button class="btn btn-secondary" t-on-click="previous">Previous</button>
+            <button class="btn btn-secondary" t-on-click="skip">Skip</button>
+        </t>
+
+    </Dialog>
+</t>
 </templates>
 

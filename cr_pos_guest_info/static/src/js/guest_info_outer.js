@@ -1,9 +1,14 @@
 import {Dialog} from "@web/core/dialog/dialog";
 import {Component, useState} from "@odoo/owl";
+import {useService} from "@web/core/utils/hooks";
 
 export class GuestNumber extends Component {
     static template = "NumberOfGuest";
     static components = {Dialog};
+    // static props = {
+    //     title: {type: String, optional: true},
+    //     close: Function,
+    // };
 
     setup() {
         this.state = useState({
@@ -11,6 +16,7 @@ export class GuestNumber extends Component {
             female: 0,
         });
     }
+
     updateMale(ev) {
         let value = Number(ev.target.value);
         if (value < 0) {
@@ -20,6 +26,7 @@ export class GuestNumber extends Component {
         }
         this.state.male = value;
     }
+
     updateFemale(ev) {
         let value = Number(ev.target.value);
         if (value < 0) {
@@ -29,22 +36,31 @@ export class GuestNumber extends Component {
         }
         this.state.female = value;
     }
+
     get totalGuests() {
         return this.state.male + this.state.female;
     }
 
-    next() {
-        this.props.close({
-            confirmed: true,
-            data: {
-                male: this.state.male,
-                female: this.state.female,
-                total: this.totalGuests,
-            },
-        });
-    }
+    async next() {
+        const data = {
+            male: this.state.male,
+            female: this.state.female,
+            total: this.totalGuests,
+        };
 
-    skip() {
-        this.props.close({confirmed: false});
-    }
+        console.log("NEXT CLICKED", data);
+
+        if (this.props.next) {
+            this.props.next(data);
+        }
+
+        this.props.close({confirmed: true, data});
+    };
+
+    async skip(){
+        this.props.close({
+            confirmed: false
+        });
+    };
 }
+

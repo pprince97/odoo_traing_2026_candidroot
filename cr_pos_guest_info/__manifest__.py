@@ -10,7 +10,7 @@
     'category': 'Uncategorized',
     'version': '19.0.0.1',
 
-    'depends': ['website', 'mail', 'point_of_sale', 'pos_restaurant'],
+    'depends': ['point_of_sale', 'pos_restaurant'],
 
     'data': [
         'views/res_config_settings.xml',
@@ -25,8 +25,7 @@
             # 'owl_template/static/src/js/pos_extend.js',
             'cr_pos_guest_info/static/src/js/guest_info_outer.js',
             'cr_pos_guest_info/static/src/js/guest_info.js',
-            # 'cr_pos_guest_info/static/src/js/guest_info_inner.js,
-
+            'cr_pos_guest_info/static/src/js/guest_info_inner.js',
         ],
 
         # 'web.assets_backend': [
