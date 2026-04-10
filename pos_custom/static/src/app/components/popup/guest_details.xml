@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_custom.GuestDetailsPopUp">
+        <Dialog title.translate="Guest Details">
+            <div style="max-height: 400px; overflow-y: auto;">
+                <t t-foreach="state.guests" t-as="guest" t-key="guest_index">
+                    <div class="card mb-3 p-2">
+                        <h5>Guest <t t-esc="guest_index + 1"/></h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Country</label>
+                                <select class="form-select" t-model="guest.nationality">
+                                    <option value="">Select...</option>
+                                    <t t-foreach="state.countries" t-as="c" t-key="c.id">
+                                        <option t-att-value="c.id"><t t-esc="c.display_name"/></option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>Gender</label>
+                                <select class="form-select" t-model="guest.gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>Age</label>
+                                <input type="number" class="form-control" t-model="guest.age"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+            </div>
+            <br/>
+            <footer>
+                <button class="btn btn-primary" t-on-click="saveDetails">Save All Details</button>
+                <button class="btn btn-secondary" t-on-click="previousNumberPopup">Previous</button>
+                <button class="btn btn-secondary" t-on-click="props.close">Cancel</button>
+            </footer>
+        </Dialog>
+    </t>
+</templates>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
+<!--    <t t-name="pos_custom.GuestDetailsPopUp">-->
+<!--        <Dialog title.translate="Guest Details">-->
+<!--            <t t-foreach="guestLoops" t-as="guest" t-key="guest">-->
+<!--                <div class="row">-->
+<!--                    <h4>Guest: <t t-esc="guest + 1"/></h4>-->
+<!--                    <div class="col-4">-->
+<!--                        Age: <input type="number" name="age" id="age"/>-->
+<!--                    </div>-->
+<!--                    <div class="col-4">-->
+<!--                        Nationality: <select class="form-select">-->
+<!--                        <option value="">Select Country...</option>-->
+<!--                        <t t-foreach="state.countries" t-as="country" t-key="country.id">-->
+<!--                            <option t-att-value="country.id">-->
+<!--                                <t t-esc="country.display_name"/>-->
+<!--                            </option>-->
+<!--                        </t>-->
+<!--                    </select>-->
+<!--                    </div>-->
+<!--                    <div class="col-4">-->
+<!--                        Gender:-->
+<!--                        <select id="gender" name="gender">-->
+<!--                            <option value="male">Male</option>-->
+<!--                            <option value="female">Female</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <br/>-->
+<!--            </t>-->
+<!--            <br/>-->
+<!--            <hr/>-->
+<!--            <footer>-->
+<!--                <button class="btn btn-primary" t-on-click="props.close">Save</button>-->
+<!--                <button class="btn" t-on-click="props.close">Close</button>-->
+<!--            </footer>-->
+<!--    </Dialog>-->
+<!--</t>-->
+
+<!--</templates>-->

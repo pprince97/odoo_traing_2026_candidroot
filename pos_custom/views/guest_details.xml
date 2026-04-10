@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="guest_details_actions" model="ir.actions.act_window">
+        <field name="name">PoS G D</field>
+        <field name="res_model">guest.details</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="guest_detailsss" name="GuestDetails" parent="point_of_sale.menu_point_root" action="guest_details_actions"/>
+
+</odoo>

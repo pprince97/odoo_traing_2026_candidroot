@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="pos_custom.AddGuestNumberDetialsPopup">
+    <t t-name="pos_custom.AddGuestNumberDetailsPopup">
         <Dialog title.translate="Guest Details">
             <div class="row">
                 <div class="col-4">
@@ -16,31 +16,9 @@
             <br/>
             <hr/>
             <footer>
-                <button class="oe_highlight" string="Next" on-click="openCustomerDetialsPopUp">Next</button>
+                <button class="btn btn-primary" string="Next" t-on-click="guestDetailsPopUp">Next</button>
+                <button class="btn" string="Close" t-on-click="props.close">Close</button>
             </footer>
         </Dialog>
     </t>
-</templates>
-<!--<templates id="template" xml:space="preserve">-->
-<!--    <t t-name="pos_custom.AddGuestNumberDetialsPopup">-->
-<!--        <Dialog title.translate="Guest Details">-->
-<!--            <div class="row">-->
-<!--            <div class="col-4">-->
-<!--                 Number of Male: <input type="number" name="male" t-on-change="compute_total"/>-->
-<!--                </div>-->
-<!--            <div class="col-4">-->
-<!--                    Total Number of Female: <input type="number" name="female" t-on-change="compute_total"/>-->
-<!--            </div>-->
-<!--            <div class="col-4">-->
-<!--                    Total Number of Guest-->
-<!--                    <input type="number">-->
-<!--                        <t t-esc="total_no_of_guests"/>-->
-<!--                    </input>-->
-<!--            </div>-->
-<!--            </div>-->
-<!--            <footer>-->
-<!--                <button class="oe_primary" string="Submit" t-on-click="save_guest_number_details">SUBMIT</button>-->
-<!--            </footer>-->
-<!--        </Dialog>-->
-<!--    </t>-->
-<!--</templates>-->
+</templates>    

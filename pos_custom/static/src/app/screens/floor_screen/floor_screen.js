@@ -1,9 +1,8 @@
 import {FloorScreen} from "@pos_restaurant/app/screens/floor_screen/floor_screen";
 import {patch} from "@web/core/utils/patch";
 import {onMounted, onWillUnmount, useState} from "@odoo/owl";
-import { AddGuestNumberDetialsPopup } from "@pos_custom/app/components/popup/guest_number_details";
+import { AddGuestNumberDetailsPopup } from "@pos_custom/app/components/popup/guest_number_details";
 import { useService } from "@web/core/utils/hooks";
-
 
 patch(FloorScreen.prototype, {
     setup() {
@@ -19,6 +18,7 @@ patch(FloorScreen.prototype, {
             clearInterval(this.timerInterval);
         });
     },
+
     getTableDuration(table) {
         const order = this.pos.getTableOrders(table.id).find(o => !o.finalized);
         if (!order || !order.table_selected) {
@@ -39,16 +39,99 @@ patch(FloorScreen.prototype, {
     async onClickTable(table) {
         const config = this.pos.config;
         if (config.guest_details && config.guest_details_timing === "order_before") {
-            await this.env.services.dialog.add(AddGuestNumberDetialsPopup, {});
+            const result = await this.env.services.dialog.add(
+                AddGuestNumberDetailsPopup,{
+                    initial_male: 0,
+                    initial_female: 0,
+                });
+            // console.log(">><<>><<")
+            // if (!result?.confirmed) { return; }
+            // console.log("?????????")
+            const res = await super.onClickTable(table);
+            const order = this.pos.getOrder();
+            if (order) {
+                order.no_of_male = result.male;
+                order.no_of_female = result.female;
+                order.total_no_of_guests = result.total;
+                order.guest_details = result.guests;
+            }
+            return res;
         }
         return super.onClickTable(table);
     }
+    // async onClickTable(table) {
+    //     const config = this.pos.config;
+    //     let guestData = null;
+    //     if (config.guest_details && config.guest_details_timing === "order_before") {
+    //         const { confirmed, payload } = await this.env.services.dialog.add(
+    //             AddGuestNumberDetailsPopup,
+    //             {
+    //                 initial_male: 0,
+    //                 initial_female: 0,
+    //             }
+    //         );
+    //         if (!confirmed) {
+    //             return;
+    //         }
+    //         guestData = this.pos.temp_guest_details;
+    //     }
+    //     const result = await super.onClickTable(table);
+    //     const currentOrder = this.pos.getOrder();
+    //     if (guestData && currentOrder) {
+    //         currentOrder.no_of_male = guestData.male;
+    //         currentOrder.no_of_female = guestData.female;
+    //         currentOrder.total_no_of_guests = guestData.total;
+    //         this.pos.temp_guest_details = null;
+    //     }
+    //     return result;
+    // }
+    // async onClickTable(table) {
+    //     const config = this.pos.config;
+    //     let guestData = null;
+    //     if (config.guest_details && config.guest_details_timing === "order_before") {
+    //         const { confirmed, payload } = await this.env.services.dialog.add(
+    //             AddGuestNumberDetailsPopup,
+    //             {
+    //                 initial_male: 0,
+    //                 initial_female: 0,
+    //             }
+    //         );
+    //         if (!confirmed) {
+    //             return;
+    //         }
+    //         guestData = this.pos.temp_guest_details;
+    //     }
+    //     const result = await super.onClickTable(table);
+    //     const currentOrder = this.pos.getOrder();
+    //     if (guestData && currentOrder) {
+    //         currentOrder.no_of_male = guestData.male;
+    //         currentOrder.no_of_female = guestData.female;
+    //         currentOrder.total_no_of_guests = guestData.total;
+    //         this.pos.temp_guest_details = null;
+    //     }
+    //     return result;
+    // }
+    // async onClickTable(table) {
+    //     const config = this.pos.config;
+    //     if (config.guest_details && config.guest_details_timing === "order_before") {
+    //         const { confirmed, payload } = await this.env.services.dialog.add(AddGuestNumberDetailsPopup, {
+    //             initial_male: 0,
+    //             initial_female: 0
+    //         });
+    //         if (!confirmed) {
+    //             return;
+    //         }
+    //     }
+    //     return super.onClickTable(table);
+    // }
 
-    //  async onClickTable(table) {
-    //     console.log("TABLE CLICKED UI");
-    //
-    //         await this.dialog.add(AddGuestNumberDetialsPopup, {});
-    //
+    // async onClickTable(table) {
+    //     const config = this.pos.config;
+    //     if (config.guest_details && config.guest_details_timing === "order_before") {
+    //         await this.env.services.dialog.add(AddGuestNumberDetailsPopup, {
+    //             initial_male:0,initial_female:0
+    //         });
+    //     }
     //     return super.onClickTable(table);
     // }
 });

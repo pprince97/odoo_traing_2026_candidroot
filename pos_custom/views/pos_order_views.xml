@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="pos_order_custom_view" model="ir.ui.view">
+        <field name="name">pos.order.custom.view</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_count']" position="after">
+                <field name="no_of_male"/>
+                <field name="no_of_female"/>
+                <field name="total_no_of_guests"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="Guest Details">
+                    <field name="guest_ids">
+                        <list>
+                            <field name="age"/>
+                            <field name="nationality"/>
+                            <field name="gender"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
