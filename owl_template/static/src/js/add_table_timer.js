@@ -27,11 +27,7 @@ patch(FloorScreen.prototype, {
         if (!order || !order.date_order || (order.amount_total === undefined)) return;
 
         const start = new Date(order.date_table);
-
-
         const diff = Math.floor((new Date() - start) / 1000) + 19800;
-
-        console.log("Diff =============> ", diff);
 
         const h = Math.floor(diff / 3600);
         const m = Math.floor((diff % 3600) / 60);

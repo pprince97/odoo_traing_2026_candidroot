@@ -10,6 +10,26 @@
                 <field name="end_time"/>
                 <field name="table_duration"/>
             </xpath>
+
+            <xpath expr="//page[@name='notes']" position="after">
+                <page name="guest_details" string="Guest Details">
+                    <group string="No of Guests">
+                        <field name="no_of_male"/>
+                        <field name="no_of_female"/>
+                        <field name="no_of_total"/>
+                    </group>
+
+                    <group string="Guest Details">
+                        <field name="guest_ids">
+                            <list editable="bottom">
+                                <field name="age"/>
+                                <field name="nationality"/>
+                                <field name="gender"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 </odoo>

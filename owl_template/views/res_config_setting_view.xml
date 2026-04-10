@@ -11,12 +11,12 @@
                         <div class="content-group" invisible="not guest_details">
                             <div class="row">
                                 <label for="guest_details_timing" class="col-lg-6" string="Guest Details Timing"/>
-                                <field name="guest_details_timing"/>
+                                <field name="guest_details_timing" class="col-lg-6"/>
                             </div>
                             <div class="row">
                                 <span>
                                     <label for="guest_details_required" class="col-lg-6" string="Guest Details Required"/>
-                                    <field name="guest_details_required"/>
+                                    <field name="guest_details_required" class="col-lg-6"/>
                                 </span>
                             </div>
                         </div>

@@ -14,6 +14,7 @@
         'views/action.xml',
         'views/owl_data_view.xml',
         'views/pos_order_view.xml',
+        'views/pos_order_guest_view.xml',
         'views/res_config_setting_view.xml',
     ],
 

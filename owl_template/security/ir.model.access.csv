@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_owl_data_storage,owl.data.storage,model_owl_data_storage,,1,1,1,1
+access_pos_order_guest,pos.order.guest,model_pos_order_guest,,1,1,1,1

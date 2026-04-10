@@ -60,5 +60,4 @@ patch(ControlButtons.prototype, {
             title: "Add Customer",
         });
     },
-
 });

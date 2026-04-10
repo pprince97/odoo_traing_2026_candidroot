@@ -2,6 +2,8 @@
 
 import {Dialog} from "@web/core/dialog/dialog";
 import {Component, useState} from '@odoo/owl';
+import { useService } from "@web/core/utils/hooks";
+import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 
 
 export class GuestOuterInfo extends Component {
@@ -17,13 +19,14 @@ export class GuestOuterInfo extends Component {
     setup() {
         super.setup();
         this.state = useState({no_of_male: 0, no_of_female: 0, no_of_total: 0});
-        // this.notification = useService("notification");
+        this.notification = useService("notification");
+        this.pos = usePos();
     }
     async confirm() {
-        // if (!this.isValid) {
-        //     this.env.services.notification.add("Please enter valid guest numbers", {type: "warning"});
-        //     return;
-        // }
+        if (!this.isValid) {
+            this.env.services.notification.add("Please enter valid guest numbers", {type: "warning"});
+            return;
+        }
 
         const payload = {
             no_of_male: parseInt(this.state.no_of_male || 0),
@@ -34,8 +37,6 @@ export class GuestOuterInfo extends Component {
         if(this.props.confirm) {
             await this.props.confirm(payload);
         }
-
-        console.log("No of Guests confirmed!", payload.no_of_male, payload.no_of_female, payload.no_of_total);
 
         this.props.close();
     }

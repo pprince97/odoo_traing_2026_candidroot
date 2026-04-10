@@ -4,15 +4,20 @@ from zoneinfo import ZoneInfo
 
 class PosOrder(models.Model):
     _inherit = 'pos.order'
- 
+
     table_duration = fields.Char(string="Table Duration")
     amount = fields.Float(related="")
     date_table = fields.Datetime(string="Date Table")
 
     start_time = fields.Datetime(string="Start Time")
     end_time = fields.Datetime(string="End Time")
- 
- 
+
+    no_of_male = fields.Integer(string="No of Male")
+    no_of_female = fields.Integer(string="No of Female")
+    no_of_total = fields.Integer(string="Total Guest")
+
+    guest_ids = fields.One2many('pos.order.guest', 'order_id', string="Guest Details")
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -26,13 +31,14 @@ class PosOrder(models.Model):
 
         res = super().create(vals_list)
         return res
+    
 
     def write(self, vals):
         print("\n\n\n===============>", vals)
 
         if vals.get('state') == 'paid':
             vals['end_time'] = fields.Datetime.now()
-        
+
         if vals.get('state') == 'cancel':
             vals['end_time'] = fields.Datetime.now()
 

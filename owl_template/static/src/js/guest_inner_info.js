@@ -9,6 +9,7 @@ export class GuestInnerInfo extends Component {
     static props = {
         title: String,
         close: Function,
+        next: { type: Function, optional: true },
         getPayload: { type: Function, optional: true },
         totalGuests: { type: Number, optional: true },
     };
@@ -30,7 +31,10 @@ export class GuestInnerInfo extends Component {
     }
 
     async next() {
-        console.log("Guest Info : ", this.state.guests);
+        if(this.props.next) {
+            await this.props.next(this.state.guests);
+        }
+
         this.props.close();
     }
 
