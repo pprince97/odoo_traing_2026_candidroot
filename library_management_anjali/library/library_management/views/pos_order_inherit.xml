@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form_inherit" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="start_date" readonly="1"/>
+                <field name="end_date" readonly="1"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Guest Details" name="guest_details">
+                    <group>
+                        <group>
+                            <field name="guest_male" readonly="1"/>
+                            <field name="guest_female" readonly="1"/>
+                            <field name="guest_total" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="guest_detail_ids">
+                        <list editable="bottom">
+                            <field name="age"/>
+                            <field name="nationality_id"/>
+                            <field name="gender"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

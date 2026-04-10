@@ -30,3 +30,8 @@ access_book_borrow_history_wizard_librarian,access_book_borrow_history_wizard,mo
 access_book_borrow_history_wizard_admin,access_book_borrow_history_wizard,model_book_borrow_history_wizard,library_management.group_project_admin,1,1,1,1
 
 access_my_product,access_my_product,model_my_product,,1,1,1,1
+access_library_image_history,access_library_image_history,model_library_image_history,,1,1,1,1
+access_custom_widget,access_custom_widget,model_custom_widget,,1,1,1,1
+access_pos_order_guest_details,access_pos_order_guest_details,model_pos_order_guest_details,,1,1,1,1
+
+

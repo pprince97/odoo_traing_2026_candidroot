@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_lifecycle_example" model="ir.actions.client">
+        <field name="name">Lifecycle Example</field>
+        <field name="tag">lifecycle_full_action</field>
+    </record>
+    <menuitem id="menu_lifecycle_example"
+              name="OWL Lifecycle"
+              parent="library_management_root"
+              action="action_lifecycle_example"/>
+</odoo>

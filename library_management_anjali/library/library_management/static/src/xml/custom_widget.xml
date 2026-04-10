@@ -1,0 +1,11 @@
+<templates xml:space="preserve">
+    <t t-name="hover_char.HoverUppercaseWidget" owl="1">
+        <input type="text"
+               t-att-value="state.value"
+               t-att-style="styleString"
+               t-on-input="onInput"
+               t-on-mouseenter="onMouseEnter"
+               t-on-mouseleave="onMouseLeave"
+               t-on-blur="onBlur"/>
+    </t>
+</templates>

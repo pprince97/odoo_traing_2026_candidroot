@@ -1,0 +1,14 @@
+<templates xml:space="preserve">
+    <t t-name="lifecycle_full.Template" owl="1">
+        <div style="padding:20px;">
+            <h2>OWL Lifecycle Demo</h2>
+            <p>
+                Count: <t t-esc="state.count"/>
+            </p>
+            <button t-on-click="increment"
+                    style="padding:6px 12px; border:1px solid #ccc;">
+                Increase
+            </button>
+        </div>
+    </t>
+</templates>

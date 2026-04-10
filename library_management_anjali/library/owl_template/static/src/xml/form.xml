@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl_template.MyForm">
+        <div class="form-page-bg p-4">
+            <div class="container-fluid">
+                <div class="row g-4">
+                    <!-- Left Column: The Form -->
+                    <div class="col-md-7">
+                        <div class="card shadow-sm border-0 rounded-4 p-4">
+                            <h3 class="mb-4 text-primary">Reactive Settings</h3>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Text Input</label>
+                                <input class="form-control" t-model="state.text"/>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Number</label>
+                                    <input type="number" class="form-control" t-model.number="state.number"/>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Color Theme</label>
+                                    <select class="form-select" t-model="state.color">
+                                        <option value="red">Red</option>
+                                        <option value="blue">Blue</option>
+                                        <option value="pink">Pink</option>
+                                        <option value="brown">Brown</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="boolSwitch" t-model="state.bool"/>
+                                <label class="form-check-label fw-bold" for="boolSwitch">Enable Features</label>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Double Amount (Linked Field)</label>
+                                <input type="number" class="form-control bg-light" t-model.number="this.doubleAmount"/>
+                                <small class="text-muted">Updating this updates the base 'Amount' state.</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Date</label>
+                                <input type="date" class="form-control" t-model="state.date"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Volume: <t t-out="state.volume"/>%</label>
+                                <input type="range" class="form-range" min="0" max="100" t-model.number="state.volume"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Live Data Preview -->
+                    <div class="col-md-5">
+                        <div class="card shadow-sm border-0 rounded-4 p-4 bg-white sticky-top" style="top: 20px;">
+                            <h3 class="mb-4 text-secondary">Live State</h3>
+                            <div class="state-item"><strong>Text:</strong>
+                                <t t-out="state.text"/></div>
+                            <div class="state-item"><strong>Uppercase:</strong>
+                                <t t-out="this.uppercaseText"/></div>
+                            <div class="state-item"><strong>Number:</strong>
+                                <t t-out="this.number"/></div>
+                            <div class="state-item"><strong>Raw Amount:</strong>
+                                <t t-out="state.amount"/></div>
+                            <div class="state-item"><strong>Active:</strong>
+                                <t t-out="state.bool ? 'YES' : 'NO'"/></div>
+                            <div class="state-item">
+                                <strong>Selected Color:</strong>
+                                <span class="badge rounded-pill" t-attf-style="background-color: {{state.color}}">
+                                    <t t-out="state.color"/>
+                                </span>
+                            </div>
+                            <div class="state-item"><strong>Date:</strong>
+                                <t t-out="state.date"/></div>
+                            <div class="state-item"><strong>Volume:</strong>
+                                <t t-out="state.volume"/></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

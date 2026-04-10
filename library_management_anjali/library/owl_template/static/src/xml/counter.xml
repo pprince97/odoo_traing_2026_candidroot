@@ -1,0 +1,44 @@
+<templates xml:space="preserve">
+    <t t-name="owl_template.Counter">
+        <div class="d-flex justify-content-center align-items-center my-main-bg">
+            <div class="p-5 shadow-lg rounded-5 text-center border my-counter-card">
+                <h6 class="text-uppercase text-muted fw-bold mb-3">Counter</h6>
+
+                <div class="display-1 fw-bold text-primary mb-4 counter-value">
+                    <t t-esc="state.count"/>
+                </div>
+
+                <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-outline-danger btn-lg rounded-circle icon-btn" t-on-click="decrement">
+                        <i class="fa fa-minus"></i>
+                    </button>
+
+                    <button class="btn btn-secondary btn-lg px-4 fw-bold" t-on-click="reset">
+                        RESET
+                    </button>
+
+                    <button class="btn btn-outline-success btn-lg rounded-circle icon-btn" t-on-click="increment">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-outline-warning btn-lg rounded-circle icon-btn" t-on-click="multiplication">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button class="btn btn-outline-warning btn-lg rounded-circle icon-btn" t-on-click="division">
+                        <span class="custom-division-icon">/</span>
+                    </button>
+                    <button class="btn btn-outline-warning btn-lg rounded-circle icon-btn" t-on-click="modulo">
+                        <i class="fa fa-percent"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+<!--        <div class="p-3 my-counter container">-->
+<!--            <h1>Counter: <t t-esc="state.count"/></h1>-->
+<!--            <button class="btn btn-primary" t-on-click="increment">+</button>-->
+<!--            <button class="btn btn-primary" t-on-click="decrement">-</button>-->
+<!--            <button class="btn btn-primary" t-on-click="reset">Reset</button>-->
+<!--        </div>-->
+    </t>
+</templates>

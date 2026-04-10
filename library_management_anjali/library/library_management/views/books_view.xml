@@ -73,7 +73,7 @@
                         </page>
                         <page name="cover_image" string="Cover Image">
                             <group>
-                                <field name="cover_image" widget="image" class="oe_avatar" options="{'img_class': 'object-fit-cover'}"/>
+                                <field name="cover_image" widget="image"/>
                             </group>
                         </page>
                     </notebook>

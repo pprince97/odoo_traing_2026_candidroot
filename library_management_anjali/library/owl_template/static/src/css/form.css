@@ -1,0 +1,35 @@
+.form-page-bg {
+    background-color: #fff1f2; // Light Pink Background
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+
+    .card {
+        transition: box-shadow 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.03) !important;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        color: #64748b;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #e2e8f0;
+        &:focus {
+            border-color: #f43f5e; // Pink focus ring
+            box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.1);
+        }
+    }
+
+    .state-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 1rem;
+        color: #1e293b;
+
+        strong {
+            color: #94a3b8;
+            margin-right: 10px;
+        }
+    }
+}

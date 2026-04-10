@@ -16,6 +16,7 @@ class Books(models.Model):
     stock = fields.Integer(string='Stock')
     cover_image = fields.Image(string='Cover Image')
     maximum_day =fields.Integer(string='Maximum Day')
+    image_history_ids = fields.One2many('library.image.history','book_id',string='History')
 
     book_borrow_count = fields.Integer(string='Book Borrow Count',compute='_compute_book_borrow_count')
     available_book_count = fields.Char(string='Available Book Count',compute='_compute_available_book')

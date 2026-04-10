@@ -1,0 +1,46 @@
+<templates xml:space="preserve">
+    <t t-name="owl_template.ProductViewer">
+        <div class="product-viewer-container p-4 bg-light vh-100">
+            <div class="d-flex justify-content-center mb-5">
+                <div class="w-100" style="max-width: 600px;">
+                    <div class="position-relative">
+                        <i class="fa fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        <input
+                            type="text"
+                            placeholder="Filter products..."
+                            t-model="state.searchQuery"
+                            class="form-control form-control-lg shadow-sm ps-5 rounded-pill"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="product-grid">
+                <t t-foreach="this.filteredProducts" t-as="p" t-key="p.id">
+                    <ProductCard
+                        name="p.name"
+                        price="p.price"
+                        image="p.image"
+                    />
+                </t>
+            </div>
+            <div t-if="this.filteredProducts.length === 0" class="text-center mt-5 text-muted">
+                <i class="fa fa-search fa-3x mb-3 opacity-25"></i>
+                <p>No products match "<t t-out="state.searchQuery"/>"</p>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="owl_template.ProductCard">
+        <div class="product-card shadow-sm border bg-white p-3 d-flex align-items-center gap-3">
+            <div class="product-image-box display-6">
+                <t t-if="props.image" t-out="props.image"/>
+                <t t-else="">📦</t>
+            </div>
+            <div class="product-info flex-grow-1">
+                <div class="fw-bold text-dark"><t t-out="props.name"/></div>
+                <div class="text-success fw-bold">$<t t-out="props.price.toFixed(2)"/></div>
+            </div>
+            <button class="btn btn-sm btn-outline-primary rounded-pill">View</button>
+        </div>
+    </t>
+</templates>

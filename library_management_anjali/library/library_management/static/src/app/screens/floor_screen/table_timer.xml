@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('info')]" position="inside">
+            <t t-set="duration" t-value="getTableTimer(table)"/>
+            <t t-if="duration">
+                 <div class="table-timer"
+                      style="text-align: center; color: #000; font-weight: bold; font-size: 0.75rem;">
+<!--                     <i class="fa fa-clock-o"/> -->
+                     <span t-esc="duration"/>
+                 </div>
+             </t>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="library_management.CustomDialog">
+        <Dialog title="'Customer'">
+            <div class="container">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label fw-bold">Name :</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" t-model="state.name"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label fw-bold">Phone :</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" t-model="state.phone"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label fw-bold">Note :</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" t-model="state.note" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="_onConfirm">Confirm</button>
+                <button class="btn btn-secondary" t-on-click="_onCancel">Cancel</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>
