@@ -9,11 +9,19 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='notes']" position="after">
                 <page name="guest_details" string="Guest Details">
-                    <page name="guest_info" string="Guest Info">
-                        <list>
-                            
-                        </list>
-                    </page>
+                    <group>
+                        <field name="no_of_male"/>
+                        <field name="no_of_female"/>
+                    </group>
+                    <group name="guest_info" string="Guest Info">
+                        <field name="guest_ids" nolabel="1" colspan="4">
+                            <list>
+                                <field name="country_id"/>
+                                <field name="gender"/>
+                                <field name="age"/>
+                            </list>
+                        </field>
+                    </group>
                 </page>
             </xpath>
         </field>

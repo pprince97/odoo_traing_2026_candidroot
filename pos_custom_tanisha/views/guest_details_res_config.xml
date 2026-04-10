@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="pos_restaurant.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//block[@id='restaurant_section']" position="inside">
-                <div>
+                <div invisible="pos_config_id != 4">
                     <setting id="res_config_guest_details" help="Guest Details">
                         <field name="guest_details_bool"/>
 

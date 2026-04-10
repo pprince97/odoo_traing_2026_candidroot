@@ -6,37 +6,8 @@ import {PaymentScreen} from "@point_of_sale/app/screens/payment_screen/payment_s
 import {serializeDateTime} from "@web/core/l10n/dates";
 import {NoOfGuestDialog} from "./guest_details_dialog";
 import {GuestDetailsDialog} from "./guest_details_dialog";
-import {PosOrder} from "@point_of_sale/app/models/pos_order";
 
 const {DateTime} = luxon;
-
-patch(PosOrder.prototype, {
-
-    setup() {
-        super.setup(...arguments);
-        this.guest_data = this.guest_data || {};
-    },
-
-    set_guest_data(data) {
-        this.guest_data = data;
-    },
-
-    get_guest_data() {
-        return this.guest_data;
-    },
-
-    export_as_JSON() {
-        const json = super.export_as_JSON(...arguments);
-        json.guest_data = this.guest_data;
-        return json;
-    },
-
-    init_from_JSON(json) {
-        super.init_from_JSON(...arguments);
-        this.guest_data = json.guest_data || {};
-    },
-
-});
 
 patch(ProductScreen.prototype, {
     async addProductToOrder(product, options) {
@@ -62,6 +33,7 @@ patch(PaymentScreen.prototype, {
 patch(FloorScreen.prototype, {
     setup() {
         super.setup();
+        this.dialogState = useState({dialogOpened: false});
         this.timeState = useState({currentTime: new Date()});
         let interval;
         onMounted(() => {
@@ -79,7 +51,6 @@ patch(FloorScreen.prototype, {
     getTableTimer(table) {
         if (this.pos.tableHasOrders(table)) {
             const order = table.getOrder();
-            if (!order) return "00:00";
             if (order.start_date_time) {
                 const start = new Date(order.start_date_time);
                 const diff = Math.floor((this.timeState.currentTime - start) / 1000);
@@ -89,6 +60,8 @@ patch(FloorScreen.prototype, {
                 const seconds = diff % 60;
 
                 return `${hours > 0 ? hours + ':' : ''}${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                return "00:00";
             }
         } else {
             return "00:00";
@@ -97,27 +70,39 @@ patch(FloorScreen.prototype, {
     },
 
     async onClickTable(table, ev) {
-        if (!this.pos.tableHasOrders(table)) {
-            const no_of_guest = this.env.services.dialog.add(NoOfGuestDialog, {
-                onNext: () => {
-                    this.env.services.dialog.add(GuestDetailsDialog, {
-                        onNext: () => {
-                            super.onClickTable(table, ev);
-                            const order = table.getOrder();
-                            console.log(">>>>>>>>>>>>>>",order);
-                            // order.set_guest_data({
-                            //     summary: {
-                            //         male: this.male,
-                            //         female: this.female,
-                            //         total: this.total,
-                            //     },
-                            //     guests: this.guest_list,
-                            // });
-                            no_of_guest();
-                        },
-                    });
-                }
-            });
+        if (this.pos.config.guest_details_bool && this.pos.config.guest_details_timing === "order_before") {
+            if (!this.pos.tableHasOrders(table)) {
+                const no_of_guest = this.env.services.dialog.add(NoOfGuestDialog, {
+                    onNext: () => {
+                        this.env.services.dialog.add(GuestDetailsDialog, {
+                            onNext: () => {
+                                super.onClickTable(table, ev);
+                                const order = table.getOrder();
+                                const male = parseInt(document.getElementById('no_of_male').value);
+                                const female = parseInt(document.getElementById('no_of_female').value);
+                                const guest = parseInt(document.getElementById('no_of_guest').value);
+                                order.update({
+                                    no_of_male: male,
+                                    no_of_female: female,
+                                    no_of_guest: guest,
+                                })
+                                no_of_guest();
+                            },
+                            onPrevious: () => {
+                                if (!this.dialogState.dialogOpened) {
+                                    this.onClickTable(table, ev);
+                                }
+                            },
+                        });
+                        this.dialogState.dialogOpened = true;
+                    },
+                    onSkip: () => {
+                        this.dialogState.dialogOpened = false;
+                    }
+                });
+            } else {
+                super.onClickTable(table, ev);
+            }
         } else {
             super.onClickTable(table, ev);
         }

@@ -1,6 +1,6 @@
 import {Component} from "@odoo/owl";
 import {Dialog} from "@web/core/dialog/dialog";
-import { usePos } from "@point_of_sale/app/hooks/pos_hook";
+import {usePos} from "@point_of_sale/app/hooks/pos_hook";
 
 
 export class NoOfGuestDialog extends Component {
@@ -10,10 +10,17 @@ export class NoOfGuestDialog extends Component {
     static props = {
         close: Function,
         onNext: Function,
+        onSkip: Function,
     };
 
     next() {
         this.props.onNext();
+    }
+
+    skip() {
+        this.props.close();
+        this.props.onNext();
+        this.props.onSkip();
     }
 
     onChangeInput() {
@@ -31,16 +38,28 @@ export class GuestDetailsDialog extends Component {
     static props = {
         close: Function,
         onNext: Function,
+        onPrevious: Function
     };
 
     setup() {
         this.pos = usePos();
         this.countries = this.pos.models["res.country"].getAll();
+        this.no_of_guest = document.getElementById('no_of_guest').value;
+        this.totalGuest = [];
+        for(let i=1; i<=this.no_of_guest; i++) {
+            this.totalGuest[i-1] = i;
+        }
+
     }
 
     next() {
         this.props.close();
         this.props.onNext();
+    }
+
+    previous() {
+        this.props.close();
+        this.props.onPrevious();
     }
 
 }

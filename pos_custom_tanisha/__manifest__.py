@@ -8,6 +8,7 @@
     'website': 'https://www.poscustom.com',
     'depends': ['base', 'pos_restaurant'],
     'data': [
+        'security/ir.model.access.csv',
         'views/guest_details_res_config.xml',
         'views/guest_details_views.xml',
     ],
