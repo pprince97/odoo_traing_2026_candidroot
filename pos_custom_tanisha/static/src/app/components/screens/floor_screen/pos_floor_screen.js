@@ -6,6 +6,21 @@ import {PaymentScreen} from "@point_of_sale/app/screens/payment_screen/payment_s
 import {serializeDateTime} from "@web/core/l10n/dates";
 import {NoOfGuestDialog} from "./guest_details_dialog";
 import {GuestDetailsDialog} from "./guest_details_dialog";
+import {DataServiceOptions} from "@point_of_sale/app/models/data_service_options";
+
+
+patch(DataServiceOptions.prototype, {
+    get dynamicModels() {
+        const models = super.dynamicModels;
+        console.log(">>>>>>>>>>>>>", models);
+        console.log(models.includes("guest.details"),models.length);
+        if (!models.includes("guest.details")) {
+            models.push("guest.details");
+            console.log("iffffffffffffffffff");
+        }
+        return models;
+    }
+});
 
 const {DateTime} = luxon;
 
@@ -78,14 +93,16 @@ patch(FloorScreen.prototype, {
                             onNext: () => {
                                 super.onClickTable(table, ev);
                                 const order = table.getOrder();
-                                const male = parseInt(document.getElementById('no_of_male').value);
-                                const female = parseInt(document.getElementById('no_of_female').value);
-                                const guest = parseInt(document.getElementById('no_of_guest').value);
-                                order.update({
-                                    no_of_male: male,
-                                    no_of_female: female,
-                                    no_of_guest: guest,
-                                })
+                                const male = document.getElementById('no_of_male');
+                                const female = document.getElementById('no_of_female');
+                                const guest = document.getElementById('no_of_guest');
+                                if (male && female && guest) {
+                                    order.update({
+                                        no_of_male: parseInt(male.value),
+                                        no_of_female: parseInt(female.value),
+                                        customer_count: parseInt(guest.value),
+                                    })
+                                }
                                 no_of_guest();
                             },
                             onPrevious: () => {
@@ -109,6 +126,5 @@ patch(FloorScreen.prototype, {
     },
 
 });
-
 
 

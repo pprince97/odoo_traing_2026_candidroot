@@ -18,6 +18,16 @@ class LibraryBook(models.Model):
     borrow_request_line_ids = fields.One2many(comodel_name='library.borrow.request.lines',inverse_name='book_id')
     borrow_history_ids = fields.Many2many(comodel_name='book.history.wizard', relation='book_borrow_history_rel', column1='book_id', column2='book_borrow_id', string='Borrow Books')
     available_copies_string = fields.Char()
+    image_history_ids = fields.One2many(comodel_name='library.image.history',inverse_name='book_id')
+
+    def write(self, vals):
+        if vals.get('cover_image'):
+            self.env['library.image.history'].create({
+                'book_id': self.id,
+                'history_image': self.cover_image,
+            })
+        res = super(LibraryBook, self).write(vals)
+        return res
 
     def _compute_available_copies(self):
         for book in self:

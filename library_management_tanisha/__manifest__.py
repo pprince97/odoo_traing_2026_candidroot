@@ -5,7 +5,7 @@
     'summary': 'Library Management Module',
     'description': "This is Library Management created by Tanisha",
     'website': 'https://www.librarymanagement.com',
-    'depends': ['base','contacts','website','web'],
+    'depends': ['base','contacts','website','web','website_sale'],
     'data': [
         'security/library_security.xml',
         'security/ir.model.access.csv',
@@ -15,6 +15,7 @@
         'report/borrow_request_report.xml',
         'report/borrow_history_report.xml',
         'views/book_views.xml',
+        'views/image_history_views.xml',
         'views/student_views.xml',
         'views/librarian_views.xml',
         'views/borrow_request_views.xml',
@@ -34,6 +35,8 @@
             "library_management_tanisha/static/src/js/patching_sale_order.js",
             "library_management_tanisha/static/src/js/cutom_widget_password.js",
             "library_management_tanisha/static/src/xml/custom_widget_password.xml",
+            "library_management_tanisha/static/src/fields/history_field/image_history.xml",
+            "library_management_tanisha/static/src/fields/history_field/image_history.js",
         ],
     },
     'demo': [

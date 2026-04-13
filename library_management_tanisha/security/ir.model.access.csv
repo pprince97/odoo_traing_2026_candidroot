@@ -24,3 +24,4 @@ access_res_partner_student,access_res_partner_student,base.model_res_partner,lib
 access_res_partner_librarian,access_res_partner_librarian,base.model_res_partner,library_management_tanisha.group_library_librarian,1,0,0,0
 access_res_partner_admin,access_res_partner_admin,base.model_res_partner,library_management_tanisha.group_library_admin,1,1,1,1
 
+access_library_image_history,access_library_image_history,model_library_image_history,,1,1,1,1

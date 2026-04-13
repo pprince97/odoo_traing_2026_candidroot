@@ -9,7 +9,7 @@ class PosOrder(models.Model):
     no_of_male = fields.Integer(string="No of Male")
     no_of_female = fields.Integer(string="No of Female")
     no_of_guest = fields.Integer(string="No of Guest")
-    guest_ids = fields.One2many(comodel_name='guest.details.line', inverse_name='pos_order_id', string='Guest Details')
+    guest_ids = fields.One2many(comodel_name='guest.details', inverse_name='order_id', string='Guest Details')
 
 
 
@@ -21,11 +21,11 @@ class PosConfig(models.Model):
     guest_details_req_bool = fields.Boolean("Guest Details Required")
 
 
+class PosSession(models.Model):
+    _inherit = 'pos.session'
 
-class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
-
-    guest_details_bool = fields.Boolean(related='pos_config_id.guest_details_bool', readonly=False, config_parameter='pos_custom_tanisha.guest_details_bool')
-    guest_details_timing = fields.Selection(related='pos_config_id.guest_details_timing', readonly=False, config_parameter='pos_custom_tanisha.guest_details_timing')
-    guest_details_req_bool = fields.Boolean(related='pos_config_id.guest_details_req_bool', readonly=False, config_parameter='pos_custom_tanisha.guest_details_req_bool')
-
+    @api.model
+    def _load_pos_data_models(self, config):
+        data = super()._load_pos_data_models(config)
+        data += ['guest.details']
+        return data

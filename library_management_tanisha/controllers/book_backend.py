@@ -28,10 +28,21 @@ class BookBackend(http.Controller):
         })
         return request.redirect('/library-book')
 
-    @http.route('/library-book', type="http", auth='public', website=True)
-    def display_book_data(self):
+    @http.route(['/library-book','/library-book/page/<int:page>'], type="http", auth='public', website=True)
+    def display_book_data(self, page=1, **post):
         books = self.env['library.book'].search([])
-        return request.render('library_management_tanisha.book_website_template', {'books': books})
+        pager = request.website.pager(
+            url='/library-book',
+            total=len(books),
+            page=page,
+            step=3,
+        )
+        offset = pager['offset']
+        book_obj = books[offset: offset + 3]
+        return request.render('library_management_tanisha.book_website_template', {
+            'books': book_obj,
+            'pager': pager,
+        })
 
     @http.route('/library-borrow-request', type="http", auth='public', website=True)
     def display_borrow_request_data(self):
@@ -47,17 +58,17 @@ class BookBackend(http.Controller):
 
     # @http.route('/borrow-request-form', type="http", auth='public', website=True)
     # def create_borrow_request(self, **kwargs):
-        # self.env['library.borrow.request'].create({
-        #     'student_id': kwargs.get('student'),
-        #     'librarian_id': kwargs.get('librarian'),
-        #     'issue_date': kwargs.get('issue_date'),
-        #     'return_date': kwargs.get('return_date'),
-        #     'state': kwargs.get('state'),
-        #     'fine_amount': kwargs.get('fine_amount'),
-        #     'total_amount': kwargs.get('total_amount'),
-        #     'borrow_request_line_ids': [int(i) for i in kwargs.get('borrow_request_line_ids').split(',')],
-        # })
+    # self.env['library.borrow.request'].create({
+    #     'student_id': kwargs.get('student'),
+    #     'librarian_id': kwargs.get('librarian'),
+    #     'issue_date': kwargs.get('issue_date'),
+    #     'return_date': kwargs.get('return_date'),
+    #     'state': kwargs.get('state'),
+    #     'fine_amount': kwargs.get('fine_amount'),
+    #     'total_amount': kwargs.get('total_amount'),
+    #     'borrow_request_line_ids': [int(i) for i in kwargs.get('borrow_request_line_ids').split(',')],
+    # })
 
-        # return request.redirect('/library-borrow-request')
+    # return request.redirect('/library-borrow-request')
 
 

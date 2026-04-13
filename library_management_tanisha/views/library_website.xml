@@ -148,4 +148,27 @@
         </xpath>
     </template>
 
+    <template id="price_invisible_logout" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="attributes">
+            <attribute name="t-if">not user_id._is_public()</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_subdescription_wrapper')]" position="after">
+            <t t-if="user_id._is_public()">
+                <a t-attf-href="/web/login" class="text-danger">Sign In to View Price</a>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="price_invisible_logout_2" inherit_id="website_sale.product">
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="attributes">
+            <attribute name="t-if">not user_id._is_public()</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="after">
+            <t t-if="user_id._is_public()">
+                <a t-attf-href="/web/login" class="text-danger">Sign In to View Price</a>
+            </t>
+        </xpath>
+    </template>
+
+
 </odoo>
