@@ -11,9 +11,11 @@ class ServiceManagementController(http.Controller):
         return request.render('service_management_system_jui.service_request_template_form')
 
     @http.route(['/my/service/request/list','/my/service/request/list/page/<int:page>'], type='http', auth='user', website=True)
-    def service_request_list_controller(self,page=0,state=None, **kwargs):
-        total = request.env['service.request'].search_count([])
+    def service_request_list_controller(self,page=0,state=None,search='', **kwargs):
+        search = kwargs.get('search') or search
         domain = []
+        if search:
+            domain += ['|', ('request_number', 'ilike', search), ('customer_id.name', 'ilike', search)]
         state_filters = {
             'all': {'label': 'All', 'domain': []},
             'draft': {
@@ -29,17 +31,18 @@ class ServiceManagementController(http.Controller):
         if not state:
             state = 'all'
         domain += state_filters[state]['domain']
+        total = request.env['service.request'].search_count(domain)
         pager = request.website.pager(
             url='/my/service/request/list',
-            url_args={'state': state},
+            url_args={'state': state,'search': search},
             total=total,
             page=page,
-            step=5,
+            step=3,
         )
         offset = pager['offset']
         values = request.env['service.request'].search(domain)
-        values = values[offset: offset + 5]
-        return request.render('service_management_system_jui.service_request_template_list',{'requests': values,'pager': pager,'default_url': '/my/service/request/list','state_filters': OrderedDict(sorted(state_filters.items())),'state': state,})
+        values = values[offset: offset + 3]
+        return request.render('service_management_system_jui.service_request_template_list',{'requests': values,'pager': pager,'default_url': '/my/service/request/list','state_filters': OrderedDict(sorted(state_filters.items())),'state': state,'search': search,'search_count': total,})
 
     @http.route('/update/country', type='jsonrpc', auth='user', website=True)
     def details_country(self, country_key):

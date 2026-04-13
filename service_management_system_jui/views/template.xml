@@ -53,13 +53,29 @@
                             </div>
                         </span>
                     </section>
+                    <div id="_price_range_option">
+                        <input
+                            type="range"
+                            multiple="multiple"
+                            t-attf-class="form-range range-with-input {{_classes_input}}"
+                            t-att-min="30"
+                            t-att-max="100"
+                            t-att-value="(min_price, max_price)"
+                        />
+                    </div>
                     <section class="container body mt-5 mb-5">
                         <div class="row">
-                            <div class="col-md-6" id="service_request_list">
+                            <div class="col-md-4" id="service_request_list">
                                 <a role="button" href="/my/service/request/form" class="btn btn-primary">Request Service</a>
                             </div>
-
-                            <div class="col-md-6 text-end">
+                            <div class="col-md-8 text-end d-flex justify-content-end align-items-center">
+                                <form t-att-action="default_url" method="get">
+                                    <input type="hidden" name="state" t-att-value="state"/>
+                                    <div t-attf-class="input-group #{_classes}" role="search" style="max-width: 300px;">
+                                        <t t-set="search_placeholder">Search...</t>
+                                        <input type="search" name="search" t-att-class="'search-query form-control oe_search_box %s %s' % (_input_classes or '', '' if default_style else 'border-0 bg-light')" t-att-placeholder="search_placeholder" t-att-value="search" oninput="this.form.submit()"/>
+                                    </div>
+                                </form>
                                 <span class="small me-1 navbar-text">States:</span>
                                 <div class="btn-group">
                                     <button id="service_searchbar_filters" data-bs-toggle="dropdown" class="btn btn-light dropdown-toggle">

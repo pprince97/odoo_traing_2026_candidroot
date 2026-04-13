@@ -8,7 +8,7 @@
                 <div class="form-group col-4">
                     <div class="row">
                         <div class="col-6">
-                            <label for="age">Age:</label>
+                            <label for="age" class="mt-2">Age:</label>
                         </div>
                         <div class="col-6">
                             <input t-attf-id="age_{{num}}" type="number" name="age" class="form-control"/>
@@ -18,7 +18,7 @@
                 <div class="form-group col-4">
                     <div class="row">
                         <div class="col-6">
-                            <label for="nationality">Nationality:</label>
+                            <label for="nationality" class="mt-2">Nationality:</label>
                         </div>
                         <div class="col-6">
                             <select name="nationality" t-attf-id="nationality_{{num}}" class="form-control">
@@ -35,7 +35,7 @@
                 <div class="form-group col-4">
                     <div class="row">
                         <div class="col-6">
-                            <label for="gender">Gender:</label>
+                            <label for="gender" class="mt-2">Gender:</label>
                         </div>
                         <div class="col-6">
                             <select name="gender" t-attf-id="gender_{{num}}" class="form-control">
@@ -53,7 +53,7 @@
             <t t-set-slot="footer">
                 <button class="btn btn-primary" t-on-click="() => this.next()">Next</button>
                 <button class="btn btn-secondary" t-on-click="() => this.prev()">Previous</button>
-                <button class="btn btn-secondary" t-on-click="props.close">Skip</button>
+                <button class="btn btn-secondary" t-on-click="() => this.skip_view()" t-if="!pos.config.guest_details_required">Skip</button>
             </t>
         </Dialog>
     </t>

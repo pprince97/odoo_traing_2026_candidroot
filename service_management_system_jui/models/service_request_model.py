@@ -10,8 +10,8 @@ class ServiceRequest(models.Model):
 
     request_number = fields.Char(string='Request Number',readonly=True)
     date = fields.Date(string='Date')
-    company_id_s = fields.Many2one('custom.service.company',string='Company')
     category_id = fields.Many2one('service.category',string='Service Categories')
+    company_id_s = fields.Many2one('custom.service.company',related="category_id.company_id_s",string='Company')
     service_id = fields.Many2one('product.template',string='Services')
     customer_id = fields.Many2one('res.users',string='Customer')
     country_id = fields.Many2one('res.country','Country')

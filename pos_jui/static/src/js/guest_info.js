@@ -2,7 +2,6 @@ import { Component } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 
-
 export class GuestInfo extends Component {
     static template = "pos_jui.guest_info_dialog";
     static components = { Dialog };
@@ -17,6 +16,7 @@ export class GuestInfo extends Component {
             optional: true,
         },
         close: Function,
+        skip: Function,
         save: Function,
         guests: String,
         male:String,
@@ -32,8 +32,11 @@ export class GuestInfo extends Component {
     }
 
     next(){
-        this.props.close();
+
         const guestData = [];
+        let validate_male = parseInt(this.props.male);
+        let validate_female = parseInt(this.props.female);
+        let allfieldstrue = true
         this.guestRange.forEach((num) => {
             guestData.push({
                 guest_number: num,
@@ -42,7 +45,35 @@ export class GuestInfo extends Component {
                 gender: document.getElementById(`gender_${num}`).value || null,
             });
         });
-        this.props.save(parseInt(this.props.male),parseInt(this.props.female),parseInt(this.props.guests),guestData);
+        for (const g of guestData) {
+            if(g.gender === 'male'){
+                validate_male -= 1
+            }
+            if(g.gender === 'female'){
+                validate_female -= 1
+            }
+            console.log(g.age,'<<<<<<',g.nationality_id,'>>>>',g.gender)
+            if(!g.age || !g.nationality_id || g.gender === null){
+                allfieldstrue = false
+            }
+        }
+        if(!allfieldstrue){
+            this.env.services.notification.add(`Missing required fields`, {type: 'danger'});
+        }
+        else{
+            if (validate_female === 0 && validate_male === 0){
+                this.props.save(parseInt(this.props.male),parseInt(this.props.female),parseInt(this.props.guests),guestData);
+                 this.props.close();
+            }
+            else {
+                this.env.services.notification.add(`Details must be entered according to the registered no of male ${this.props.male} and female ${this.props.female}`, {type: 'danger'});
+            }
+        }
+    }
+
+    skip_view(){
+        this.props.close();
+        this.props.skip();
     }
 
     get guestRange() {

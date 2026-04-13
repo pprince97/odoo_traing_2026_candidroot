@@ -22,7 +22,7 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="service_ids" widget="many2many_tags"/>
+                                <field name="service_ids" widget="many2many_tags" domain="[('type','=','service')]"/>
                             </group>
                             <group>
                                 <field name="company_id_s"/>

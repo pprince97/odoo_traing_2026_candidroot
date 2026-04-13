@@ -58,4 +58,30 @@
             <attribute name="t-att-href">keep(attribute_values=0, tags=0, min_price=0, max_price=0, taxonomies=0)</attribute>
         </xpath>
     </template>
+    <template id="product_items" inherit_id="website_sale.products_item" name="Product items">
+        <xpath expr="//div[hasclass('product_price')]/span" position="attributes">
+            <attribute name="t-if">(template_price_vals['price_reduce'] or not website.prevent_zero_price_sale) and not user_id._is_public()</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('product_price')]/span" position="after">
+            <span t-else="" class="mb-0 fw-bold text-danger">
+                Please sign in to see the price
+            </span>
+        </xpath>
+        <xpath expr="//div[hasclass('product_price')]/t" position="attributes">
+            <attribute name="t-if">('base_price' in template_price_vals and (template_price_vals['base_price'] &gt; template_price_vals['price_reduce']) and (template_price_vals['price_reduce'] or not website.prevent_zero_price_sale)) and not user_id._is_public()</attribute>
+        </xpath>
+    </template>
+    <template id="product_container_price" inherit_id="website_sale.product_price" name="Product price">
+        <xpath expr="//div[@name='product_price_container']/span" position="attributes">
+            <attribute name="t-if">not user_id._is_public()</attribute>
+        </xpath>
+        <xpath expr="//div[@name='product_price_container']/span" position="after">
+            <span t-else="" class="mb-0 fw-bold text-danger">
+                Please sign in to see the price
+            </span>
+        </xpath>
+        <xpath expr="//span[@name='product_list_price']" position="attributes">
+            <attribute name="t-if">not user_id._is_public()</attribute>
+        </xpath>
+    </template>
 </odoo>

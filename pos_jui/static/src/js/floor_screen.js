@@ -10,6 +10,75 @@ const { DateTime } = luxon;
 import { useService } from "@web/core/utils/hooks";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 import { PosOrder } from "@point_of_sale/app/models/pos_order";
+import { PosStore } from "@point_of_sale/app/services/pos_store";
+import { DataServiceOptions } from "@point_of_sale/app/models/data_service_options";
+
+patch(DataServiceOptions.prototype, {
+    get dynamicModels() {
+        const models = super.dynamicModels;
+        console.log("Called dataservice", models)
+        if (!models.includes("pos.order.guest")) {
+            models.push("pos.order.guest");
+        }
+        console.log("Called dataservice", models)
+        return models;
+    }
+});
+
+patch(PosStore.prototype, {
+    setup() {
+        super.setup(...arguments);
+    },
+    async pay() {
+        const dialogService = this.env.services.dialog;
+        const order = this.getOrder();
+        if(this.config.guest_details && this.config.guest_details_timing === 'order_after') {
+            const showGuestDetail = (initialData = {}) => {
+                dialogService.add(GuestDetail, {
+                    title: "No of Guests",
+                    male: initialData.male || 0,
+                    female: initialData.female || 0,
+                    guests: initialData.guests || 0,
+                    skip: async()=>{ await super.pay(); },
+                    save: async (male_no, female_no, guests_no) => {
+                        dialogService.add(GuestInfo, {
+                            title: "Guest Details",
+                            skip: async()=>{ await super.pay(); },
+                            save: async (male_no, female_no, guests_no,guest_data) => {
+                                await super.pay();
+                                const order_obj = this.models["pos.order"].getBy("uuid", order.uuid);
+                                const guest_ids_commands = [];
+                                for (const g of guest_data) {
+                                    const newGuest = await this.models["pos.order.guest"].create({
+                                        'age': parseInt(g.age),
+                                        'nationality_id': parseInt(g.nationality_id),
+                                        'gender': g.gender
+                                    });
+                                    guest_ids_commands.push(newGuest.id);
+                                }
+                                order_obj.update({
+                                    'male_count': male_no,
+                                    'female_count': female_no,
+                                    'customer_count': guests_no,
+                                    'guest_ids': guest_ids_commands,
+                                });
+                            },
+                            male: male_no,
+                            female: female_no,
+                            guests: guests_no,
+                            previous: async () => {
+                                showGuestDetail({male: parseInt(male_no), female: parseInt(female_no), guests: parseInt(guests_no)});
+                            }
+                        })
+                    }
+                });
+            }
+            showGuestDetail();
+        } else {
+            await super.pay();
+        }
+    }
+});
 
 patch(ProductScreen.prototype, {
     async addProductToOrder(product, options) {
@@ -36,7 +105,6 @@ patch(FloorScreen.prototype, {
         super.setup();
         this.state.tableTimers = {};
         let interval;
-        this.orm = useService("orm");
         this.dialogService = useService("dialog");
         this.pos=usePos();
 
@@ -72,34 +140,30 @@ patch(FloorScreen.prototype, {
                     male: initialData.male || 0,
                     female: initialData.female || 0,
                     guests: initialData.guests || 0,
-                    close: async () => {
-                        await super.onClickTable(table, ev);
-                    },
+                    skip: async()=>{ await super.onClickTable(table, ev); },
                     save: async (male_no, female_no, guests_no) => {
                         this.dialogService.add(GuestInfo, {
                             title: "Guest Details",
-                            close: () => {},
+                            skip: async()=>{ await super.onClickTable(table, ev); },
                             save: async (male_no, female_no, guests_no,guest_data) => {
                                 await super.onClickTable(...arguments);
-                                const order = this.pos.models["pos.order"].filter((o) => o.table_id?.id === table.id && !o.finalized);
-                                const order_obj = this.pos.models["pos.order"].getBy("uuid", order[0].uuid);
+                                let order=table.getOrder();
+                                const order_obj = this.pos.models["pos.order"].getBy("uuid", order.uuid);
                                 const guest_ids_commands = [];
-                                // for (const g of guest_data) {
-                                //     const newGuest = await this.pos.models["pos.order.guest"].create({
-                                //         'age': parseInt(g.age),
-                                //         'nationality_id': parseInt(g.nationality_id),
-                                //         'gender': g.gender
-                                //     });
-                                //     guest_ids_commands.push(newGuest.id);
-                                // }
+                                for (const g of guest_data) {
+                                    const newGuest = await this.pos.models["pos.order.guest"].create({
+                                        'age': parseInt(g.age),
+                                        'nationality_id': parseInt(g.nationality_id),
+                                        'gender': g.gender
+                                    });
+                                    guest_ids_commands.push(newGuest.id);
+                                }
                                 order_obj.update({
                                     'male_count': male_no,
                                     'female_count': female_no,
                                     'customer_count': guests_no,
-                                    // 'guest_ids': [1],
+                                    'guest_ids': guest_ids_commands,
                                 });
-                                console.log(this.pos.models['pos.order.guest'].getAll());
-                                console.log(order_obj.customer_count, '>>>>>>>', order_obj.male_count, '>>>>>>>>', order_obj.female_count)
                             },
                             male: male_no,
                             female: female_no,

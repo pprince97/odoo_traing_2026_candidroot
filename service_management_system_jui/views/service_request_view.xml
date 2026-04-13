@@ -47,7 +47,7 @@
                                 <field name="date" width="30px"/>
                                 <field name="category_id" width="15px"/>
                                 <field name="company_id_s" width="40px"/>
-                                <field name="service_id" width="40px"/>
+                                <field name="service_id" width="40px" domain="[('type','=','service'),('category_id','=',category_id)]"/>
                             </group>
                             <group>
                                 <field name="customer_id" width="40px"/>
