@@ -4,6 +4,7 @@ from odoo import fields, models , api
 
 class GuestDetail(models.Model):
     _name = "guest.detail"
+    _inherit = ['pos.load.mixin']
     _description = "Guest Detail"
 
     # no_of_male = fields.Integer(string="No. of Male")
@@ -18,3 +19,7 @@ class GuestDetail(models.Model):
     no_of_guest = fields.Integer(string="No of Guest")
 
     pos_order_id = fields.Many2one('pos.order', string="Pos Order")
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        return ["id", "age", "country", "gender","write_date"]

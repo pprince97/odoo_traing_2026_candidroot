@@ -14,7 +14,7 @@ class PosOrder(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            print(vals.get("no_of_male"),"=-----------------------------------------------------------------")
+            print(vals.get("no_of_male"),"=----------------------------")
         leads = super().create(vals_list)
         return leads
 

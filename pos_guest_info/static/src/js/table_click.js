@@ -8,6 +8,7 @@ import {usePos} from "@point_of_sale/app/hooks/pos_hook";
 import {CustomerDialog} from "./guest_info";
 import {CustomerDetail} from "./customer_detail";
 import {makeAwaitable} from "@point_of_sale/app/utils/make_awaitable_dialog";
+import {PosOrder} from "@point_of_sale/app/models/pos_order";
 
 console.log("Guest Import is Loaded ... .. ");
 
@@ -19,13 +20,10 @@ patch(FloorScreen.prototype, {
         this.orm = useService("orm");
         this.pos = usePos();
 
+
         this.states_info = useState({
             guests: [],
-            counting : 0,
-        });
-
-        onWillUnmount(() => {
-
+            counting: 0,
         });
     },
 
@@ -35,6 +33,7 @@ patch(FloorScreen.prototype, {
         console.log("this.pos.config.guest_details_timing ---->  ", this.pos.config.guest_details_timing)
         console.log("this.pos.config.guest_details_required ---->  ", this.pos.config.guest_details_required)
         const guest_details = this.pos.config.guest_details
+        const guest_details_timing = this.pos.config.guest_details_timing
 
         console.log(table, "------table ")
         const test = super.onClickTable(table, ev);
@@ -54,7 +53,7 @@ patch(FloorScreen.prototype, {
 
         const order = this.pos.getOrder();
 
-        if (guest_details) {
+        if (guest_details && guest_details_timing === 'order_before') {
             console.log("data.no_of_guest ::::>>>   ", this.pos.getOrder().no_of_guest)
             if (this.pos.getOrder().no_of_guest === undefined || this.pos.getOrder().no_of_guest === 0) {
                 // if (table.is_first_time === undefined || table.is_first_time === false) {
@@ -129,27 +128,35 @@ patch(FloorScreen.prototype, {
 
                                 const order_id = order.id;
                                 console.log("order_id------>   ", order_id)
-                                console.log("order_id type------>   ",typeof order_id)
+                                console.log("order_id type------>   ", typeof order_id)
                                 order.guests = data.guests;
                                 // this.state.guests = data.guests
                                 console.log("guests------>   ", order.guests)
 
                                 const orm = this.env.services.orm;
+                                const newIds = [];
                                 for (const guest of data.guests) {
                                     console.log(guest.age, guest.country, guest.gender);
                                     try {
-                                        const newIds = await orm.create("guest.detail", [{
+                                        // const newIds = await orm.create("guest.detail", [{
+                                        //     age: parseInt(guest.age),
+                                        //     country: guest.country,
+                                        //     gender: guest.gender,
+                                        //     pos_order_id: order_id,
+                                        // }]);
+                                        const newGuest = await this.pos.models["guest.detail"].create({
                                             age: parseInt(guest.age),
                                             country: guest.country,
                                             gender: guest.gender,
-                                            pos_order_id: order_id,
-                                        }]);
+                                        });
+                                        console.log("Before the Push");
+                                        newIds.push(newGuest.id);
                                         console.log("Created record IDs:", newIds);
                                     } catch (error) {
                                         console.error("ORM Create Failed:", error);
                                     }
                                 }
-
+                                order.guest_detail_ids = newIds;
                             }
                         })
                     },
@@ -167,4 +174,19 @@ patch(FloorScreen.prototype, {
 
         return test;
     },
+});
+
+
+patch(PosOrder.prototype, {
+    setup() {
+        super.setup(...arguments);
+        this.guest_detail_ids = this.guest_detail_ids || [];
+    },
+
+    toJSON() {
+        const json = super.toJSON(...arguments);
+        json.guest_detail_ids = this.guest_detail_ids;
+        return json;
+    }
+
 });

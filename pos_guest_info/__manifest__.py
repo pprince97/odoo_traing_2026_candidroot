@@ -28,6 +28,8 @@ Long description of POS Guest Info
             'pos_guest_info/static/src/js/customer_detail.js',
             'pos_guest_info/static/src/js/guest_info.js',
             'pos_guest_info/static/src/js/table_click.js',
+            'pos_guest_info/static/src/js/data_service.js',
+            'pos_guest_info/static/src/js/validate_click.js',
             'pos_guest_info/static/src/js/pos_store.js',
             'pos_guest_info/static/src/xml/guest_info.xml',
             'pos_guest_info/static/src/xml/customer_detail.xml',
