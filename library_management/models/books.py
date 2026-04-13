@@ -11,7 +11,6 @@ class Books(models.Model):
     student_id = fields.Many2one('res.partner',string='Student')
 
     name = fields.Char(required=True, tracking=True)
-    # book_id = fields.Many2one(related='file.upload.history.book_id', string='Book')
     barcode = fields.Char(readonly=True)
 
     description = fields.Text(string='Description')
