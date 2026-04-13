@@ -5,6 +5,20 @@ import {onMounted, onWillUnmount, useState} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
 import {GuestPopup} from "../../popup/guest_popup"
 import {DetailPopup} from "../../popup/detail_popup";
+// import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
+import { DataServiceOptions } from "@point_of_sale/app/models/data_service_options";
+
+
+patch(DataServiceOptions.prototype, {
+    get dynamicModels() {
+        const models = super.dynamicModels;
+        if (!models.includes("pos.guest")) {
+            models.push("pos.guest");
+            console.log('>>>>>>>>>>>>inside if')
+        }
+        return models;
+    }
+});
 
 patch(FloorScreen.prototype, {
     setup() {
@@ -43,6 +57,59 @@ patch(FloorScreen.prototype, {
         }
     },
 
+    // async onClickTable(table, ev) {
+    //     if (this.pos.config.guest_details && this.pos.config.timing === 'before' && !this.pos.tableHasOrders(table)) {
+    //
+    //           // const payload = await makeAwaitable(this.dialog, GuestPopup, {});
+    //           // var order = this.pos.getOrder()
+    //           // if (!order){
+    //           //     order = this.pos.addNewOrder()
+    //           // }
+    //           // if (payload){
+    //           //     var line = await this.pos.models["pos.guest"].create({
+    //           //           age: 145,
+    //           //           gender: 'male',
+    //           //           order_id : order
+    //           //     });
+    //           // }
+    //           // debugger
+    //           // // order.update({ guest_ids: [["set", line]] });
+    //           // await this.pos.syncAllOrders({ orders: [order] });
+    //           // await super.onClickTable(table, ev)
+    //
+    //         // const closeGuestPopup = this.dialogService.add(GuestPopup, {
+    //         //     data: {},
+    //         //     next: async (data) => {
+    //         //         await this.dialogService.add(DetailPopup, {
+    //         //             data: data,
+    //         //             next: async (data) => {
+    //         //                 await super.onClickTable(table, ev)
+    //         //                 const order = table.getOrder()
+    //         //                 this.pos.models["pos.guest"].create({
+    //         //                     'age': 145,
+    //         //                     'gender': 'male',
+    //         //                     'order_id': order
+    //         //                 });
+    //         //                 // console.log('>>>>>>>>>>>>>', newGuest.id)
+    //         //                 // // guest_ids.push(newGuest.id);
+    //         //                 // // order.guest_ids = guest_ids;
+    //         //                 // order.update(data)
+    //         //                 // order.update({
+    //         //                 //     guest_ids: [newGuest.id]
+    //         //                 // });
+    //         //                 // // order.update({guest_ids:[newGuest]})
+    //         //                 // console.log('>>>>>>>>>>>>>>>>>>>>>>')
+    //         //                 closeGuestPopup();
+    //         //             },
+    //         //         });
+    //         //     }
+    //         // });
+    //
+    //     } else {
+    //         await super.onClickTable(table, ev)
+    //     }
+    // }
+
     async onClickTable(table, ev) {
         if (this.pos.config.guest_details && this.pos.config.timing === 'before' && !this.pos.tableHasOrders(table)) {
             const closeGuestPopup = this.dialogService.add(GuestPopup, {
@@ -53,18 +120,17 @@ patch(FloorScreen.prototype, {
                         next: async (data) => {
                             await super.onClickTable(table, ev)
                             const order = table.getOrder()
-                            console.log('>>>>>>>>>>>>>>',data.guest_ids)
-                            order.guest_ids = [[0, 0, {'gender': 'male', 'age': 15}]]
-                            console.log('>>>>>>>>>>>>>',order.guest_ids)
                             order.update(data)
                             closeGuestPopup();
                         },
                     });
                 }
             });
-
         } else {
             return super.onClickTable(table, ev)
         }
     }
+
 });
+
+

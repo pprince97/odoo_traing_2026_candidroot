@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--<templates xml:space="preserve">-->
+<!--<t t-name="pos_restaurant.GuestPopup">-->
+<!--    <Dialog title.translate="No Of Guest" size="'md'">-->
+<!--        <div class="row m-2" id="guest_pop">-->
+<!--            <div class="col-md-4">-->
+<!--                <label for="male_no" class="form-label mb-0">No of Male:</label>-->
+<!--                <input type="number" id="male_no" t-ref="male_no" class="form-control mb-1" t-on-input="onchangeGuestMale" t-att-value="state.male_no"/>-->
+<!--            </div>-->
+
+<!--            <div class="col-md-4">-->
+<!--                <label for="female_no" class="form-label mb-0">No of Female:</label>-->
+<!--                <input type="number" id="female_no" t-ref="female_no" class="form-control mb-1" t-on-input="onchangeGuestFeMale" t-att-value="state.female_no"/>-->
+<!--            </div>-->
+
+<!--            <div class="col-md-4">-->
+<!--                <label for="guest_no" class="form-label mb-0">No of Guest:</label>-->
+<!--                <input type="number" id="guest_no" t-ref="guest_no" class="form-control mb-1" t-att-value="state.guest_no" readonly="1"/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <t t-set-slot="footer">-->
+<!--            <button class="btn btn-primary" t-on-click="next_pop">-->
+<!--                Next-->
+<!--            </button>-->
+<!--            <button class="btn btn-secondary" t-on-click="props.close">-->
+<!--                Close-->
+<!--            </button>-->
+<!--            <button class="btn btn-secondary" t-on-click="props.close">-->
+<!--                Skip-->
+<!--            </button>-->
+<!--        </t>-->
+<!--    </Dialog>-->
+<!--</t>-->
+<!--</templates>-->
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
 <templates xml:space="preserve">
 <t t-name="pos_restaurant.GuestPopup">
     <Dialog title.translate="No Of Guest" size="'md'">

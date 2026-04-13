@@ -154,7 +154,25 @@ publicWidget.registry.PersonalInfoWidget = publicWidget.Widget.extend({
         }
     }
 },
-
-
-
 })
+
+publicWidget.registry.BookPriceFilter = publicWidget.Widget.extend({
+    selector: '.js_attributes',
+    events: {
+        'change .range-with-input': '_onRangeChange',
+    },
+
+    _onRangeChange: function (ev) {
+        // Odoo's slider stores values as a comma-separated string: "min,max"
+        const values = $(ev.currentTarget).val().split(',');
+        if (values.length === 2) {
+            this.$('#min_price_hidden').val(values[0]);
+            this.$('#max_price_hidden').val(values[1]);
+
+            // Optional: Auto-submit the form as soon as user lets go
+            this.$el.submit();
+        }
+    },
+});
+
+

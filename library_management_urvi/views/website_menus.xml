@@ -305,7 +305,7 @@
                                 </span>
                                 <input type="file" name="file_data" id="file_input" class="form-control shadow-none"/>
                             </div>
-                            <div id="file_error" class="text-danger mt-1 fw-bold" style="display:none;" />
+                            <div id="file_error" class="text-danger mt-1 fw-bold" style="display:none;"/>
                             <small class="text-muted">Maximum file size: 10MB</small>
                         </div>
 
@@ -451,6 +451,28 @@
 
                 </div>
             </footer>
+        </xpath>
+    </template>
+
+    <!--    <template id="hide_price_for_guests" inherit_id="website_sale.products_item">-->
+    <!--        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="attributes">-->
+    <!--&lt;!&ndash;            &lt;!&ndash; 'website.user_id' is the record for the public user &ndash;&gt;&ndash;&gt;-->
+    <!--            <attribute name="invisible">user_id._is_public()</attribute>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+    <template id="hide_price_for_guests" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="attributes">
+            <attribute name="t-if">not user_id._is_public()</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_subdescription_wrapper')]" position="after">
+            <div class="text-danger">please login to view price</div>
+        </xpath>
+
+    </template>
+
+    <template id="hide_price_for_guests_" inherit_id="website_sale.product">
+        <xpath expr="//div[hasclass('o_wsale_product_details_content_section_price')]" position="attributes">
+            <attribute name="t-if">not user_id._is_public()</attribute>
         </xpath>
     </template>
 

@@ -32,13 +32,13 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='notes']" position="after">
                 <page name="guest_details" string="Guest Details">
-                    <group string="Product Information">
+                    <group string="Guest Information">
                         <field name="male_no"/>
                         <field name="female_no"/>
                         <field name="guest_no"/>
                     </group>
                     <group string="GUEST INFO">
-                        <field name="guest_ids" string="">
+                        <field name="guest_ids" nolabel="1" colspan="4">
                             <list>
                                 <field name="country_id" width="35px"/>
                                 <field name="gender" width="35px"/>

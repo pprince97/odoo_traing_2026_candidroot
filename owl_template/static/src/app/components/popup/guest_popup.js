@@ -1,3 +1,59 @@
+// import {Component, useRef, useState} from "@odoo/owl";
+// import {Dialog} from "@web/core/dialog/dialog";
+// import {useService} from "@web/core/utils/hooks";
+// import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
+// import {DetailPopup} from "../popup/detail_popup";
+//
+// export class GuestPopup extends Component {
+//     static template = "pos_restaurant.GuestPopup";
+//     static components = {
+//         Dialog
+//     };
+//     static props = {
+//         getPayload: Function,
+//         close: Function,
+//     };
+//
+//     setup() {
+//         this.dialog = useService("dialog");
+//         this.state = useState({
+//             male_no: 0,
+//             female_no: 0,
+//             guest_no: 0,
+//         });
+//     }
+//
+//     confirm() {
+//         this.props.getPayload(this.state);
+//         this.props.close();
+//     }
+//
+//     async next_pop(ev) {
+//         var a = ev.currentTarget.parentElement.parentElement.querySelectorAll('input')
+//         this.state.male_no = parseInt(a[0].value) || 0
+//         this.state.female_no = parseInt(a[1].value) || 0
+//         this.state.guest_no = parseInt(a[2].value) || 0
+//         var payload = await makeAwaitable(this.dialog, DetailPopup, {guest_no : this.state.guest_no});
+//         debugger
+//         if (payload){
+//                this.props.getPayload(this.state);
+//                this.props.close();
+//            }
+//     }
+//
+//     onchangeGuestMale(ev) {
+//         this.state.male_no = parseInt(ev.currentTarget.value) || 0
+//         this.state.guest_no = this.state.male_no + this.state.female_no
+//     }
+//
+//
+//     onchangeGuestFeMale(ev) {
+//         this.state.female_no = parseInt(ev.currentTarget.value) || 0
+//         this.state.guest_no = this.state.male_no + this.state.female_no
+//     }
+// }
+
+
 import {Component, useRef} from "@odoo/owl";
 import {Dialog} from "@web/core/dialog/dialog";
 import {useService} from "@web/core/utils/hooks";

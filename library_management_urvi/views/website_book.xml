@@ -106,164 +106,243 @@
     <!-- Template to display the list of books -->
     <template id="template_view_all_books" name="My Books">
         <t t-call="website.layout">
-            <div id="wrap" class="container mt-4">
-                <form action="/book" method="get">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h1 class="mb-4 ms-0">Library Books</h1>
-                        </div>
-                        <div class="col-md-6 mb-3 text-end">
-                            <a href="/create/book" role="button" class="btn btn-primary s_website_form_send">Register
-                                Book
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row mt-3 mb-3">
-                        <div class="col-12">
-                            <!--                            <div method="get" action="/book" class="o_portal_search_form">-->
-                            <div class="row g-2">
-                                <div class="col-md-6">
-                                    <input type="text"
-                                           name="search"
-                                           t-att-value="search or ''"
-                                           class="form-control"
-                                           placeholder="Search Books..."
-                                           oninput="this.form.submit()"
-                                           autofocus="autofocus"
-                                           onfocus="var temp=this.value; this.value=''; this.value=temp;"/>
-                                </div>
-<!--                                <script type="text/javascript">-->
-<!--                                    var timeout = null;-->
-<!--                                    function delaySubmit(input) {-->
-<!--                                    clearTimeout(timeout);-->
-<!--                                    timeout = setTimeout(function () {-->
-<!--                                    input.form.submit();-->
-<!--                                    }, 800); // Increased delay slightly for better typing flow-->
-<!--                                    }-->
+            <div id="wrap" class="container row mt-4">
+                <aside class="col-md-3">
+                    <form method="get" action="/book" class="js_attributes">
+                        <h4>Filter by Author</h4>
+                        <t t-foreach="category" t-as="cat">
+                            <div class="form-check">
+                                <input type="checkbox" name="category"
+                                       t-att-value="cat"
+                                       t-att-id="cat"
+                                       t-att-checked="cat in selected_category"
+                                       class="form-check-input"
+                                       onchange="this.form.submit()"/> <!-- Auto-submit on change -->
+                                <label class="form-check-label" t-att-for="cat">
+                                    <t t-esc="cat.capitalize()"/>
+                                </label>
+                                <!--                                   t-att-id="'auth_%s' % author.id"-->
+                            </div>
+                        </t>
+                        <h4 class="mt-4">Filter by Status</h4>
+                        <t t-foreach="state_options" t-as="state_opt">
+                            <div class="form-check">
+                                <input type="checkbox" name="state"
+                                       t-att-value="state_opt[0]"
+                                       t-att-id="'state_%s' % state_opt[0]"
+                                       t-att-checked="state_opt[0] in selected_states"
+                                       class="form-check-input"
+                                       onchange="this.form.submit()"/>
+                                <label class="form-check-label" t-att-for="'state_%s' % state_opt[0]">
+                                    <t t-esc="state_opt[1]"/>
+                                </label>
+                            </div>
+                        </t>
+                        <!--                        <h4 class="mt-4">Price Range</h4>-->
+                        <!--                        <div class="d-flex align-items-center gap-2">-->
+                        <!--                            <input type="number" name="min_price" class="form-control"-->
+                        <!--                                   placeholder="Min" t-att-value="min_price if min_price > 0 else ''"/>-->
+                        <!--                            <span>to</span>-->
+                        <!--                            <input type="number" name="max_price" class="form-control"-->
+                        <!--                                   placeholder="Max" t-att-value="max_price if max_price > 0 else ''"/>-->
+                        <!--                        </div>-->
+                        <!--                        <h6 class="mb-3">Price Range</h6>-->
 
-<!--                                    // 2. Logic to restore focus and move cursor to the end-->
-<!--                                    document.addEventListener("DOMContentLoaded", function() {-->
-<!--                                    var input = document.getElementById('search_input');-->
-<!--                                    if (input &amp;&amp; input.value) {-->
-<!--                                    input.focus();-->
-<!--                                    // Move cursor to the end of the text-->
-<!--                                    var val = input.value;-->
-<!--                                    input.value = '';-->
-<!--                                    input.value = val;-->
-<!--                                    }-->
-<!--                                    });-->
-<!--                                </script>-->
-                                <!--                                 <div class="input-group col-md-4">-->
-                                <!--        <input type="text" name="search" class="form-control" -->
-                                <!--               placeholder="Search..." t-att-value="search"/>-->
-                                <!--        <button class="btn btn-secondary" type="submit">-->
-                                <!--            <i class="fa fa-search"/>-->
-                                <!--        </button>-->
-                                <!--    </div>-->
-                                <!--                                <div class="col-md-3">-->
-                                <!--                                    <select name="search_in" class="form-select">-->
-                                <!--                                        <t t-foreach="searchbar_inputs.items()" t-as="s">-->
-                                <!--                                            <option t-att-value="s[0]"-->
-                                <!--                                                    t-att-selected="s[0] == search_in and 'selected' or None">-->
-                                <!--                                                <t t-esc="s[1]['label']"/>-->
-                                <!--                                            </option>-->
-                                <!--                                        </t>-->
-                                <!--                                    </select>-->
-                                <!--                                </div>-->
-                                <div class="col-md-2 my-3 text-end">
-                                    <b>Sort By:</b>
-                                </div>
-                                <div class="col-md-3">
-                                    <select name="filterby" class="form-select" onchange="this.form.submit()">
-                                        <t t-foreach="searchbar_filters.items()" t-as="f">
-                                            <option t-att-value="f[0]"
-                                                    t-att-selected="f[0] == filterby and 'selected' or None">
-                                                <t t-esc="f[1]['label']"/>
-                                            </option>
-                                        </t>
-                                    </select>
-                                </div>
+                        <!--                        <input type="range"-->
+                        <!--                               multiple="multiple"-->
+                        <!--                               class="form-range range-with-input"-->
+                        <!--                               t-att-data-currency="website.currency_id.symbol"-->
+                        <!--                               t-att-data-currency-position="website.currency_id.position"-->
+                        <!--                               t-att-step="website.currency_id.rounding or 1"-->
+                        <!--                               t-att-min="'%f' % (available_min_price)"-->
+                        <!--                               t-att-max="'%f' % (available_max_price)"-->
+                        <!--                               t-att-value="'%f,%f' % (min_price, max_price)"/>-->
 
-                                <!--                                    <div class="col-md-2">-->
-                                <!--                                        <button type="submit" class="btn btn-primary w-100">-->
-                                <!--                                            Search-->
-                                <!--                                        </button>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
+                        <!--                        &lt;!&ndash; Hidden inputs that the JS will update automatically &ndash;&gt;-->
+                        <!--                        <input type="hidden" name="min_price" t-att-value="min_price"/>-->
+                        <!--                        <input type="hidden" name="max_price" t-att-value="max_price"/>-->
+
+                        <h6 class="mb-3">Price Range</h6>
+
+                        <!-- The Slider -->
+                        <input type="range"
+                               multiple="multiple"
+                               class="form-range range-with-input"
+                               t-att-data-min="available_min_price"
+                               t-att-data-max="available_max_price"
+                               t-att-value="'%f,%f' % (min_price, max_price)"
+                               id="price_range_slider"/>
+
+                        <!-- These must have 'name' attributes that match your controller arguments -->
+                        <input type="hidden" name="min_price" id="min_price_hidden" t-att-value="min_price"/>
+                        <input type="hidden" name="max_price" id="max_price_hidden" t-att-value="max_price"/>
+
+                        <button type="submit" class="btn btn-primary mt-2 d-none">Filter</button>
+
+                    </form>
+                </aside>
+                <div class="col-md-9">
+                    <form action="/book" method="get">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h1 class="mb-4 ms-0">Library Books</h1>
+                            </div>
+                            <div class="col-md-6 mb-3 text-end">
+                                <a href="/create/book" role="button" class="btn btn-primary s_website_form_send">
+                                    Register
+                                    Book
+                                </a>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <t t-foreach="books" t-as="book">
-                            <div class="col-md-4 col-sm-6 mb-4">
-                                <div class="card h-100 shadow-sm">
-                                    <div t-if="book.image" class="card-img-top text-center mt-2"
-                                         style="height: 150px; overflow: hidden;">
-                                        <img t-att-src="image_data_uri(book.image)"
-                                             class="img-fluid"
-                                             style="max-height: 100%;"
-                                             alt="Book Image"/>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-12">
+                                <!--                            <div method="get" action="/book" class="o_portal_search_form">-->
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <input type="text"
+                                               name="search"
+                                               t-att-value="search or ''"
+                                               class="form-control"
+                                               placeholder="Search Books..."
+                                               oninput="this.form.submit()"
+                                               autofocus="autofocus"
+                                               onfocus="var temp=this.value; this.value=''; this.value=temp;"/>
                                     </div>
-                                    <div t-else=""
-                                         class="card-img-top text-center mt-2 bg-light d-flex align-items-center justify-content-center"
-                                         style="height: 150px;">
-                                        <i class="fa fa-book fa-3x text-muted"/>
+                                    <!--                                <script type="text/javascript">-->
+                                    <!--                                    var timeout = null;-->
+                                    <!--                                    function delaySubmit(input) {-->
+                                    <!--                                    clearTimeout(timeout);-->
+                                    <!--                                    timeout = setTimeout(function () {-->
+                                    <!--                                    input.form.submit();-->
+                                    <!--                                    }, 800); // Increased delay slightly for better typing flow-->
+                                    <!--                                    }-->
+
+                                    <!--                                    // 2. Logic to restore focus and move cursor to the end-->
+                                    <!--                                    document.addEventListener("DOMContentLoaded", function() {-->
+                                    <!--                                    var input = document.getElementById('search_input');-->
+                                    <!--                                    if (input &amp;&amp; input.value) {-->
+                                    <!--                                    input.focus();-->
+                                    <!--                                    // Move cursor to the end of the text-->
+                                    <!--                                    var val = input.value;-->
+                                    <!--                                    input.value = '';-->
+                                    <!--                                    input.value = val;-->
+                                    <!--                                    }-->
+                                    <!--                                    });-->
+                                    <!--                                </script>-->
+                                    <!--                                 <div class="input-group col-md-4">-->
+                                    <!--        <input type="text" name="search" class="form-control" -->
+                                    <!--               placeholder="Search..." t-att-value="search"/>-->
+                                    <!--        <button class="btn btn-secondary" type="submit">-->
+                                    <!--            <i class="fa fa-search"/>-->
+                                    <!--        </button>-->
+                                    <!--    </div>-->
+                                    <!--                                <div class="col-md-3">-->
+                                    <!--                                    <select name="search_in" class="form-select">-->
+                                    <!--                                        <t t-foreach="searchbar_inputs.items()" t-as="s">-->
+                                    <!--                                            <option t-att-value="s[0]"-->
+                                    <!--                                                    t-att-selected="s[0] == search_in and 'selected' or None">-->
+                                    <!--                                                <t t-esc="s[1]['label']"/>-->
+                                    <!--                                            </option>-->
+                                    <!--                                        </t>-->
+                                    <!--                                    </select>-->
+                                    <!--                                </div>-->
+                                    <div class="col-md-2 my-3 text-end">
+                                        <b>Sort By:</b>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="filterby" class="form-select" onchange="this.form.submit()">
+                                            <t t-foreach="searchbar_filters.items()" t-as="f">
+                                                <option t-att-value="f[0]"
+                                                        t-att-selected="f[0] == filterby and 'selected' or None">
+                                                    <t t-esc="f[1]['label']"/>
+                                                </option>
+                                            </t>
+                                        </select>
                                     </div>
 
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <t t-esc="book.name"/>
-                                            <!-- State Badge -->
-                                            <span t-if="book.state == 'published'" class="badge bg-success float-end">
-                                                Published
-                                            </span>
-                                            <span t-if="book.state == 'unpublished'" class="badge bg-warning float-end">
-                                                Unpublished
-                                            </span>
-                                        </h5>
-                                        <p class="card-text text-muted">
-                                            <small>Barcode:
-                                                <t t-esc="book.barcode"/>
-                                            </small>
-                                            <br/>
-                                            <small>Category:
-                                                <span t-field="book.category"/>
-                                            </small>
-                                        </p>
-                                        <p class="card-text">
-                                            <t t-esc="book.description[:100]"/>
-                                            <t t-if="len(book.description) > 100">...</t>
-                                        </p>
-                                    </div>
+                                    <!--                                    <div class="col-md-2">-->
+                                    <!--                                        <button type="submit" class="btn btn-primary w-100">-->
+                                    <!--                                            Search-->
+                                    <!--                                        </button>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                </div>
+                            </div>
+                        </div>
 
-                                    <div class="card-footer bg-white border-top-0">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="h5 mb-0 font-weight-bold">
-                                                <small class="text-muted">Price</small>:
-                                                <span t-field="book.borrow_price"
-                                                      t-options='{"widget": "monetary", "display_currency": book.currency_id}'/>
-                                                <small class="text-muted">/ day</small>
-                                            </span>
-                                            <span class="badge bg-primary">
-                                                <t t-esc="book.available"/>
-                                                Available
-                                            </span>
+                        <div class="row">
+                            <t t-foreach="books" t-as="book">
+                                <div class="col-md-4 col-sm-6 mb-4">
+                                    <div class="card h-100 shadow-sm">
+                                        <div t-if="book.image" class="card-img-top text-center mt-2"
+                                             style="height: 150px; overflow: hidden;">
+                                            <img t-att-src="image_data_uri(book.image)"
+                                                 class="img-fluid"
+                                                 style="max-height: 100%;"
+                                                 alt="Book Image"/>
+                                        </div>
+                                        <div t-else=""
+                                             class="card-img-top text-center mt-2 bg-light d-flex align-items-center justify-content-center"
+                                             style="height: 150px;">
+                                            <i class="fa fa-book fa-3x text-muted"/>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <t t-esc="book.name"/>
+                                                <!-- State Badge -->
+                                                <span t-if="book.state == 'published'"
+                                                      class="badge bg-success float-end">
+                                                    Published
+                                                </span>
+                                                <span t-if="book.state == 'unpublished'"
+                                                      class="badge bg-warning float-end">
+                                                    Unpublished
+                                                </span>
+                                            </h5>
+                                            <p class="card-text text-muted">
+                                                <small>Barcode:
+                                                    <t t-esc="book.barcode"/>
+                                                </small>
+                                                <br/>
+                                                <small>Category:
+                                                    <span t-field="book.category"/>
+                                                </small>
+                                            </p>
+                                            <p class="card-text">
+                                                <t t-esc="book.description[:100]"/>
+                                                <t t-if="len(book.description) > 100">...</t>
+                                            </p>
+                                        </div>
+
+                                        <div class="card-footer bg-white border-top-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="h5 mb-0 font-weight-bold">
+                                                    <small class="text-muted">Price</small>:
+                                                    <span t-field="book.borrow_price"
+                                                          t-options='{"widget": "monetary", "display_currency": book.currency_id}'/>
+                                                    <small class="text-muted">/ day</small>
+                                                </span>
+                                                <span class="badge bg-primary">
+                                                    <t t-esc="book.available"/>
+                                                    Available
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </t>
-                    </div>
-                    <div class="products_pager d-flex justify-content-center">
-                        <t t-call="website.pager">
-                            <t t-set="_classes">mt-2 ml-md-2 text-center</t>
-                        </t>
-                    </div>
-                    <br/>
-                    <hr class="border-600 s_hr_1px w-100 mx-auto s_hr_dotted"/>
-                </form>
+                            </t>
+                        </div>
+                        <div class="products_pager d-flex justify-content-center">
+                            <t t-call="website.pager">
+                                <t t-set="_classes">mt-2 ml-md-2 text-center</t>
+                            </t>
+                        </div>
+                        <br/>
+                        <hr class="border-600 s_hr_1px w-100 mx-auto s_hr_dotted"/>
+                    </form>
+                </div>
             </div>
         </t>
     </template>
@@ -302,3 +381,24 @@
     </record>
 
 </odoo>
+
+
+        <!--<aside class="col-md-3">-->
+        <!--<form method="get" action="/books">-->
+        <!--    <h4>Filter by Author</h4>-->
+        <!--    <t t-foreach="authors" t-as="author">-->
+        <!--        <div class="form-check">-->
+        <!--            <input type="checkbox" name="author_id"-->
+        <!--                   t-att-value="author.id"-->
+        <!--                   t-att-id="'auth_%s' % author.id"-->
+        <!--                   t-att-checked="author.id in selected_author_ids"-->
+        <!--                   class="form-check-input"-->
+        <!--                   onchange="this.form.submit()""")/>> &lt;!&ndash; Auto-submit on change &ndash;&gt;-->
+        <!--            <label class="form-check-label" t-att-for="'auth_%s' % author.id">-->
+        <!--                <t t-esc="author.name""")/>>-->
+        <!--            </label>-->
+        <!--        </div>-->
+        <!--    </t>-->
+        <!--    <button type="submit" class="btn btn-primary mt-2 d-none">Filter</button>-->
+        <!--</form>-->
+        <!--</aside>-->
