@@ -30,13 +30,8 @@ export class CustomerDetail extends Component {
         const data = {
             customers: this.state.customers,
         };
-        console.log(data, "DATA");
-        console.log(this.state.customers, "this.state.customers");
-
-        if (this.props.confirm) {
-            await this.props.confirm(data);
-        }
-        this.props.close(data);
+        this.props.getPayload(data);
+        this.props.close();
     }
 
     cancel() {

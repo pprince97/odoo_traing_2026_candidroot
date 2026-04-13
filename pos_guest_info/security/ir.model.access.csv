@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_guest_count,guest_count,model_guest_count,,1,1,1,1
-access_guest_detail,guest_detail,model_guest_detail,,1,1,1,1
+access_pos_guest,pos_guest,model_pos_guest,,1,1,1,1

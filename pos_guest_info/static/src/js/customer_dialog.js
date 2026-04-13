@@ -9,6 +9,10 @@ import { makeAwaitable} from "@point_of_sale/app/utils/make_awaitable_dialog";
 export class CustomerDialog extends Component {
     static components = {Dialog};
     static template = "pos_guest_info.CustomerDialog";
+    static props = {
+        close : { type: Function },
+        getPayload: Function,
+    };
 
     setup() {
         this.dialog = useService("dialog");
@@ -25,36 +29,27 @@ export class CustomerDialog extends Component {
             this.state.no_of_guest = Number(this.state.no_of_male) + Number(this.state.no_of_female);
         }
         else {
-            alert("Person is not negative")
+            alert("Number of person can not be negative!")
             this.state.no_of_male = 0
             this.state.no_of_female = 0
             this.state.no_of_guest = 0
         }
     }
 
-
-
     async confirm() {
 
-        console.log(this.state.no_of_guest, "this.props");
         const data = {
             no_of_male: this.state.no_of_male,
             no_of_female: this.state.no_of_female,
             no_of_guest: this.state.no_of_guest,
         };
-        console.log(this.props.confirm, "this.props");
 
         const customerDetails = await makeAwaitable(this.dialog, CustomerDetail, {
                 no_of_guest: data.no_of_guest,
             });
-        console.log(customerDetails, "customerDetails");
 
-
-        // if (this.props.confirm) {
-        //     await this.props.confirm(data);
-        // }
-
-        this.props.close(data);
+        this.props.getPayload({details: customerDetails, numbers: data});
+        this.props.close();
     }
 
     cancel() {
