@@ -25,6 +25,7 @@
     },
     'data': [
         'security/ir.model.access.csv',
+        'demo/guest_demo.xml',
         'views/res_config_settings.xml',
         'views/pos_order_views.xml',
         'views/guest_details.xml',

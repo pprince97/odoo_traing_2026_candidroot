@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="guest_1" model="guest.details">
+        <field name="age">25</field>
+<!--        <field name="nationality" ref="res_country.">-->
+        <field name="gender">male</field>
+    </record>
+</odoo>

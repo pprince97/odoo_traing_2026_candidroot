@@ -17,7 +17,6 @@ export class GuestDetailsPopUp extends Component {
                 nationality: "",
                 gender: "male",
                 age: 0,
-                order_id : false
             })),
         });
 
@@ -54,45 +53,65 @@ export class GuestDetailsPopUp extends Component {
 async saveDetails() {
     try {
         const currentOrder = this.pos.getOrder();
-        console.log("current order", currentOrder);
-        if (!currentOrder) {
-            console.log("IDfffffff")
-            this.pos.temp_guest_details = {
-                male: this.props.order_data.male,
-                female: this.props.order_data.female,
-                total: this.props.total,
-                guests: this.state.guests.map(g => ({
-                    age: g.age,
-                    gender: g.gender,
-                    nationality: g.nationality ? Number(g.nationality) : false,
-                })),
-            };
-        } else {
-            console.log("Elseee")
-            currentOrder.no_of_male = this.props.order_data.male;
-            currentOrder.no_of_female = this.props.order_data.female;
-            currentOrder.total_no_of_guests = this.props.total;
-            currentOrder.guest_details = this.state.guests.map(g => ({
-                order_id: currentOrder.id,
-                age: g.age,
-                gender: g.gender,
-                nationality: g.nationality ? Number(g.nationality) : false,
-            }));
-            console.log(currentOrder.guest_details)
-            // currentOrder.guest_ids = currentOrder.guest_details.map(g => [0, 0, g]);
-            currentOrder.guest_ids = [4, {age:26,nationality:12,gender:'male'}]
-            console.log(currentOrder.guest_ids)
-        }
-        this.props.close({
-            confirmed: true,
-            guests: this.state.guests,
-        });
-        console.log("Guest details saved successfully!");
+        if (!currentOrder) return;
+        const guestData = this.state.guests.map(g => ({
+            age: g.age,
+            gender: g.gender,
+            nationality: g.nationality ? Number(g.nationality) : false,
+        }));
+        const guestIds = await this.orm.create("guest.details", guestData);
+        // const guestIds = await this.orm.create("guest.details", [{
+        //     age:22,nationality:13,gender:'male'
+        // }]);
+        currentOrder.no_of_male = this.props.order_data.male;
+        currentOrder.no_of_female = this.props.order_data.female;
+        currentOrder.total_no_of_guests = this.props.total;
+        currentOrder.guest_ids = [...guestIds]
+        console.log("crro",currentOrder.guest_ids)
+        console.log(">>>>>",guestIds)
+        console.log(">>>><<<<<",[...guestIds])
+        this.props.close({ confirmed: true });
     } catch (error) {
-        console.error("Failed to save guest details:", error);
+        console.error("Failed to create guests immediately:", error);
         this.props.close({ confirmed: false });
     }
 }
+
+// async saveDetails() {
+//     try {
+//         const currentOrder = this.pos.getOrder();
+//         if (!currentOrder) {
+//             this.pos.temp_guest_details = {
+//                 male: this.props.order_data.male,
+//                 female: this.props.order_data.female,
+//                 total: this.props.total,
+//                 guest_raw: this.state.guests.map(g => ({
+//                     age: g.age,
+//                     gender: g.gender,
+//                     nationality: g.nationality ? Number(g.nationality) : false,
+//                 })),
+//             };
+//         } else {
+//             console.log("else")
+//             currentOrder.no_of_male = this.props.order_data.male;
+//             currentOrder.no_of_female = this.props.order_data.female;
+//             currentOrder.total_no_of_guests = this.props.total;
+//             currentOrder.guest_details_raw = this.state.guests.map(g => ({
+//                 age: g.age,
+//                 gender: g.gender,
+//                 nationality: g.nationality ? Number(g.nationality) : false,
+//             }));
+//         }
+//         this.props.close({
+//             confirmed: true,
+//             guests: this.state.guests,
+//         });
+//     } catch (error) {
+//         console.error("Failed to save guest details:", error);
+//         this.props.close({ confirmed: false });
+//     }
+// }
+
 //     async saveDetails() {
 //     try {
 //         const currentOrder = this.pos.getOrder();

@@ -6,26 +6,24 @@ import { AddGuestNumberDetailsPopup } from "@pos_custom/app/components/popup/gue
 patch(PosStore.prototype, {
     async pay() {
         const dialogService = this.env.services.dialog;
-
-        const result = await dialogService.add(AddGuestNumberDetailsPopup, {
-            initial_male: 0,
-            initial_female: 0,
-        });
-
-        if (result?.confirmed) {
-        const order = this.getOrder();
-
-        if (order) {
-            order.no_of_male = result.male;
-            order.no_of_female = result.female;
-            order.total_no_of_guests = result.total;
-            order.guest_ids = result.guest_details;
+        const config = this.config;
+        // const tableOrder = this.models["pos.order"].find((order) => order.table_id && order.table_id.id === table.id);
+        // const alreadyFilled = tableOrder && tableOrder.total_no_of_guests > 0;
+        const isRequired = config.guest_details_required;
+        if (config.guest_details && config.guest_details_timing === "order_after") {
+            const result = await dialogService.add(AddGuestNumberDetailsPopup, {
+                initial_male: 0,
+                initial_female: 0,
+            });
+            if (result?.confirmed) {
+                return super.pay(...arguments);
+            }
         }
-
-        return super.pay(...arguments);
-    }
-        console.log("Payment stopped");
+        if(!config.guest_details || (config.guest_details && config.guest_details_timing==="order_after")){
+            return super.pay(...arguments);
+        }
     },
+});
     // async pay() {
     //     const dialogService = this.env.services.dialog;
     //     const confirmed = await new Promise((resolve) => {
@@ -46,10 +44,9 @@ patch(PosStore.prototype, {
     //     }
     //     console.log("Payment flow stopped by user.");
     // },
-});
     // async pay() {
     //    const config = this.config;
-    //     if (config.guest_details && config.guest_details_timing === "order_after") {
+    //    if(config.guest_details && config.guest_details_timing === "order_after"){
     //         const dialogService = this.env.services.dialog;
     //         if (dialogService) {
     //             dialogService.add(AddGuestNumberDetailsPopup, {
@@ -65,26 +62,3 @@ patch(PosStore.prototype, {
     //         }
     //     }
     // },
-patch(PosOrder.prototype, {
-    async finalize() {
-        const result = await super.finalize(...arguments);
-
-        if (this._pendingGuests && this._pendingGuestsOrm && this.server_id) {
-            try {
-                const guestRecords = this._pendingGuests.map(g => ({
-                    order_id: this.server_id,
-                    age: g.age,
-                    gender: g.gender,
-                    nationality: g.nationality ? Number(g.nationality) : false,
-                }));
-                await this._pendingGuestsOrm.create("guest.details", guestRecords);
-                console.log("✅ Guests saved after order finalized");
-                this._pendingGuests = null;
-                this._pendingGuestsOrm = null;
-            } catch (e) {
-                console.error("Failed to save pending guests:", e);
-            }
-        }
-        return result;
-    }
-});

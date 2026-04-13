@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <record id="guest_details_actions" model="ir.actions.act_window">
         <field name="name">PoS G D</field>
         <field name="res_model">guest.details</field>
