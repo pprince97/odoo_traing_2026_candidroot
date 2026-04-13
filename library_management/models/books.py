@@ -107,9 +107,6 @@ class Books(models.Model):
             rec.books_count = f"{rec.available_copies} / {rec.stock}"
 
 
-            # elif self.available_copies and self.stock and self.available_copies > self.stock:
-            #     raise ValidationError('Available copies cannot be greater than stock')
-
 
     book_cover_name = fields.Char(string='Book Cover Name', tracking=True)
     cover_image = fields.Binary(string='Cover Image')
