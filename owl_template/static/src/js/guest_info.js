@@ -8,16 +8,10 @@ import {GuestInnerInfo} from "./guest_inner_info";
 import {makeAwaitable} from "@point_of_sale/app/utils/make_awaitable_dialog";
 import { usePos } from "@point_of_sale/app/hooks/pos_hook";
 
+
 patch(FloorScreen.prototype, {
     setup() {
         super.setup();
-        this.state.no_of_male = 0;
-        this.state.no_of_female = 0;
-        this.state.no_of_total = 0;
-
-        this.state.age = 0;
-        this.state.nationality = "Indian";
-        this.state.gender = "";
         this.pos = usePos();
         this.dialog = useService("dialog");
         this.orm = useService("orm");
@@ -41,22 +35,24 @@ patch(FloorScreen.prototype, {
                     next: async (guests) => {
                         const order = this.pos.getOrder();
 
-                        console.log("Models ===============>", this.pos.models);
-
                         order.guest_ids = guests.map(guest => ({
                             age: guest.age,
                             nationality: guest.nationality,
                             gender: guest.gender,
                         }));
 
+                        console.log("Age ===============>", order.guest_ids.map(rec => rec.age));
+                        console.log("Nationality ===============>", order.guest_ids.map(rec => rec.nationality));
+                        console.log("Gender ===============>", order.guest_ids.map(rec => rec.gender));
+
                         const orm = this.env.services.orm;
                         for (const guest in order.guest_ids) {
-                            console.log(guest.age, guest.nationality, guest.gender);
+                            console.log("Guests =============>", guest);
                             try {
                                 const newIds = await orm.create("pos.order.guest", [{
-                                    age: parseInt(guest.age),
-                                    nationality: guest.nationality,
-                                    gender: guest.gender,
+                                    age: parseInt(order.guest_ids.map(rec => rec.age)[guest]),
+                                    nationality: order.guest_ids.map(rec => rec.nationality)[guest],
+                                    gender: order.guest_ids.map(rec => rec.gender)[guest],
                                     order_id: order.id,
                                 }]);
                                 console.log("Created record IDs:", newIds);
@@ -64,9 +60,6 @@ patch(FloorScreen.prototype, {
                                 console.error("ORM Create Failed:", error);
                             }
                         }
-
-                        // await this.orm.create("pos.order.guet", order.guest_ids);
-                        console.log("Inner Guest Details =>", order.guest_ids);
                     }
                 });
             }
@@ -78,11 +71,11 @@ patch(FloorScreen.prototype, {
 
         console.log(this.pos.config);
 
+        const config = this.pos.config;
+
         console.log("Guest details  =>", this.pos.config.guest_details);
         console.log("Guest details Required =>", this.pos.config.guest_details_required);
         console.log("Guest details Timing =>", this.pos.config.guest_details_timing);
-
-        const config = this.pos.config;
 
         const guest_detail = config.guest_details;
         const guest_required = config.guest_details_required;
@@ -91,7 +84,6 @@ patch(FloorScreen.prototype, {
         if(guest_detail && guest_timing === "order_before") {
             await this.guestDetailsDialog(guest_required);
         }
-
         return result;
     }
 });

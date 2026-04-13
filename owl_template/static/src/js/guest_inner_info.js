@@ -35,8 +35,17 @@ export class GuestInnerInfo extends Component {
             await this.props.next(this.state.guests);
         }
 
+        // if(!this.isValid) {
+        //     this.env.services.notification.add("Please enter valid details!", {type: "warning"});
+        //     return;
+        // }
+
         this.props.close();
     }
+
+    // get isValid() {
+    //    return this.state.age > 0 && this.state.gender === ["Male","Female"];
+    // }
 
     async previous() {
         this.props.close();

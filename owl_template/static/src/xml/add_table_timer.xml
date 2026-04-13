@@ -9,7 +9,7 @@
             </t>
             
             <t t-else="">
-                <p>00:00</p>
+                <p>Waiting...</p>
             </t>
         </xpath>
     </t>

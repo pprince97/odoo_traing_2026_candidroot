@@ -31,6 +31,8 @@
 
             '/owl_template/static/src/xml/guest_inner_info.xml',
             '/owl_template/static/src/js/guest_inner_info.js',
+
+            '/owl_template/static/src/js/guest_detail_after.js',
         ],
 
         'web.assets_backend': [
