@@ -1,11 +1,11 @@
 /** @odoo-module **/
 
-import {FloorScreen} from "@pos_restaurant/app/screens/floor_screen/floor_screen";
-import {patch} from "@web/core/utils/patch";
-import {useService} from "@web/core/utils/hooks";
-import {usePos} from "@point_of_sale/app/hooks/pos_hook";
-import {CustomerDialog} from "./customer_dialog";
-import {makeAwaitable} from "@point_of_sale/app/utils/make_awaitable_dialog";
+import { FloorScreen } from "@pos_restaurant/app/screens/floor_screen/floor_screen";
+import { patch } from "@web/core/utils/patch";
+import { useService } from "@web/core/utils/hooks";
+import { usePos } from "@point_of_sale/app/hooks/pos_hook";
+import { CustomerDialog } from "./customer_dialog";
+import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
 
 patch(FloorScreen.prototype, {
 

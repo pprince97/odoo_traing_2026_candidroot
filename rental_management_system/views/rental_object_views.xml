@@ -1,0 +1,63 @@
+<odoo>
+    <record id="view_rental_object_list" model="ir.ui.view">
+        <field name="name">rental.object.list</field>
+        <field name="model">rental.object</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_number"/>
+                <field name="customer_id" />
+                <field name="return_date"/>
+                <field name="start_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_objedt_form" model="ir.ui.view">
+        <field name="name">rental.object.form</field>
+        <field name="model">rental.object</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_rent" type="object" string="Rent"
+                            class="btn-primary" invisible="state in ['rent','returned','invoiced','partially_invoiced','cancelled']"/>
+                    <button name="action_return" type="object" string="Return" class="btn-primary"
+                            invisible="state in ['returned','invoiced','partially_invoiced','cancelled']"/>
+<!--                    <button name="action_invoice" type="object" string="Invoice" class="btn-primary"-->
+<!--                            invisible="state in ['draft','rent','invoiced','partially_invoiced','cancelled']"/>-->
+<!--                    <button name="action_partial_invoice" type="object" string="Partial Invoice" class="btn-primary"-->
+<!--                            invisible="state in ['draft','rent','invoiced','partially_invoiced','cancelled']"/>-->
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-primary"
+                            invisible="state in ['rent','returned','invoiced','partially_invoiced','cancelled']"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="serial_number"/>
+                        <field name="customer_id"/>
+                        <field name="start_date"/>
+                        <field name="return_date"/>
+                        <field name="total_amount"/>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="rental_order_lines_ids">
+                                <list editable="top">
+                                    <field name="product_id"/>
+                                    <field name="lot_ids" widget="many2many_tags"/>
+                                    <field name="amount_per_day"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_object" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">rental.object</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

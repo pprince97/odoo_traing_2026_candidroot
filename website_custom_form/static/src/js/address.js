@@ -7,13 +7,11 @@ publicWidget.registry.CountryState = publicWidget.Widget.extend({
     selector: '.o_country_state_form',
 
     start() {
-        console.log("Hello start", this);
         this._bindEvents();
         return this._super(...arguments);
     },
 
     _bindEvents() {
-        console.log("Hello Bind");
         const countrySelect = this.el.querySelector('.country_select');
         const stateSelect = this.el.querySelector('.state_select');
 
@@ -33,9 +31,7 @@ publicWidget.registry.CountryState = publicWidget.Widget.extend({
     },
 
     _loadStates(countryId) {
-        console.log("Hello Load", countryId);
         const stateSelect = this.el.querySelector('.state_select');
-        console.log("stateSelect", stateSelect);
 
         if (!stateSelect) return;
 
@@ -60,7 +56,6 @@ publicWidget.registry.CountryState = publicWidget.Widget.extend({
     },
 
     _loadCities(stateId) {
-        console.log("Hello State", stateId);
         const citySelect = this.el.querySelector('.city_select');
         const cityName = this.el.querySelector('.city_name');
 
@@ -75,12 +70,10 @@ publicWidget.registry.CountryState = publicWidget.Widget.extend({
         }).then((cities) => {
 
             if (cities.length == 0) {
-                console.log(cities.length, "len not");
                 citySelect.style.display = 'none';
                 cityName.style.display = 'block';
                 return;
             } else {
-                console.log(cities.length, "len");
                 cityName.style.display = 'none';
                 citySelect.style.display = 'block';
                 cities.forEach((city) => {

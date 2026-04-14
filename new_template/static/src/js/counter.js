@@ -13,18 +13,12 @@ patch(FormController.prototype, {
 
     async saveButtonClicked(params = {}) {
 
-        // this.model.config.resModel
-
-        // console.log(this.model.config.resModel !== "sale.order");
-
         if (this.model.config.resModel !== "sale.order"){
             return await super.saveButtonClicked(...arguments);
         }
 
 
-        // debugger
         const data =  this.model.root.data.order_line.records;
-        // console.log(data[1].data.price_subtotal, "records");
 
         if(data.length === 0) {
             this.notification.add("Please add a product!", {

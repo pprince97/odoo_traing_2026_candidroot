@@ -26,7 +26,6 @@ Long description of POS Guest Info
             'pos_guest_info/static/src/js/floor_screen_patch.js',
             'pos_guest_info/static/src/js/data_service_patch.js',
             'pos_guest_info/static/src/js/payment_screen_patch.js',
-            'pos_guest_info/static/src/js/pos_order_patch.js',
             'pos_guest_info/static/src/xml/guest_info.xml',
             'pos_guest_info/static/src/xml/customer_detail.xml',
         ],

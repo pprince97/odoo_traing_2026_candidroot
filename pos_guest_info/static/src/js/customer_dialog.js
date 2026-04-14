@@ -1,10 +1,10 @@
 /** @odoo-module **/
 
-import {Component, useState} from "@odoo/owl";
-import {Dialog} from "@web/core/dialog/dialog";
-import {CustomerDetail} from "./customer_detail";
-import {useService} from "@web/core/utils/hooks";
-import { makeAwaitable} from "@point_of_sale/app/utils/make_awaitable_dialog";
+import { Component, useState } from "@odoo/owl";
+import { Dialog } from "@web/core/dialog/dialog";
+import { CustomerDetail } from "./customer_detail";
+import { useService } from "@web/core/utils/hooks";
+import { makeAwaitable } from "@point_of_sale/app/utils/make_awaitable_dialog";
 
 export class CustomerDialog extends Component {
     static components = {Dialog};

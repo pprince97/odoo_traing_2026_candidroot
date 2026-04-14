@@ -1,0 +1,56 @@
+<odoo>
+    <template id="billing_account_record_template">
+        <t t-call="web.external_layout">
+
+                <div class="page">
+
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Rental Number</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <t t-esc="line.customer_id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line.serial_number"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <strong><td colspan="2">Sub Total:</td></strong>
+                                <strong><td><t t-esc="o.amount_residual"/></td></strong>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </t>
+    </template>
+
+    <template id="report_account_payment_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="rental_management_system.billing_account_record_template" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_account_billing_record" model="ir.actions.report">
+        <field name="name">Billing record Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">rental_management_system.report_account_payment_receipt</field>
+        <field name="report_file">rental_management_system.report_account_payment_receipt</field>
+        <field name="binding_model_id"
+               ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

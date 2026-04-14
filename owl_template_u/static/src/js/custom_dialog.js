@@ -29,7 +29,6 @@ export class CustomDialog extends Component {
         onWillStart(async () => {
             await this.loadAttachments();
         });
-        console.log('custom dialog setup')
     }
 
     async loadAttachments() {
@@ -41,7 +40,6 @@ export class CustomDialog extends Component {
             ],
             ["id", "name", "mimetype", 'datas']
         );
-        console.log(this.state.attachments[0])
     }
 
     clear(ev) {

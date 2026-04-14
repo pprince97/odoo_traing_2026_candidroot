@@ -5,7 +5,6 @@ import { patch } from "@web/core/utils/patch";
 
 const messagingRegistry = registry.category("mail.composer");
 
-console.log("REGISTRY:", messagingRegistry);
 
 for (const comp of messagingRegistry.getAll()) {
 
@@ -25,7 +24,6 @@ for (const comp of messagingRegistry.getAll()) {
                 btn.className = "btn btn-secondary my_attach_btn";
 
                 btn.onclick = () => {
-                    console.log("BUTTON CLICKED ✅");
                 };
 
                 actions.appendChild(btn);

@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-console.log("Widget Loaded");
 
 import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
@@ -14,17 +13,13 @@ export class AmountWidget extends Component {
     }
 
     increment() {
-        console.log(this.props.record.data.price_subtotal);
         const val = this.props.record.data[this.props.name] || 0;
-        console.log(val, "Value");
         const newValue = val + 1;
         this.props.record.update({ [this.props.name]: newValue });
     }
 
     decrement() {
-        console.log(this.props.record.data.price_subtotal);
         const val = this.props.record.data[this.props.name] || 0;
-        console.log(val, "Value");
         const newValue = val - 1;
         this.props.record.update({ [this.props.name]: newValue });
     }
@@ -41,8 +36,6 @@ export class AmountWidget extends Component {
     validate() {
         const fieldName = this.props.name;
         const value = this.props.record.data[fieldName];
-
-        console.log("Value:", value);
 
         if (value <= 0) {
             this.notification.add("Amount must be greater than 0", {

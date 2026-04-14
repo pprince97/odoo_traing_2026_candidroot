@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+
+        <menuitem name="Rental Management" id="menu_root"/>
+
+        <menuitem name="Rental Object" id="menu_rental_object" action="action_rental_object" parent="rental_management_system.menu_root"/>
+    </data>
+</odoo>

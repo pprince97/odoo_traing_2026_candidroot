@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
-import {Component, useState} from "@odoo/owl";
-import {Dialog} from "@web/core/dialog/dialog";
+import { Component, useState } from "@odoo/owl";
+import { Dialog } from "@web/core/dialog/dialog";
 
 export class CustomerDetail extends Component {
     static components = {Dialog};

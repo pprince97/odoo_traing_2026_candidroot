@@ -6,7 +6,6 @@ publicWidget.registry.IndiaTheme = publicWidget.Widget.extend({
     selector: '#wrap',
 
     start() {
-        console.log("India Theme Loaded 🇮🇳");
 
         return this._super(...arguments);
     }

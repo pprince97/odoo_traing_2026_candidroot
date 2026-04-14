@@ -1,0 +1,25 @@
+<odoo>
+    <record id="rental_inherit_form_view" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.record</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_rental_records"
+                        class="oe_stat_button"
+                        icon="fa-users"
+                        type="object">
+                    <field name="rental_counts" widget="statinfo" string="Rental Counts"/>
+                </button>
+                <button name="action_open_product_records"
+                        class="oe_stat_button"
+                        icon="fa-users"
+                        type="object">
+                    <field name="product_counts" widget="statinfo" string="Product Counts"/>
+                </button>
+            </xpath>
+
+
+        </field>
+    </record>
+</odoo>

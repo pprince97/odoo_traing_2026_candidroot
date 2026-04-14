@@ -14,7 +14,6 @@ patch(ControlButtons.prototype, {
     },
 
     custominfo() {
-        console.log('>>>>>>>>>>>>>>>>>>>')
         this.dialogService.add(CutomerInfoPopup, {
         });
     }

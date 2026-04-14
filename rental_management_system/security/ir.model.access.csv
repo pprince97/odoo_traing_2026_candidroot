@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_rental_object,rental.object,model_rental_object,,1,1,1,1
+access_rental_object_lines,rental.object.lines,model_rental_object_lines,,1,1,1,1
