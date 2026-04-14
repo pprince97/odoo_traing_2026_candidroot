@@ -30,6 +30,7 @@ patch(ControlButtons.prototype, {
                 // }]);
 
                 const order = this.pos.getOrder();
+                console.log(order,"--------- this is order")
                 order.general_customer_note += "\n" +data.name +"\n" +data.phone+"\n"+data.phone
                 console.log(order.general_customer_note)
 

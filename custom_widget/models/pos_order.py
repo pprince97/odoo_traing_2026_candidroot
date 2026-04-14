@@ -19,7 +19,6 @@ class PosOrder(models.Model):
             time_1 = datetime.now(ZoneInfo('Asia/Kolkata'))
             time_2 = time_1.replace(tzinfo=None)
             val["date_table"] = time_2
-            print(val["date_table"], " ------val:date_table")
         res = super().create(vals_list)
         return res
 
