@@ -4,6 +4,7 @@ access_rental_order,rental_order,model_rental_order,,1,1,1,1
 access_product_order,product_order,model_product_order,,1,1,1,1
 
 access_suitable_for,suitable_for,model_suitable_for,,1,1,1,1
+access_user_profile,user_profile,model_user_profile,,1,1,1,1
 
 
 access_rental_wizard,rental_wizard,model_rental_wizard,,1,1,1,1

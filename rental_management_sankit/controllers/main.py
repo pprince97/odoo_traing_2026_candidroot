@@ -14,17 +14,6 @@ class WebsiteInherit(Website):
         return response
 
 
-#
-# class CustomHome(Website):
-#     @http.route()
-#     def index(self, **kw):
-#         print("------1---------")
-#         response = super(CustomHome, self).index(**kw)
-#         requests = request.env['library.book.borrow'].sudo().search([])
-#         response.qcontext['requests'] = requests
-#         return response
-
-
 
 class WebsiteDetail(http.Controller):
     # @http.route('/', type='http', auth='public', website=True)
@@ -121,24 +110,32 @@ class WebsiteDetail(http.Controller):
             'tag_ids': [(6, 0, [int(t) for t in tag_ids])] if tag_ids else False,
         })
         return request.render('website.contactus_thanks')
-    #
-    # @http.route('/inherit', type='http', auth='public', website=True)
-    # def rental_inherit(self, **kwargs):
-    #     """rental order form"""
-    #     return request.render('rental_management_sankit.my_inherit_view', {})
 
-    #
-    # @http.route('/faqs', type='http', auth='public', website=True)
-    # def faq_page_public(self):
-    #     """faq page"""
-    #     return request.render('rental_management_sankit.faqs', {})
+    # User Profile
+    @http.route('/user-profile/form', type='http', auth='public', website=True)
+    def user_profile_form(self, **kwargs):
+        # values = {
+        #     'user': request.env['user.profile'].sudo().search([])
+        # }
+        return request.render('rental_management_sankit.user_profile_form')
+
+    @http.route('/user-profile/create', type='http', auth='public', methods=['POST'],website=True)
+    def user_profile_create(self, **post):
+        request.env['user.profile'].sudo().create({
+            'name': post.get('name'),
+            'email': post.get('email'),
+            'country_id': post.get('country_id'),
+            'state_id': post.get('state_id'),
+            'city_id': post.get('city_id'),
+        })
+        return request.render('website.contactus_thanks')
 
 
-    # @http.route('/faqs/info', type='http', auth='user', website=True)
-    # def faqs_info(self, **kwargs):
-    #     print('----------2---------')
-    #     "faqs info"
-    #     raise ValueError("This is error")
+
+
+
+
+
 
     # @http.route('/get_product_categories', auth="public", type='jsonrpc',
     #             website=True)

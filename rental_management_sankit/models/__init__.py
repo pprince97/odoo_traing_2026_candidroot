@@ -5,3 +5,4 @@ from . import  rental
 from . import  order
 from . import  product_template
 from . import  suitable_for
+from . import  user_profile

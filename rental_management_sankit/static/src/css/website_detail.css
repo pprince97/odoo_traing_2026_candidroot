@@ -5,6 +5,17 @@ img {
   width: 50%; /* Optional: define a width less than 100% */
 }
 
+.center-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right-text {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}
+
 .highlight {
     background-color: #fff3cd; /* light yellow */
     color: #000;

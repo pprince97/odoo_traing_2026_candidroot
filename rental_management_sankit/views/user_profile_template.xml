@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <template id="user_profile_form" name="User Profile">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                        <div class="container m-3 center-text" >
+                            <h1 >User Profile</h1>
+                        </div>
+                    <div class="container my-5">
+                        <div class="row container w-75 mx-auto">
+                            <form action="/user-profile/create" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Country</label>
+                                    <select name="country_id" class="form-control">
+                                        <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                            <option t-att-value="country.id">
+                                                <t t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">State</label>
+                                    <select name="state_id" class="form-control">
+                                        <t t-foreach="request.env['res.country.state'].sudo().search([])" t-as="state">
+                                            <option t-att-value="state.id">
+                                                <t t-esc="state.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">City</label>
+                                    <select name="city_id" class="form-control">
+                                        <t t-foreach="request.env['res.city'].sudo().search([])" t-as="city">
+                                            <option t-att-value="city.id">
+                                                <t t-esc="city.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="right-text">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <record id="menu_user_profile" model="website.menu">
+            <field name="name">User Profile</field>
+            <field name="url">/user-profile/form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">92</field>
+        </record>
+
+    </data>
+</odoo>

@@ -6,7 +6,7 @@
     'description': """
     this is Rental Management Sankit
     """,
-    'depends': ['base', 'contacts', 'account', 'fleet', 'website' ,'sale','portal'],
+    'depends': ['base', 'contacts', 'account', 'fleet', 'website' ,'sale','portal','l10n_cn_city'],
     'data': [
         'security/ir.model.access.csv',
         'wizard/rental_wizard.xml',
@@ -18,12 +18,14 @@
         'views/order.xml',
         'views/website_detail.xml',
         'views/list_rental_order.xml',
+        'views/user_profile.xml',
         'views/portal_template.xml',
         'views/header_template.xml',
-        'views/website_template.xml',
+        'views/website_template.xml'    ,
         'views/product_template.xml',
         'views/pagination.xml',
         'views/sale_page_inherit.xml',
+        'views/user_profile_template.xml',
         'report/product_rental_report.xml',
         'views/snippets/snippet_view.xml',
     ],
@@ -37,6 +39,7 @@
             # "rental_management_sankit/static/src/js/jquery.js",
             'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             "rental_management_sankit/static/src/js/select2.js",
+            "rental_management_sankit/static/src/js/profile.js",
             # "rental_management_sankit/static/src/js/dynamic_snippet_owl.js",
             # "rental_management_sankit/static/src/xml/dynamic_snippet_owl.xml",
         ]
