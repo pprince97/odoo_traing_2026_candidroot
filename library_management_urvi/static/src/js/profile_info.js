@@ -176,3 +176,14 @@ publicWidget.registry.BookPriceFilter = publicWidget.Widget.extend({
 });
 
 
+// _onRedirect() {
+//         this.actionService.doAction({
+//             type: 'ir.actions.act_url',
+//             url: '/your/target/url',
+//             target: 'self', // 'self' to replace current page, 'new' for a new tab
+//         });
+//     }
+
+// window.location.href = "/shop";
+
+// window.location.replace("/confirmation-page");

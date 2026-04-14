@@ -106,9 +106,14 @@
     <!-- Template to display the list of books -->
     <template id="template_view_all_books" name="My Books">
         <t t-call="website.layout">
+                            <form action="/book" method="get">
             <div id="wrap" class="container row mt-4">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <aside class="col-md-3">
-                    <form method="get" action="/book" class="js_attributes">
+<!--                    <form method="get" action="/book" class="js_attributes">-->
+                        <!--                        <t t-call="portal.portal_searchbar">-->
+                        <!--                            <t t-set="title">Sorting</t>-->
+                        <!--                        </t>-->
                         <h4>Filter by Author</h4>
                         <t t-foreach="category" t-as="cat">
                             <div class="form-check">
@@ -179,11 +184,11 @@
 
                         <button type="submit" class="btn btn-primary mt-2 d-none">Filter</button>
 
-                    </form>
+<!--                    </form>-->
                 </aside>
                 <div class="col-md-9">
-                    <form action="/book" method="get">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+<!--                    <form action="/book" method="get">-->
+<!--                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <h1 class="mb-4 ms-0">Library Books</h1>
@@ -198,8 +203,12 @@
                         <div class="row mt-3 mb-3">
                             <div class="col-12">
                                 <!--                            <div method="get" action="/book" class="o_portal_search_form">-->
+                                <!--                                <t t-call="portal.portal_searchbar">-->
+                                <!--                                    <t t-set="title">My Custom Records</t>-->
+                                <!--                                </t>-->
+
                                 <div class="row g-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <input type="text"
                                                name="search"
                                                t-att-value="search or ''"
@@ -247,6 +256,17 @@
                                     <!--                                        </t>-->
                                     <!--                                    </select>-->
                                     <!--                                </div>-->
+
+                                    <div class="col-md-3">
+                                        <select name="sortby" class="form-select" onchange="this.form.submit()">
+                                            <t t-foreach="searchbar_sortings" t-as="option">
+                                                <option t-att-value="option" t-att-selected="option == sortby">
+                                                    <t t-esc="searchbar_sortings[option]['label']"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+
                                     <div class="col-md-2 my-3 text-end">
                                         <b>Sort By:</b>
                                     </div>
@@ -341,9 +361,11 @@
                         </div>
                         <br/>
                         <hr class="border-600 s_hr_1px w-100 mx-auto s_hr_dotted"/>
-                    </form>
+<!--                    </form>-->
                 </div>
+
             </div>
+            </form>
         </t>
     </template>
 

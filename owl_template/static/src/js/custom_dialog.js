@@ -86,5 +86,34 @@ export class CustomDialog extends Component {
         // }
         // this.props.close();
     // }
+
+
+//         async selectFile(file) {
+//         this.state.selectedFileId = file.id;
+//         this.state.previewType = file.mimetype.includes('image') ? 'image' : 'pdf';
+//         this.state.previewUrl = `data:${file.mimetype};base64,${file.datas}`;
+//     }
+// <div class="w-60 p-2 d-flex align-items-center justify-content-center bg-light">
+//                     <t t-if="state.previewUrl">
+//                         <img t-if="state.previewType === 'image'" t-att-src="state.previewUrl" class="img-fluid border"/>
+//                         <iframe t-else="" t-att-src="state.previewUrl" class="w-100 h-100 border"/>
+//                     </t>
+//                     <t t-else="">
+//                         <span class="text-muted">Select a file to preview</span>
+//                     </t>
+//                 </div>
+//             selectedFileId: null,
+//
+
+
+    //     toggleSelection(id) {
+    //     if (this.state.selected.has(id)) {
+    //         this.state.selected.delete(id);
+    //         console.log("Remove");
+    //     } else {
+    //         this.state.selected.add(id);
+    //         console.log("Add");
+    //     }
+    // }
 }
 }

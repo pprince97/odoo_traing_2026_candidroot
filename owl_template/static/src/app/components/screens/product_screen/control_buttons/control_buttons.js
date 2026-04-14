@@ -15,7 +15,8 @@ patch(ControlButtons.prototype, {
 
     custominfo() {
         console.log('>>>>>>>>>>>>>>>>>>>')
-        this.dialogService.add(CutomerInfoPopup, {
+        debugger
+        this.dialogService.add(CutomerInfoPopup, {order:this.currentOrder
         });
     }
 

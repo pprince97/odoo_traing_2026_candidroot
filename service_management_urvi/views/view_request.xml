@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-        <template id="template_view_request" name="My Service Requests">
+    <template id="template_view_request" name="My Service Requests">
         <t t-call="website.layout">
             <div id="wrap" class="container mt-4">
                 <form action="/my/request" method="post">
@@ -53,6 +53,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                                                <a t-attf-href="/report/download/{{ r.id }}" class="btn btn-primary">
+                                                                    <i class="fa fa-print"/> Print Report
+                                                                </a>
+<!--                                <a t-attf-href="/report/download/#{r.id}"-->
+<!--                                   class="btn btn-primary">-->
+<!--                                    <i class="fa fa-download"/> Download Report-->
+<!--                                </a>-->
                             </div>
                         </t>
                     </div>
@@ -68,9 +75,12 @@
         </t>
     </template>
 
-        <template id="addons_in_account_service_" inherit_id="portal.side_content">
+    <template id="addons_in_account_service_" inherit_id="portal.side_content">
         <xpath expr="//div[hasclass('o_portal_my_details')]" position="before">
-            <a role="button" href="/create/request" class="btn btn-link p-0 mt-3"><i class="fa fa-fw fa-info-circle"/>Request Service</a>
+            <a role="button" href="/create/request" class="btn btn-link p-0 mt-3">
+                <i class="fa fa-fw fa-info-circle"/>
+                Request Service
+            </a>
         </xpath>
     </template>
 

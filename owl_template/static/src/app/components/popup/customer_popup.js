@@ -3,6 +3,7 @@ import { Dialog } from "@web/core/dialog/dialog";
 
 export class CutomerInfoPopup extends Component {
     static props = {
+        order: Object,
         close: Function,
     };
     static template = "pos_restaurant.CutomerInfoPopup";
@@ -40,7 +41,7 @@ export class CutomerInfoPopup extends Component {
 //     }
 //
 //
-//     async save(ev) {
+    async save(ev) {
 //         const dataToSend = ev.currentTarget.parentElement.parentElement.querySelectorAll("input")
 //         for(let d of dataToSend){
 //             if (d.checked){
@@ -57,6 +58,9 @@ export class CutomerInfoPopup extends Component {
 //                 }
 //             }
 //         }
-//         this.props.close();
-// }
+        debugger
+        console.log('>>>>>>>>>>>>>>>>',this.props.order)
+        this.props.order.general_customer_note += "2156496103"
+        this.props.close();
+}
 }

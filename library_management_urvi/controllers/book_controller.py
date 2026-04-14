@@ -9,7 +9,8 @@ import base64
 class BookController(http.Controller):
 
     @http.route(['/book', '/book/page/<int:page>'], type='http', auth='public', website=True)
-    def public_controller(self, page=0, filterby='all', min_price=None, max_price=None, search=None, **post):
+    def public_controller(self, page=0, filterby='all', sortby='date_desc', min_price=None, max_price=None, search=None,
+                          **post):
         if request.env.user._is_public():
             return request.render("library_management_urvi.book_template_public")
         else:
@@ -28,6 +29,19 @@ class BookController(http.Controller):
                     'domain': [('state', '=', 'unpublished')],
                 },
             }
+
+            searchbar_sortings = {
+                'date_desc': {'label': 'Newest First', 'order': 'create_date desc'},
+                'date_asc': {'label': 'Oldest First', 'order': 'create_date asc'},
+                'name_asc': {'label': 'Name (A-Z)', 'order': 'name asc'},
+                'price_asc': {'label': 'Price (Low to High)', 'order': 'borrow_price asc'},
+            }
+
+            if sortby not in searchbar_sortings:
+                sortby = 'date_desc'
+
+            order = searchbar_sortings[sortby]['order']
+
             selected_category = request.httprequest.args.getlist('category')
             selected_states = request.httprequest.args.getlist('state')
             # max_limit = request.env['library.book'].search([], order='borrow_price desc', limit=1).borrow_price or 1000
@@ -72,7 +86,8 @@ class BookController(http.Controller):
             #     search_domain += [('list_price', '<=', max_price)]
 
             filter_domain = searchbar_filters.get(filterby, searchbar_filters['all'])['domain']
-            domain = search_domain + filter_domain + [('borrow_price', '>=', curr_min), ('borrow_price', '<=', curr_max)]
+            domain = search_domain + filter_domain + [('borrow_price', '>=', curr_min),
+                                                      ('borrow_price', '<=', curr_max)]
             book_count = Book.search_count(domain)
             pager = request.website.pager(
                 url='/book',
@@ -80,6 +95,11 @@ class BookController(http.Controller):
                 url_args={
                     'search': search,
                     'filterby': filterby,
+                    'sortby': sortby,
+                    'min_price': min_price,
+                    'max_price': max_price,
+                    'category': selected_category,
+                    'state': selected_states,
                 },
                 page=page,
                 step=6,
@@ -87,7 +107,7 @@ class BookController(http.Controller):
             book_records = Book.search(domain,
                                        limit=6,
                                        offset=pager['offset'],
-                                       order='name asc',
+                                       order=order,
                                        )
             # offset = pager['offset']
             # books = books[offset: offset + 3]
@@ -99,7 +119,8 @@ class BookController(http.Controller):
                                    'max_price': curr_max,
                                    'search': search, 'searchbar_filters': searchbar_filters, 'filterby': filterby,
                                    'category': category, 'selected_category': selected_category,
-                                   'state_options': state_options})
+                                   'state_options': state_options, 'searchbar_sortings': searchbar_sortings,
+                                   'sortby': sortby})
 
     @http.route(['/book/submit'], type='http', auth="user", website=True, sitemap=False)
     def book_form_submit(self, **post):
