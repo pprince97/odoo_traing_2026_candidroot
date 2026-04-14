@@ -66,6 +66,7 @@ class HotelGuest(models.Model):
             ]
         })
     def clear_guest_with_booking(self):
+        print("_____22____", self.env.context)
         booking = self.write({
             'booking_ids': [
                 Command.clear()

@@ -25,18 +25,20 @@ class HotelBooking(models.Model):
 
 
 
-    # def create_booking_with_service(self):
-    #     booking = self.env['hotel.booking'].create({
-    #         'booking_reference': 'san123',
-    #         'number_of_nights': '2',
-    #         'service_ids': [
-    #             Command.create({
-    #                 'service_name': 'sanket',
-    #                 'service_type': 'spa',
-    #             })
-    #         ]
-    #     })
+    def create_booking_with_service(self):
+        booking = self.env['hotel.booking'].create({
+            'booking_reference': 'san123',
+            'number_of_nights': '2',
+            'service_ids': [
+                Command.create({
+                    'service_name': 'Thai',
+                    'service_type': 'spa',
+                })
+            ]
+        })
+
     def update_booking_with_service(self):
+        print("_____11____",self.env.context)
         booking = self.write({
             'service_ids': [
                 Command.update(3,{

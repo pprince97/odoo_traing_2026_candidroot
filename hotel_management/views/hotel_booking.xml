@@ -38,10 +38,10 @@
             <field name="arch" type="xml">
                 <form string="Form View">
                     <header>
-                        <button name="set_booking_with_service"
+                        <button name="update_booking_with_service"
                                 string="command_Create"
                                 type="object"
-                                context="{'service_date':True}"
+                                context="{'service_date':True ,'from':'booking'}"
                         />
                     </header>
                     <sheet>
