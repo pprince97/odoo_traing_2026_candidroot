@@ -7,48 +7,56 @@ patch(FormController.prototype, {
     setup() {
         super.setup();
         console.log("Patch setup is loaded");
+        document.addEventListener("click", this.onClose);
     },
     //
-    async saveButtonClicked() {
-        console.log("Custom Save called");
-        const modelName = this.model.root.resModel;
-        console.log("Method name is :", modelName);
-        console.log("Total Price is  :", this.model.root.data.sale_order_template_id);
-        const lines = this.model.root.data.order_line || [];
+    onClose() {
+        let closebtn = document.getElementById("closebtn");
+        if (!closebtn) {return}
+        let popup = document.querySelector(".popup");
+        popup.style.display = "none";
 
-        const subtotals = lines.records.map(record => record.data.price_subtotal);
-        const totalSum = subtotals.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
-
-        // Log all subtotals
-        console.log(subtotals);
-        console.log(totalSum);
-
-        console.log("lines", lines);
-        console.log("lines records ", lines.records);
-        // Apply only to service.category
-        if (modelName === "sale.order") {
-            // if (!this.model.root.data.order_line) {
-            //     alert("Name is required!");
-            //     return; // Stop saving
-            // }
-             if (totalSum === 0.0) {
-                // let closebtn = document.getElementById("closebtn");
-                // console.log("closebtn : ",closebtn)
-                // let popup = document.querySelector(".popup");
                 // console.log("popup : ",popup)
                 // popup.style.display = "block";
                 // closebtn.addEventListener("click", () => {
                 //     popup.style.display = "none";
                 //     console.log("click : ")
-                //
                 // });
-                 alert("Total Amount is Zero");
-                 return; // Stop saving
-            }
-        }
-
-        // Call the original save
-        return super.saveButtonClicked();
     },
+
+    // async saveButtonClicked() {
+    //     console.log("Custom Save called");
+    //     const modelName = this.model.root.resModel;
+    //     console.log("Method name is :", modelName);
+    //     console.log("Total Price is  :", this.model.root.data.sale_order_template_id);
+    //     const lines = this.model.root.data.order_line || [];
+    //
+    //     const subtotals = lines.records.map(record => record.data.price_subtotal);
+    //     const totalSum = subtotals.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    //
+    //
+    //     // Log all subtotals
+    //     console.log(subtotals);
+    //     console.log(totalSum);
+    //
+    //     console.log("lines", lines);
+    //     console.log("lines records ", lines.records);
+    //     // Apply only to service.category
+    //     if (modelName === "sale.order") {
+    //         // if (!this.model.root.data.order_line) {
+    //         //     alert("Name is required!");
+    //         //     return; // Stop saving
+    //         // }
+    //          if (totalSum === 0.0) {
+    //              let popup = document.querySelector(".popup");
+    //             popup.style.display = "block";
+    //              // alert("Total Amount is Zero");
+    //              return; // Stop saving
+    //         }
+    //     }
+    //
+    //     // Call the original save
+    //     return super.saveButtonClicked();
+    // },
+
 });

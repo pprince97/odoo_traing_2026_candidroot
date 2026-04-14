@@ -1,4 +1,4 @@
-import {Component, useState, useEffect} from "@odoo/owl";
+import {Component, useState, useEffect, onWillPatch, onPatched} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 
 export class ShoppingCart extends Component {
@@ -18,6 +18,12 @@ export class ShoppingCart extends Component {
         useEffect(() => {
             console.log("Total updated:", this.total);
         });
+        // onWillPatch(() => {
+        //     console.log("Total Will Patch updated:", this.total);
+        // });
+        // onPatched(() => {
+        //     console.log("Total After Patch updated:", this.total);
+        // });
     }
 
     get filteredProducts() {
