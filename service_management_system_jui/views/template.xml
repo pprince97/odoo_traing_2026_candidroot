@@ -53,88 +53,98 @@
                             </div>
                         </span>
                     </section>
-                    <div id="_price_range_option">
-                        <input
-                            type="range"
-                            multiple="multiple"
-                            t-attf-class="form-range range-with-input {{_classes_input}}"
-                            t-att-min="30"
-                            t-att-max="100"
-                            t-att-value="(min_price, max_price)"
-                        />
-                    </div>
-                    <section class="container body mt-5 mb-5">
+                    <div class="container">
                         <div class="row">
-                            <div class="col-md-4" id="service_request_list">
-                                <a role="button" href="/my/service/request/form" class="btn btn-primary">Request Service</a>
-                            </div>
-                            <div class="col-md-8 text-end d-flex justify-content-end align-items-center">
-                                <form t-att-action="default_url" method="get">
-                                    <input type="hidden" name="state" t-att-value="state"/>
-                                    <div t-attf-class="input-group #{_classes}" role="search" style="max-width: 300px;">
-                                        <t t-set="search_placeholder">Search...</t>
-                                        <input type="search" name="search" t-att-class="'search-query form-control oe_search_box %s %s' % (_input_classes or '', '' if default_style else 'border-0 bg-light')" t-att-placeholder="search_placeholder" t-att-value="search" oninput="this.form.submit()"/>
+                            <aside id="sidebar_view" class="col-lg-3 d-none d-lg-block position-sticky align-self-start col clearfix pt-2">
+                                <div id="_price_range_option">
+                                    <label class="me-3">Price Range</label>
+                                    <input
+                                        id="slider_range"
+                                        type="range"
+                                        multiple="multiple"
+                                        t-attf-class="form-range range-with-input"
+                                        t-att-min="'%f' % (0.0)"
+                                        t-att-max="'%f' % (2000.0)"
+                                        t-att-value="'%f,%f' % (min_price or 0.0, max_price or 2000.0)"
+                                    />
+                                </div>
+                            </aside>
+                            <div class="col-lg-9">
+                                <section class="container body mt-5 mb-5">
+                                    <div class="row">
+                                        <div class="col-md-4" id="service_request_list">
+                                            <a role="button" href="/my/service/request/form" class="btn btn-primary">Request Service</a>
+                                        </div>
+                                        <div class="col-md-8 text-end d-flex justify-content-end align-items-center">
+                                            <form t-att-action="default_url" method="get">
+                                                <input type="hidden" name="state" t-att-value="state"/>
+                                                <div t-attf-class="input-group #{_classes}" role="search" style="max-width: 300px;">
+                                                    <t t-set="search_placeholder">Search...</t>
+                                                    <input type="search" name="search" t-att-class="'search-query form-control oe_search_box %s %s' % (_input_classes or '', '' if default_style else 'border-0 bg-light')" t-att-placeholder="search_placeholder" t-att-value="search" oninput="this.form.submit()"/>
+                                                </div>
+                                            </form>
+                                            <span class="small me-1 navbar-text">States:</span>
+                                            <div class="btn-group">
+                                                <button id="service_searchbar_filters" data-bs-toggle="dropdown" class="btn btn-light dropdown-toggle">
+                                                    <t t-esc="state_filters.get(state,state_filters.get('all')).get('label', 'All')"/>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="service_searchbar_filters">
+                                                    <t t-foreach="state_filters" t-as="option">
+                                                        <a t-att-href="default_url + '?' + keep_query('*', state=option)"
+                                                           t-attf-class="dropdown-item#{state == option and ' active' or ''}">
+                                                            <span t-esc="state_filters[option].get('label')"/>
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
-                                <span class="small me-1 navbar-text">States:</span>
-                                <div class="btn-group">
-                                    <button id="service_searchbar_filters" data-bs-toggle="dropdown" class="btn btn-light dropdown-toggle">
-                                        <t t-esc="state_filters.get(state,state_filters.get('all')).get('label', 'All')"/>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="service_searchbar_filters">
-                                        <t t-foreach="state_filters" t-as="option">
-                                            <a t-att-href="default_url + '?' + keep_query('*', state=option)"
-                                               t-attf-class="dropdown-item#{state == option and ' active' or ''}">
-                                                <span t-esc="state_filters[option].get('label')"/>
-                                            </a>
+                                </section>
+                                <div class="container">
+                                    <table class="table table-hover mb-5 bg-white">
+                                        <thead>
+                                            <tr class="active">
+                                                <th name="request_number">Request No</th>
+                                                <th name="date">Date</th>
+                                                <th name="customer_id">Customer</th>
+                                                <th name="company_id_s">Company</th>
+                                                <th name="category_id">Category</th>
+                                                <th name="service_id">Service</th>
+                                                <th name="service_id">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="requests" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <a t-attf-data-bs-target="#service_request_#{req.id}" href="#" data-bs-toggle="modal">
+                                                            <span t-field="req.request_number"/>
+                                                        </a>
+                                                    </td>
+                                                    <td><span t-field="req.date"/></td>
+                                                    <td><span t-field="req.customer_id" /></td>
+                                                    <td><span t-field="req.company_id_s" /></td>
+                                                    <td><span t-field="req.category_id" /></td>
+                                                    <td><span t-field="req.service_id" /></td>
+                                                    <td><span t-field="req.state" /></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                    <t t-foreach="requests" t-as="req">
+                                        <div class="modal fade" t-attf-id="service_request_#{req.id}" tabindex="-1">
+                                            <t t-call="service_management_system_jui.service_record_modal_template">
+                                                <t t-set="record" t-value="req"/>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    <div class="d-flex justify-content-center mt-3 mb-5">
+                                        <t t-call="website.pager">
+                                            <t t-set="_classes">mt-2 ml-md-2</t>
                                         </t>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <div class="container">
-                        <table class="table table-hover mb-5 bg-white">
-                            <thead>
-                                <tr class="active">
-                                    <th name="request_number">Request No</th>
-                                    <th name="date">Date</th>
-                                    <th name="customer_id">Customer</th>
-                                    <th name="company_id_s">Company</th>
-                                    <th name="category_id">Category</th>
-                                    <th name="service_id">Service</th>
-                                    <th name="service_id">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-foreach="requests" t-as="req">
-                                    <tr>
-                                        <td>
-                                            <a t-attf-data-bs-target="#service_request_#{req.id}" href="#" data-bs-toggle="modal">
-                                                <span t-field="req.request_number"/>
-                                            </a>
-                                        </td>
-                                        <td><span t-field="req.date"/></td>
-                                        <td><span t-field="req.customer_id" /></td>
-                                        <td><span t-field="req.company_id_s" /></td>
-                                        <td><span t-field="req.category_id" /></td>
-                                        <td><span t-field="req.service_id" /></td>
-                                        <td><span t-field="req.state" /></td>
-                                    </tr>
-                                </t>
-                            </tbody>
-                        </table>
-                        <t t-foreach="requests" t-as="req">
-                            <div class="modal fade" t-attf-id="service_request_#{req.id}" tabindex="-1">
-                                <t t-call="service_management_system_jui.service_record_modal_template">
-                                    <t t-set="record" t-value="req"/>
-                                </t>
-                            </div>
-                        </t>
-                        <div class="d-flex justify-content-center mt-3 mb-5">
-                            <t t-call="website.pager">
-                                <t t-set="_classes">mt-2 ml-md-2</t>
-                            </t>
                         </div>
                     </div>
                 </div>
@@ -219,6 +229,11 @@
                     </div>
                     <div class="modal-footer justify-content-start m-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                        <t t-if="record.sale_order_id">
+                            <a t-attf-href="/my/order/print/#{record.sale_order_id.id}" class="btn btn-secondary">
+                                Print Report
+                            </a>
+                        </t>
                     </div>
                 </div>
             </div>

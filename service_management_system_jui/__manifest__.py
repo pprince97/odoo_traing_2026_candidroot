@@ -28,6 +28,7 @@
     'assets':{
         'web.assets_frontend': [
             'service_management_system_jui/static/src/js/service_request.js',
+            'service_management_system_jui/static/src/js/service_request_list.js',
             'service_management_system_jui/static/src/scss/style.scss',
         ],
     },

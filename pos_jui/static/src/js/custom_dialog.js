@@ -14,11 +14,13 @@ export class CustomerDetail extends Component {
             },
             optional: true,
         },
+        order: Object,
         close: Function,
         save:{ type: Function, optional: true },
     };
 
     save(){
-        this.props.close();
+        console.log(document.getElementsByName('notes').values())
+        this.props.order.general_customer_note += document.getElementsByName('notes')
     }
 }

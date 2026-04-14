@@ -11,11 +11,16 @@ class ServiceManagementController(http.Controller):
         return request.render('service_management_system_jui.service_request_template_form')
 
     @http.route(['/my/service/request/list','/my/service/request/list/page/<int:page>'], type='http', auth='user', website=True)
-    def service_request_list_controller(self,page=0,state=None,search='', **kwargs):
+    def service_request_list_controller(self,page=0,state=None,search='',min_price=None,max_price=None, **kwargs):
         search = kwargs.get('search') or search
+        min_price = float(kwargs.get('min_price') or min_price or 0.0)
+        max_price = float(kwargs.get('max_price') or max_price or 2000.0)
         domain = []
         if search:
             domain += ['|', ('request_number', 'ilike', search), ('customer_id.name', 'ilike', search)]
+        if min_price is not None and max_price is not None:
+            domain += [('service_id.list_price', '>=', min_price),
+                       ('service_id.list_price', '<=', max_price)]
         state_filters = {
             'all': {'label': 'All', 'domain': []},
             'draft': {
@@ -34,7 +39,7 @@ class ServiceManagementController(http.Controller):
         total = request.env['service.request'].search_count(domain)
         pager = request.website.pager(
             url='/my/service/request/list',
-            url_args={'state': state,'search': search},
+            url_args={'state': state,'search': search,'min_price': min_price,'max_price': max_price},
             total=total,
             page=page,
             step=3,
@@ -42,7 +47,24 @@ class ServiceManagementController(http.Controller):
         offset = pager['offset']
         values = request.env['service.request'].search(domain)
         values = values[offset: offset + 3]
-        return request.render('service_management_system_jui.service_request_template_list',{'requests': values,'pager': pager,'default_url': '/my/service/request/list','state_filters': OrderedDict(sorted(state_filters.items())),'state': state,'search': search,'search_count': total,})
+
+        return request.render('service_management_system_jui.service_request_template_list',{'requests': values,'pager': pager,
+            'default_url': '/my/service/request/list','state_filters': OrderedDict(sorted(state_filters.items())),'state': state,
+            'search': search,'search_count': total,'min_price': min_price,'max_price': max_price,})
+
+    @http.route(['/my/order/print/<int:order_id>'], type='http', auth="user", website=True)
+    def print_sale_order(self, order_id, **kw):
+        order = request.env['sale.order'].sudo().browse(order_id)
+        if not order.exists():
+            return request.not_found()
+        pdf, _ = request.env['ir.actions.report']._render_qweb_pdf('sale.report_saleorder', [order_id])
+
+        pdf_http_headers = [
+            ('Content-Type', 'application/pdf'),
+            ('Content-Length', len(pdf)),
+            ('Content-Disposition', 'attachment; filename="Order_%s.pdf"' % order.name)
+        ]
+        return request.make_response(pdf, headers=pdf_http_headers)
 
     @http.route('/update/country', type='jsonrpc', auth='user', website=True)
     def details_country(self, country_key):

@@ -19,7 +19,7 @@
                             <label for="female">No of Female:</label>
                         </div>
                         <div class="col-6">
-                            <input id="female" type="number" name="female" class="form-control" t-ref="female_c" t-att-value="props.female || 0" t-on-change="guest_no"/>
+                            <input id="female" type="number" name="female" class="form-control" t-ref="female_c" t-att-value="props.female || 0" t-on-input="guest_no"/>
                         </div>
                     </div>
                 </div>

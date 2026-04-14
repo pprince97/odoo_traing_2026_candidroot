@@ -7,12 +7,13 @@ class ServiceRequest(models.Model):
     _name = 'service.request'
     _description = 'Service Request'
     _rec_name = 'request_number'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    request_number = fields.Char(string='Request Number',readonly=True)
+    request_number = fields.Char(string='Request Number',readonly=True,tracking=True)
     date = fields.Date(string='Date')
     category_id = fields.Many2one('service.category',string='Service Categories')
     company_id_s = fields.Many2one('custom.service.company',related="category_id.company_id_s",string='Company')
-    service_id = fields.Many2one('product.template',string='Services')
+    service_id = fields.Many2one('product.template',string='Services',tracking=True)
     customer_id = fields.Many2one('res.users',string='Customer')
     country_id = fields.Many2one('res.country','Country')
     state_id = fields.Many2one('res.country.state','State')
@@ -20,6 +21,7 @@ class ServiceRequest(models.Model):
     city = fields.Char(string='City')
     street = fields.Char(string='Street Address')
     state = fields.Selection([('draft','Draft'),('confirm','Confirm'),('cancel','Cancel')],string='States',default='draft')
+    sale_order_id = fields.Many2one('sale.order',string='Sale Order')
 
     @api.model_create_multi
     def create(self, vals):
@@ -33,6 +35,9 @@ class ServiceRequest(models.Model):
         for rec in self:
             order = self.env['sale.order'].with_context({'search_default_sales' : 1}).create({'partner_id': rec.customer_id.partner_id.id,'state':'sale'})
             self.env['sale.order.line'].create({'product_id':rec.service_id.id,'price_unit':rec.service_id.list_price,'order_id':order.id})
+            self.sale_order_id = order.id
+            print(self.sale_order_id)
+
 
     def cancel_state(self):
         self.state = 'cancel'

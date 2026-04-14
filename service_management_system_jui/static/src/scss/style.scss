@@ -32,3 +32,14 @@
   text-decoration: none;
   cursor: pointer;
 }
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background-color: #dee2e6;
+    border-radius: 1rem;
+}
+
+input[type="range"]::-moz-range-track {
+    height: 8px;
+    background-color: #dee2e6;
+    border-radius: 1rem;
+}

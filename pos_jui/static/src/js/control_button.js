@@ -13,6 +13,7 @@ patch(ControlButtons.prototype,{
         this.dialogService.add(CustomerDetail, {
             title: "Customer Details",
             close: ()=>{},
+            order: this.currentOrder,
         });
     }
 })
