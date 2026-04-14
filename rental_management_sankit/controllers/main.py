@@ -1,17 +1,17 @@
 from odoo import http, models, fields, tools, api , _
 from odoo.http import request
 
-from odoo.addons.website.controllers.main import Website
+# from odoo.addons.website.controllers.main import Website
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
 
-class WebsiteInherit(Website):
-    @http.route()
-    def index(self, **kw):
-        response = super(WebsiteInherit, self).index(**kw)
-        rental_orders = request.env['rental.order'].sudo().search([] , limit=1)
-        response.qcontext['rental_orders'] = rental_orders
-        return response
+# class WebsiteInherit(Website):
+#     @http.route()
+#     def index(self, **kw):
+#         response = super(WebsiteInherit, self).index(**kw)
+#         rental_orders = request.env['rental.order'].sudo().search([])
+#         response.qcontext['rental_orders'] = rental_orders
+#         return response
 
 
 
@@ -83,9 +83,9 @@ class WebsiteDetail(http.Controller):
             'default_url': '/rental_order',
             'pager': pager,
         }
-        print("==============")
-        print(rental_orders)
-        print(values)
+        # print("==============")
+        # print(rental_orders)
+        # print(values)
         return request.render('rental_management_sankit.rental_order', values)
 
     @http.route('/rental_order/form', type='http', auth='public', website=True)
@@ -110,6 +110,30 @@ class WebsiteDetail(http.Controller):
             'tag_ids': [(6, 0, [int(t) for t in tag_ids])] if tag_ids else False,
         })
         return request.render('website.contactus_thanks')
+
+    @http.route(['/rental_order/print'], type='http', auth="public", website=True)
+    def order_print_func(self, **kwargs):
+        report = request.env.ref('rental_management_sankit.action_product_rental_report').sudo()
+        print(report)
+        # all book
+        orders = request.env['rental.order'].sudo().search([])
+        print("orders -----------",orders)
+        docids = orders.ids
+
+        pdf, _ = report._render_qweb_pdf('rental_management_sankit.action_product_rental_report', docids)
+
+        return request.make_response(
+            pdf,
+            headers=[
+                ('Content-Type', 'application/pdf'),
+                ('Content-Length', str(len(pdf))),
+                ('Content-Disposition', 'attachment; filename="rental_report.pdf"')
+            ],
+        )
+
+
+
+
 
     # User Profile
     @http.route('/user-profile/form', type='http', auth='public', website=True)

@@ -52,34 +52,32 @@
                                     </select>
                                 </div>
 
-<!--                                <select class="form-multi-select" id="multiple-select-tag">-->
-<!--                                  <option value="0">Angular</option>-->
-<!--                                  <option value="1">Bootstrap</option>-->
-<!--                                  <option value="2">React.js</option>-->
-<!--                                  <option value="3">Vue.js</option>-->
-<!--                                  <optgroup label="backend">-->
-<!--                                    <option value="4">Django</option>-->
-<!--                                    <option value="5">Laravel</option>-->
-<!--                                    <option value="6">Node.js</option>-->
-<!--                                  </optgroup>-->
-<!--                                </select>-->
+                                <!--                                <select class="form-multi-select" id="multiple-select-tag">-->
+                                <!--                                  <option value="0">Angular</option>-->
+                                <!--                                  <option value="1">Bootstrap</option>-->
+                                <!--                                  <option value="2">React.js</option>-->
+                                <!--                                  <option value="3">Vue.js</option>-->
+                                <!--                                  <optgroup label="backend">-->
+                                <!--                                    <option value="4">Django</option>-->
+                                <!--                                    <option value="5">Laravel</option>-->
+                                <!--                                    <option value="6">Node.js</option>-->
+                                <!--                                  </optgroup>-->
+                                <!--                                </select>-->
 
 
-<!--                                <select name="type"-->
-<!--                                       class="advanced-select"-->
-<!--                                       required="" multiple="" style="width:300px;">-->
-<!--                                   <optgroup label="Group1">-->
-<!--                                       <option value="support">Support</option>-->
-<!--                                       <option value="feedback">Feedback</option>-->
-<!--                                       <option value="question">Question</option>-->
-<!--                                   </optgroup>-->
-<!--                                   <optgroup label="Group2">-->
-<!--                                       <option value="complaint">Complaint</option>-->
-<!--                                       <option value="suggestion">Suggestion</option>-->
-<!--                                   </optgroup>-->
-<!--                                </select>-->
-
-
+                                <!--                                <select name="type"-->
+                                <!--                                       class="advanced-select"-->
+                                <!--                                       required="" multiple="" style="width:300px;">-->
+                                <!--                                   <optgroup label="Group1">-->
+                                <!--                                       <option value="support">Support</option>-->
+                                <!--                                       <option value="feedback">Feedback</option>-->
+                                <!--                                       <option value="question">Question</option>-->
+                                <!--                                   </optgroup>-->
+                                <!--                                   <optgroup label="Group2">-->
+                                <!--                                       <option value="complaint">Complaint</option>-->
+                                <!--                                       <option value="suggestion">Suggestion</option>-->
+                                <!--                                   </optgroup>-->
+                                <!--                                </select>-->
 
 
                                 <!--                                This is Edit-->
@@ -116,6 +114,10 @@
                             <a class="btn btn-lg btn-primary o_translate_inline" href="/rental_order/form">Create
                             </a>
                         </div>
+                        <a href="/rental_order/print" class="btn btn-warning">
+                            <i class="fa fa-download"/>
+                            Download Report
+                        </a>
                         <table class="small table table-bordered text-center">
                             <thead class="highlight">
                                 <tr>
@@ -154,10 +156,10 @@
                             </tbody>
                         </table>
                         <div class="row mt-3">
-                             <div class="col-12">
-                        <t t-call="portal.pager">
-                            <t t-set="classname" t-value="'d-flex justify-content-center'"/>
-                        </t>
+                            <div class="col-12">
+                                <t t-call="portal.pager">
+                                    <t t-set="classname" t-value="'d-flex justify-content-center'"/>
+                                </t>
                             </div>
                         </div>
                     </div>
