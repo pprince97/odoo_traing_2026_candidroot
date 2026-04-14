@@ -5,10 +5,10 @@
             <div class="container py-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2 class="text-primary mb-0">
+                        <h3 class="text-primary mb-0">
                             Request #
                             <span t-field="service_request.name"/>
-                        </h2>
+                        </h3>
                     </div>
                     <div class="text-end">
                         <span t-attf-class="badge rounded-pill #{'bg-success' if service_request.status == 'done' else 'bg-warning'} px-3 py-2">
@@ -16,7 +16,6 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="card shadow-sm border-0 mb-4">
                     <div class="card-header bg-white py-3">
                         <h5 class="card-title mb-0">General Information</h5>
@@ -83,78 +82,81 @@
                         </table>
                     </div>
                 </div>
+                <t t-if="service_request.sale_order_id">
+                    <a t-attf-href="/my/my-services/download/#{service_request.sale_order_id.id}?access_token=#{service_request.sale_order_id.access_token}"
+                       class="btn btn-primary">
+                        <i class="fa fa-download"/>
+                        Download
+                    </a>
+                </t>
             </div>
         </t>
     </template>
 
+    <!-- All Service Requests  -->
     <template id="service_requests_template">
         <t t-call="portal.portal_layout">
             <div class="mt-1 container">
-                <h3 class="d-flex justify-content-between align-items-center w-90">
-                    <span>All Service Requests</span>
-                </h3>
-                 <div t-if="searchbar_filters" class="ms-lg-2">
-                        <span class="small me-1 navbar-text">Filter By:</span>
-                        <div class="btn-group">
-                            <button id="portal_searchbar_filters" data-bs-toggle="dropdown" class="btn btn-light dropdown-toggle">
-                                <t t-esc="searchbar_filters.get(filterby,searchbar_filters.get('all')).get('label', 'All')"/>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="portal_searchbar_filters">
-                                <t t-foreach="searchbar_filters" t-as="option">
-                                    <a t-att-href="default_url + '?' + keep_query('*', filterby=option)"
-                                       t-attf-class="dropdown-item#{filterby == option and ' active' or ''}">
-                                        <span t-esc="searchbar_filters[option].get('label')"/>
-                                    </a>
-                                </t>
-                            </div>
-                        </div>
-                    </div>
-                <table class="table">
+                <!--                <h3 class="d-flex justify-content-between align-items-center w-90">-->
+                <!--                    <span>All Service Requests</span>-->
+                <!--                </h3>-->
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">Service Requests</t>
+                </t>
+                <t t-if="not service_requests">
+                    <p>There are currently no service requests.</p>
+                </t>
+                <t t-if="service_requests" t-call="portal.portal_table">
                     <thead>
-                        <th>
-                            <b>Serial Number</b>
-                        </th>
-                        <th>
-                            <b>Category</b>
-                        </th>
-                        <th>
-                            <b>Company</b>
-                        </th>
-                        <th>
-                            <b>Customer</b>
-                        </th>
-                        <th>
-                            <b>Service Date</b>
-                        </th>
-                        <th>
-                            <b>Status</b>
-                        </th>
-                    </thead>
-                    <t t-foreach="service_requests" t-as="service_request">
-                        <tr>
-                            <td>
-                                <a t-attf-href="/my/service-requests/#{service_request.id}">
-                                    <t t-esc="service_request.name"/>
-                                </a>
-                            </td>
-                            <td>
-                                <t t-esc="service_request.category_id.name"/>
-                            </td>
-                            <td>
-                                <t t-esc="service_request.company_id.name"/>
-                            </td>
-                            <td>
-                                <t t-esc="service_request.customer_id.name"/>
-                            </td>
-                            <td>
-                                <t t-esc="service_request.service_date"/>
-                            </td>
-                            <td>
-                                <t t-esc="service_request.status"/>
-                            </td>
+                        <tr class="active">
+                            <th>
+                                <b>Serial Number</b>
+                            </th>
+                            <th>
+                                <b>Category</b>
+                            </th>
+                            <th>
+                                <b>Company</b>
+                            </th>
+                            <th>
+                                <b>Customer</b>
+                            </th>
+                            <th>
+                                <b>Service Date</b>
+                            </th>
+                            <th>
+                                <b>Status</b>
+                            </th>
                         </tr>
-                    </t>
-                </table>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="service_requests" t-as="req">
+                            <tr>
+                                <td>
+                                    <a t-attf-href="/my/service-requests/#{req.id}">
+                                        <span t-field="req.name"/>
+                                    </a>
+                                </td>
+                                <td>
+                                    <t t-esc="req.category_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="req.company_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="req.customer_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="req.service_date"/>
+                                </td>
+                                <td >
+                                    <span t-attf-class="badge rounded-pill #{'bg-success' if req.status == 'done' else 'bg-warning'}"
+                                          t-field="req.status"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
             </div>
             <!--  PAGINATION    -->
             <div class="row mt-4">
@@ -181,48 +183,56 @@
         </xpath>
     </template>
 
+    <!--  Crete Form   -->
     <template id="portal_service_create_form">
         <t t-call="website.layout">
-            <div class="container my-5">
-                <div class="card shadow-sm border-0 custom-book-form">
-                    <div class="card-header bg-primary text-white py-3">
-                        <h4 class="mb-0 text-light">Add Service</h4>
-                    </div>
-                    <div class="card-body p-4">
-                        <form action="/my/borrow-requests/create" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            <div class="col-md-6">
-                                <div class="col-md-12">
-                                    <label class="form-label fw-bold">Service Date
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="date" name="service_date" class="form-control form-control-lg"
-                                           required="1" t-att-value="post.get('service_date') if post else ''"/>
+            <t t-if="user.has_group('service_management_rushvi.group_service_customer') or user.has_group('service_management_rushvi.group_service_owner')">
+                <div class="container my-5">
+                    <div class="card shadow-sm border-0 custom-book-form">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0 text-light">Add Service</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form action="/my/borrow-requests/create" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-bold">Service Date
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="date" name="service_date" class="form-control form-control-lg"
+                                               required="1" t-att-value="post.get('service_date') if post else ''"/>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-bold">Category
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select name="category_id" class="form-select">
+                                            <t t-foreach="request.env['service.category'].sudo().search([])"
+                                               t-as="ser">
+                                                <option t-att-value="ser.id">
+                                                    <t t-esc="ser.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <label class="form-label fw-bold">Category
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <select name="category_id" class="form-select">
-                                        <t t-foreach="request.env['service.category'].sudo().search([])"
-                                           t-as="ser">
-                                            <option t-att-value="ser.id">
-                                                <t t-esc="ser.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
+                                <div class="mt-5 text-end">
+                                    <a href="/my/service-requests" class="btn btn-link text-muted me-3">Cancel</a>
+                                    <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm">Request
+                                        Services
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="mt-5 text-end">
-                                <a href="/my/service-requests" class="btn btn-link text-muted me-3">Cancel</a>
-                                <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm">Request
-                                    Services
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </t>
+            <t t-else="">
+                <h5>
+                    Login/Signup to request Services!
+                </h5>
+            </t>
         </t>
     </template>
 
@@ -234,22 +244,23 @@
                 <t t-set="url" t-value="'/my/service-requests'"/>
                 <t t-set="text">View Your Service Requests</t>
                 <t t-set="config_card" t-value="True"/>
-                <t t-set="icon" t-value="'service_management_rushvi/static/src/img/service-request.svg'"/>
+<!--                <t t-set="icon" t-value="'service_management_rushvi/static/src/img/service-request.svg'"/>-->
+                <t t-set="icon" t-value="'library_management_rushvi/static/src/img/book-engineering-svgrepo-com.svg'"/>
             </t>
         </xpath>
-<!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="after">-->
-<!--            <div class="d-flex justify-content-between align-items-center w-90">-->
-<!--                <span/>-->
-<!--                <span>-->
-<!--                    <a href="/my/service-requests/new">-->
-<!--                        <button type="button"-->
-<!--                                class="btn btn-primary">-->
-<!--                            <i class="fa fa-plus me-1"/>-->
-<!--                            New Request-->
-<!--                        </button>-->
-<!--                    </a>-->
-<!--                </span>-->
-<!--            </div>-->
-<!--        </xpath>-->
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="after">
+            <div class="d-flex justify-content-between align-items-center w-90">
+                <span/>
+                <span>
+                    <a href="/my/service-requests/new">
+                        <button type="button"
+                                class="btn btn-primary">
+                            <i class="fa fa-plus me-1"/>
+                            New Request
+                        </button>
+                    </a>
+                </span>
+            </div>
+        </xpath>
     </template>
 </odoo>

@@ -38,7 +38,6 @@
         </record>
 
         <!--        RECORD RULES           -->
-
         <!--        Company       -->
         <record id="company_restriction_owner" model="ir.rule">
             <field name="name">Company Restriction for owner</field>
@@ -69,7 +68,7 @@
             <field name="groups" eval="[(4, ref('service_management_rushvi.group_service_admin'))]"/>
         </record>
 
-<!--        Services -->
+        <!--     Services      -->
         <record id="service_restriction_owner" model="ir.rule">
             <field name="name">Service Restriction for owner</field>
             <field name="model_id" ref="product.model_product_template"/>
@@ -84,7 +83,7 @@
             <field name="groups" eval="[(4, ref('service_management_rushvi.group_service_admin'))]"/>
         </record>
 
-        <!--   Service Request -->
+        <!--     Service Request        -->
         <record id="request_restriction_owner" model="ir.rule">
             <field name="name">Request Restriction for owner</field>
             <field name="model_id" ref="service_management_rushvi.model_service_request"/>

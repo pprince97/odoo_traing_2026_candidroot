@@ -17,9 +17,9 @@
             <hr/>
             <footer>
                 <button class="btn btn-primary" string="Next" t-on-click="guestDetailsPopUp">Next</button>
-                <button class="btn" t-on-click="props.close" t-att-disabled="isSkipDisabled">Skip</button>
-                <button class="btn" string="Close" t-on-click="props.close">Close</button>
+<!--                <button class="btn" string="Skip" t-on-click="props.close">Skip</button>-->
+                 <button class="btn" t-on-click="props.close" t-att-disabled="isSkipDisabled">Skip</button>
             </footer>
         </Dialog>
     </t>
-</templates>    
+</templates>

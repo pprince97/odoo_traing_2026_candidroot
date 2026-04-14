@@ -8,7 +8,7 @@ class ServiceRequestLines(models.Model):
     _description = 'Service Request Lines'
 
     service_id = fields.Many2one('product.product',string='Service')
-    quantity = fields.Float(string='Quantity')
+    quantity = fields.Float(string='Quantity',default=1)
     amount = fields.Float(string='Amount')
     total_amount = fields.Float(string='Total Amount',compute='_compute_total_amount',store=True)
     request_id = fields.Many2one('service.request',string='Requests')

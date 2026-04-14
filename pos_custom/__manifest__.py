@@ -13,6 +13,7 @@
             'pos_custom/static/src/app/components/popup/customer_dialog.xml',
             'pos_custom/static/src/app/screens/product_screen/control_buttons/pos_action_button.js',
             'pos_custom/static/src/app/screens/product_screen/control_buttons/pos_action_button.xml',
+            'pos_custom/static/src/app/models/dataServiceModels.js',
             'pos_custom/static/src/app/components/popup/guest_number_details.js',
             'pos_custom/static/src/app/components/popup/guest_details.js',
             'pos_custom/static/src/app/components/popup/guest_details.xml',

@@ -1,7 +1,7 @@
 import {Dialog} from "@web/core/dialog/dialog";
 import {Component, useState} from "@odoo/owl";
-import {GuestDetailsPopUp} from "@pos_custom/app/components/popup/guest_details";
-import {useService} from "@web/core/utils/hooks";
+import { GuestDetailsPopUp } from "@pos_custom/app/components/popup/g_d";
+import { useService } from "@web/core/utils/hooks";
 
 export class AddGuestNumberDetailsPopup extends Component {
     static template = "pos_custom.AddGuestNumberDetailsPopup";
@@ -24,15 +24,12 @@ export class AddGuestNumberDetailsPopup extends Component {
         this.compute_total();
     }
 
+    compute_total() {
+        this.state.total_no_of_guests = Number(this.state.male || 0) + Number(this.state.female || 0);
+    }
     get isSkipDisabled() {
         return this.pos.config.guest_details_required;
     }
-
-    compute_total() {
-        this.state.total_no_of_guests = Number(this.state.male || 0) + Number(this.state.female || 0);
-        console.log(this.state.total_no_of_guests);
-    }
-
     async guestDetailsPopUp() {
         const result = await this.env.services.dialog.add(GuestDetailsPopUp, {
             total: this.state.total_no_of_guests,
@@ -47,10 +44,9 @@ export class AddGuestNumberDetailsPopup extends Component {
         if (result?.confirmed) {
             const order = this.pos.getOrder();
             if (order) {
-                console.log(">><<!!>><<")
                 order.no_of_male = this.state.male;
                 order.no_of_female = this.state.female;
-                order.total_no_of_guests = this.state.total_no_of_guests;
+                order.customer_count = this.state.total_no_of_guests;
                 order.guest_details = result.guests;
             }
             this.props.close({
@@ -61,19 +57,6 @@ export class AddGuestNumberDetailsPopup extends Component {
                 guest_details: result.guests,
             });
         }
+        // console.log(">>>>>>>>><<<<<<<<<<")
     }
-
-    // async guestDetailsPopUp() {
-    //     this.props.close();
-    //     await this.env.services.dialog.add(GuestDetailsPopUp, {
-    //         total: this.state.total_no_of_guests,
-    //         order_data: { male: this.state.male,
-    //             female: this.state.female },
-    //         previous: ()=> { this.env.services.dialog.add(AddGuestNumberDetailsPopup, {
-    //             initial_male: Number(this.state.male),
-    //             initial_female:Number(this.state.female)
-    //             });
-    //         }
-    //     });
-    // }
 }

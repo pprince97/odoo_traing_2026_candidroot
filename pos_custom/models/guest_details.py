@@ -10,9 +10,9 @@ class GuestDetails(models.Model):
     gender = fields.Selection([('male','Male'),('female','Female')], 'Gender')
     order_id = fields.Many2one('pos.order', string='Order')
 
-    @api.model
-    def _load_pos_data_fields(self, config_id):
-        return ['age', 'nationality', 'gender','order_id']
+    # @api.model
+    # def _load_pos_data_fields(self, config_id):
+    #     return ['age', 'nationality', 'gender','order_id','write_date']
 
 class PosSession(models.Model):
     _inherit = "pos.session"

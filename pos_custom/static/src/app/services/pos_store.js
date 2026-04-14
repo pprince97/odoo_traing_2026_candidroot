@@ -7,8 +7,8 @@ patch(PosStore.prototype, {
     async pay() {
         const dialogService = this.env.services.dialog;
         const config = this.config;
-        // const tableOrder = this.models["pos.order"].find((order) => order.table_id && order.table_id.id === table.id);
-        // const alreadyFilled = tableOrder && tableOrder.total_no_of_guests > 0;
+        const tableOrder = this.models["pos.order"].find((order) => order.table_id);
+        const alreadyFilled = tableOrder && tableOrder.total_no_of_guests > 0;
         const isRequired = config.guest_details_required;
         if (config.guest_details && config.guest_details_timing === "order_after") {
             const result = await dialogService.add(AddGuestNumberDetailsPopup, {
@@ -22,6 +22,7 @@ patch(PosStore.prototype, {
         if(!config.guest_details || (config.guest_details && config.guest_details_timing==="order_after")){
             return super.pay(...arguments);
         }
+        return super.pay(...arguments);
     },
 });
     // async pay() {

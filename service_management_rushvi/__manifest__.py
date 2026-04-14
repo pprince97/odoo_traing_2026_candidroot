@@ -10,7 +10,6 @@
     'assets': {
         'web.assets_frontend': [
             'web.core',
-            'service_management_rushvi/static/src/js/main.js',
         ],
         'web.assets_backend': [
                     # 'service_management_rushvi/static/src/fields/history_field/*.js',

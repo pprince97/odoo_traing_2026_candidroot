@@ -1,7 +1,6 @@
 from odoo import models,fields,api,_
 from odoo.exceptions import ValidationError
 
-
 class ServiceRequest(models.Model):
     _name = 'service.request'
     _description = 'Service Request'
@@ -16,8 +15,8 @@ class ServiceRequest(models.Model):
     zip = fields.Char(string='Zip')
     city = fields.Char(string='City')
     request_line_ids = fields.One2many('service.request.lines','request_id',string='Requests')
-    service_date = fields.Datetime(string='Service Date')
-    # sale_order_id = fields.Many2one('sale.order',string='Sale Order')
+    service_date = fields.Datetime(string='Service Date',required=True)
+    sale_order_id = fields.Many2one('sale.order',string='Sale Order')
 
     def status_confirmed(self):
         products = []
@@ -35,6 +34,7 @@ class ServiceRequest(models.Model):
             'date_order':self.service_date,
             'order_line': products,
         })
+        self.sale_order_id = sale_order.id
         self.status = 'confirmed'
 
     def status_done(self):
@@ -44,7 +44,7 @@ class ServiceRequest(models.Model):
     def create(self, vals_list):
         res = super(ServiceRequest, self).create(vals_list)
         for rec in res:
-            rec.name = self.env['ir.sequence'].next_by_code('service.request.sequence')
+            rec.name = self.env['ir.sequence'].next_by_code('service.request.sequence') or 'New'
         return res
 
     def status_cancelled(self):
@@ -74,3 +74,11 @@ class ServiceRequest(models.Model):
             self.city = False
             self.country_id = False
             self.state_id = False
+
+    # @api.model
+    # def default_get(self, fields):
+    #     res = super(ServiceRequest, self).default_get(fields)
+    #     name = self.env['ir.sequence'].next_by_code('service.request.sequence') or 'New'
+    #     if name:
+    #         res['name'] = name
+    #     return res

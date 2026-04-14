@@ -8,7 +8,6 @@
             <xpath expr="//field[@name='customer_count']" position="after">
                 <field name="no_of_male"/>
                 <field name="no_of_female"/>
-                <field name="total_no_of_guests"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page name="Guest Details">
@@ -21,7 +20,6 @@
                     </field>
                 </page>
             </xpath>
-
         </field>
     </record>
 </odoo>

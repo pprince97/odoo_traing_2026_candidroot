@@ -18,7 +18,6 @@ patch(PaymentScreen.prototype, {
        const order = this.currentOrder;
        if (order && !order.table_left) {
            order.table_left = new Date().toISOString().replace('T', ' ').slice(0, 19);
-           console.log(`>>>>>>>>>>>>>>>>>>>>>`,order.table_left);
        }
        return await super.validateOrder(isForceValidate);
    }
