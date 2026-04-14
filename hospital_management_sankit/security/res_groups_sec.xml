@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Groups Category        -->
+        <record model="ir.module.category" id="hospital_management_groups_catgory">
+            <field name="name">Hospital Management</field>
+            <field name="sequence">35</field>
+        </record>
+
+        <!-- Group Privilage        -->
+        <record model="res.groups.privilege" id="res_groups_privilege_hospital">
+            <field name="name">Hospital</field>
+            <field name="sequence">1</field>
+            <field name="category_id" ref="hospital_management_sankit.hospital_management_groups_catgory"/>
+        </record>
+
+        <!-- Groups        -->
+
+        <record id="group_hospital_patient" model="res.groups">
+            <field name="name">Patient</field>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+        </record>
+
+        <record id="group_hospital_doctor" model="res.groups">
+            <field name="name">Doctor</field>
+            <field name="sequence">11</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+        </record>
+
+        <record id="group_hospital_admin" model="res.groups">
+            <field name="name">Admin</field>
+
+            <field name="sequence">20</field>
+            <field name="privilege_id" ref="res_groups_privilege_hospital"/>
+            <field name="implied_ids" eval="[(4, ref('group_hospital_doctor')),(4, ref('group_hospital_patient'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="group_hospital_patient_appointment" model="ir.rule">
+            <field name="name">Appointment of this patient</field>
+            <field name="model_id" ref="hospital_management_sankit.model_hospital_appointment"/>
+            <field name="domain_force">['|', ('patient_id', '=', user.id), ('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_hospital_patient'))]"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+
+        <record id="group_hospital_admin_apppointment" model="ir.rule">
+            <field name="name">Appointment of this Admin access</field>
+            <field name="model_id" ref="hospital_management_sankit.model_hospital_appointment"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_hospital_admin'))]"/>
+        </record>
+
+
+        <record id="group_hospital_doctor_doctor" model="ir.rule">
+            <field name="name">Doctor of this doctor</field>
+            <field name="model_id" ref="hospital_management_sankit.model_res_partner"/>
+            <field name="domain_force">['|', ('name', '=', user.name), ('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_hospital_doctor'))]"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="group_hospital_admin_doctor" model="ir.rule">
+            <field name="name">Doctor of this Admin </field>
+            <field name="model_id" ref="hospital_management_sankit.model_res_partner"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_hospital_admin'))]"/>
+        </record>
+
+
+        <record id="group_hospital_doctor_apppointment" model="ir.rule">
+            <field name="name">Appointment of this Doctor access</field>
+            <field name="model_id" ref="hospital_management_sankit.model_hospital_appointment"/>
+            <field name="domain_force">[('doctor_id', '=', user.name)]</field>
+            <field name="groups" eval="[(4, ref('group_hospital_doctor'))]"/>
+        </record>
+    </data>
+</odoo>

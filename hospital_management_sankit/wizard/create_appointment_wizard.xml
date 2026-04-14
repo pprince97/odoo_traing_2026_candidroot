@@ -1,0 +1,55 @@
+<odoo>
+    <record id="create_appointment_wizard_form" model="ir.ui.view">
+        <field name="name">create.appointment.form.view</field>
+        <field name="model">wizard.create_appointment_wizard</field>
+<!--        <field name="context">{'default_patient_id': patient_id}</field>-->
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+
+                        <field name="patient_id"/>
+
+
+                        <field name="hospital_id" invisible="department_id or doctor_id"/>
+                            <field name="hospital_id" domain="[('department_ids', 'in', department_id)]"
+                                   invisible="not department_id or doctor_id"/>
+                            <field name="hospital_id" domain="[('doctor_ids', 'in', doctor_id)]"
+                                   invisible="not doctor_id or department_id"/>
+                            <field name="hospital_id"
+                                   domain="[('doctor_ids', 'in', doctor_id) , ('department_ids', 'in', department_id)]"
+                                   invisible="not doctor_id or not department_id"/>
+
+
+                            <field name="department_id" invisible="hospital_id or doctor_id"/>
+                            <field name="department_id" domain="[('hospital_ids', 'in', hospital_id)]"
+                                   invisible="not hospital_id or doctor_id"/>
+                            <field name="department_id" domain="[('doctor_ids', 'in', doctor_id)]"
+                                   invisible="not doctor_id or hospital_id"/>
+                            <field name="department_id"
+                                   domain="[('doctor_ids', 'in', doctor_id) , ('hospital_ids', 'in', hospital_id)]"
+                                   invisible="not doctor_id or not hospital_id"/>
+
+
+                            <field name="doctor_id" invisible="department_id or hospital_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                            <field name="doctor_id" domain="[('hospital_id', '=', hospital_id)]"
+                                   invisible="not hospital_id or department_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                            <field name="doctor_id" domain="[('department_id', '=', department_id)]"
+                                   invisible="not department_id or hospital_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                            <field name="doctor_id"
+                                   domain="[('department_id', '=', department_id) , ('hospital_id', '=', hospital_id)]"
+                                   invisible="not department_id or not hospital_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                    </group>
+                    <footer>
+                        <button type="object" string="Create Appointment" name="appointment_create"/>
+                    </footer>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

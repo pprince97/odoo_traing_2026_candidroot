@@ -1,0 +1,14 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_hospital_department,hospital_department,model_hospital_department,,1,1,1,1
+access_hospital_hospital_group_admin,hospital_hospital,model_hospital_hospital,,1,1,1,1
+
+access_hospital_appointment,hospital_appointment,model_hospital_appointment,hospital_management_sankit.group_hospital_admin,1,1,1,1
+hospital_management_sankit.access_wizard_create_appointment_wizard,access_wizard_create_appointment_wizard,hospital_management_sankit.model_wizard_create_appointment_wizard,base.group_user,1,1,1,1
+
+
+access_hospital_appointment_group_patient,hospital_appointment,model_hospital_appointment,hospital_management_sankit.group_hospital_patient,1,1,1,0
+access_hospital_appointment_group_doctor,hospital_appointment,model_hospital_appointment,hospital_management_sankit.group_hospital_doctor,1,1,1,0
+
+
+
+

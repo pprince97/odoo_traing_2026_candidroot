@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_patient_document">
+        <t t-call="web.external_layout">
+            <t t-esc="docs"/>
+<!--            <t t-esc="docs_ids"/>-->
+<!--            <t t-esc="doc_model"/>-->
+            <t t-foreach="docs" t-as="rec">
+                <h6>
+                    <span t-field="rec.name"/>
+                </h6>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_patient">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="hospital_management_sankit.report_patient_document" t-lang="doc.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_patient" model="ir.actions.report">
+        <field name="name">patient Report</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital_management_sankit.report_patient</field>
+        <field name="report_file">hospital_management_sankit.report_patient</field>
+        <field name="print_report_name">'patient'</field>
+        <field name="binding_model_id" ref="sale.model_res_partner"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

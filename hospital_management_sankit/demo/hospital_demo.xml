@@ -1,0 +1,53 @@
+<odoo>
+
+
+    <!-- Patient -->
+    <record id="demo_patient_1" model="res.partner">
+        <field name="name">John Doe</field>
+    </record>
+
+    <!-- Appointment linked to patient -->
+    <record id="demo_appointment_1" model="hospital.appointment">
+        <field name="patient_id" ref="demo_patient_1"/>
+    </record>
+
+
+    <record id="demo_department_2" model="hospital.department">
+        <field name="department_name">Medical Checkup</field>
+    </record>
+
+    <record id="demo_hospital_2" model="hospital.hospital">
+        <field name="hospital_name">HCS Hospital</field>
+        <field name="department_ids" eval="[(6,0,[
+                ref('demo_department_2')
+            ])]"/>
+    </record>
+
+    <!--     <record id="demo_hospital_4" model="hospital.hospital">-->
+    <!--        <field name="hospital_name">HCS Hospital123</field>-->
+    <!--    </record>-->
+
+
+    <record id="demo_hospital_1" model="hospital.hospital">
+        <field name="hospital_name">Zydus Hospital</field>
+        <field name="appointment_ids" eval="[(4, ref('demo_appointment_1'))]"/>
+    </record>
+
+    <!--    <record id="demo_hospital_12" model="hospital.hospital">-->
+    <!--        <field name="hospital_name">Zydus Hospital</field>-->
+    <!--&lt;!&ndash;        <field name="appointment_ids" eval="[(4, ref('demo_appointment_1'))]"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;        <field name="department_ids" eval="[Command.clear(), Command.create({'department_name': 'balance'})]"/>&ndash;&gt;-->
+    <!--        <field name="department_ids" eval="[Command.clear(),Command.link([ref('demo_hospital_2'), ref('demo_department_2')])]"/>-->
+    <!--    </record>-->
+
+    <!--<field name="department_ids"-->
+    <!--       eval="[-->
+    <!--            Command.link(ref('demo_department_1')),-->
+    <!--            Command.link(ref('demo_department_2'))-->
+    <!--       ]"/>-->
+
+
+    <!--    <field name="category_ids" eval="[Command.set([ref('employee_category_4'), ref('employee_category_3')])]"/>-->
+
+
+</odoo>

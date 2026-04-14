@@ -1,0 +1,67 @@
+<odoo>
+    <record id="hospital_hospital_list_view" model="ir.ui.view">
+        <field name="name">hospital list</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hospital_name"/>
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="registration_number"/>
+                <field name="department_ids"/>
+            </list>
+        </field>
+    </record>
+    <record id="hospital_hospital_form_view" model="ir.ui.view">
+        <field name="name">hospital form</field>
+        <field name="model">hospital.hospital</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="hospital_name"/>
+                            <field name="address"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="registration_number"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Department">
+                            <field name="department_ids"/>
+                        </page>
+                        <page string="Doctor">
+                            <field name="doctor_ids"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                        </page>
+                        <page string="Patient">
+                            <field name="patient_ids"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_patient_form_view'}"/>
+                        </page>
+                        <page string="Appointment">
+                            <field name="appointment_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hospital_hospital_window_action_menu" model="ir.actions.act_window">
+        <field name="name">Hospital Menu</field>
+        <field name="res_model">hospital.hospital</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="hospital_menu_root" name="Hospital Management System"/>
+
+
+    <menuitem id="hospital_hospital_menu"
+              name="Hospital"
+              action="hospital_hospital_window_action_menu"
+              parent="hospital_menu_root"
+              groups="hospital_management_sankit.group_hospital_admin"/>
+</odoo>

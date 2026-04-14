@@ -1,0 +1,143 @@
+<odoo>
+    <record id="hospital_appointment_search_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.search.view</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="hospital_id"/>
+                <field name="patient_id"/>
+                <field name="department_id"/>
+                <field name="doctor_id"/>
+                <field name="status"/>
+
+                <filter string="Today's" name="appointment_date" domain="[('appointment_date','=',context_today())]"/>
+            </search>
+        </field>
+    </record>
+    <record id="hospital_appointment_list_view" model="ir.ui.view">
+        <field name="name">Appointment List</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hospital_id"/>
+                <field name="patient_id"/>
+                <field name="department_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="patient_address"/>
+                <field name="patient_dob"/>
+                <field name="patient_age"/>
+                <field name="patient_phone"/>
+                <field name="patient_email"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <record id="hospital_appointment_form_view" model="ir.ui.view">
+        <field name="name">Appointment form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <button
+                            name="draft_state"
+                            string="In Progress"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['in_progress','done','cancel']"
+                    />
+                    <button
+                            name="in_progress_state"
+                            string="Done"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['draft','done','cancel']"
+                    />
+                    <button
+                            name="done_state"
+                            string="Cancel"
+                            type="object"
+                            class="oe_highlight"
+
+                    />
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,done,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_hospital_record" type="object" icon="fa-users">
+                            <field string="Appointment" name="appointment_count" widget="statinfo"/>
+                            <!--                            <field string="Appointment" name="patient_id" widget="statinfo"/>-->
+                            <!--                            <field string="Appointment" name="doctor_id" widget="statinfo"/>-->
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_patient_form_view'}"/>
+                            <field name="appointment_date"/>
+
+                            <!--                            <field name="hospital_id"/>-->
+                            <!--                            <field name="department_id" />-->
+                            <!--                            <field name="doctor_id"-->
+                            <!--                                    context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>-->
+                            <field name="hospital_id" invisible="department_id or doctor_id"/>
+                            <field name="hospital_id" domain="[('department_ids', 'in', department_id)]"
+                                   invisible="not department_id or doctor_id"/>
+                            <field name="hospital_id" domain="[('doctor_ids', 'in', doctor_id)]"
+                                   invisible="not doctor_id or department_id"/>
+                            <field name="hospital_id"
+                                   domain="[('doctor_ids', 'in', doctor_id) , ('department_ids', 'in', department_id)]"
+                                   invisible="not doctor_id or not department_id"/>
+
+
+                            <field name="department_id" invisible="hospital_id or doctor_id"/>
+                            <field name="department_id" domain="[('hospital_ids', 'in', hospital_id)]"
+                                   invisible="not hospital_id or doctor_id"/>
+                            <field name="department_id" domain="[('doctor_ids', 'in', doctor_id)]"
+                                   invisible="not doctor_id or hospital_id"/>
+                            <field name="department_id"
+                                   domain="[('doctor_ids', 'in', doctor_id) , ('hospital_ids', 'in', hospital_id)]"
+                                   invisible="not doctor_id or not hospital_id"/>
+
+
+                            <field name="doctor_id" invisible="department_id or hospital_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                            <field name="doctor_id" domain="[('hospital_id', '=', hospital_id)]"
+                                   invisible="not hospital_id or department_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                            <field name="doctor_id" domain="[('department_id', '=', department_id)]"
+                                   invisible="not department_id or hospital_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+                            <field name="doctor_id"
+                                   domain="[('department_id', '=', department_id) , ('hospital_id', '=', hospital_id)]"
+                                   invisible="not department_id or not hospital_id"
+                                   context="{'form_view_ref':'hospital_management_sankit.hospital_doctor_form_view'}"/>
+
+
+                        </group>
+                        <group>
+                            <field name="patient_address" force_save="1"/>
+                            <field name="patient_dob" force_save="1"/>
+                            <field name="patient_age" force_save="1"/>
+                            <field name="patient_phone" force_save="1"/>
+                            <field name="patient_email" force_save="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hospital_appointment_window_action_menu" model="ir.actions.act_window">
+        <field name="name">Appointment menu</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    <menuitem id="hospital_menu_root" name="Hospital Management System"/>
+
+    <menuitem id="hospital_appointment_menu"
+              name="Appointment"
+              action="hospital_appointment_window_action_menu"
+              parent="hospital_menu_root"
+              />
+</odoo>
