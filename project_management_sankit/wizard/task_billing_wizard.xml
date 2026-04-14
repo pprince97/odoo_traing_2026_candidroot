@@ -1,0 +1,17 @@
+<odoo>
+    <record id="task_billing_wizard_form" model="ir.ui.view">
+        <field name="name">task.billing.wizard.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+<!--        <field name="context">{'default_patient_id': patient_id}</field>-->
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">-->
+<!--                <field name='task_manager_id'/>-->
+<!--            </xpath>-->
+            <sheet>
+
+            </sheet>
+        </field>
+    </record>
+
+</odoo>

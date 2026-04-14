@@ -1,0 +1,41 @@
+<odoo>
+    <record id="rate_calculation_list_view" model="ir.ui.view">
+        <field name="name">rate.calculation.list</field>
+        <field name="model">project.rate_calculation</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="from_hour"/>
+                <field name="to_hour"/>
+                <field name="rate"/>
+            </list>
+        </field>
+    </record>
+    <record id="rate_calculation_form_view" model="ir.ui.view">
+        <field name="name">rate.calculation.form</field>
+        <field name="model">project.rate_calculation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="from_hour"/>
+                        <field name="to_hour"/>
+                        <field name="rate"/>
+                        <field name="projects_id" force_save="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rate_calculation_action" model="ir.actions.act_window">
+        <field name="name">Rate</field>
+        <field name="res_model">project.rate_calculation</field>
+        <field name="view_mode">list</field>
+    </record>
+
+<!--    <menuitem id="rate_calculation_menu"-->
+<!--              name="Rate"-->
+<!--              parent="project_menu_root"-->
+<!--              action="rate_calculation_action"-->
+<!--    groups="project_management_sankit.group_project_assignees"/>-->
+</odoo>

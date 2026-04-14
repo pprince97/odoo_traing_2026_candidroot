@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_task_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Task Report</h2>
+
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>Timesheet Code</th>
+                            <th>Task</th>
+                            <th>Assignee</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Spend Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="rec">
+                            <tr>
+                                <td>
+                                    <span t-field="rec.timesheet_code"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.tasks_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.timesheet_assignees_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.start_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.end_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.spend_hours"/>
+                                </td>
+                            </tr>
+
+<!--                            <tr>-->
+<!--                                <td colspan="5">-->
+
+<!--                                </td>-->
+<!--                                <td colspan="1">-->
+<!--                                    <strong>Description:</strong>-->
+<!--                                    <div t-field="rec.description"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+
+                        </t>
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="report_tasks">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="project_management_sankit.report_task_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_tasks" model="ir.actions.report">
+        <field name="name">Task Report</field>
+        <field name="model">project.timesheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">project_management_sankit.report_tasks</field>
+        <field name="report_file">project_management_sankit.report_tasks</field>
+        <field name="print_report_name">'tasks'</field>
+        <field name="binding_model_id" ref="model_project_timesheet"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>
