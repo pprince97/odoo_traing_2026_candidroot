@@ -19,12 +19,6 @@ class ServiceRequestPortal(CustomerPortal):
             download=True
         )
 
-    def _prepare_home_portal_values(self, counters):
-        values = super()._prepare_home_portal_values(counters)
-        if 'service_count' in counters:
-            values['service_count'] = request.env['service.request'].search_count([])
-        return values
-
     @http.route(['/my/service-requests', '/my/service-requests/page/<int:page>'], type='http', auth="user",
                 website=True)
     def portal_my_service_requests(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw):
@@ -38,9 +32,12 @@ class ServiceRequestPortal(CustomerPortal):
             base_domain = [('customer_id', '=', user.partner_id.id)]
         else:
             base_domain = [('id', '=', 0)]
+        # base_domain = []
         searchbar_sortings = {
             'date': {'label': 'Newest', 'order': 'service_date desc'},
-            'name': {'label': 'Reference', 'order': 'name'},
+            'name': {'label': 'Serial Number', 'order': 'name'},
+            'company_id': {'label': 'Company', 'order': 'company_id'},
+            'category_id': {'label': 'Category', 'order': 'category_id desc'},
         }
         if not sortby:
             sortby = 'date'
@@ -54,12 +51,6 @@ class ServiceRequestPortal(CustomerPortal):
         if not filterby:
             filterby = 'all'
         domain = searchbar_filters.get(filterby, searchbar_filters.get('all'))['domain']
-        # if kw.get('company_id'):
-        #     domain += [('company_id', '=', int(kw.get('company_id')))]
-        # if kw.get('category_id'):
-        #     domain += [('category_id', '=', int(kw.get('category_id')))]
-        # if date_begin and date_end:
-        #     domain += [('service_date', '>', date_begin), ('service_date', '<=', date_end)]
         ServiceRequest = request.env['service.request'].sudo()
         service_count = ServiceRequest.search_count(domain)
         pager = request.website.pager(
@@ -83,4 +74,3 @@ class ServiceRequestPortal(CustomerPortal):
             'filterby': filterby,
         })
         return request.render("service_management_rushvi.service_requests_template", values)
-

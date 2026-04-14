@@ -4,7 +4,6 @@ import {AttachmentDialog} from "./attachment_dialog";
 
 patch(FormController.prototype, {
     async beforeExecuteActionButton(params) {
-        debugger
         if (params.name === "attachment_button") {
             const composerContext = this.props.context;
             const active_model = composerContext.default_model; //sale.order

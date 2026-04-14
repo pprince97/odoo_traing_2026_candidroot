@@ -26,3 +26,4 @@ odoo.define('library_management_rushvi.collection_filter', function (require) {
             window.location.search = params.toString();
         },
     });
+});

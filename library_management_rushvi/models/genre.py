@@ -1,4 +1,4 @@
-from odoo import model,fields,api
+from odoo import models,fields,api
 
 class Genre(models.Model):
     _name = 'library.genre'

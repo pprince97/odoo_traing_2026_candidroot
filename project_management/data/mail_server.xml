@@ -1,0 +1,12 @@
+<odoo>
+    <record id="smtp_server_gmail" model="ir.mail_server">
+        <field name="name">Gmail SMTP</field>
+        <field name="smtp_host">smtp.gmail.com</field>
+        <field name="smtp_port">587</field>
+        <field name="smtp_encryption">starttls</field>
+        <field name="smtp_user">your_email@gmail.com</field>
+        <field name="smtp_pass">your_app_password</field>
+        <field name="sequence">10</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

@@ -13,6 +13,7 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        # 'data/mail_server.xml',
         'demo/stage_demo.xml',
         'views/project_project_view.xml',
         'views/project_task_view.xml',
