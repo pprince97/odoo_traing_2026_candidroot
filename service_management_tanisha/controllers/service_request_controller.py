@@ -36,3 +36,19 @@ class ServiceRequestController(http.Controller):
     def tile_service_requests(self):
         res_user_id = self.env['res.users'].context_get()['uid']
         return request.render('service_management_tanisha.my_service_requests_list', {'service_requests': self.env['service.request'].search(['|',('customer_id','=',res_user_id),('company_id.owner_id','=',res_user_id)])})
+
+
+#
+# @api.model_create_multi
+# def create(self, vals):
+#     res = super().create(vals)
+#
+#     for rec in res:
+#
+#         if self.env.context.get('customer'):
+#             rec.group_ids = [Command.set([self.env.ref('service_management_urvi.group_service_customer').id])]
+#
+#         if self.env.context.get('owner'):
+#             rec.group_ids = [Command.set([self.env.ref('service_management_urvi.group_service_owner').id])]
+#
+#     return res

@@ -29,20 +29,44 @@ class BookBackend(http.Controller):
         return request.redirect('/library-book')
 
     @http.route(['/library-book','/library-book/page/<int:page>'], type="http", auth='public', website=True)
-    def display_book_data(self, page=1, **post):
-        books = self.env['library.book'].search([])
+    def display_book_data(self, page=1, search='', **post):
+        domain = []
+        search_term = post.get('search', search)
+        if search_term:
+            domain += [('name', 'ilike', search_term)]
+        book_count = request.env['library.book'].search_count(domain)
         pager = request.website.pager(
             url='/library-book',
-            total=len(books),
+            total=book_count,
             page=page,
             step=3,
+            url_args={'search': search_term} if search_term else {},
         )
-        offset = pager['offset']
-        book_obj = books[offset: offset + 3]
+        books = self.env['library.book'].search(
+            domain,
+            limit = 3,
+            offset = pager['offset'],
+            order = 'name asc'
+        )
         return request.render('library_management_tanisha.book_website_template', {
-            'books': book_obj,
+            'books': books,
             'pager': pager,
+            'search': search_term,
         })
+
+    # books = self.env['library.book'].search([])
+        # pager = request.website.pager(
+        #     url='/library-book',
+        #     total=len(books),
+        #     page=page,
+        #     step=3,
+        # )
+        # offset = pager['offset']
+        # book_obj = books[offset: offset + 3]
+        # return request.render('library_management_tanisha.book_website_template', {
+        #     'books': book_obj,
+        #     'pager': pager,
+        # })
 
     @http.route('/library-borrow-request', type="http", auth='public', website=True)
     def display_borrow_request_data(self):

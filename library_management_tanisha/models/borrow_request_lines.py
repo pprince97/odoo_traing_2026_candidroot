@@ -32,12 +32,18 @@ class LibraryBorrowRequestLines(models.Model):
             else:
                 book.issue_days = 0
 
-    @api.onchange('return_date','issue_date')
+    @api.constrains('return_date','issue_date')
     def _onchange_return_date(self):
         for book in self:
             if book.return_date:
                 if book.issue_days > book.book_id.max_day_limit:
                     raise ValidationError(_("Return date is greater than max day limit!!!!"))
+
+    @api.onchange('issue_date','return_date')
+    def _onchange_issue_return(self):
+        for book in self:
+            if book.issue_date > book.return_date:
+                raise ValidationError(_("Issue date must be less than return date!!!!"))
 
     @api.depends('amount_per_unit_per_day')
     def _compute_total_amount(self):

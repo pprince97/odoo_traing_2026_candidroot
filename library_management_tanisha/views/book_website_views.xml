@@ -1,100 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<!--    <template id="book_website_template" name="Book">-->
-<!--        <t t-call="website.layout">-->
-<!--            <div class="container">-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-6">-->
-<!--                        <h3>Book Details</h3>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-6 text-end">-->
-<!--                        <a href="/book" class="btn btn-primary">Register Book</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <table class="table">-->
-<!--                    <thead>-->
-<!--                        <tr>-->
-<!--                            <th>Name</th>-->
-<!--                            <th>Barcode</th>-->
-<!--                            <th>State</th>-->
-<!--                            <th>Category</th>-->
-<!--                            <th>Available copies</th>-->
-<!--                            <th>Stock</th>-->
-<!--&lt;!&ndash;                            <td>Borrow price</td>&ndash;&gt;-->
-<!--                            <th>Max day limit</th>-->
-<!--                            <th>Description</th>-->
-<!--                            <th>Cover image</th>-->
-<!--                        </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                        <t t-foreach="books" t-as="book">-->
-<!--                            <tr>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.name">-->
-<!--                                        <span t-field="book.name"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.barcode">-->
-<!--                                        <span t-field="book.barcode"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.state">-->
-<!--                                        <span t-field="book.state"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.category">-->
-<!--                                        <span t-field="book.category"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.available_copies">-->
-<!--                                        <span t-field="book.available_copies"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.stock">-->
-<!--                                        <span t-field="book.stock"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--&lt;!&ndash;                                <td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <t t-if="book.borrow_price">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <span t-field="book.borrow_price"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </t>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </td>&ndash;&gt;-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.max_day_limit">-->
-<!--                                        <span t-field="book.max_day_limit"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="book.description">-->
-<!--                                        <span t-field="book.description"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-if="image_data_uri(book.cover_image)">-->
-<!--                                        <img t-att-src="image_data_uri(book.cover_image)" alt="Cover Image" height="70px" width="100px"/>-->
-<!--                                    </t>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </t>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
-<!--        </t>-->
-<!--    </template>-->
+    <!--    <template id="book_website_template" name="Book">-->
+    <!--        <t t-call="website.layout">-->
+    <!--            <div class="container">-->
+    <!--                <div class="row mt-3">-->
+    <!--                    <div class="col-md-6">-->
+    <!--                        <h3>Book Details</h3>-->
+    <!--                    </div>-->
+    <!--                    <div class="col-md-6 text-end">-->
+    <!--                        <a href="/book" class="btn btn-primary">Register Book</a>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <table class="table">-->
+    <!--                    <thead>-->
+    <!--                        <tr>-->
+    <!--                            <th>Name</th>-->
+    <!--                            <th>Barcode</th>-->
+    <!--                            <th>State</th>-->
+    <!--                            <th>Category</th>-->
+    <!--                            <th>Available copies</th>-->
+    <!--                            <th>Stock</th>-->
+    <!--&lt;!&ndash;                            <td>Borrow price</td>&ndash;&gt;-->
+    <!--                            <th>Max day limit</th>-->
+    <!--                            <th>Description</th>-->
+    <!--                            <th>Cover image</th>-->
+    <!--                        </tr>-->
+    <!--                    </thead>-->
+    <!--                    <tbody>-->
+    <!--                        <t t-foreach="books" t-as="book">-->
+    <!--                            <tr>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.name">-->
+    <!--                                        <span t-field="book.name"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.barcode">-->
+    <!--                                        <span t-field="book.barcode"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.state">-->
+    <!--                                        <span t-field="book.state"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.category">-->
+    <!--                                        <span t-field="book.category"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.available_copies">-->
+    <!--                                        <span t-field="book.available_copies"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.stock">-->
+    <!--                                        <span t-field="book.stock"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--&lt;!&ndash;                                <td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                                    <t t-if="book.borrow_price">&ndash;&gt;-->
+    <!--&lt;!&ndash;                                        <span t-field="book.borrow_price"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;                                    </t>&ndash;&gt;-->
+    <!--&lt;!&ndash;                                </td>&ndash;&gt;-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.max_day_limit">-->
+    <!--                                        <span t-field="book.max_day_limit"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="book.description">-->
+    <!--                                        <span t-field="book.description"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                                <td>-->
+    <!--                                    <t t-if="image_data_uri(book.cover_image)">-->
+    <!--                                        <img t-att-src="image_data_uri(book.cover_image)" alt="Cover Image" height="70px" width="100px"/>-->
+    <!--                                    </t>-->
+    <!--                                </td>-->
+    <!--                            </tr>-->
+    <!--                        </t>-->
+    <!--                    </tbody>-->
+    <!--                </table>-->
+    <!--            </div>-->
+    <!--        </t>-->
+    <!--    </template>-->
 
     <template id="book_website_template" name="Book">
         <t t-call="website.layout">
             <div class="container">
                 <form action="/library-book" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            <h3>Book Details</h3>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h3>Books</h3>
+                                </div>
+                                <div class="col-md-9">
+                                    <div role="search">
+
+                                        <input type="search" name="search"
+                                               class="search-query form-control oe_search_box border-0 bg-light"
+                                               placeholder="Search..." style="width: 300px">
+                                        </input>
+                                    </div>
+                                    <!--                        <t t-call="portal.portal_searchbar">-->
+                                    <!--                            <t t-set="title">Search...</t>-->
+                                    <!--                        </t>-->
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 text-end">
                             <a href="/book" class="btn btn-primary">Register Book</a>
@@ -105,27 +122,43 @@
                             <div class="col-md-3 border m-3">
                                 <div class="d-flex justify-content-center pt-3">
                                     <t t-if="image_data_uri(book.cover_image)">
-                                        <img t-att-src="image_data_uri(book.cover_image)" alt="Cover Image" height="100px" width="100px"/>
+                                        <img t-att-src="image_data_uri(book.cover_image)" alt="Cover Image"
+                                             height="100px" width="100px"/>
                                     </t>
                                 </div>
                                 <div class="pt-3">
                                     <t t-if="book.name">
-                                        <p>Name: <span t-field="book.name"/></p>
+                                        <p>Name:
+                                            <span t-field="book.name"/>
+                                        </p>
                                     </t>
                                     <t t-if="book.barcode">
-                                        <p>Barcode: <span t-field="book.barcode"/></p>
+                                        <p>Barcode:
+                                            <span t-field="book.barcode"/>
+                                        </p>
                                     </t>
                                     <t t-if="book.category">
-                                        <p>Category: <span t-field="book.category"/></p>
+                                        <p>Category:
+                                            <span t-field="book.category"/>
+                                        </p>
                                     </t>
                                     <t t-if="book.state">
-                                        <p>State: <span t-field="book.state"/></p>
+                                        <p>State:
+                                            <span t-field="book.state"/>
+                                        </p>
+                                    </t>
+                                    <t t-if="book.borrow_price">
+                                        <p>Price:
+                                            <span t-field="book.borrow_price"
+                                                  t-options="{'widget': 'monetary', 'display_currency': book.currency_id or res_company.currency_id}"/>
+                                            /day
+                                        </p>
                                     </t>
                                 </div>
                             </div>
                         </t>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row my-3">
                         <div class="col-12">
                             <t t-call="portal.pager">
                                 <t t-set="classname" t-value="'d-flex justify-content-center'"/>
