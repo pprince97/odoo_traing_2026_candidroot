@@ -1,6 +1,5 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
-from pygments.lexer import default
 
 
 class Books(models.Model):
@@ -44,16 +43,16 @@ class Books(models.Model):
         self.env['ir.config_parameter'].sudo().get_param('library_management.fines_amounts_book', 0.0)
     ))
 
-    def _compute_fine_amount(self):
-        param = self.env['ir.config_parameter'].sudo().get_param('library_management.fines_amounts_book')
-
-        for rec in self:
-            if rec.fine_amount:
-                rec.fine_amount = rec.fine_amount
-            else:
-                rec.fine_amount = param
-
-            print(rec.fine_amount)
+    # def _compute_fine_amount(self):
+    #     param = self.env['ir.config_parameter'].sudo().get_param('library_management.fines_amounts_book')
+    #
+    #     for rec in self:
+    #         if rec.fine_amount:
+    #             rec.fine_amount = rec.fine_amount
+    #         else:
+    #             rec.fine_amount = param
+    #
+    #         print(rec.fine_amount)
 
 
     borrowed_count = fields.Integer(string='Borrowed Count', compute='get_all_books_data')
@@ -106,14 +105,11 @@ class Books(models.Model):
 
             rec.books_count = f"{rec.available_copies} / {rec.stock}"
 
-
-
+    # Add history button
     book_cover_name = fields.Char(string='Book Cover Name', tracking=True)
     cover_image = fields.Binary(string='Cover Image')
 
     history_ids = fields.One2many('file.upload.history', 'book_id', string="File History")
-
-
 
     @api.onchange('cover_image')
     def action_upload_file(self):

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fleet_vehicle_tree_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tree.view</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="state_id"/>
+                <field name="driver_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_form_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.view</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Fleet Vehicle">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="license_plate"/>
+                    </group>
+                    <group>
+                        <field name="state_id"/>
+                        <field name="driver_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_action_window" model="ir.actions.act_window">
+        <field name="name">Fleet Vehicles</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="fleet_vehicle_state_tree_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.state.tree.view</field>
+        <field name="model">fleet.vehicle.state</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_state_form_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.state.form.view</field>
+        <field name="model">fleet.vehicle.state</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle State">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_state_action_window" model="ir.actions.act_window">
+        <field name="name">Vehicle States</field>
+        <field name="res_model">fleet.vehicle.state</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="fleet_vehicle_menu"
+              name="Fleet Vehicles"
+              parent="library_menu_root"
+              action="fleet_vehicle_action_window"/>
+
+    <menuitem id="fleet_vehicle_state_menu"
+              name="Vehicle States"
+              parent="library_menu_root"
+              action="fleet_vehicle_state_action_window"/>
+</odoo>

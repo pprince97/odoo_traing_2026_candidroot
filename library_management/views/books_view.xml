@@ -111,8 +111,10 @@
 
                     <notebook>
                         <page name="Cover Image">
-                            <field name="book_cover_name" invisible="1"/>
-                            <field name="cover_image" filename="book_cover_name"/>
+                            <group>
+                                <field name="book_cover_name" invisible="1"/>
+                                <field name="cover_image" filename="book_cover_name"/>
+                            </group>
                         </page>
 
                         <page string="File Upload History" name="file_upload_history">

@@ -22,3 +22,6 @@ access_student_partner_record,admin.student.record,model_res_partner,library_man
 access_file_upload_history,file.upload.history,model_file_upload_history,,1,1,1,1
 
 access_user_profile,user.profile,model_user_profile,,1,1,1,1
+
+access_fleet_vehicle,fleet.vehicle,model_fleet_vehicle,,1,1,1,1
+access_fleet_vehicle_state,fleet.vehicle.state,model_fleet_vehicle_state,,1,1,1,1

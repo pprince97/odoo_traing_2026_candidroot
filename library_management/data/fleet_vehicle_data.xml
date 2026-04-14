@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+     <record id="fleet_vehicle_state_registered" model="fleet.vehicle.state">
+        <field name="name">Registered</field>
+    </record>
+    <record id="fleet_vehicle_state_downgraded" model="fleet.vehicle.state">
+        <field name="name">Downgraded</field>
+    </record>
+    <record id="fleet_vehicle_data_state_registered" model="fleet.vehicle.state">
+        <field name="name">Registered</field>
+    </record>
+    <record id="fleet_vehicle_data_state_downgraded" model="fleet.vehicle.state">
+        <field name="name">Downgraded</field>
+    </record>
+    <record id="fleet_vehicle_data_state_maintenance" model="fleet.vehicle.state">
+        <field name="name">Maintenance</field>
+    </record>
+
+    <record id="fleet_vehicle_demo_1" model="fleet.vehicle">
+        <field name="name">Fleet Car 1</field>
+        <field name="license_plate">ABC-1234</field>
+        <field name="state_id" ref="fleet_vehicle_state_registered"/>
+        <field name="driver_id" ref="student_demo_data1"/>
+    </record>
+
+    <record id="fleet_vehicle_demo_2" model="fleet.vehicle">
+        <field name="name">Fleet Car 2</field>
+        <field name="license_plate">XYZ-5678</field>
+        <field name="state_id" ref="fleet_vehicle_state_downgraded"/>
+        <field name="driver_id" ref="student_demo_data2"/>
+    </record>
+
+    <record id="fleet_vehicle_sample_1" model="fleet.vehicle">
+        <field name="name">Fleet Car Alpha</field>
+        <field name="license_plate">XYZ-0001</field>
+        <field name="state_id" ref="fleet_vehicle_data_state_registered"/>
+    </record>
+
+    <record id="fleet_vehicle_sample_2" model="fleet.vehicle">
+        <field name="name">Fleet Car Beta</field>
+        <field name="license_plate">XYZ-0002</field>
+        <field name="state_id" ref="fleet_vehicle_data_state_downgraded"/>
+    </record>
+
+    <record id="fleet_vehicle_sample_3" model="fleet.vehicle">
+        <field name="name">Fleet Car Gamma</field>
+        <field name="license_plate">XYZ-0003</field>
+        <field name="state_id" ref="fleet_vehicle_data_state_maintenance"/>
+    </record>
+</odoo>

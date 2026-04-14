@@ -17,7 +17,7 @@
                     <div class="container s_allow_columns">
                         <div class="row">
                             <div class="col-lg-6 mt-2 mt-lg-0 container w-72 mx-auto">
-                                <form class="row g-3" action="/book-create" method="post" id="bookForm">
+                                <form class="row g-3" action="/book-create" enctype="multipart/form-data" method="post" id="bookForm">
                                     <!--                                        onSubmit="return confirm('Do you want to submit?') "-->
 
                                     <div class="col-md-9">
@@ -172,6 +172,11 @@
                     <h3 class="mb-4 text-center">Welcome to Library Management</h3>
                     <form action="/book/form" method="get">
                         <button type="submit" class="btn btn-primary">Create Record</button>
+
+<!--                        download book data-->
+                        <a href="/book/print" class="btn btn-warning">
+                            <i class="fa fa-download"/> Download Report
+                        </a>
                     </form>
 
                     <br/>
@@ -332,6 +337,7 @@
         </xpath>
     </template>
 
+<!--    HomePage-->
     <template id="custom_snippet_template" name="Custom Snippet">
         <section class="s_custom_snippet">
             <div class="container">

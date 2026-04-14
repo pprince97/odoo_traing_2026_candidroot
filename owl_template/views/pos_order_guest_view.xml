@@ -39,7 +39,7 @@
     </record>
 
 
-    <menuitem id="owl_record"
+    <menuitem id="guest_record"
               name="Guest Details"
               parent="owl_parent_js"
               action="pos_guest_action_window"/>
