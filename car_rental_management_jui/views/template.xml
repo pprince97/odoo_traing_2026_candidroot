@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="car_rental_management_jui.inheritedaccountcarrental" name="Car Rental Bookings" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@id='portal_common_category']" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                    <t t-set="title">Car Rental Bookings</t>
+                    <t t-set="text">My Car Rental Bookings</t>
+                    <t t-set="url" t-value="'/my/car/rental/bookings'"/>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </xpath>
+    </template>
+
+    <record id="car_rental_management_jui.model_vehicle_booking" model="ir.model">
+      <field name="website_form_access">True</field>
+    </record>
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>vehicle.booking</value>
+        <value eval="[
+        'customer_id',
+        'booking_line_ids',
+        'rent_date',
+        'return_date',
+        'trip_place',
+        'no_of_days',
+        'state',
+        'damage_description',
+        'damage_charges',
+        'total_kms',
+        'total_cost',
+        'invoice_id',
+            ]"/>
+    </function>
+
+    <template id="car_rental_management_jui.car_rental_bookings_template_list" name="Customer Rental Bookings">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+
+                    <!-- HEADER -->
+                    <section class="title mb-5">
+                        <span class="bg-primary d-flex pt-4 pb-4"
+                              style="background-position: 50% 0;">
+                            <div class="container">
+                                <h1 class="text-white">Customer Rental Bookings</h1>
+                            </div>
+                        </span>
+                    </section>
+                    <div class="container">
+                        <div class="container">
+                            <table class="table table-hover mb-5 bg-white">
+                                <thead>
+                                    <tr class="active">
+                                        <th name="customer_id">Customer</th>
+                                        <th name="rent_date">Rent Date</th>
+                                        <th name="return_date">Return Date</th>
+                                        <th name="trip_place">Trip Place</th>
+                                        <th name="no_of_days">No of days</th>
+                                        <th name="state">State</th>
+                                        <th name="total_kms">Total Kms</th>
+                                        <th name="total_cost">Total Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="requests" t-as="req">
+                                        <tr>
+                                            <td><a t-attf-href="/my/car/rental/bookings/view/#{req.id}"><span t-field="req.customer_id"/></a></td>
+                                            <td><span t-field="req.rent_date" /></td>
+                                            <td><span t-field="req.return_date" /></td>
+                                            <td><span t-field="req.trip_place" /></td>
+                                            <td><span t-field="req.no_of_days" /></td>
+                                            <td><span t-field="req.state" /></td>
+                                            <td><span t-field="req.total_kms" /></td>
+                                            <td><span t-field="req.total_cost" /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center mt-3 mb-5">
+                                <t t-call="website.pager">
+                                    <t t-set="_classes">mt-2 ml-md-2</t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="car_rental_bookings_template_view" name="Car Rental Bookings">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container">
+                    <h1 class="mt-4">Booking Record Details</h1>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">Customer</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.customer_id.name"/>
+                                </div>
+
+                                <div class="col-sm-3">Trip Place</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.trip_place"/>
+                                </div>
+
+                                <div class="col-sm-3">No of days</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.no_of_days"/>
+                                </div>
+
+                                <div t-if="record.rent_date" class="col-sm-3">Rent Date</div>
+                                <div t-if="record.rent_date" class="col-sm-9">
+                                    <span t-field="record.rent_date"/>
+                                </div>
+
+                                <div t-if="record.return_date" class="col-sm-3">Return Date</div>
+                                <div t-if="record.return_date" class="col-sm-9">
+                                    <span t-field="record.return_date"/>
+                                </div>
+
+                                <div class="col-sm-3">State</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.state"/>
+                                </div>
+
+                                <div class="col-sm-3">Total Kms</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.total_kms"/>
+                                </div>
+
+                                <div class="col-sm-3">Total Cost</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.total_cost"/>
+                                </div>
+
+                                <div t-if="record.damage_charges" class="col-sm-3">Damage Charges</div>
+                                <div t-if="record.damage_charges" class="col-sm-9">
+                                    <span t-field="record.damage_charges"/>
+                                </div>
+
+                                <div t-if="record.damage_description" class="col-sm-3">Damage Description</div>
+                                <div t-if="record.damage_description" class="col-sm-9">
+                                    <span t-field="record.damage_description"/>
+                                </div>
+
+                            </div>
+
+                            <h6>Vehicles:</h6>
+                            <t t-if="record.booking_line_ids">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Vehicle</th>
+                                            <th>Start Km</th>
+                                            <th>End Km</th>
+                                            <th>Driver</th>
+                                            <th>Total Km</th>
+                                            <th>Total Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="record.booking_line_ids" t-as="line">
+                                            <tr>
+                                                <td>
+                                                    <t t-out="line.vehicle_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.start_km"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.end_km"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.driver_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.total_km"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.total_cost"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <p>No vehicles rented.</p>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <t t-if="record.state == 'paid'">
+                            <a t-attf-href="/my/rental/print/#{record.invoice_id.id}" class="btn btn-primary">
+                                Print Report
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

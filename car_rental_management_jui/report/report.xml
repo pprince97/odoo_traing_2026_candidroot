@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="car_rental_management_jui.report_invoice_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_invoice_document">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="rec">
+                <h6>
+                    <br/>
+                    <h3>Car Rental Invoice</h3>
+                    <h3 t-field="rec.display_name"/>
+                    <br/>
+                    <span t-field="rec.partner_id"/>
+                    <br/>
+                    <span t-field="rec.invoice_date"/>
+                    <br/>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><b>Name</b></th>
+                                <th class="text-end"><b>Quantity</b></th>
+                                <th class="text-end"><b>Price</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rec.invoice_line_ids" t-as="invoice">
+                                <tr>
+                                    <td>
+                                        <span t-field="invoice.name"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="invoice.quantity"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="invoice.price_unit"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <hr style="width:20%;margin-left:auto;margin-right:0;"/>
+                    <div class="text-end">
+                        <span>Total :    </span>
+                        <span t-field="rec.amount_residual"/>
+                    </div>
+
+                </h6>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_report_invoice" model="ir.actions.report">
+        <field name="name">Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">car_rental_management_jui.report_invoice</field>
+        <field name="report_file">car_rental_management_jui.report_invoice</field>
+        <field name="print_report_name">'Invoice'</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

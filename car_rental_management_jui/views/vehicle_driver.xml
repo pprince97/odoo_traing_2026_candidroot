@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="vehicle_driver_list" model="ir.ui.view">
+            <field name="name">Driver</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="name" width="30px"/>
+                <field name="licence_no" width="30px"/>
+                <field name="licence_document" width="15px"/>
+                <field name="phone" width="40px"/>
+                <field name="driver_per_day_rate" width="40px"/>
+                <field name="status" width="40px"/>
+            </list>
+            </field>
+        </record>
+
+        <record id="vehicle_driver_form" model="ir.ui.view">
+            <field name="name">Driver</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <sheet>
+                        <div name="button_box" position="inside">
+                            <button name="booking_history"
+                                    type="object"
+                                    class="btn-primary"
+                                    icon="fa-list">
+                                <field name="booking_history_count" string="Booking History" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="licence_no"/>
+                                <field name="licence_document" filename="file_name"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="driver_per_day_rate"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="vehicle_driver_action" model="ir.actions.act_window">
+            <field name="name">Driver</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'default_is_driver':1}</field>
+            <field name="domain">[('is_driver','=','1')]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="vehicle_driver_list_action">
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="vehicle_driver_list"/>
+            <field name="act_window_id" ref="vehicle_driver_action"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="vehicle_driver_form_action">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="vehicle_driver_form"/>
+            <field name="act_window_id" ref="vehicle_driver_action"/>
+        </record>
+
+
+        <menuitem id="vehicle_driver_menu" name="Driver" parent="car_rental_management_jui.car_rental_management_menu" action="vehicle_driver_action"  groups="car_rental_management_jui.car_rental_group_manager"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="car_rental_management_menu" name="Car Rental Management"/>
+    </data>
+</odoo>

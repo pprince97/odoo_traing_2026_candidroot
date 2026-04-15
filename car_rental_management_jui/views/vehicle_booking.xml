@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="vehicle_booking_list" model="ir.ui.view">
+            <field name="name">Booking</field>
+            <field name="model">vehicle.booking</field>
+            <field name="arch" type="xml">
+            <list>
+                <field name="customer_id" width="30px"/>
+                <field name="rent_date" width="15px"/>
+                <field name="return_date" width="40px"/>
+                <field name="trip_place" width="40px"/>
+                <field name="no_of_days" width="40px"/>
+                <field name="booking_line_ids" width="40px"/>
+                <field name="state" width="40px"/>
+                <field name="damage_description" width="40px" invisible="state not in ['completed','paid']"/>
+                <field name="damage_charges" width="40px" invisible="state not in ['completed','paid']"/>
+            </list>
+            </field>
+        </record>
+
+        <record id="vehicle_booking_form" model="ir.ui.view">
+            <field name="name">Booking</field>
+            <field name="model">vehicle.booking</field>
+            <field name="arch" type="xml">
+                <form string="Form View">
+                    <header>
+                        <button name="state_approved"
+                                string="Approve"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['approved','on_going','completed','paid','cancelled']"
+                                groups="car_rental_management_jui.car_rental_group_manager"
+                        />
+                        <button name="state_on_going"
+                                string="Rent"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['draft','inquiry','on_going','completed','paid','cancelled']"
+                                groups="car_rental_management_jui.car_rental_group_manager"
+                        />
+                        <button name="state_completed"
+                                string="Complete"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['draft','inquiry','approved','completed','paid','cancelled']"
+                                groups="car_rental_management_jui.car_rental_group_manager"
+                        />
+                        <button name="state_paid"
+                                string="pay"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['draft','inquiry','approved','on_going','paid','cancelled']"
+                                groups="car_rental_management_jui.car_rental_group_manager"
+                        />
+                        <button name="state_print"
+                                string="print"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['draft','inquiry','approved','on_going','completed','cancelled']"
+                        />
+                        <button name="state_cancelled"
+                                string="Cancel"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['approved','on_going','completed','paid','cancelled']"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled" default="inquiry"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_id" domain="[('is_customer','=',True)]" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="rent_date"/>
+                                <field name="damage_description" invisible="state not in ['completed','paid']"/>
+                            </group>
+                            <group>
+                                <field name="return_date"/>
+                                <field name="trip_place"/>
+                                <field name="no_of_days"/>
+                                <field name="damage_charges" invisible="state not in ['completed','paid']"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="booking_lines" string="Vehicles">
+                                <field name="booking_line_ids">
+                                    <list editable="bottom">
+                                        <field name="vehicle_id" width="30px" domain="[('is_vehicle','=',True),'|',('booking_line_ids.booking_id.return_date','&lt;',booking_rent_date),('status','in',['available'])]" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="driver_id" width="15px" domain="[('is_driver','=',True),'|',('booking_line_ids.booking_id.return_date','&lt;',booking_rent_date),('status','=',True)]" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="start_km" width="15px"/>
+                                        <field name="end_km" width="15px"/>
+                                        <field name="total_km" width="15px"/>
+                                        <field name="cost" width="15px"/>
+                                        <field name="adjusted_cost" width="15px"/>
+                                        <field name="total_cost" width="15px"/>
+                                    </list>
+                                </field>
+                                <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                    <group class="oe_subtotal_footer order-0 order-lg-1 flex-column" colspan="2" name="total_kms">
+                                        <field name="total_kms"/>
+                                        <field name="total_cost"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="vehicle_booking_action" model="ir.actions.act_window">
+            <field name="name">Booking</field>
+            <field name="res_model">vehicle.booking</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="vehicle_booking_menu" name="Booking" parent="car_rental_management_jui.car_rental_management_menu" action="vehicle_booking_action" groups="car_rental_management_jui.car_rental_group_user"/>
+
+    </data>
+</odoo>
