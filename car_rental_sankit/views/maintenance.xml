@@ -1,0 +1,73 @@
+<odoo>
+
+    <record id="maintenance_list_view" model="ir.ui.view">
+        <field name="name">maintenance List</field>
+        <field name="model">car.maintenance</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="vehicle_id"/>
+                <field name="current_km"/>
+                <field name="arrival_date"/>
+                <field name="dispatch_date"/>
+                <field name="parts_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+    <record id="maintenance_form_view" model="ir.ui.view">
+        <field name="name">maintenance Form</field>
+        <field name="model">car.maintenance</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            name="in_process_status"
+                            string="In Progress"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['in_process','dispatch']"
+                    />
+                    <button
+                            name="dispatch_status"
+                            string="Dispatch / Bill"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['arrival','dispatch']"
+                    />
+                    <button
+                            name="arrival_status"
+                            string="Arrival"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="status in ['arrival','in_process']"
+                    />
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="arrival,in_process,dispatch"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="vehicle_id" domain="[('is_what','=','car')]"
+                                context="{'form_view_ref':'car_rental_sankit.car_form_view'}"/>
+                        <field name="current_km"/>
+                        <field name="arrival_date"/>
+                        <field name="dispatch_date"/>
+                        <field name="parts_ids" widget="many2many_tags" domain="[('is_what','=','part')]"
+                               context="{'form_view_ref':'car_rental_sankit.parts_form_view'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_window_action_menu" model="ir.actions.act_window">
+        <field name="name">Maintenance</field>
+        <field name="res_model">car.maintenance</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="maintenance_menu"
+              name="Maintenance"
+              action="maintenance_window_action_menu"
+              parent="car_menu_root"
+              groups="car_rental_sankit.group_rental_manager"
+    />
+</odoo>

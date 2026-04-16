@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_request_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Car Booking</h2>
+
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th colspan="3">
+                                <strong>Customer Name</strong>
+                            </th>
+                            <th colspan="3">
+                                <strong>Trip Start Date</strong>
+                            </th>
+                            <th colspan="3">
+                                <strong>Trip End Date</strong>
+                            </th>
+                            <th colspan="1">
+                                <strong>Days</strong>
+                            </th>
+                            <th colspan="2">
+                                <strong>Total Cost</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t>
+                            <tr>
+                                <td colspan="3">
+                                    <span t-field="rec.customer_id"/>
+                                </td>
+                                <td colspan="3">
+                                    <span t-field="rec.trip_start_date"/>
+                                </td>
+                                <td colspan="3">
+                                    <span t-field="rec.trip_end_date"/>
+                                </td>
+                                <td colspan="1">
+                                    <span t-field="rec.days"/>
+                                </td>
+                                <td colspan="2">
+                                    <span t-field="rec.total_cost"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="12" style="text-align:center;">
+                                    <strong>Car Record</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>Car</strong>
+                                    <div>
+                                        <t t-foreach="rec.record_booking_ids" t-as="part">
+                                            <div t-esc="part.product_car_id.name"/>
+                                        </t>
+                                    </div>
+                                </td>
+                                <td colspan="4">
+                                    <strong>Driver</strong>
+                                    <div>
+                                        <t t-foreach="rec.record_booking_ids" t-as="part">
+                                            <div t-esc="part.driver_id.name"/>
+                                        </t>
+                                    </div>
+                                </td>
+                                <td colspan="4">
+                                    <strong>Total Km</strong>
+                                    <div>
+                                        <t t-foreach="rec.record_booking_ids" t-as="part">
+                                            <div t-field="part.trip_km"/>
+                                        </t>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="report_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="rec">
+                <t t-call="car_rental_sankit.report_request_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_car_booking" model="ir.actions.report">
+        <field name="name">Car Booking Report</field>
+        <field name="model">car.booking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">car_rental_sankit.report_request</field>
+        <field name="report_file">car_rental_sankit.report_request</field>
+        <field name="print_report_name">'requests'</field>
+        <field name="binding_model_id" ref="model_car_booking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

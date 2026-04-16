@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_car_booking,car_booking,model_car_booking,group_rental_user,1,1,1,1
+access_record_booking,record_booking,model_record_booking,group_rental_user,1,1,1,1
+access_car_maintenance,car_maintenance,model_car_maintenance,group_rental_user,1,1,1,1

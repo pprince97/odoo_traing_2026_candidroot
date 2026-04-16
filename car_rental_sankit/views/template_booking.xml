@@ -1,0 +1,140 @@
+<odoo>
+
+
+    <template id="car_booking" name="Car Booking">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Booking Order</h1>
+                    </div>
+
+                </section>
+
+
+                <div class="container my-5">
+                    <div class="mb-1 py-1 col-12 text-start"
+                         data-name="Submit Button">
+                        <div style="width: 100px;"/>
+                        <a class="btn btn-lg btn-primary o_translate_inline" href="/booking/form">Create
+                        </a>
+                    </div>
+                    <a href="/booking/print" class="btn btn-warning">
+                        <i class="fa fa-download"/>
+                        Download Report
+                    </a>
+                    <table class="small table table-bordered text-center">
+                        <thead class="highlight">
+                            <tr>
+                                <th scope="col" style="width: 10%">ID</th>
+                                <th scope="col">Customer</th>
+                                <th scope="col">Trip Start Date</th>
+                                <th scope="col">Trip End Date</th>
+                                <th scope="col">Days</th>
+                                <th scope="col">Total Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="bookings" t-as="booking">
+                                <tr>
+                                    <th scope="row">
+                                        <span t-esc="booking.id"/>
+                                    </th>
+                                    <td>
+                                        <span t-esc="booking.customer_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="booking.trip_start_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="booking.trip_end_date"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="booking.days"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="booking.total_cost"/>
+                                    </td>
+                                </tr>
+                            </t>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </t>
+        <!--            <t t-call="rental_management_sankit.my_inherit_view">-->
+        <!--            <t t-set="my_inherit_view"-->
+        <!--               t-value="rental_management_sankit.my_inherit_view"/>-->
+    </template>
+
+    <template id="car_booking_form" name="Car Booking">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_picture_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Car Booking Form</h1>
+                    </div>
+                </section>
+
+                <div class="container my-5">
+                    <div class="row container w-75 mx-auto">
+                        <form action="/booking/create" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Customer Name</label>
+                                <select name="customer_id" class="form-control">
+                                    <t t-foreach="request.env['res.partner'].sudo().search([])" t-as="record">
+                                        <option t-att-value="record.id">
+                                            <t t-esc="record.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Customer Aadhar Number</label>
+                                <input type="text" name="customer_aadhar_number" class="form-control"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Trip Start Date</label>
+                                <input type="date" name="trip_start_date" class="form-control"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Trip End Date</label>
+                                <input type="date" name="trip_end_date" class="form-control"/>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="record_booking_ids">Booking Records</label>
+                                <select name="record_booking_ids" id="record_booking_ids"
+                                        class="form-control advanced-select" multiple="">
+                                    <t t-foreach="request.env['record.booking'].sudo().search([])" t-as="tag">
+                                        <option t-att-value="tag.id">
+                                            <t t-esc="tag.id"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+<!--                    <div id="sale_order_communication">-->
+<!--                        <h3>Communication history</h3>-->
+<!--                        <t t-call="portal.message_thread"/>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

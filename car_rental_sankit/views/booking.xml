@@ -1,0 +1,129 @@
+<odoo>
+
+    <record id="car_booking_list_view" model="ir.ui.view">
+        <field name="name">Car Booking List</field>
+        <field name="model">car.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="customer_id"/>
+                <field name="customer_aadhar_number"/>
+                <field name="record_booking_ids" widget="many2many_tags"/>
+                <field name="trip_start_date"/>
+                <field name="trip_end_date"/>
+                <field name="total_cost"/>
+            </list>
+        </field>
+    </record>
+    <record id="car_booking_form_view" model="ir.ui.view">
+        <field name="name">Car Booking Form</field>
+        <field name="model">car.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            name="inquiry_state"
+                            string="Inquiry"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['inquiry','approved','on_going','completed','paid']"
+                            groups="car_rental_sankit.group_rental_manager"
+                    />
+                    <button
+                            name="approved_state"
+                            string="Approved"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','approved','on_going','completed','paid','cancelled']"
+                            groups="car_rental_sankit.group_rental_manager"
+                    />
+                    <button
+                            name="on_going_state"
+                            string="On Going"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','inquiry','on_going','completed','paid','cancelled']"
+                            groups="car_rental_sankit.group_rental_manager"
+                    />
+                    <button
+                            name="completed_state"
+                            string="Complete"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','inquiry','approved','completed','paid','cancelled']"
+                            groups="car_rental_sankit.group_rental_manager"
+                    />
+                    <button
+                            name="paid_state"
+                            string="Paid / Invoice"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['draft','inquiry','approved','on_going','paid','cancelled']"
+                            groups="car_rental_sankit.group_rental_manager"
+                    />
+                    <button
+                            name="cancelled_state"
+                            string="Cancelled"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state in ['approved','on_going','completed','cancelled']"
+                            groups="car_rental_sankit.group_rental_manager"
+                    />
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="customer_id"/>
+                        <field name="customer_aadhar_number"/>
+<!--                        <field name="product_car_ids" widget="many2many_tags" domain="[('is_what','=','car')]"-->
+<!--                               context="{'form_view_ref':'car_rental_sankit.car_form_view'}"/>-->
+<!--                        <field name="driver_ids" widget="many2many_tags" domain="[('is_what','=','driver')]"-->
+<!--                               context="{'form_view_ref':'car_rental_sankit.driver_form_view'}"/>-->
+                        <field name="trip_start_date"/>
+                        <field name="trip_end_date"/>
+                        <field name="days"/>
+<!--                        <field name="total_cost"/>-->
+                    </group>
+                    <notebook>
+                        <page string="Trip Details">
+                            <group>
+                                <field name="trip_details"/>
+                            </group>
+                        </page>
+                        <page string="Damage">
+                            <group>
+                                <field name="damage_details"/>
+                                <field name="damage_charges"/>
+                            </group>
+                        </page>
+                        <page string="Record Booking">
+                                <field name="record_booking_ids">
+                                    <list string="Record Booking" editable="bottom">
+                                        <field name="product_car_id" domain="[('is_what','=','car'),('status','=','available')]"
+                                                context="{'form_view_ref':'car_rental_sankit.car_form_view'}"/>
+                                        <field name="driver_id" domain="[('is_what','=','driver')]"
+                                                context="{'form_view_ref':'car_rental_sankit.driver_form_view'}"/>
+                                        <field name="trip_start_km"/>
+                                        <field name="trip_end_km"/>
+                                    </list>
+                                </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="booking_window_action_menu" model="ir.actions.act_window">
+        <field name="name">Booking</field>
+        <field name="res_model">car.booking</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="booking_menu"
+              name="Booking"
+              action="booking_window_action_menu"
+              parent="car_menu_root"
+    />
+</odoo>

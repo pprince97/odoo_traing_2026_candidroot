@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+
+        <template id="portal_my_home_Booking" name="Booking" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <div id="portal_alert_category" position="inside">
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="icon" t-value="'/account/static/src/img/bill.svg'"/>
+                        <t t-set="title">Car Booking</t>
+                        <t t-set="url" t-value="'/booking'"/>
+                        <t t-set="text">book, rent car</t>
+                        <t t-set="config_card" t-value="True"/>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
