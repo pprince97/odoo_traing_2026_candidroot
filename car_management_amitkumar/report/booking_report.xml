@@ -1,35 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="generate_book_pdf_record">
+    <template id="generate_booking_pdf_record">
         <t t-call="web.external_layout">
             <div class="page">
                 <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
                     <thead>
                         <tr>
-                            <th>Student</th>
-                            <th>Name</th>
-                            <th>Barcode</th>
-                            <th>State</th>
-                            <th>Category</th>
+                            <th>Customer</th>
+                            <th>Vehicle</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Trip Details</th>
                         </tr>
                     </thead>
                     <tbody>
                         <t t-foreach="docs" t-as="rec">
                             <tr>
                                 <td>
-                                    <span t-field="rec.student_id"/>
+                                    <span t-field="rec.customer_detail_ids.name"/>
+                                </td>
+                                <t t-foreach="rec.vehicle_detail_ids" t-as="val">
+                                    <td>
+                                        <span t-field="val.name"/>
+                                    </td>
+                                </t>
+                                <td>
+                                    <span t-field="rec.start_date"/>
                                 </td>
                                 <td>
-                                    <span t-field="rec.name"/>
+                                    <span t-field="rec.end_date"/>
                                 </td>
                                 <td>
-                                    <span t-field="rec.barcode"/>
+                                    <span t-field="rec.trip_detail"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+<!--                Trip Details-->
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>Per KM Cost</th>
+                            <th>Total Trip KM</th>
+                            <th>Total Trip Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="rec">
+                            <tr>
+                                <td>
+                                    <span t-field="rec.km_cost"/>
                                 </td>
                                 <td>
-                                    <span t-field="rec.state"/>
+                                    <span t-field="rec.trip_km"/>
                                 </td>
                                 <td>
-                                    <span t-field="rec.category"/>
+                                    <span t-field="rec.total_trip_cost"/>
                                 </td>
                             </tr>
                         </t>
@@ -40,21 +68,21 @@
     </template>
 
 
-    <template id="book_record_menu_root">
+    <template id="booking_record_menu_root">
         <t t-call="web.html_container">
-            <t t-call="library_management.generate_book_pdf_record"/>
+            <t t-call="car_management_amitkumar.generate_booking_pdf_record"/>
         </t>
     </template>
 
 
     <record id="action_book_pdf" model="ir.actions.report">
-        <field name="name">Books Record</field>
-        <field name="model">library.books</field>
+        <field name="name">Booking Record</field>
+        <field name="model">booking.management</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">library_management.book_record_menu_root</field>
-        <field name="report_file">library_management.book_record_menu_root</field>
-        <field name="print_report_name">'Book Record'</field>
-        <field name="binding_model_id" ref="model_library_books"/>
+        <field name="report_name">car_management_amitkumar.booking_record_menu_root</field>
+        <field name="report_file">car_management_amitkumar.booking_record_menu_root</field>
+        <field name="print_report_name">'Booking Record'</field>
+        <field name="binding_model_id" ref="model_booking_management"/>
         <field name="binding_type">report</field>
     </record>
 </odoo>

@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!--    Vehicle code Sequence-->
+    <record id="registration_generate" model="ir.sequence">
+        <field name="name">Request Serial Number</field>
+        <field name="code">vehicle.code</field>
+        <field name="prefix">GJ/</field>
+        <field name="padding">4</field>
+    </record>
+
     <record id="car_rental_list_view" model="ir.ui.view">
         <field name="name">car.rental.list.view</field>
         <field name="model">product.product</field>
         <field name="arch" type="xml">
-            <list>
+            <list default_order="vehicle_code asc">
                 <field name="vehicle_code"/>
                 <field name="name"/>
                 <field name="vehicle_type"/>
                 <field name="cost_per_km"/>
                 <field name="service_per_km"/>
                 <field name="per_day_km"/>
+                <field name="status" optional="show"/>
             </list>
         </field>
     </record>
@@ -21,12 +30,35 @@
         <field name="model">product.product</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_booked" class="oe_highlight" type="object" string="Booked"
+                            invisible="status in ['booked','maintenance']"/>
+
+                    <button name="action_maintenance" class="oe_highlight" type="object" string="Maintenance"
+                            invisible="status in ['maintenance','available']"/>
+
+                    <button name="action_available" class="oe_highlight" type="object" string="Available"
+                            invisible="status in ['available','booked']"/>
+
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="available,booked,maintenance" options="{'clickable': '1'}"/>
+                </header>
+
                 <sheet>
+<!--                    Smart Buttons-->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="get_booking_record" class="oe_stat_button" type="object" icon="fa-book">
+                            <field name="car_booking_count" string="Total Borrow Request" widget="statinfo"/>
+                        </button>
+                    </div>
+
                     <group>
                         <group>
-                            <field name="vehicle_code"/>
+                            <field name="vehicle_code" readonly="1"/>
                             <field name="name"/>
                             <field name="vehicle_type" widget="radio" options="{'horizontal': True}"/>
+                        </group>
+                        <group>
                             <field name="cost_per_km"/>
                             <field name="service_per_km"/>
                             <field name="per_day_km"/>
@@ -59,7 +91,7 @@
     <menuitem id="parent_car_management" name="Car Rental Management"/>
 
     <menuitem id="car_rental_view"
-              name="Car Management"
+              name="Car"
               parent="parent_car_management"
               action="car_rental_action_window"/>
 </odoo>

@@ -1,60 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!--    Vehicle code Sequence-->
-    <record id="registration_generate" model="ir.sequence">
-        <field name="name">Request Serial Number</field>
-        <field name="code">vehicle.code</field>
-        <field name="prefix">GJ/</field>
-        <field name="padding">4</field>
-    </record>
-
-    <record id="car_rental_list_view" model="ir.ui.view">
-        <field name="name">car.rental.list.view</field>
-        <field name="model">product.product</field>
+    <record id="driver_list_view" model="ir.ui.view">
+        <field name="name">driver.list.view</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <list>
-                <field name="vehicle_code"/>
                 <field name="name"/>
-                <field name="vehicle_type"/>
-                <field name="cost_per_km"/>
-                <field name="service_per_km"/>
-                <field name="per_day_km"/>
-                <field name="status" optional="show"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="license_details"/>
+                <field name="driver_per_day_rate"/>
             </list>
         </field>
     </record>
 
 
-    <record id="car_rental_form_view" model="ir.ui.view">
-        <field name="name">car.rental.form.view</field>
-        <field name="model">product.product</field>
+    <record id="driver_form_view" model="ir.ui.view">
+        <field name="name">driver.form.view</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button name="action_booked" class="oe_highlight" type="object" string="Booked"
-                            invisible="status in ['booked','maintenance']"/>
-
-                    <button name="action_maintenance" class="oe_highlight" type="object" string="Maintenance"
-                            invisible="status in ['maintenance','available']"/>
-
-                    <button name="action_available" class="oe_highlight" type="object" string="Available"
-                            invisible="status in ['available','booked']"/>
-
-                    <field name="status" widget="statusbar"
-                           statusbar_visible="available,booked,maintenance" options="{'clickable': '1'}"/>
-                </header>
-
                 <sheet>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button name="get_booking_record" class="oe_stat_button" type="object" icon="fa-book">
+                            <field name="driver_booking_count" string="Total Booking Record" widget="statinfo"/>
+                        </button>
+                    </div>
+
                     <group>
                         <group>
-                            <field name="vehicle_code" readonly="1"/>
                             <field name="name"/>
-                            <field name="vehicle_type" widget="radio" options="{'horizontal': True}"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="status"/>
                         </group>
                         <group>
-                            <field name="cost_per_km"/>
-                            <field name="service_per_km"/>
-                            <field name="per_day_km"/>
+                            <field name="license_details"/>
+                            <field name="driver_per_day_rate"/>
                         </group>
                     </group>
                 </sheet>
@@ -63,28 +46,48 @@
     </record>
 
 
-    <record id="car_rental_action_window" model="ir.actions.act_window">
-        <field name="name">Car Records</field>
-        <field name="res_model">product.product</field>
+<!--    search view-->
+<!--    <record id="driver_search_view" model="ir.ui.view">-->
+<!--        <field name="name">driver.search.view</field>-->
+<!--        <field name="model">res.partner</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search>-->
+<!--                <separator/>-->
+
+<!--                <filter string="Drivers"-->
+<!--                        name="member"-->
+<!--                        domain="[('member','=','driver')]"/>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="driver_action_window" model="ir.actions.act_window">
+        <field name="name">Driver Records</field>
+        <field name="res_model">res.partner</field>
         <field name="view_mode">list,form</field>
+        <field name="context">{'default_member':'driver'}</field>
     </record>
 
-    <record id="action_product_list" model="ir.actions.act_window.view">
+    <record id="action_driver_list" model="ir.actions.act_window.view">
         <field name="view_mode">list</field>
-        <field name="view_id" ref="car_rental_list_view"/>
-        <field name="act_window_id" ref="car_rental_action_window"/>
+        <field name="view_id" ref="driver_list_view"/>
+        <field name="act_window_id" ref="driver_action_window"/>
     </record>
 
-    <record id="action_product_form" model="ir.actions.act_window.view">
+    <record id="action_driver_form" model="ir.actions.act_window.view">
         <field name="view_mode">form</field>
-        <field name="view_id" ref="car_rental_form_view"/>
-        <field name="act_window_id" ref="car_rental_action_window"/>
+        <field name="view_id" ref="driver_form_view"/>
+        <field name="act_window_id" ref="driver_action_window"/>
     </record>
 
-    <menuitem id="parent_car_management" name="Car Rental Management"/>
+<!--    <record id="action_driver_search" model="ir.actions.act_window.view">-->
+<!--        <field name="view_mode">search</field>-->
+<!--        <field name="view_id" ref="driver_search_view"/>-->
+<!--        <field name="act_window_id" ref="driver_action_window"/>-->
+<!--    </record>-->
 
-    <menuitem id="car_rental_view"
-              name="Car"
+    <menuitem id="driver_management_view"
+              name="Driver"
               parent="parent_car_management"
-              action="car_rental_action_window"/>
+              action="driver_action_window"/>
 </odoo>

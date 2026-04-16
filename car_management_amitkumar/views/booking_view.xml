@@ -1,156 +1,99 @@
 <odoo>
-    <record id="library_books_list_view" model="ir.ui.view">
-        <field name="name">library.books.list.view</field>
-        <field name="model">library.books</field>
+    <record id="book_list_view" model="ir.ui.view">
+        <field name="name">booking.management.list.view</field>
+        <field name="model">booking.management</field>
         <field name="arch" type="xml">
             <list>
-                <field name="student_id"/>
-                <field name="name"/>
-                <field name="barcode"/>
-                <field name="state"/>
-                <field name="available_copies"/>
-                <field name="stock"/>
-                <field name="borrow_price"/>
-                <field name="maximum_day_limit"/>
+                <field name="customer_detail_ids" widget="many2many_avatar_user"/>
+                <field name="vehicle_detail_ids" widget="many2many_tags"/>
+                <field name="trip_detail"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
             </list>
         </field>
     </record>
 
-    <!--    Books Kanban views-->
-    <record id="library_books_kanban_view" model="ir.ui.view">
-        <field name="name">library.books.kanban.view</field>
-        <field name="model">library.books</field>
-        <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile">
-                <field name="name"/>
-                <field name="barcode"/>
-                <field name="state"/>
-
-                <templates>
-                    <t t-name="menu">
-                        <t t-if="widget.editable">
-                            <a role="menuitem" type="open" class="dropdown-item">Edit</a>
-                        </t>
-                        <t t-if="widget.deletable">
-                            <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
-                        </t>
-                    </t>
-
-                    <t t-name="card">
-                        <div class="oe_kanban_card oe_kanban_global_click">
-
-                            <!-- Header -->
-                            <div class="o_kanban_header">
-                                <strong>
-                                    <field name="name"/>
-                                </strong>
-                                <span class="badge bg-secondary float-end">
-                                    <field name="barcode"/>
-                                </span>
-                            </div>
-
-                            <!-- Body -->
-                            <!-- Body -->
-                            <div class="o_kanban_content mt-2">
-                                <div>
-                                    <t t-if="record.state.raw_value == 'published'">
-                                        <span class="badge text-bg-warning">Published</span>
-                                    </t>
-
-                                    <t t-else="">
-                                        <span class="badge text-bg-info">Unpublished</span>
-                                    </t>
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record>
-
-
     <!--    Books form views-->
-    <record id="library_form_view" model="ir.ui.view">
-        <field name="name">library_form_view</field>
-        <field name="model">library.books</field>
+    <record id="booking_form_view" model="ir.ui.view">
+        <field name="name">booking.form.view</field>
+        <field name="model">booking.management</field>
         <field name="arch" type="xml">
             <form>
-                <sheet groups="library_management.group_librarian">
+                <header>
+                    <button name="action_draft" class="oe_highlight" type="object" string="Draft"
+                            invisible="states in ['draft','inquiry','approved','ongoing','completed','paid']"/>
 
-                    <div class="oe_button_box" name="button_box">
-                        <button class="oe_button_box" name="get_all_books_data" icon="fa-laptop" type="object">
-                            <field name="borrowed_count" string="Borrowed Books" widget="statinfo"/>
-                        </button>
+                    <button name="action_inquiry" class="oe_highlight" type="object" string="Inquiry"
+                            invisible="states in ['inquiry','approved','ongoing','completed','paid','cancelled']"/>
 
-                        <button class="oe_button_box" icon="fa-book" type="object">
-                            <field name="books_count" string="Available Books" widget="statinfo"/>
-                        </button>
-                    </div>
+                    <button name="action_approved" class="oe_highlight" type="object" string="Approved"
+                            invisible="states in ['approved','ongoing','completed','paid','cancelled','draft']"/>
 
+                    <button name="action_ongoing" class="oe_highlight" type="object" string="Ongoing"
+                            invisible="states in ['ongoing','completed','paid','cancelled','draft','inquiry']"/>
+
+                    <button name="action_completed" class="oe_highlight" type="object" string="Completed"
+                            invisible="states in ['completed','paid','cancelled','draft','inquiry','approved']"/>
+
+                    <button name="action_paid" class="oe_highlight" type="object" string="Paid"
+                            invisible="states in ['paid','cancelled','draft','inquiry','approved','ongoing',]"/>
+
+                    <button name="action_cancelled" class="oe_highlight" type="object" string="Cancelled"
+                            invisible="states in ['cancelled','draft','inquiry','approved','ongoing','completed']"/>
+
+                    <field name="states" widget="statusbar"
+                           statusbar_visible="draft,inquiry,approved,ongoing,completed,paid,cancelled"
+                           options="{'clickable': '1'}"/>
+                </header>
+
+                <sheet>
                     <group>
-                        <group>
-                            <field name="student_id" domain="[('member', '=', 'student')]"/>
-                            <field name="name"/>
-                            <field name="barcode"/>
-                            <field name="state"/>
-                            <field name="category"/>
-                            <field name="description"/>
+                        <group string="Customer Details">
+                            <field name="customer_detail_ids"
+                                   domain="[('member', '=', 'driver'),('status', '=', 'available')]"
+                                   widget="many2many_avatar_user"/>
+
+                            <field name="vehicle_detail_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color'}"/>
+
+                            <field name="start_date" widget="daterange" options="{'end_date_field': 'end_date'}"/>
+
+                            <field name="start_km"/>
+                            <field name="end_km"/>
+                            <field name="trip_detail"/>
                         </group>
 
-                        <group>
-                            <field name="stock"/>
-                            <field name="available_copies"/>
-                            <field name="borrow_price"/>
-                            <field name="fine_amount"/>
-                            <field name="maximum_day_limit"/>
+                        <group string="Trip Cost" groups="car_management_amitkumar.group_manager">
+                            <field name="km_cost"/>
+                            <field name="trip_km"/>
+
+                            <field name="issue_days"/>
+
+                            <field name="total_trip_cost"/>
+                        </group>
+
+                        <group string="Vehicle Damage">
+                            <field name="damage_charge"/>
+                            <field name="damage_description"/>
                         </group>
                     </group>
-
-                    <notebook>
-                        <page name="Cover Image">
-                            <group>
-                                <field name="book_cover_name" invisible="1"/>
-                                <field name="cover_image" filename="book_cover_name"/>
-                            </group>
-                        </page>
-
-                        <page string="File Upload History" name="file_upload_history">
-                            <field name="history_ids">
-                                <list>
-                                    <field name="name"/>
-                                    <field name="file"/>
-                                    <field name="upload_date"/>
-                                </list>
-                            </field>
-                        </page>
-
-                        <page string="Borrow Requests" name="borrow_request">
-                            <field name="borrow_ids"/>
-                        </page>
-                    </notebook>
-
                 </sheet>
 
                 <chatter/>
-
             </form>
         </field>
     </record>
 
 
-    <record id="library_action_window" model="ir.actions.act_window">
-        <field name="name">Books Record</field>
-        <field name="res_model">library.books</field>
-        <field name="view_mode">kanban,list,form</field>
+    <record id="booking_action_window" model="ir.actions.act_window">
+        <field name="name">Booking Records</field>
+        <field name="res_model">booking.management</field>
+        <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="library_menu_root" name="Library Management "/>
-
-    <menuitem id="library_record"
-              name="Books"
-              parent="library_menu_root"
-              action="library_action_window"
-              groups="library_management.group_students"/>
+    <menuitem id="car_booking_record"
+              name="Booking Management"
+              parent="parent_car_management"
+              action="booking_action_window"/>
 
 </odoo>

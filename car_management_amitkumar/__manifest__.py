@@ -1,29 +1,29 @@
 {
-    'name': 'Hospital Management',
+    'name': 'Car Rental Management',
     'version': '19.0.1',
     'author': 'Amitkumar',
-    'description': 'hospital_management_system',
+    'description': 'Car rental management system',
 
-    'depends': ['base','web','contacts','sale'],
-
-    'demo': [
-        # 'demo/demo_view.xml',
-    ],
+    'depends': ['base','web','contacts','sale_management','website','portal','point_of_sale','pos_restaurant'],
 
     'data': [
-        'security/security_access.xml',
+        'security/car_management_security.xml',
         'security/ir.model.access.csv',
-        # 'security/hospital_record_rules.xml',
-        'wizard/appoint_wizard_view.xml',
-        'views/hospital_view.xml',
-        'views/patient_view.xml',
-        'views/doctor_view.xml',
-        'views/appointment_view.xml',
-        'views/department_view.xml',
-        'demo/demo_view.xml',
+        'views/car_management_view.xml',
+        'views/driver_management_view.xml',
+        'views/booking_view.xml',
+        'views/website_template.xml',
+        'report/booking_report.xml',
     ],
 
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'car_management_amitkumar/static/src/app/components/navbar/cash_view.xml',
+        ],
+    },
+
     'application': True,
+    'installable': True,
     'license':'LGPL-3',
 
 }

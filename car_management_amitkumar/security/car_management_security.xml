@@ -2,109 +2,98 @@
     <data>
         <!-- category-->
 
-        <record model="ir.module.category" id="module_category_library">
-            <field name="name">Library Management</field>
+        <record model="ir.module.category" id="module_category_rental">
+            <field name="name">Car Rental Management</field>
             <field name="sequence">5</field>
         </record>
 
         <!--  privilege-->
 
-        <record model="res.groups.privilege" id="res_groups_privilege_library">
+        <record model="res.groups.privilege" id="res_groups_privilege_car_rental">
             <field name="name">User Role</field>
-            <field name="category_id" ref="library_management.module_category_library"/>
+            <field name="category_id" ref="car_management_amitkumar.module_category_rental"/>
             <field name="sequence">7</field>
         </record>
 
         <!-- Group-->
 
-        <record id="group_students" model="res.groups">
-            <field name="name">Student</field>
+        <record id="group_user" model="res.groups">
+            <field name="name">User</field>
             <field name="sequence">20</field>
-            <field name="privilege_id" ref="res_groups_privilege_library"/>
+            <field name="privilege_id" ref="res_groups_privilege_car_rental"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
-        <record id="group_librarian" model="res.groups">
-            <field name="name">Librarian</field>
+        <record id="group_manager" model="res.groups">
+            <field name="name">Manager</field>
             <field name="sequence">21</field>
-            <field name="privilege_id" ref="res_groups_privilege_library"/>
-            <field name="implied_ids" eval="[(4, ref('library_management.group_students'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_car_rental"/>
+            <field name="implied_ids" eval="[(4, ref('car_management_amitkumar.group_user'))]"/>
         </record>
 
-        <record id="group_admin" model="res.groups">
-            <field name="name">Admin</field>
-            <field name="sequence">22</field>
-            <field name="privilege_id" ref="res_groups_privilege_library"/>
-            <field name="implied_ids" eval="[(4, ref('library_management.group_librarian'))]"/>
+        <record id="manager_access_all_record" model="ir.rule">
+            <field name="name">Manger: Access booking</field>
+            <field name="model_id" ref="car_management_amitkumar.model_booking_management"/>
+            <field name="groups" eval="[(4, ref('group_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <record id="manager_access_cars" model="ir.rule">
+            <field name="name">Manger: Access cars</field>
+            <field name="model_id" ref="car_management_amitkumar.model_product_product"/>
+            <field name="groups" eval="[(4, ref('group_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <record id="manager_access_user" model="ir.rule">
+            <field name="name">Manger: Access user</field>
+            <field name="model_id" ref="car_management_amitkumar.model_res_partner"/>
+            <field name="groups" eval="[(4, ref('group_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+
+<!--        User-->
+        <record id="user_access_own_record" model="ir.rule">
+            <field name="name">user: Access user</field>
+            <field name="model_id" ref="car_management_amitkumar.model_res_partner"/>
+            <field name="groups" eval="[(4, ref('group_user'))]"/>
+            <field name="domain_force">[('id', '=', user.partner_id.id),('member', '=', 'driver')]</field>
+        </record>
+
+        <record id="user_access_own_booking" model="ir.rule">
+            <field name="name">user: Access booking</field>
+            <field name="model_id" ref="car_management_amitkumar.model_booking_management"/>
+            <field name="groups" eval="[(4, ref('group_user'))]"/>
+            <field name="domain_force">[('customer_detail_ids', '=', user.partner_id.id)]</field>
         </record>
 
 
         <!--        Record Rule-->
-        <record id="student_access_own_record" model="ir.rule">
-            <field name="name">Student: Access own record</field>
-            <field name="model_id" ref="base.model_res_partner"/>
-            <field name="groups" eval="[(4, ref('group_students'))]"/>
-            <field name="domain_force">[('id', '=', user.partner_id.id),('member','=','student')]</field>
-        </record>
-
-<!--        Creation restrict-->
-        <record id="student_not_create_own_record" model="ir.rule">
-            <field name="name">Student: creation restrict</field>
-            <field name="model_id" ref="base.model_res_partner"/>
-            <field name="groups" eval="[(4, ref('group_librarian')),(4, ref('base.group_erp_manager'))]"/>
-            <field name="domain_force">[('member','=','student'),('create_uid', '=', user.id)]</field>
-        </record>
-
-        <record id="student_access_own_borrow_request" model="ir.rule">
-            <field name="name">Student: Access own borrow record</field>
-            <field name="model_id" ref="library_management.model_library_borrow_request"/>
-            <field name="groups" eval="[(4, ref('group_students'))]"/>
-            <field name="domain_force">[('student_id', '=', user.name)]</field>
-        </record>
-
-<!--        Admin Rules-->
-        <record id="admin_access_all_record" model="ir.rule">
-            <field name="name">Admin: Access all record</field>
-            <field name="model_id" ref="library_management.model_res_partner"/>
-            <field name="groups" eval="[(4, ref('group_admin'))]"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-        </record>
-
-        <record id="admin_access_all_borrow" model="ir.rule">
-            <field name="name">Admin: Access all Borrow</field>
-            <field name="model_id" ref="library_management.model_library_borrow_request"/>
-            <field name="groups" eval="[(4, ref('group_admin'))]"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-        </record>
-
-<!--        Librarian Rules-->
-        <record id="librarian_access_own_record" model="ir.rule">
-            <field name="name">Librarian: Access own record</field>
-            <field name="model_id" ref="base.model_res_partner"/>
-            <field name="groups" eval="[(4, ref('group_librarian')),(4, ref('base.group_erp_manager'))]"/>
-            <field name="domain_force">[('id', '=', user.partner_id.id),('member', '=', 'librarian')]</field>
-        </record>
-
-<!--        Librarian restrict-->
-        <record id="librarian_not_create_own_record" model="ir.rule">
-            <field name="name">Librarian: Not create own record</field>
-            <field name="model_id" ref="base.model_res_partner"/>
-            <field name="groups" eval="[(4, ref('group_librarian')),(4, ref('base.group_erp_manager'))]"/>
-            <field name="domain_force">[('user_id', '=', user.id)]</field>
-        </record>
-
-        <record id="librarian_access_own_borrow_request" model="ir.rule">
-            <field name="name">Librarian : Access own borrow record</field>
-            <field name="model_id" ref="library_management.model_library_borrow_request"/>
-            <field name="groups" eval="[(4, ref('group_librarian'))]"/>
-            <field name="domain_force">[('librarian_id', '=', user.name)]</field>
-        </record>
-
-<!--        <record id="librarian_read_all_student" model="ir.rule">-->
-<!--            <field name="name">Librarian: Read all record</field>-->
-<!--            <field name="model_id" ref="library_management.model_res_partner"/>-->
-<!--            <field name="groups" eval="[(4, ref('group_librarian'))]"/>-->
-<!--            <field name="domain_force">[(1, '=', 1),('member', '=', 'student')]</field>-->
+<!--        <record id="student_access_own_record" model="ir.rule">-->
+<!--            <field name="name">Student: Access own record</field>-->
+<!--            <field name="model_id" ref="base.model_res_partner"/>-->
+<!--            <field name="groups" eval="[(4, ref('group_students'))]"/>-->
+<!--            <field name="domain_force">[('id', '=', user.partner_id.id),('member','=','student')]</field>-->
 <!--        </record>-->
+
+<!--&lt;!&ndash;        Creation restrict&ndash;&gt;-->
+<!--        <record id="student_not_create_own_record" model="ir.rule">-->
+<!--            <field name="name">Student: creation restrict</field>-->
+<!--            <field name="model_id" ref="base.model_res_partner"/>-->
+<!--            <field name="groups" eval="[(4, ref('group_librarian')),(4, ref('base.group_erp_manager'))]"/>-->
+<!--            <field name="domain_force">[('member','=','student'),('create_uid', '=', user.id)]</field>-->
+<!--        </record>-->
+
+<!--        <record id="student_access_own_borrow_request" model="ir.rule">-->
+<!--            <field name="name">Student: Access own borrow record</field>-->
+<!--            <field name="model_id" ref="library_management.model_library_borrow_request"/>-->
+<!--            <field name="groups" eval="[(4, ref('group_students'))]"/>-->
+<!--            <field name="domain_force">[('student_id', '=', user.name)]</field>-->
+<!--        </record>-->
+
+<!--&lt;!&ndash;        Admin Rules&ndash;&gt;-->
+
+
     </data>
 </odoo>
