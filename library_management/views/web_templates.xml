@@ -114,42 +114,6 @@
                                         </div>
                                     </div>
 
-                                    <!--                                    Pop-up Box-->
-<!--                                    <div id="alertbox1" class="custom-alert success">-->
-<!--                                        <div class="alert-icon-wrap">✔</div>-->
-<!--                                        <div class="alert-body">-->
-<!--                                            <strong>Success!</strong>-->
-<!--                                            <p>Book has been submitted successfully.</p>-->
-<!--                                        </div>-->
-<!--                                        <button class="alert-close"-->
-<!--                                                onclick="this.closest('.custom-alert').classList.remove('show')">✕-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-
-<!--                                    <div id="alertbox2" class="custom-alert error">-->
-<!--                                        <div class="alert-icon-wrap">✖</div>-->
-<!--                                        <div class="alert-body">-->
-<!--                                            <strong>Error!</strong>-->
-<!--                                            <p>Something went wrong. Please try again.</p>-->
-<!--                                        </div>-->
-<!--                                        <button class="alert-close"-->
-<!--                                                onclick="this.closest('.custom-alert').classList.remove('show')">✕-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-
-
-
-<!--                                    <div id="customAlertBox" class="custom-alert">-->
-<!--                                        <div class="custom-alert-content">-->
-<!--                                            <span class="close">X</span>-->
-<!--                                            <p id="alertMessage">Hello CandidRoot</p>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-
-<!--                                    <div class="col-12">-->
-<!--                                        <button id="popup-button" class="btn btn-secondary">Popup</button>-->
-<!--                                    </div>-->
-
                                     <div class="col-12">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                         <button id="submitPopUp" type="submit" class="btn btn-primary">Submit</button>
@@ -253,7 +217,7 @@
                 <t t-call="portal.portal_docs_entry">
                     <t t-set="icon" t-value="'/sale/static/src/img/bag.svg'"/>
                     <t t-set="title">Book Lists</t>
-                    <t t-set="url" t-value="'/book-data'"/>
+                    <t t-set="url" t-value="'/book/data'"/>
                     <t t-set="text">View and Create a books</t>
                     <t t-set="config_card" t-value="True"/>
                 </t>

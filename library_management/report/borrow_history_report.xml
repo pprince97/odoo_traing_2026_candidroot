@@ -6,53 +6,53 @@
             <div class="page">
                 <h2>Book Borrow History Report</h2>
 
-                                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <strong>Start Date</strong>
-                                            </th>
-                                            <th>
-                                                <strong>End Date</strong>
-                                            </th>
-                                            <th>
-                                                <strong>Is Return Date</strong>
-                                            </th>
-                                            <th>
-                                                <strong>Student</strong>
-                                            </th>
-                                            <th>
-                                                <strong>Book</strong>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <t>
-                                            <tr>
-                                                <td>
-                                                    <span t-field="rec.start_date"/>
-                                                </td>
-                                                <td>
-                                                    <span t-field="rec.end_date"/>
-                                                </td>
-                                                <td>
-                                                    <span t-field="rec.is_return_date"/>
-                                                </td>
-                                                <td>
-                                                    <span t-field="rec.student_ids"/>
-                                                </td>
-                                                <td>
-                                                    <span t-field="rec.book_ids"/>
-                                                </td>
-                                                <td>
-                                                    <span t-field="rec.library_book_borrow_lines_ids"/>
-                                                </td>
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong>Start Date</strong>
+                            </th>
+                            <th>
+                                <strong>End Date</strong>
+                            </th>
+                            <th>
+                                <strong>Is Return Date</strong>
+                            </th>
+                            <th>
+                                <strong>Student</strong>
+                            </th>
+                            <th>
+                                <strong>Book</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t>
+                            <tr>
+                                <td>
+                                    <span t-field="rec.start_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.end_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.is_return_date"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.student_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.book_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.library_book_borrow_lines_ids"/>
+                                </td>
 
-                                            </tr>
-                                        </t>
+                            </tr>
+                        </t>
 
-                                    </tbody>
-                                </table>
+                    </tbody>
+                </table>
 
                 <t>
                     <table class="table table-bordered" style="width:100%; border-collapse: collapse;">

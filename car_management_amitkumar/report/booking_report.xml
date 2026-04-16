@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="generate_book_pdf_record">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <table class="table table-bordered" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Name</th>
+                            <th>Barcode</th>
+                            <th>State</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="rec">
+                            <tr>
+                                <td>
+                                    <span t-field="rec.student_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.barcode"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.state"/>
+                                </td>
+                                <td>
+                                    <span t-field="rec.category"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="book_record_menu_root">
+        <t t-call="web.html_container">
+            <t t-call="library_management.generate_book_pdf_record"/>
+        </t>
+    </template>
+
+
+    <record id="action_book_pdf" model="ir.actions.report">
+        <field name="name">Books Record</field>
+        <field name="model">library.books</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_management.book_record_menu_root</field>
+        <field name="report_file">library_management.book_record_menu_root</field>
+        <field name="print_report_name">'Book Record'</field>
+        <field name="binding_model_id" ref="model_library_books"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
