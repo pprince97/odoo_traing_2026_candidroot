@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_car_rent_management_bookings_list" model="ir.ui.view">
+        <field name="name">car.rent.bookings.list</field>
+        <field name="model">car.rent.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="customer_id"/>
+                <field name="trip_start_date"/>
+                <field name="trip_end_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_car_rent_management_bookings_form" model="ir.ui.view">
+        <field name="name">car.rent.management.bookings.form</field>
+        <field name="model">car.rent.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object"
+                            name="generate_invoice"
+                            string="Generate Invoice"
+                            invisible="state in ['inquiry','draft','approved','paid','on_going','canceled'] or invoice_id"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="state_approved"
+                            string="Approved"
+                            invisible="state in ['draft','approved','completed','paid','on_going','canceled']"
+                            class="oe_highlight"
+                            groups="car_rental_management_rushvi.group_car_rental_manager"/>
+                    <button type="object"
+                            name="state_on_going"
+                            string="On Going"
+                            invisible="state in ['draft','inquiry','completed','paid','on_going','canceled']"
+                            class="oe_highlight"
+                            groups="car_rental_management_rushvi.group_car_rental_manager"/>
+                    <button type="object"
+                            name="state_completed"
+                            string="Completed"
+                            invisible="state in ['draft','inquiry','approved','completed','paid','canceled']"
+                            class="oe_highlight"
+                            groups="car_rental_management_rushvi.group_car_rental_manager"/>
+                    <button type="object"
+                            name="state_paid"
+                            string="Paid"
+                            invisible="state in ['draft','inquiry','approved','paid','on_going','canceled']"
+                            class="oe_highlight"
+                            groups="car_rental_management_rushvi.group_car_rental_manager"/>
+                    <button type="object"
+                            name="state_paid"
+                            string="Cancel"
+                            invisible="state in ['completed','paid','on_going','canceled']"
+                            class="oe_highlight"
+                            groups="car_rental_management_rushvi.group_car_rental_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,inquiry,approved,on_going,completed,paid,canceled"/>
+                </header>
+                <sheet>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button type="object"-->
+<!--                            name="view_bookings"-->
+<!--                                string="bookings"-->
+<!--                                icon="fa-star">-->
+<!--                            <field name="appointment_count" string="bookings" widget="statinfo"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <group readonly="state not in ['draft','inquiry']">
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="serial_number" readonly="1"/>
+                            <field name="trip_details"/>
+                            <field name="damage_description" invisible="state in ['draft','inquiry','approved','on_going','canceled']"/>
+                            <field name="damage_cost" invisible="state in ['draft','inquiry','approved','on_going','canceled']"/>
+                        </group>
+                        <group>
+                            <field name="trip_start_date"/>
+                            <field name="trip_end_date"/>
+                            <field name="total_cost"/>
+                            <field name="invoice_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Vehicles" name="vehicles">
+                            <field name="booking_vehicle_ids" readonly="state not in ['draft','inquiry']">
+                                <list editable="bottom">
+                                    <field name="vehicle_id" domain="[('vehicle_code','ilike','V%')]"/>
+                                    <field name="driver_id" domain="[('driver_code','ilike','DR%'),('status','=','available')]"/>
+                                    <field name="trip_start_kms"/>
+                                    <field name="trip_end_kms"/>
+                                    <field name="total_kms"/>
+                                    <field name="total_min_kms"/>
+                                    <field name="per_km_cost"/>
+                                    <field name="total_cost"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_car_rent_management_bookings" model="ir.actions.act_window">
+        <field name="name">Bookings</field>
+        <field name="res_model">car.rent.booking</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Bookings" id="car_rent_management_bookings_menuitem"
+              parent="car_rental_menu_root"
+              action="action_car_rent_management_bookings"/>
+</odoo>

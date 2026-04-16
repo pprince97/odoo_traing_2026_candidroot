@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_car_rental_management_drivers_list" model="ir.ui.view">
+        <field name="name">car.rental.management.drivers.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="driver_per_day_rate"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_car_rental_management_drivers_form" model="ir.ui.view">
+        <field name="name">car.rental.management.drivers.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button class="oe_highlight"
+                            type="object"
+                            name="status_available"
+                            string="Available"
+                            invisible="status == 'available'"/>
+                    <button class="oe_highlight"
+                            type="object"
+                            name="status_on_trip"
+                            string="On trip"
+                    invisible="status == 'on_trip'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="available,on_trip"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="view_bookings"
+                                string="Bookings"
+                                icon="fa-star"  class="oe_stat_button">
+                            <field name="booking_count" string="Bookings" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="driver_code" readonly="1"/>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <span class="o_form_label o_td_label o_address_type" name="address_name">
+                                <span>Address</span>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" placeholder="State" class="o_address_state" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <div name="partner_address_country" class="d-flex justify-content-between">
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="age"/>
+                            <field name="license_number"/>
+                            <field name="license_issue_date"/>
+                            <field name="license_expire_date"/>
+                            <field name="driver_per_day_rate"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_car_rental_management_drivers" model="ir.actions.act_window">
+        <field name="name">Drivers</field>
+        <field name="res_model">res.partner</field>
+         <field name="context">{'driver':1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('view_car_rental_management_drivers_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_car_rental_management_drivers_form')})]"/>
+         <field name="domain">[('driver_code','ilike','DR%')]</field>
+    </record>
+
+    <menuitem name="Drivers" id="car_rental_management_drivers_menuitem"
+              parent="car_rental_menu_root"
+              action="action_car_rental_management_drivers"/>
+</odoo>

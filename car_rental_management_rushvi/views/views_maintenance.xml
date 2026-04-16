@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_car_rent_management_maintenance_list" model="ir.ui.view">
+        <field name="name">car.rent.maintenance.list</field>
+        <field name="model">car.rent.maintenance</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="vehicle_id"/>
+                <field name="current_kms"/>
+                <field name="arrival_date"/>
+                <field name="dispatch_date"/>
+                <field name="total_cost"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_car_rent_management_maintenance_form" model="ir.ui.view">
+        <field name="name">car.rent.management.maintenance.form</field>
+        <field name="model">car.rent.maintenance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vehicle_id"/>
+                            <field name="current_kms"/>
+                            <field name="arrival_date"/>
+                            <field name="dispatch_date"/>
+                        </group>
+                        <group>
+                            <field name="parts_added_ids" widget="many2many_tags" domain="[('vehicle_code','=',False)]"/>
+                            <field name="service_cost"/>
+                            <field name="parts_cost"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_car_rent_management_maintenance" model="ir.actions.act_window">
+        <field name="name">Maintenance</field>
+        <field name="res_model">car.rent.maintenance</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem name="Maintenance" id="car_rent_maintenance_menuitem"
+              parent="car_rental_menu_root"
+              action="action_car_rent_management_maintenance"/>
+</odoo>

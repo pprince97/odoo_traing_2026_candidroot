@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--   Car Rental Request Detailed Page  -->
+    <template id="car_rentals_template_form" name="Car Rental Request Portal View">
+        <t t-call="portal.portal_layout">
+            <div class="container py-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h3 class="text-primary mb-0">
+                            Request #
+                            <span t-field="car_rental.serial_number"/>
+                        </h3>
+                    </div>
+                    <div class="text-end">
+                        <span t-attf-class="badge rounded-pill #{'bg-success' if car_rental.state in ['completed','paid'] else 'bg-warning'} px-3 py-2">
+                            <t t-esc="car_rental.state.upper() if car_rental.state else 'DRAFT'"/>
+                        </span>
+                        <t t-if="car_rental.id">
+                            <a t-attf-href="/my/my-car/download/#{car_rental.id}"
+                               class="btn btn-primary">
+                                <i class="fa fa-download"/>
+                                Download
+                            </a>
+                        </t>
+                    </div>
+                </div>
+                <!--                ?access_token=#{car_rental.access_token}-->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0">General Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 border-end">
+                                <p>
+                                    <strong>Customer:</strong>
+                                    <span t-field="car_rental.customer_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>Start Date</strong>
+                                    <span t-field="car_rental.trip_start_date"/>
+                                </p>
+                                <p>
+                                    <strong>End Date:</strong>
+                                    <span t-field="car_rental.trip_end_date"/>
+                                </p>
+                                <p>
+                                    <strong>Trip Description:</strong>
+                                    <span t-field="car_rental.trip_details"/>
+                                </p>
+                            </div>
+                            <div class="col-md-6 ps-md-4">
+                                <p>
+                                    <strong>Damage Amount:</strong>
+                                    <span t-field="car_rental.damage_cost"/>
+                                </p>
+                                <p>
+                                    <strong>Damage Description:</strong>
+                                    <span t-field="car_rental.damage_description"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0">Vehicles</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Vehicle</th>
+                                    <th>Driver</th>
+                                    <th class="text-center">Start kms</th>
+                                    <th class="text-center">End Kms</th>
+                                    <th class="text-center">Total Trip Kms</th>
+                                    <th class="text-center">Total Min Kms</th>
+                                    <th class="text-center">Cost Per Km</th>
+                                    <th class="text-end pe-4">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="car_rentals_lines" t-as="line">
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="fw-bold">
+                                                <span t-field="line.vehicle_id.name"/>
+                                            </div>
+                                        </td>
+                                        <td class="ps-4">
+                                            <div class="fw-bold">
+                                                <span t-field="line.driver_id.name"/>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.trip_start_kms"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.trip_end_kms"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.total_kms"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.total_min_kms"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.per_km_cost"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.total_cost"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-white py-3">
+                        <div class="row justify-content-end">
+                            <div class="col-md-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Total:</span>
+                                    <span>
+                                        <span t-field="car_rental.total_cost"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-call="portal.message_thread">
+                <t t-set="object" t-value="car_rental"/>
+            </t>
+        </t>
+    </template>
+
+
+    <!--    Car Rental Requests -->
+    <template id="car_rentals_template">
+        <t t-call="portal.portal_layout">
+            <div class="mt-1 container">
+                <h3 class="d-flex justify-content-between align-items-center w-90">
+                    <span>All Car Rental Requests</span>
+                    <span>
+                        <a href="/my/car-rental-request/">
+                            <button type="button"
+                                    class="btn btn-primary">
+                                <i class="fa fa-plus me-1"/>
+                                New Request
+                            </button>
+                        </a>
+                    </span>
+                </h3>
+                <table class="table">
+                    <thead>
+                        <th>
+                            <b>Serial Number</b>
+                        </th>
+                        <th>
+                            <b>Customer Name</b>
+                        </th>
+                        <th>
+                            <b>Trip Start Date</b>
+                        </th>
+                        <th>
+                            <b>Trip End Date</b>
+                        </th>
+                        <th>
+                            <b>Total Cost</b>
+                        </th>
+                        <th>
+                            <b>Status</b>
+                        </th>
+                    </thead>
+                    <t t-foreach="car_rentals" t-as="car_rental_request">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/my/car-rentals/#{car_rental_request.id}">
+                                    <t t-esc="car_rental_request.serial_number"/>
+                                </a>
+                            </td>
+                            <td>
+                                <t t-esc="car_rental_request.customer_id.name"/>
+                            </td>
+                            <td>
+                                <t t-esc="car_rental_request.trip_start_date"/>
+                            </td>
+                            <td>
+                                <t t-esc="car_rental_request.trip_end_date"/>
+                            </td>
+                            <td>
+                                <t t-esc="car_rental_request.total_cost"/>
+                            </td>
+                            <td>
+                                <t t-esc="car_rental_request.state"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </t>
+    </template>
+
+
+    <!--    Breadcrumb   -->
+    <template id="portal_car_rental_menu" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'car_rental'" t-attf-class="breadcrumb-item #{'active ' if not car_rental else ''}">
+                <a t-if="car_rental" t-attf-href="/my/car-rentals">Car Rental Requests</a>
+                <t t-else="">Car Rental Requests</t>
+            </li>
+            <li t-if="car_rental" class="breadcrumb-item active">
+                <t t-out="car_rental.serial_number"/>
+            </li>
+        </xpath>
+    </template>
+
+    <!--    Car Rental Request Card on My Account Page-->
+    <template id="portal_my_home_custom" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Car Rental Requests</t>
+                <t t-set="url" t-value="'/my/car-rentals'"/>
+                <t t-set="text">View Your Car Rental Requests</t>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_car_booking_document">
+        <t t-call="web.external_layout">
+            <div class="row">
+                <div class="col-6">
+                    <strong>Customer:</strong>
+                    <span t-field="doc.customer_id.name"/>
+                    <br/>
+                    <strong>Trip Details:</strong>
+                    <span t-field="doc.trip_details"/>
+                     <br/>
+                    <strong>Start Date:</strong>
+                    <span t-field="doc.trip_start_date"/>
+                    <br/>
+                    <strong>End Date:</strong>
+                    <span t-field="doc.trip_end_date"/>
+                </div>
+                <div class="col-6">
+                    <strong>Invoice Id:</strong>
+                    <span t-field="doc.invoice_id.name"/>
+                    <br/>
+                    <strong>Damage Description:</strong>
+                    <span t-field="doc.damage_description" t-if="doc.damage_description"/>
+                    <span t-else="">-</span>
+                     <br/>
+                    <strong>Damage Cost:</strong>
+                    <span t-field="doc.damage_cost" t-if="doc.damage_cost"/>
+                     <br/>
+                    <strong>Total Cost:</strong>
+                    <span t-field="doc.total_cost"/>
+                     <br/>
+                </div>
+            </div>
+            <br/>
+            <h3>Car Booking</h3>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th class="text-start">Vehicle</th>
+                        <th class="text-center">Driver</th>
+                        <th class="text-center">Total Trip Kms</th>
+                        <th class="text-center">Trip Min Kms</th>
+                        <th class="text-center">Cost Per km</th>
+                        <th class="text-end">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="docs.booking_vehicle_ids" t-as="line">
+                        <tr>
+                            <td class="text-start">
+                                <span t-field="line.vehicle_id"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.driver_id"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.total_kms"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.total_min_kms"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.per_km_cost"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-field="line.total_cost"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+    </template>
+
+    <template id="report_car_bookings">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="car_rental_management_rushvi.report_car_booking_document"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_car_booking" model="ir.actions.report">
+        <field name="name">Car Booking Report</field>
+        <field name="model">car.rent.booking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">car_rental_management_rushvi.report_car_bookings</field>
+        <field name="report_file">car_rental_management_rushvi.report_car_bookings</field>
+        <field name="binding_model_id" ref="model_car_rent_booking"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

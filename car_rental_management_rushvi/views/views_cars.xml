@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="name">product.product.forms</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                     <button type="object"
+                            name="create_maintenance_request"
+                            string="Create Maintenance Request"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="status_available"
+                            string="Available"
+                            invisible="status in ['available']"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="status_booked"
+                            string="Booked"
+                            invisible="status in ['booked']"
+                            class="oe_highlight"/>
+                    <button type="object"
+                            name="status_maintenance"
+                            string="Maintenance"
+                            invisible="status in ['maintenance']"
+                            class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="available,booked,maintenance"/>
+                </header>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="car_details" string="Vehicle Details">
+                    <group>
+                        <group>
+                            <field name="vehicle_code" readonly="1"/>
+                            <field name="vehicle_type"/>
+                            <field name="cost_per_km"/>
+                        </group>
+                        <group>
+                            <field name="service_per_km"/>
+                            <field name="per_day_km"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_form_view_sale_order_button" model="ir.ui.view">
+        <field name="name">product.product.sale.order</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        name="view_maintenance_requests"
+                        type="object"
+                        icon="fa-star">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value d-flex gap-1">
+                            <field name="maintenance_count" widget="statinfo" nolabel="1" class="oe_inline"/>
+                        </span>
+                        <span class="o_stat_text">Maintenance</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="product_template_action" model="ir.actions.act_window">
+        <field name="name">Cars</field>
+        <field name="res_model">product.product</field>
+        <field name="view_ids" eval="[(5,0,0),
+        (0,0,{'view_mode': 'list', 'view_id': ref('product.product_product_tree_view')}),
+        (0,0, {'view_mode': 'form','view_id': ref('car_rental_management_rushvi.product_template_only_form_view')})]"/>
+        <field name="context"
+               eval="{'default_categ_id': ref('car_rental_management_rushvi.product_category_vehicle')}"/>
+        <field name="domain">[('vehicle_code','ilike','V%')]</field>
+    </record>
+    <menuitem id="car_rental_menu_root" name="Car Rental Management"/>
+    <menuitem name="Cars" id="menuitem_services"
+              parent="car_rental_menu_root"
+              action="product_template_action"/>
+</odoo>
