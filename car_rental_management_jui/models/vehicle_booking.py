@@ -5,11 +5,12 @@ class VehicleBooking(models.Model):
     _name = "vehicle.booking"
     _description = "Vehicle Booking"
     _rec_name = 'customer_id'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    customer_id = fields.Many2one('res.partner',string="Customer",required=True,context={'is_customer':True})
+    customer_id = fields.Many2one('res.partner',string="Customer",required=True, tracking = True)
     booking_line_ids = fields.One2many('vehicle.booking.line','booking_id',string="Booking Lines")
-    rent_date = fields.Datetime(string="Rent Date",required=True)
-    return_date = fields.Datetime(string="Return Date",required=True)
+    rent_date = fields.Date(string="Rent Date",required=True)
+    return_date = fields.Date(string="Return Date",required=True)
     trip_place = fields.Char(string="Trip Place",required=True)
     no_of_days = fields.Integer(string="No of Days",compute='_compute_no_of_days',store=True)
     state = fields.Selection([('draft','Draft'),('inquiry','Inquiry'),('approved','Approved'),('on_going','On Going'),('completed','Completed'),('paid','Paid'),('cancelled','Cancelled')],string="State",default='inquiry')
@@ -42,7 +43,7 @@ class VehicleBooking(models.Model):
             self.env['account.move.line'].create(
                 {'move_id': res.id,'product_id': line.vehicle_id.id, 'price_unit': line.cost})
             self.env['account.move.line'].create(
-                {'move_id': res.id, 'name':f"{line.vehicle_id.name} {line.driver_id.name}", 'price_unit': line.driver_id.driver_per_day_rate})
+                {'move_id': res.id, 'name':f"{line.vehicle_id.name} {line.driver_id.name}", 'price_unit': (line.driver_id.driver_per_day_rate * self.no_of_days)})
             if line.adjusted_cost:
                 self.env['account.move.line'].create(
                     {'move_id': res.id, 'name':f"{line.vehicle_id.name} adjusted", 'product_id': line.vehicle_id.id, 'price_unit': line.adjusted_cost})
@@ -54,7 +55,7 @@ class VehicleBooking(models.Model):
         self.state = 'paid'
 
     def state_print(self):
-        return self.env.ref('car_rental_management_jui.action_report_invoice').report_action(self.invoice_id.id)
+        return self.env.ref('car_rental_management_jui.action_report_booking').report_action(self.id)
 
     @api.onchange('rent_date')
     def _onchange_rent_date(self):

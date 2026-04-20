@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='categ_id']" position="after">
                     <field name="is_part"/>
+                    <field name="is_vehicle"/>
                 </xpath>
             </field>
         </record>

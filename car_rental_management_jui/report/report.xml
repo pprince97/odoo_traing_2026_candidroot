@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="report_invoice">
+    <template id="report_booking">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-call="car_rental_management_jui.report_invoice_document"/>
+                <t t-call="car_rental_management_jui.report_booking_document"/>
             </t>
         </t>
     </template>
 
-    <template id="report_invoice_document">
+    <template id="report_booking_document">
         <t t-call="web.external_layout">
             <t t-foreach="docs" t-as="rec">
                 <h6>
                     <br/>
-                    <h3>Car Rental Invoice</h3>
-                    <h3 t-field="rec.display_name"/>
+                    <h3>Car Rental Booking</h3>
+                    <h3 t-field="rec.customer_id"/>
                     <br/>
-                    <span t-field="rec.partner_id"/>
+                    <span>Rent Date :    </span>
+                    <span t-field="rec.rent_date"/>
                     <br/>
-                    <span t-field="rec.invoice_date"/>
+                    <span>Return Date :    </span>
+                    <span t-field="rec.return_date"/>
+                    <br/>
+                    <span>Trip Place :    </span>
+                    <span t-field="rec.trip_place"/>
+                    <br/>
+                    <span>No of Days :    </span>
+                    <span t-field="rec.no_of_days"/>
+                    <br/>
+                    <t t-if="rec.damage_description">
+                        <span>Damage Description :    </span>
+                        <span t-field="rec.damage_description"/>
+                        <br/>
+                    </t>
+                    <t t-if="rec.damage_charges">
+                        <span>Damage Charges:    </span>
+                        <span t-field="rec.damage_charges"/>
+                        <br/>
+                    </t>
+                    <span>Invoice :    </span>
+                    <span t-field="rec.invoice_id.name"/>
                     <br/>
                     <table class="table table-sm">
                         <thead>
                             <tr>
                                 <th><b>Name</b></th>
-                                <th class="text-end"><b>Quantity</b></th>
                                 <th class="text-end"><b>Price</b></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-foreach="rec.invoice_line_ids" t-as="invoice">
+                            <t t-foreach="rec.invoice_id.invoice_line_ids" t-as="invoice">
                                 <tr>
                                     <td>
                                         <span t-field="invoice.name"/>
-                                    </td>
-                                    <td class="text-end">
-                                        <span t-field="invoice.quantity"/>
                                     </td>
                                     <td class="text-end">
                                         <span t-field="invoice.price_unit"/>
@@ -47,8 +64,11 @@
                     </table>
                     <hr style="width:20%;margin-left:auto;margin-right:0;"/>
                     <div class="text-end">
+                        <span>Total Kms:    </span>
+                        <span t-field="rec.total_kms"/>
+                        <br/>
                         <span>Total :    </span>
-                        <span t-field="rec.amount_residual"/>
+                        <span t-field="rec.total_cost"/>
                     </div>
 
                 </h6>
@@ -57,14 +77,14 @@
     </template>
 
 
-    <record id="action_report_invoice" model="ir.actions.report">
-        <field name="name">Invoice</field>
-        <field name="model">account.move</field>
+    <record id="action_report_booking" model="ir.actions.report">
+        <field name="name">Car Rental Booking</field>
+        <field name="model">vehicle.booking</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">car_rental_management_jui.report_invoice</field>
-        <field name="report_file">car_rental_management_jui.report_invoice</field>
-        <field name="print_report_name">'Invoice'</field>
-        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="report_name">car_rental_management_jui.report_booking</field>
+        <field name="report_file">car_rental_management_jui.report_booking</field>
+        <field name="print_report_name">'Car Rental Booking'</field>
+        <field name="binding_model_id" ref="car_rental_management_jui.model_vehicle_booking"/>
         <field name="binding_type">report</field>
     </record>
 </odoo>

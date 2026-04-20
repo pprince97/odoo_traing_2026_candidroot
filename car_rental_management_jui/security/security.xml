@@ -29,7 +29,7 @@
         <record id="car_rental_group_manager" model="res.groups">
             <field name="name">Manager</field>
             <field name="sequence">20</field>
-            <field name="implied_ids" eval="[(4, ref('car_rental_management_jui.car_rental_group_user'))]"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="privilege_id" ref="car_rental_management_jui.car_rental_management_group_privilege"/>
             <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
@@ -52,6 +52,20 @@
             <field name="model_id" ref="car_rental_management_jui.model_vehicle_booking"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('car_rental_management_jui.car_rental_group_manager'))]"/>
+        </record>
+
+        <record id="customer_booking_rule" model="ir.rule">
+            <field name="name">customer cannot see bookings of another customer</field>
+            <field name="model_id" ref="car_rental_management_jui.model_vehicle_booking"/>
+            <field name="domain_force">[('customer_id.user_id.id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="customer_res_partner_rule" model="ir.rule">
+            <field name="name">customer can see all customers</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
         </record>
 
     </data>

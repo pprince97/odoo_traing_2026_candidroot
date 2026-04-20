@@ -39,7 +39,7 @@
                             <group>
                                 <field name="phone"/>
                                 <field name="driver_per_day_rate"/>
-                                <field name="status"/>
+                                <field name="status" readonly="1"/>
                             </group>
                         </group>
                     </sheet>

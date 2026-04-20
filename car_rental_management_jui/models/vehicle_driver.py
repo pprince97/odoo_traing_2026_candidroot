@@ -37,6 +37,6 @@ class VehicleDriver(models.Model):
                 user = self.env['res.users']
                 user_id = user.create(
                     {'name': rec.name, 'login': rec.name, 'email': rec.email, 'partner_id': rec.id, 'password': 'admin',
-                     'group_ids': [Command.set([self.env.ref('base.group_portal').id])]})
+                     'group_ids': [Command.set([self.env.ref('base.group_portal').id,self.env.ref('product.group_product_manager').id])]})
                 rec.update({'user_id': user_id.id})
         return res

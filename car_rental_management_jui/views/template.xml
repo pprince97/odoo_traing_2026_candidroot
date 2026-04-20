@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="car_rental_management_jui.inheritedaccountcarrental" name="Car Rental Bookings" inherit_id="portal.portal_my_home">
-            <xpath expr="//div[@id='portal_common_category']" position="inside">
-                <t t-call="portal.portal_docs_entry">
-                    <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
-                    <t t-set="title">Car Rental Bookings</t>
-                    <t t-set="text">My Car Rental Bookings</t>
-                    <t t-set="url" t-value="'/my/car/rental/bookings'"/>
-                    <t t-set="config_card" t-value="True"/>
-                </t>
-            </xpath>
+    <template id="car_rental_management_jui.inheritedaccountcarrental" name="Car Rental Bookings"
+              inherit_id="portal.portal_my_home">
+        <xpath expr="//div[@id='portal_common_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                <t t-set="title">Car Rental Bookings</t>
+                <t t-set="text">My Car Rental Bookings</t>
+                <t t-set="url" t-value="'/my/car/rental/bookings'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
     </template>
 
     <record id="car_rental_management_jui.model_vehicle_booking" model="ir.model">
-      <field name="website_form_access">True</field>
+        <field name="website_form_access">True</field>
     </record>
     <function model="ir.model.fields" name="formbuilder_whitelist">
         <value>vehicle.booking</value>
@@ -47,6 +48,17 @@
                             </div>
                         </span>
                     </section>
+                    <div class="container mt-2 mb-4">
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <h3 class="mb-4">Customer Rental Bookings</h3>
+                            </div>
+                            <div class="col-md-6 mt-2 text-end">
+                                <a href="/my/car/rental/bookings/form/" role="button" class="btn btn-primary s_website_form_send">Book Car Rental</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="container">
                         <div class="container">
                             <table class="table table-hover mb-5 bg-white">
@@ -65,14 +77,32 @@
                                 <tbody>
                                     <t t-foreach="requests" t-as="req">
                                         <tr>
-                                            <td><a t-attf-href="/my/car/rental/bookings/view/#{req.id}"><span t-field="req.customer_id"/></a></td>
-                                            <td><span t-field="req.rent_date" /></td>
-                                            <td><span t-field="req.return_date" /></td>
-                                            <td><span t-field="req.trip_place" /></td>
-                                            <td><span t-field="req.no_of_days" /></td>
-                                            <td><span t-field="req.state" /></td>
-                                            <td><span t-field="req.total_kms" /></td>
-                                            <td><span t-field="req.total_cost" /></td>
+                                            <td>
+                                                <a t-attf-href="/my/car/rental/bookings/view/#{req.id}">
+                                                    <span t-field="req.customer_id"/>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.rent_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.return_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.trip_place"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.no_of_days"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.state"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.total_kms"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="req.total_cost"/>
+                                            </td>
                                         </tr>
                                     </t>
                                 </tbody>
@@ -196,15 +226,185 @@
                     </div>
                     <div class="my-3">
                         <t t-if="record.state == 'paid'">
-                            <a t-attf-href="/my/rental/print/#{record.invoice_id.id}" class="btn btn-primary">
+                            <a t-attf-href="/my/rental/print/#{record.id}" class="btn btn-primary">
                                 Print Report
                             </a>
                         </t>
+
+                        <div id="chatter" class="oe_chatter mt-4">
+                            <h3>Communication history</h3>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="record"/>
+                            </t>
+                        </div>
                     </div>
                 </div>
             </div>
         </t>
     </template>
+    <template id="car_rental_management_jui.car_rental_bookings_template_form" name="Car Rental Booking Form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
 
+                    <!-- HEADER -->
+                    <section class="title mb-5">
+                        <span class="bg-primary d-flex pt-4 pb-4"
+                              style="background-position: 50% 0;">
+                            <div class="container">
+                                <h1 class="text-white">Car Rental Booking Form</h1>
+                            </div>
+                        </span>
+                    </section>
 
+                    <section class="body mt-5 mb-5">
+                        <div class="container">
+                            <form action="/my/car/rental/bookings/form/submit" method="post">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="request_id" t-att-value="id"/>
+
+                                <div class="row">
+                                    <div class="mb-2 col-lg-6">
+                                        <t t-set="current_customer" t-value="request.env.user.partner_id"/>
+
+                                        <label class="col-form-label">Customer*s</label>
+                                        <select name="customer_id" class="form-control"
+                                                readonly="1"
+                                                style="pointer-events:none; background:#e9ecef;">
+                                            <option t-att-value="current_customer.id" selected="selected">
+                                                <t t-esc="current_customer.name"/>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div id="div_rent_date" class="col-lg-6 mb-2">
+                                        <label class="col-form-label" for="rent_date">
+                                            Rent Date*
+                                        </label>
+                                        <input id="rent_date" type="date" name="rent_date" class="form-control" t-att-value="requests.rent_date if requests else ''"/>
+                                    </div>
+                                    <div id="div_return_date" class="col-lg-6 mb-2">
+                                        <label class="col-form-label" for="return_date">
+                                            Return Date*
+                                        </label>
+                                        <input id="return_date" type="date" name="return_date" class="form-control" t-att-value="requests.return_date if requests else ''"/>
+                                    </div>
+                                    <div id="div_trip_place" class="col-lg-6 mb-2">
+                                        <label class="col-form-label" for="s_trip_place">
+                                            Trip Place*
+                                        </label>
+                                        <input id="s_trip_place" type="text" name="trip_place" class="form-control" t-att-value="requests.trip_place if requests else ''"/>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive mt-4">
+                                    <t t-set="request_lines" t-value="requests.booking_line_ids if requests else []"/>
+                                    <t t-set="available_vehicles" t-value="request.env['product.product'].search([('is_vehicle','=',True),('status','in',['available'])])"/>
+                                    <t t-set="available_drivers" t-value="request.env['res.partner'].search([('is_driver','=',True),('status','=',True)])"/>
+
+                                    <table class="table table-bordered">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th>Vehicle</th>
+                                                <th>Driver</th>
+                                                <th class="text-end">Start Km</th>
+                                                <th class="text-end">End Km</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <!-- EXISTING LINES -->
+                                            <t t-foreach="request_lines" t-as="line">
+                                                <tr>
+                                                    <td><t t-esc="line.vehicle_id.name"/></td>
+                                                    <td><t t-esc="line.driver_id.name"/></td>
+                                                    <td class="text-end"><t t-esc="line.start_km"/></td>
+                                                    <td class="text-end"><t t-esc="line.end_km"/></td>
+                                                    <td class="text-center">
+                                                        <a t-attf-href="/car/rental/booking/line/delete/#{line.id}"
+                                                           class="btn btn-sm btn-danger">
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+
+                                            <!-- ADD LINE ROW -->
+                                            <tr class="bg-light">
+                                                <td>
+                                                    <select name="new_vehicle_id" class="form-control">
+                                                        <option value="">Select Vehicle...</option>
+                                                        <t t-foreach="available_vehicles" t-as="veh">
+                                                            <option t-att-value="veh.id">
+                                                                <t t-esc="veh.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </td>
+
+                                                <td>
+                                                    <select name="new_driver_id" class="form-control">
+                                                        <option value="">Select Driver...</option>
+                                                        <t t-foreach="available_drivers" t-as="driver">
+                                                            <option t-att-value="driver.id">
+                                                                <t t-esc="driver.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </td>
+
+                                                <td>
+                                                    <input type="number" name="new_start_km" value="0"
+                                                           class="form-control text-end"/>
+                                                </td>
+
+                                                <td>
+                                                    <input type="number" name="new_end_km" value="0"
+                                                           class="form-control text-end"/>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <button type="submit"
+                                                            name="action"
+                                                            value="add_line"
+                                                            class="btn btn-primary btn-sm">
+                                                        Add Line
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- FINAL SUBMIT -->
+                                <div class="mt-4">
+                                    <button id="save_details" type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="car_rental_management_jui.thank_you" name="Thank You">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="body mt-5 mb-5">
+                        <div class="container text-center center">
+                            <h2> Thank you 🙂 </h2>
+                            <p class="fs-5">Your Booking Request has been submitted</p>
+                        </div>
+                        <div class="justify-content-center mt-2 d-flex"><a href="/my/home" class="fs-5">Home</a></div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>

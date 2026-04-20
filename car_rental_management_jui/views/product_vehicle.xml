@@ -56,7 +56,7 @@
             <field name="name">Vehicle</field>
             <field name="res_model">product.product</field>
             <field name="view_mode">list,form</field>
-            <field name="context">{'default_is_vehicle':1}</field>
+            <field name="context">{'default_is_vehicle':1,'default_taxes_id':False}</field>
             <field name="domain">[('is_vehicle','=','1')]</field>
         </record>
 
