@@ -82,5 +82,6 @@
     <menuitem id="car_rental_menu_root" name="Car Rental Management"/>
     <menuitem name="Cars" id="menuitem_services"
               parent="car_rental_menu_root"
-              action="product_template_action"/>
+              action="product_template_action"
+              groups="car_rental_management_rushvi.group_car_rental_manager"/>
 </odoo>

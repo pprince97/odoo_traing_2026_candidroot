@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
+        <xpath expr="//DropdownItem[last()]" position="after">
+            <DropdownItem onSelected="onClickMyMenu">Cash In/Out History
+            </DropdownItem>
+        </xpath>
+    </t>
+</templates>

@@ -6,10 +6,16 @@
     'website': "",
     'category': "Uncategorized",
     'version': '1.0',
-    'depends': ['base','web','mail','website','portal','sale','point_of_sale'],
-    'demo':[
+    'depends': ['base', 'web', 'mail', 'website', 'portal', 'sale', 'point_of_sale'],
+    'demo': [
         'demo/cars_category.xml',
+    ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            # 'car_rental_management_rushvi/static/src/app/components/navbar/navbar.js',
+            # 'car_rental_management_rushvi/static/src/app/components/navbar/navbar.xml',
         ],
+    },
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -27,5 +33,5 @@
     ],
     'installable': True,
     'application': True,
-    'license':'LGPL-3',
+    'license': 'LGPL-3',
 }

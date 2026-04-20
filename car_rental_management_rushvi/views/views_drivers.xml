@@ -84,5 +84,7 @@
 
     <menuitem name="Drivers" id="car_rental_management_drivers_menuitem"
               parent="car_rental_menu_root"
-              action="action_car_rental_management_drivers"/>
+              action="action_car_rental_management_drivers"
+              groups="car_rental_management_rushvi.group_car_rental_manager"/>
+
 </odoo>

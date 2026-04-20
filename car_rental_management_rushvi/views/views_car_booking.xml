@@ -20,6 +20,12 @@
             <form>
                 <header>
                     <button type="object"
+                            name="state_inquiry"
+                            string="Inquiry"
+                            invisible="state in ['completed','inquiry','approved','paid','on_going','canceled']"
+                            class="oe_highlight"
+                            groups="car_rental_management_rushvi.group_car_rental_manager"/>
+                    <button type="object"
                             name="generate_invoice"
                             string="Generate Invoice"
                             invisible="state in ['inquiry','draft','approved','paid','on_going','canceled'] or invoice_id"
@@ -58,26 +64,18 @@
                            statusbar_visible="draft,inquiry,approved,on_going,completed,paid,canceled"/>
                 </header>
                 <sheet>
-<!--                    <div class="oe_button_box" name="button_box">-->
-<!--                        <button type="object"-->
-<!--                            name="view_bookings"-->
-<!--                                string="bookings"-->
-<!--                                icon="fa-star">-->
-<!--                            <field name="appointment_count" string="bookings" widget="statinfo"/>-->
-<!--                        </button>-->
-<!--                    </div>-->
-                    <group readonly="state not in ['draft','inquiry']">
+                    <group>
                         <group>
-                            <field name="customer_id"/>
+                            <field name="customer_id" readonly="state not in ['draft','inquiry']"/>
                             <field name="serial_number" readonly="1"/>
-                            <field name="trip_details"/>
-                            <field name="damage_description" invisible="state in ['draft','inquiry','approved','on_going','canceled']"/>
-                            <field name="damage_cost" invisible="state in ['draft','inquiry','approved','on_going','canceled']"/>
+                            <field name="trip_details" readonly="state not in ['draft','inquiry']"/>
+                            <field name="damage_description" invisible="state in ['draft','inquiry','approved','on_going','canceled']" readonly="state in ['paid']"/>
+                            <field name="damage_cost" invisible="state in ['draft','inquiry','approved','on_going','canceled']" readonly="state in ['paid']"/>
                         </group>
                         <group>
-                            <field name="trip_start_date"/>
-                            <field name="trip_end_date"/>
-                            <field name="total_cost"/>
+                            <field name="trip_start_date" readonly="state not in ['draft','inquiry']"/>
+                            <field name="trip_end_date" readonly="state not in ['draft','inquiry']"/>
+                            <field name="total_cost" readonly="state not in ['draft','inquiry']"/>
                             <field name="invoice_id" readonly="1"/>
                         </group>
                     </group>

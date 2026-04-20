@@ -3,4 +3,17 @@
     <record id="product_category_vehicle" model="product.category">
         <field name="name">Vehicle</field>
     </record>
+
+    <record id="product_category_vehicle13" model="product.product">
+        <field name="name">Vehicle22</field>
+        <field name="categ_id" ref="car_rental_management_rushvi.product_category_vehicle"/>
+    </record>
+
+    <record id="product_category_vehicle13" model="product.product">
+        <field name="name">part1</field>
+    </record>
+
+    <record id="product_category_vehicle14" model="product.product">
+        <field name="name">part2</field>
+    </record>
 </odoo>

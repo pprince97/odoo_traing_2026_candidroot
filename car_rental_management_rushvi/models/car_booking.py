@@ -97,7 +97,7 @@ class CarBooking(models.Model):
                     'price_unit': task.driver_id.driver_per_day_rate,
                 })])
         move = self.env['account.move'].create({
-            'move_type': 'in_invoice',
+            'move_type': 'out_invoice',
             'partner_id': self.customer_id.id,
             'invoice_date': fields.Date.today(),
             'invoice_line_ids': invoice_lines,
