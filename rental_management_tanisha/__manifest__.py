@@ -14,7 +14,6 @@
         'views/rental_order_views.xml',
     ],
     'installable': True,
-    'application': True,
     'author': 'Tanisha',
     'license': 'LGPL-3',
 }

@@ -1,0 +1,30 @@
+{
+    'name': 'Car Rental Management',
+    'version': '1.0',
+    'category': 'Uncategorized',
+    'summary': 'Car Rental Management Module',
+    'description': """This is Car Rental Management System to manage vehicles, drivers, bookings, billing,maintenance,
+        and advanced real-world constraints such as minimum billing kilometers and service due alerts""",
+    'website': 'https://www.carrentalmanagement.com',
+    'depends': ['base','contacts','stock','account','website'],
+    'data': [
+        'security/car_rental_security.xml',
+        'security/ir.model.access.csv',
+        'data/vehicle_code_seq.xml',
+        'report/generate_booking_report.xml',
+        'views/car_management_views.xml',
+        'views/driver_management_views.xml',
+        'views/rental_booking_views.xml',
+        'views/rental_maintenance_views.xml',
+        'views/rental_booking_website_views.xml',
+    ],
+    "assets": {
+        "web.assets_backend": [
+            "car_rental_management_tanisha/static/src/js/booking.js",
+        ],
+    },
+    'installable': True,
+    'application': True,
+    'author': 'Tanisha',
+    'license': 'LGPL-3',
+}

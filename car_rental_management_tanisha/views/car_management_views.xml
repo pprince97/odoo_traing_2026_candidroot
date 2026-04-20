@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="car_management_kanban_view" model="ir.ui.view">
+        <field name="name">product.product.inherit.kanban</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <div>
+                            <div t-if="record.vehicle_code.raw_value" class="text-truncate">
+                                Vehicle Code:<field name="vehicle_code" class="fw-bold fs-5"/>
+                            </div>
+                            <div t-if="record.name.raw_value" class="text-truncate">
+                                Name: <field name="name" class="fw-bold fs-5"/>
+                            </div>
+                            <div t-if="record.vehicle_type.raw_value" class="text-truncate">
+                                Vehicle Type:<field name="vehicle_type" class="ms-2 text-muted"/>
+                            </div>
+                            <div t-if="record.cost_per_km.raw_value" class="text-truncate">
+                                Cost per KM:<field name="cost_per_km" class="ms-2 text-muted"/>
+                            </div>
+                            <div t-if="record.status.raw_value" class="text-truncate">
+                                Status: <field name="status" class="ms-2 text-muted"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="car_management_list_view" model="ir.ui.view">
+        <field name="name">product.product.inherit.list</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="vehicle_code"/>
+                <field name="name"/>
+                <field name="vehicle_type"/>
+                <field name="cost_per_km"/>
+                <field name="status"/>
+                <field name="service_per_km"/>
+                <field name="per_day_km"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="car_management_form_view" model="ir.ui.view">
+        <field name="name">product.product.inherit.form</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="show_maintenance"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                            string="Maintenance Records"
+                        >
+                            <field name="maintenance_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vehicle_code" readonly="1" force_save="1"/>
+                            <field name="name"/>
+                            <field name="vehicle_type"/>
+                            <field name="product_type" widget="radio" options="{'horizontal': True}"/>
+                            <field name="status" widget="radio" options="{'horizontal': True}" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="currency_id"/>
+                            <field name="cost_per_km"/>
+                            <field name="service_per_km"/>
+                            <field name="per_day_km"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="car_management_menu_action" model="ir.actions.act_window">
+        <field name="name">Car Management</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('product_type','in',['vehicle'])]</field>
+    </record>
+
+    <record id="car_management_kanban_action" model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="car_management_kanban_view"/>
+        <field name="act_window_id" ref="car_management_menu_action"/>
+    </record>
+
+    <record id="car_management_list_action" model="ir.actions.act_window.view">
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="car_management_list_view"/>
+        <field name="act_window_id" ref="car_management_menu_action"/>
+    </record>
+
+    <record id="car_management_form_action" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="car_management_form_view"/>
+        <field name="act_window_id" ref="car_management_menu_action"/>
+    </record>
+
+    <menuitem name="Car Rental Management" id="car_rental_root_menu"/>
+
+    <menuitem name="Car Management" id="car_management_menu" parent="car_rental_root_menu" action="car_management_menu_action"
+              groups="car_rental_management_tanisha.group_car_rental_manager"/>
+
+</odoo>
