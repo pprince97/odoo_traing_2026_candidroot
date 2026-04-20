@@ -100,9 +100,9 @@
                         <page string="Record Booking">
                                 <field name="record_booking_ids">
                                     <list string="Record Booking" editable="bottom">
-                                        <field name="product_car_id" domain="[('is_what','=','car'),('status','=','available')]"
+                                        <field name="product_car_id" domain="[('is_what','=','car'),('status','=','available'),('id', 'not in', forbidden_car_ids)]"
                                                 context="{'form_view_ref':'car_rental_sankit.car_form_view'}"/>
-                                        <field name="driver_id" domain="[('is_what','=','driver')]"
+                                        <field name="driver_id" domain="[('is_what','=','driver'),('id', 'not in', forbidden_driver_ids)]"
                                                 context="{'form_view_ref':'car_rental_sankit.driver_form_view'}"/>
                                         <field name="trip_start_km"/>
                                         <field name="trip_end_km"/>

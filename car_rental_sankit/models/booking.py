@@ -5,13 +5,15 @@ from datetime import date
 from datetime import datetime
 from odoo.exceptions import ValidationError
 from odoo.fields import Many2one
+from odoo.exceptions import AccessError
 
 
 class Booking(models.Model):
     _name = "car.booking"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Booking"
     _rec_name = 'customer_id'
-    company_id = fields.Many2one('res.company')
+    # company_id = fields.Many2one('res.company',default=lambda self: self.env.company)
 
     # customer_name = fields.Char(string="Customer Name")
     customer_id = fields.Many2one('res.partner' , string="Customer")
@@ -96,11 +98,12 @@ class Booking(models.Model):
 
         if self.damage_charges:
             self.total_cost += self.damage_charges
-            l.append((0, 0, {'name': "damage charges", 'quantity': 1, 'price_unit': self.damage_charges}))
+            l.append((0, 0, {'name': "damage charges -> " + self.damage_details, 'quantity': 1, 'price_unit': self.damage_charges}))
         print("l--------->",l)
         print("self.total_cost--------->",self.total_cost)
-        res = self.env['account.move'].with_context({'default_move_type': 'in_invoice'}).create(
-            {'partner_id': self.company_id.id, 'invoice_date': fields.Date.today(), 'invoice_line_ids': l})
+        print("self.env.company.id--------->",self.env.company.id)
+        res = self.env['account.move'].with_context({'default_move_type': 'out_invoice'}).create(
+            {'partner_id': self.env.company.id, 'invoice_date': fields.Date.today(), 'invoice_line_ids': l})
         self.update({'state': 'paid'})
 
     def cancelled_state(self):
@@ -113,28 +116,22 @@ class Booking(models.Model):
         for rec in self:
             if rec.trip_start_date and rec.trip_end_date:
                 trip = rec.trip_end_date - rec.trip_start_date
-                print('trip ----->   ',trip)
                 rec.days = trip.days
             else:
                 rec.days = 0
 
-    #             This is for Available Car
-    # def write(self, vals):
-    #     for task in self:
-    #         old_users = task.record_booking_ids
-    #     res = super().write(vals)
-    #     if 'record_booking_ids' in vals:
-    #         for task in self:
-    #             new_users = task.record_booking_ids
-    #             print(new_users, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    #             added_users = new_users - old_users
-    #             removed_users = old_users - new_users
-    #             print(added_users, removed_users, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    #             # mark added users unavailable
-    #             for user in added_users:
-    #                 user.available = False
-    #             # mark removed users available
-    #             for user in removed_users:
-    #                 user.available = True
-    #     return res
-
+    # def _get_thread_with_access(self, thread_id, access_token=None, **kwargs):
+    #     """ This method is required by Odoo 19 for portal chatter access """
+    #     self.ensure_one()
+    #
+    #     # 1. Allow access if the user has a valid access token
+    #     if access_token and self.access_token and access_token == self.access_token:
+    #         return self
+    #
+    #     # 2. Otherwise, check if the current user has rights to read this record
+    #     try:
+    #         self.check_access('read')
+    #     except AccessError:
+    #         raise AccessError("You do not have permission to view this booking's messages.")
+    #
+    #     return self

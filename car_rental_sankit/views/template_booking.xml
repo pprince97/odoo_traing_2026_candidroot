@@ -23,10 +23,10 @@
                         <a class="btn btn-lg btn-primary o_translate_inline" href="/booking/form">Create
                         </a>
                     </div>
-                    <a href="/booking/print" class="btn btn-warning">
-                        <i class="fa fa-download"/>
-                        Download Report
-                    </a>
+                    <!--                    <a href="/booking/print" class="btn btn-warning">-->
+                    <!--                        <i class="fa fa-download"/>-->
+                    <!--                        Download All Report-->
+                    <!--                    </a>-->
                     <table class="small table table-bordered text-center">
                         <thead class="highlight">
                             <tr>
@@ -36,6 +36,7 @@
                                 <th scope="col">Trip End Date</th>
                                 <th scope="col">Days</th>
                                 <th scope="col">Total Cost</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,6 +59,17 @@
                                     </td>
                                     <td>
                                         <span t-esc="booking.total_cost"/>
+                                    </td>
+                                    <td>
+                                        <a t-attf-href="/booking/print/#{booking.id}" class="btn btn-sm btn-info">
+                                            <i class="fa fa-print"/>
+                                            Print
+                                        </a>
+                                        <a t-attf-href="/my/booking/details/#{booking.id}"
+                                           class="btn btn-sm btn-primary">
+                                            <i class="fa fa-comments"/>
+                                            View &amp; Chat
+                                        </a>
                                     </td>
                                 </tr>
                             </t>
@@ -129,12 +141,118 @@
                             </div>
                         </form>
                     </div>
-<!--                    <div id="sale_order_communication">-->
-<!--                        <h3>Communication history</h3>-->
-<!--                        <t t-call="portal.message_thread"/>-->
-<!--                    </div>-->
+                    <!--                    <div id="sale_order_communication">-->
+                    <!--                        <h3>Communication history</h3>-->
+                    <!--                        <t t-call="portal.message_thread"/>-->
+                    <!--                    </div>-->
                 </div>
             </div>
         </t>
     </template>
+
+    <template id="car_booking_details_template" name="Car Booking Details">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Booking Details</h1>
+                    <a href="/booking" class="btn btn-outline-secondary">Back to List</a>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0">Booking Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>
+                                            <strong>Customer:</strong>
+                                            <span t-field="booking.customer_id"/>
+                                        </p>
+                                        <p>
+                                            <strong>Start Date:</strong>
+                                            <span t-field="booking.trip_start_date"/>
+                                        </p>
+                                        <p>
+                                            <strong>End Date:</strong>
+                                            <span t-field="booking.trip_end_date"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6 text-md-end">
+                                        <h3 class="text-primary">Total:
+                                            <span t-field="booking.total_cost"
+                                                  t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                                        </h3>
+                                        <p>
+                                            <strong>Total Days:</strong>
+                                            <span t-field="booking.days"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <strong>Assigned Cars &amp; Drivers</strong>
+                            </div>
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Car</th>
+                                        <th>Driver</th>
+                                        <th class="text-end">KM (Start/End)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="booking.record_booking_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.product_car_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.driver_id"/>
+                                            </td>
+                                            <td class="text-end">
+                                                <span t-field="line.trip_start_km"/>
+                                                -
+                                                <span t-field="line.trip_end_km"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="car_booking_communication" class="mt-5">
+                            <h4>Message History &amp; Attachments</h4>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="booking"/>
+                            </t>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6>Trip Details</h6>
+                                <p class="text-muted small" t-field="booking.trip_details"/>
+                                <hr/>
+                                <h6>Damage Assessment</h6>
+                                <p class="text-danger" t-field="booking.damage_details"/>
+                                <p>
+                                    <strong>Damage Charges:</strong>
+                                    <span t-field="booking.damage_charges"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
 </odoo>

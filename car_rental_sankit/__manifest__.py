@@ -6,7 +6,7 @@
     'description': """
     this is Car Rental Sankit
     """,
-    'depends': ['base', 'contacts', 'account', 'product', 'website', 'web'],
+    'depends': ['base', 'contacts', 'account', 'product', 'website', 'web','mail'],
     'data': [
         'security/car_rental_group.xml',
         'security/ir.model.access.csv',
