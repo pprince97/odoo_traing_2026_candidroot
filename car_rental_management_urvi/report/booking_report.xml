@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_booking_receipt_document">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Customer Name:
+                        <span t-field="doc.customer_id.name"/>
+                    </h2>
+                    <p>Customer Phone:
+                        <span t-field="doc.customer_phone"/>
+                    </p>
+                    <p>Customer Email:
+                        <span t-field="doc.customer_email"/>
+                    </p>
+                    <p>Driver Name:
+                        <span t-field="doc.driver_id.name"/>
+                    </p>
+                    <p>Driver Per Day Cost:
+                        <span t-field="doc.driver_per_day_rate"/>
+                    </p>
+                    <p>Start Date:
+                        <span t-field="doc.start_date"/>
+                    </p>
+                    <p>End Date:
+                        <span t-field="doc.end_date"/>
+                    </p>
+                    <p>Trip Details:
+                        <span t-field="doc.trip_details"/>
+                    </p>
+                    <p t-if="doc.damage_description">Damage Description:
+                        <span t-field="doc.damage_description"/>
+                    </p>
+                    <p t-if="doc.damage_cost">Damage Cost:
+                        <span t-field="doc.damage_cost"/>
+                    </p>
+                    <p>Total Cost:
+                        <span t-field="doc.total_cost"/>
+                    </p>
+                    <h3>Booking Vehicles:</h3>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Vehicle</th>
+                                <th>Cost/Day</th>
+                                <th>Start KM</th>
+                                <th>End KM</th>
+                                <th>KM/Day</th>
+                                <th>Applicable KM</th>
+                                <th class="text-end o_price_total">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.booking_lines" t-as="line">
+                                <td>
+                                    <span t-field="line.vehicle_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.vehicle_per_day_cost"/>
+                                </td>
+                                <td>
+                                    <t t-if="line.start_km">
+                                        <span t-field="line.start_km"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="line.end_km">
+                                        <span t-field="line.end_km"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-field="line.km_per_day"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.applicable_km"/>
+                                </td>
+                                <td class="text-end o_price_total">
+                                    <span t-field="line.cost"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr style="width: 15%; margin-left: auto; margin-right: 0; display-inline"/>
+                    <p class="text-end">Total Amount:
+                        <span t-field="doc.total_cost"/>
+                    </p>
+
+                </div>
+            </t>
+        </template>
+    </data>
+
+    <template id="report_booking_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="car_rental_management_urvi.report_booking_receipt_document"/>
+            </t>
+        </t>
+    </template>
+
+    <data>
+        <record id="action_report_booking_receipt" model="ir.actions.report">
+            <field name="name">Booking Report</field>
+            <field name="model">car.rental.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">car_rental_management_urvi.report_booking_receipt</field>
+            <field name="report_file">car_rental_management_urvi.report_booking_receipt</field>
+            <field name="print_report_name">'Booking Receipt- %s' % (object.customer_id.name)</field>
+            <field name="binding_model_id" ref="car_rental_management_urvi.model_car_rental_booking"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="booking_list_view" model="ir.ui.view">
+        <field name="name">booking.list</field>
+        <field name="model">car.rental.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="customer_id"/>
+                <field name="customer_phone"/>
+                <field name="customer_email"/>
+                <field name="driver_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="trip_details"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="booking_form_view" model="ir.ui.view">
+        <field name="name">booking.form</field>
+        <field name="model">car.rental.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                            string="Inquiry"
+                            name="inquiry_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['draft']"
+                            groups="car_rental_management_urvi.group_service_admin"
+                    />
+                    <button
+                            string="Approved"
+                            name="approved_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['inquiry']"
+                            groups="car_rental_management_urvi.group_service_admin"
+                    />
+                    <button
+                            string="Cancel"
+                            name="cancelled_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['inquiry']"
+                            groups="car_rental_management_urvi.group_service_admin"
+                    />
+                    <button
+                            string="On Going"
+                            name="on_going_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['approved']"
+                            groups="car_rental_management_urvi.group_service_admin"
+                    />
+                    <button
+                            string="Complete"
+                            name="completed_state"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['on_going']"
+                            groups="car_rental_management_urvi.group_service_admin"
+                    />
+                    <button
+                            string="Generate Bill"
+                            name="generate_bill"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['completed']"
+                            groups="car_rental_management_urvi.group_service_admin"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="customer_phone"/>
+                            <field name="customer_email"/>
+                            <field name="driver_id" domain="[('is_driver','=',True)]" context="{'default_is_driver':True}"/>
+                            <field name="driver_per_day_rate"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="trip_details"/>
+                            <field name="damage_description" invisible="state not in ['completed']"/>
+                            <field name="damage_cost" invisible="state not in ['completed']"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="booking_lines" string="Vehicle Details">
+                            <field name="booking_lines">
+                                <list editable="bottom">
+                                    <field name="vehicle_id" domain="[('id','in',available_vehicles_l)]" context="{'default_type':'vehicle'}"/>
+                                    <field name="vehicle_per_day_cost" />
+                                    <field name="start_km" />
+                                    <field name="end_km" />
+                                    <field name="km_per_day" />
+                                    <field name="applicable_km" />
+                                    <field name="cost" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="booking_action" model="ir.actions.act_window">
+        <field name="name">Booking</field>
+        <field name="res_model">car.rental.booking</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_state':'inquiry'}</field>
+    </record>
+
+    <menuitem id="car_rental_booking" name="Booking" parent="car_rental_root" action="booking_action" sequence="3" groups="car_rental_management_urvi.group_service_admin,car_rental_management_urvi.group_service_user"/>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+

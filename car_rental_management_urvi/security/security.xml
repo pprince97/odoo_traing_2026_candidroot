@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="car_rental_management_groups_catgory">
+            <field name="name">Car Rental Management</field>
+            <field name="sequence">35</field>
+        </record>
+
+        <record model="res.groups.privilege" id="res_groups_privilege_service">
+            <field name="name">Service Role</field>
+            <field name="sequence">1</field>
+            <field name="category_id" ref="car_rental_management_urvi.car_rental_management_groups_catgory"/>
+        </record>
+
+        <record id="group_service_customer" model="res.groups">
+            <field name="name">Customer</field>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_service"/>
+        </record>
+
+
+        <record id="group_service_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="sequence">11</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_service"/>
+        </record>
+
+        <record id="group_service_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="sequence">12</field>
+            <field name="implied_ids"
+                   eval="[(4,ref('car_rental_management_urvi.group_service_user'))]"/>
+            <field name="privilege_id" ref="res_groups_privilege_service"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="company_rule_user" model="ir.rule">
+            <field name="name">only user related company</field>
+            <field ref="model_car_rental_booking" name="model_id"/>
+            <field name="domain_force">['|',('customer_id','in',user.partner_id.id),('driver_id','in',user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('car_rental_management_urvi.group_service_user'))]"/>
+        </record>
+
+
+        <record id="company_rule_admin" model="ir.rule">
+            <field name="name">Admin can see All booking</field>
+            <field ref="model_car_rental_booking" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('car_rental_management_urvi.group_service_admin'))]"/>
+        </record>
+
+
+        <record id="group_sm" model="res.groups">
+            <field name="name">POS Cash Manager</field>
+        </record>
+    </data>
+</odoo>
