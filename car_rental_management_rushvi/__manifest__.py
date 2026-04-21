@@ -6,16 +6,10 @@
     'website': "",
     'category': "Uncategorized",
     'version': '1.0',
-    'depends': ['base', 'web', 'mail', 'website', 'portal', 'sale', 'point_of_sale'],
+    'depends': ['base', 'web', 'mail', 'website', 'portal', 'sale', 'point_of_sale','pos_restaurant'],
     'demo': [
         'demo/cars_category.xml',
     ],
-    'assets': {
-        'point_of_sale._assets_pos': [
-            # 'car_rental_management_rushvi/static/src/app/components/navbar/navbar.js',
-            # 'car_rental_management_rushvi/static/src/app/components/navbar/navbar.xml',
-        ],
-    },
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -31,6 +25,14 @@
         'views/car_rental_request_form.xml',
         'report/car_booking_report.xml',
     ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'car_rental_management_rushvi/static/src/app/components/navbar/navbar.js',
+            'car_rental_management_rushvi/static/src/app/components/navbar/navbar.xml',
+            'car_rental_management_rushvi/static/src/app/components/popups/hide_details_button.js',
+            'car_rental_management_rushvi/static/src/app/components/popups/hide_details_button.xml',
+        ],
+    },
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

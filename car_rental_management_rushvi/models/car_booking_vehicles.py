@@ -1,10 +1,12 @@
 from odoo import api, fields, models, tools
+from odoo.exceptions import ValidationError
+
 
 class CarBookingVehicles(models.Model):
     _name = 'car.rent.booking.vehicles'
     _description = 'Booking Vehicles'
 
-    vehicle_id = fields.Many2one('product.product', string='Vehicle',required=True)
+    vehicle_id = fields.Many2one('product.product', string='Vehicle',required=True,domain="[('id', 'not in', parent.booking_vehicle_ids.vehicle_id)]")
     driver_id = fields.Many2one('res.partner',string='Driver')
     per_km_cost = fields.Float('Per KM Cost')
     trip_start_kms = fields.Integer(string="Trip Start km")
@@ -13,16 +15,24 @@ class CarBookingVehicles(models.Model):
     total_min_kms = fields.Float(string="Total Min kms",compute='compute_total_min_kms',store=True)
     booking_id = fields.Many2one('car.rent.booking', string='Booking')
     total_cost = fields.Float('Total Amount')
-
+    occupied_vehicle_ids = fields.Many2many('product.product', string='Vehicle',compute='compute_occupied_vehicle_ids')
     # allowed_cars = fields.Many2many('product.product', string="Allowed Cars",compute="_compute_allowed_cars",store=True,readonly=False  )
+    # def compute_occupied_vehicle_ids(self):
+    #     for rec in self:
+    #         rec.occupied_vehicle_ids = rec.booking_id.booking_vehicle_ids.mapped('vehicle_id')
+
 
     @api.depends('trip_start_kms', 'trip_end_kms')
     def compute_total_kms(self):
         for rec in self:
-            if rec.trip_start_kms and rec.trip_end_kms:
-                rec.total_kms = rec.trip_end_kms - rec.trip_start_kms
-            else:
+            if rec.trip_start_kms and rec.trip_end_kms and rec.trip_start_kms >= rec.trip_end_kms:
                 rec.total_kms = 0
+                raise ValidationError("Start kms should be less than end kms.")
+            else:
+                if rec.trip_start_kms and rec.trip_end_kms:
+                    rec.total_kms = rec.trip_end_kms - rec.trip_start_kms
+                else:
+                    rec.total_kms = 0
 
     @api.depends('booking_id', 'vehicle_id', 'booking_id.trip_start_date', 'booking_id.trip_end_date')
     def compute_total_min_kms(self):

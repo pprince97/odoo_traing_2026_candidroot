@@ -26,7 +26,27 @@ class CarBooking(models.Model):
     damage_description = fields.Text(string='Damage Description')
     damage_cost = fields.Float(string='Damage Cost', default=0)
     invoice_id = fields.Many2one('account.move', string='Invoice')
+    unavailable_vehicle_ids = fields.Many2many('product.product',compute='_compute_unavailable_vehicles')
+    selected_vehicle_ids = fields.Many2many('product.product',compute='_compute_selected_vehicles')
 
+    @api.depends('booking_vehicle_ids.vehicle_id')
+    def _compute_selected_vehicles(self):
+        for rec in self:
+            rec.selected_vehicle_ids = rec.booking_vehicle_ids.mapped('vehicle_id')
+
+    @api.depends('trip_start_date', 'trip_end_date')
+    def _compute_unavailable_vehicles(self):
+        for rec in self:
+            if not rec.trip_start_date or not rec.trip_end_date:
+                rec.unavailable_vehicle_ids = False
+                continue
+
+            booked_lines = self.env['car.rent.booking.vehicles'].search([
+                ('booking_id.trip_start_date', '<=', rec.trip_end_date),
+                ('booking_id.trip_end_date', '>=', rec.trip_start_date),
+                ('booking_id.state', 'not in', ['cancel','draft','inquiry']),
+            ])
+            rec.unavailable_vehicle_ids = booked_lines.mapped('vehicle_id')
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -58,6 +78,11 @@ class CarBooking(models.Model):
         self.state = 'on_going'
 
     def state_approved(self):
+        for rec in self.booking_vehicle_ids:
+            if not rec.vehicle_id:
+                raise ValidationError("Vehicle not selected")
+            if not rec.driver_id:
+                raise ValidationError("Driver not selected")
         self.state = 'approved'
 
     @api.onchange('damage_cost')
@@ -66,7 +91,11 @@ class CarBooking(models.Model):
 
     @api.onchange('trip_start_date', 'trip_end_date')
     def onchange_trip_start_date(self):
-        if self.trip_start_date and self.trip_end_date and self.trip_start_date > self.trip_end_date:
+        if self.trip_start_date and self.trip_start_date <= fields.Datetime.now():
+            raise ValidationError("Start Date can't be in past")
+        if self.trip_end_date and self.trip_end_date <= fields.Datetime.now():
+            raise ValidationError("End Date can't be in past")
+        if self.trip_start_date and self.trip_end_date and (self.trip_start_date > self.trip_end_date):
             raise ValidationError("Start Date can't be earlier than End Date")
 
     def generate_invoice(self):
