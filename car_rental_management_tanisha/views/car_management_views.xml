@@ -69,7 +69,6 @@
                             <field name="vehicle_code" readonly="1" force_save="1"/>
                             <field name="name"/>
                             <field name="vehicle_type"/>
-                            <field name="product_type" widget="radio" options="{'horizontal': True}"/>
                             <field name="status" widget="radio" options="{'horizontal': True}" readonly="1"/>
                         </group>
                         <group>
@@ -88,7 +87,8 @@
         <field name="name">Car Management</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">kanban,list,form</field>
-        <field name="domain">[('product_type','in',['vehicle'])]</field>
+        <field name="domain">[('type','=','vehicle')]</field>
+        <field name="context">{'default_type': 'vehicle'}</field>
     </record>
 
     <record id="car_management_kanban_action" model="ir.actions.act_window.view">

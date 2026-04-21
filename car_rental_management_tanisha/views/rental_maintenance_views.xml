@@ -29,21 +29,33 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="vehicle_id" domain="[('product_type','=','vehicle')]"/>
+                            <field name="vehicle_id" domain="[('type','=','vehicle')]"/>
                             <field name="current_km"/>
                             <field name="arrival_date"/>
                             <field name="dispatch_date"/>
-                            <field name="total_cost"/>
+                            <field name="currency_id"/>
                         </group>
                     </group>
                     <notebook>
                         <page name="vehicle_parts" string="Parts">
-                            <field name="part_ids" domain="[('product_type','=','parts')]">
+                            <field name="part_line_ids">
                                 <list editable="top">
-                                    <field name="name"/>
-                                    <field name="standard_price" readonly="1"/>
+                                    <field name="part_id" domain="[('type','=','parts')]"/>
+                                    <field name="price" readonly="1"/>
+                                    <field name="quantity"/>
+                                    <field name="sub_cost"/>
                                 </list>
                             </field>
+                            <group>
+                                <group class="oe_subtotal_footer" name="total_cost">
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="total_cost" string="Total Cost"/>
+                                    </span>
+                                    <strong>
+                                        <field name="total_cost" nolabel="1"/>
+                                    </strong>
+                                </group>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

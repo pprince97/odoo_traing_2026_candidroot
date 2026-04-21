@@ -6,18 +6,19 @@ class RentalMaintenance(models.Model):
     _rec_name = 'vehicle_id'
 
     vehicle_id = fields.Many2one(comodel_name='product.product', string="Vehicle")
-    current_km = fields.Float(string='Current KM')
+    current_km = fields.Integer(string='Current KM')
     arrival_date = fields.Date(string='Arrival Date')
     dispatch_date = fields.Date(string='Dispatch Date')
-    part_ids = fields.Many2many(comodel_name='product.product', relation='part_maintenance_rel', column1='maintenance_id', column2='part_id', string='Parts')
-    total_cost = fields.Float(string='Total Cost',compute='_compute_total_cost')
+    part_line_ids = fields.One2many(comodel_name='part.line',inverse_name='maintenance_id')
+    currency_id = fields.Many2one(comodel_name='res.currency', string="Foreign Currency")
+    total_cost = fields.Monetary(store=True,currency_field='currency_id',string='Total Cost',compute='_compute_total_cost')
 
-    @api.depends('part_ids')
+    @api.depends('part_line_ids')
     def _compute_total_cost(self):
         for rec in self:
             total = 0
-            for part in rec.part_ids:
-                total += part.standard_price
+            for part in rec.part_line_ids:
+                total += part.sub_cost
             rec.total_cost = total
 
     def generate_maintenance_bill(self):

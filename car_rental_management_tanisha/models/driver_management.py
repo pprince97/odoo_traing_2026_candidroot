@@ -8,7 +8,7 @@ class DriverManagement(models.Model):
     license_issue_date = fields.Date(string='License Issue Date')
     birth_date = fields.Date(string='Birth Date')
     is_handicap = fields.Boolean(string='Is Handicap')
-    status = fields.Selection([('available','Available'),('on_going','On-Going')],string='Status',default='available')
+    status = fields.Selection([('available','Available'),('on_going','On-Going')],string='Driver Status',default='available')
     currency_id = fields.Many2one(comodel_name='res.currency', string="Foreign Currency")
     per_day_rate = fields.Monetary(store=True, readonly=False, currency_field='currency_id', string='Per Day Rate')
     booking_count = fields.Integer(compute='_compute_booking_count')

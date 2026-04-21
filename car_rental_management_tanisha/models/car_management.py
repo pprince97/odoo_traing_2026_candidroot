@@ -8,11 +8,12 @@ class CarManagement(models.Model):
     currency_id = fields.Many2one(comodel_name='res.currency', string="Foreign Currency")
     cost_per_km = fields.Monetary(store=True, readonly=False,currency_field='currency_id',string='Cost per KM')
     status = fields.Selection([('available','Available'),('booked','Booked'),('maintenance','Maintenance')],string='Status', default='available')
-    service_per_km = fields.Float(string='Service per KM')
-    per_day_km = fields.Float(string='Per Day KM')
+    service_per_km = fields.Integer(string='Service per KM')
+    per_day_km = fields.Integer(string='Per Day KM')
     product_type = fields.Selection([('vehicle','Vehicle',),('parts','Parts')],string='Product Is')
     maintenance_ids = fields.Many2many(comodel_name='rental.maintenance', relation='part_maintenance_rel', column1='part_id', column2='maintenance_id', string='Maintenances')
     maintenance_count = fields.Integer(compute='_compute_maintenance_count')
+
 
     @api.model
     def default_get(self, fields_list):
@@ -38,4 +39,7 @@ class CarManagement(models.Model):
             dom['res_id'] = self.env['rental.maintenance'].search([('vehicle_id', '=', self.id)]).id
         return dom
 
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
 
+    type = fields.Selection(selection_add=[('vehicle', 'Vehicle'),('parts', 'Parts')],ondelete={'vehicle': 'cascade','parts': 'cascade'})

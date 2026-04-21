@@ -6,7 +6,7 @@
     'description': """This is Car Rental Management System to manage vehicles, drivers, bookings, billing,maintenance,
         and advanced real-world constraints such as minimum billing kilometers and service due alerts""",
     'website': 'https://www.carrentalmanagement.com',
-    'depends': ['base','contacts','stock','account','hr_timesheet','website'],
+    'depends': ['base','contacts','stock','account','website'],
     'data': [
         'security/car_rental_security.xml',
         'security/ir.model.access.csv',

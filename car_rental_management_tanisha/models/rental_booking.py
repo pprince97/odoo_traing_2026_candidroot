@@ -1,16 +1,17 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 class RentalBooking(models.Model):
     _name = 'rental.booking'
     _description = 'Rental Booking'
     _rec_name = 'customer_id'
 
-    customer_id = fields.Many2one(comodel_name='res.users', string='Name')
+    customer_id = fields.Many2one(comodel_name='res.partner', string='Name')
     phone = fields.Char(related='customer_id.phone', string='Phone', store=True)
-    country_id = fields.Many2one(related='customer_id.partner_id.country_id', string='Country')
-    state_id = fields.Many2one(related='customer_id.partner_id.state_id', string='State')
-    city = fields.Char(related='customer_id.partner_id.city', string='City')
-    street = fields.Char(related='customer_id.partner_id.street', string='Street')
+    country_id = fields.Many2one(related='customer_id.country_id', string='Country')
+    state_id = fields.Many2one(related='customer_id.state_id', string='State')
+    city = fields.Char(related='customer_id.city', string='City')
+    street = fields.Char(related='customer_id.street', string='Street')
     vehicle_line_ids = fields.One2many(comodel_name='vehicle.line',inverse_name='booking_id')
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
@@ -21,14 +22,56 @@ class RentalBooking(models.Model):
     currency_id = fields.Many2one(comodel_name='res.currency', string="Foreign Currency")
     damage_charges = fields.Monetary(store=True, readonly=False,currency_field='currency_id',string='Damage Charges')
     total_cost = fields.Monetary(store=True,currency_field='currency_id',string='Total Cost',compute='_compute_total_cost')
+    total_days = fields.Integer(compute='_compute_total_days',store=True)
 
-    @api.depends('vehicle_line_ids')
+    def state_inquiry(self):
+        self.state = 'inquiry'
+
+    def state_approved(self):
+        self.state = 'approved'
+
+    def state_on_going(self):
+        self.state = 'on_going'
+
+    def state_completed(self):
+        self.state = 'completed'
+
+    def state_paid(self):
+        self.state = 'paid'
+
+    def state_cancelled(self):
+        self.state = 'cancelled'
+
+    @api.onchange('start_date', 'end_date')
+    def _onchange_dates(self):
+        if self.start_date and self.end_date:
+            if self.start_date >= self.end_date:
+                raise ValidationError(_("Start date must be less than End date!!!!!!"))
+
+    @api.depends('start_date', 'end_date')
+    def _compute_total_days(self):
+        for rec in self:
+            if rec.start_date and rec.end_date:
+                rec.total_days = (rec.end_date - rec.start_date).total_seconds()/(60*60*24)
+            else:
+                rec.total_days = 0
+
+    @api.onchange('vehicle_line_ids')
+    def _onchange_vehicle_line_ids(self):
+        # vehicles = self.env['product.product'].search([('type','=','vehicle')])
+        vehicle_lines_1 = self.env['vehicle.line'].search([('vehicle_id.type','=','vehicle')])['vehicle_id']
+        vehicle_lines_2 = self.env['vehicle.line'].search([('vehicle_id.type','=','vehicle'),('booking_id.end_date','<=',self.start_date)])['vehicle_id']
+        print(">>>>>>>>>>>",vehicle_lines_1)
+        print(">>>>>>>>>>>",vehicle_lines_2)
+        print(">>>>>>>>>>>",vehicle_lines_1-vehicle_lines_2)
+
+    @api.depends('vehicle_line_ids','damage_charges','total_days')
     def _compute_total_cost(self):
         for rec in self:
             total = 0
             for vehicle in rec.vehicle_line_ids:
                 total += vehicle.sub_cost
-            rec.total_cost = total
+            rec.total_cost = total*rec.total_days + rec.damage_charges
 
     def generate_booking_invoice(self):
         l = []
@@ -40,7 +83,7 @@ class RentalBooking(models.Model):
                     'price_subtotal': vehicle.sub_cost,
                 }))
             create_invoice = self.env['account.move'].with_context(default_move_type='out_invoice').create({
-                'partner_id': self.customer_id.partner_id.id,
+                'partner_id': self.customer_id.id,
                 'invoice_date': fields.Date.today(),
                 'invoice_line_ids': l,
                 'amount_residual': self.total_cost,
@@ -58,5 +101,9 @@ class RentalBooking(models.Model):
     def generate_booking_report(self):
         a = self.generate_booking_invoice()
         return self.env.ref('car_rental_management_tanisha.booking_report_template').report_action(a['res_id'], config=False)
+
+
+
+
 
 

@@ -24,6 +24,42 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="state_inquiry"
+                            string="Inquiry"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['draft']"
+                    />
+                    <button name="state_approved"
+                            string="Approved"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['inquiry']"
+                    />
+                    <button name="state_on_going"
+                            string="On-going"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['new','approved']"
+                    />
+                    <button name="state_completed"
+                            string="Completed"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['new','on_going']"
+                    />
+                    <button name="state_paid"
+                            string="Paid"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['new','completed']"
+                    />
+                    <button name="state_cancelled"
+                            string="Cancelled"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ['inquiry']"
+                    />
                     <button name="generate_booking_invoice"
                             string="Generate Invoice"
                             type="object"
@@ -34,22 +70,23 @@
                             type="object"
                             class="oe_highlight"
                             invisible="state not in ['completed','paid']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="customer_id"/>
+                            <field name="customer_id" domain="[('is_company','=',False)]"/>
                             <field name="phone"/>
                             <field name="country_id"/>
                             <field name="state_id"/>
                             <field name="city"/>
                             <field name="street"/>
-                            <field name="state"/>
                             <field name="currency_id"/>
                         </group>
                         <group>
                             <field name="start_date"/>
                             <field name="end_date"/>
+                            <field name="total_days"/>
                             <field name="trip_details"/>
                             <field name="damage_description"/>
                             <field name="damage_charges"/>
@@ -59,12 +96,13 @@
                         <page name="vehicle_lines" string="Vehicle Lines">
                             <field name="vehicle_line_ids">
                                 <list editable="top">
-                                    <field name="vehicle_id" domain="[('product_type','=','vehicle'),('status','!=','booked')]"/>
+                                    <field name="vehicle_id" domain="[('product_type','=','vehicle'),('status','!=','booked')]" context="{'form_view_ref': 'car_rental_management_tanisha.car_management_form_view'}"/>
                                     <field name="per_km_cost"/>
                                     <field name="start_trip_km"/>
                                     <field name="end_trip_km"/>
                                     <field name="total_km"/>
-                                    <field name="driver_id" domain="[('status','=','available')]"/>
+                                    <field name="adjustment_km"/>
+                                    <field name="driver_id" domain="[('status','=','available')]" context="{'form_view_ref': 'car_rental_management_tanisha.driver_management_form_view'}"/>
                                     <field name="sub_cost"/>
                                 </list>
                             </field>
@@ -74,7 +112,7 @@
                                         <label class="fw-bold" for="total_cost" string="Total Cost"/>
                                     </span>
                                     <strong>
-                                        <field name="total_cost" widget="timesheet_uom" nolabel="1"/>
+                                        <field name="total_cost" nolabel="1"/>
                                     </strong>
                                 </group>
                             </group>
