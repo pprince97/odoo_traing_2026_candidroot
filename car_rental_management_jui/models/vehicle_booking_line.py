@@ -1,5 +1,6 @@
 from odoo import api, fields, models, Command
 from odoo.exceptions import ValidationError
+from odoo.fields import Domain
 import logging
 
 logger = logging.getLogger('odoo.registry')
@@ -9,15 +10,50 @@ class VehicleBookingLine(models.Model):
     _rec_name = 'vehicle_id'
 
     vehicle_id = fields.Many2one('product.product',string="Vehicle")
+    available_vehicles = fields.Many2many('product.product','product_booking_rel','booking_line_id','booking_id',string="Available Vehicles",compute='_compute_available_vehicles')
     start_km = fields.Float(string="Start Km")
     end_km = fields.Float(string="End Km")
     total_km = fields.Float(string="Total Km",compute="_compute_total_km",store=True)
     driver_id = fields.Many2one('res.partner',string="Driver")
+    available_driver = fields.Many2many('res.partner','res_partner_booking_rel','booking_line_id','booking_id',string="Available Drivers",compute='_compute_available_drivers')
     booking_id = fields.Many2one('vehicle.booking',string="Booking")
-    booking_rent_date = fields.Date(string="Booking Return Date",related="booking_id.rent_date")
     total_cost = fields.Float(string="Total Cost",compute="_compute_total_cost",store=True)
     cost = fields.Float(string="Total Cost")
     adjusted_cost = fields.Float(string="Adjusted Cost")
+
+    @api.depends('booking_id.rent_date', 'booking_id.return_date')
+    def _compute_available_vehicles(self):
+        if self.booking_id.rent_date and self.booking_id.return_date:
+            domain = Domain.OR([Domain([('rent_date', '<=', self.booking_id.rent_date),
+                                        ('return_date', '>=', self.booking_id.rent_date)]),
+                                Domain([('rent_date', '<=', self.booking_id.return_date),
+                                        ('return_date', '>=', self.booking_id.return_date)])])
+            domain &= Domain([('state', 'in', ['draft','approved', 'inquiry', 'on_going']), ('id', '!=', self.booking_id.id)])
+            id_s1 = self.env['vehicle.booking'].search(domain).booking_line_ids.vehicle_id.ids
+            id_s2 = self.env['product.product'].search([('is_vehicle', '=', True),('id','not in',self.booking_id.booking_line_ids.vehicle_id.ids)]).ids
+            self.write({'available_vehicles': [
+                Command.set(list(set(id_s2) - set(id_s1)))]})
+        else:
+            id_s1 = self.env['product.product'].search([('is_vehicle', '=', True),('status','in',['available']),('id','not in',self.booking_id.booking_line_ids.vehicle_id.ids)]).ids
+            self.write({'available_vehicles': [
+                Command.set(list(set(id_s1)))]})
+
+    @api.depends('booking_id.rent_date', 'booking_id.return_date')
+    def _compute_available_drivers(self):
+        if self.booking_id.rent_date and self.booking_id.return_date:
+            domain = Domain.OR([Domain([('rent_date', '<=', self.booking_id.rent_date),
+                                        ('return_date', '>=', self.booking_id.rent_date)]),
+                                Domain([('rent_date', '<=', self.booking_id.return_date),
+                                        ('return_date', '>=', self.booking_id.return_date)])])
+            domain &= Domain([('state', 'in', ['draft', 'approved', 'inquiry', 'on_going']), ('id', '!=', self.booking_id.id)])
+            id_s1 = self.env['vehicle.booking'].search(domain).booking_line_ids.driver_id.ids
+            id_s2 = self.env['res.partner'].search([('is_driver', '=', True), ('id', 'not in', self.booking_id.booking_line_ids.driver_id.ids)]).ids
+            self.write({'available_driver': [
+                Command.set(list(set(id_s2) - set(id_s1)))]})
+        else:
+            id_s1 = self.env['res.partner'].search([('is_driver', '=', True), ('status', '=', True),('id', 'not in',self.booking_id.booking_line_ids.driver_id.ids)]).ids
+            self.write({'available_driver': [
+                Command.set(list(set(id_s1)))]})
 
     @api.onchange('vehicle_id','start_km')
     def _onchange_vehicle_id(self):
@@ -32,6 +68,12 @@ class VehicleBookingLine(models.Model):
                         'message': f"Selected vehicle {self.vehicle_id.name} needs Maintenance .",
                         'sticky': True,
                     })
+
+    @api.onchange('start_km')
+    def _onchange_start_km(self):
+        for rec in self:
+            if rec.start_km < 0:
+                raise ValidationError("start km cannot be negative")
 
     @api.depends('start_km', 'end_km')
     def _compute_total_km(self):

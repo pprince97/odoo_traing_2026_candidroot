@@ -20,6 +20,9 @@ class VehicleBooking(models.Model):
     total_cost = fields.Float(string="Total Cost",compute='_compute_total_cost',store=True)
     invoice_id =fields.Many2one('account.move',string="Invoice")
 
+    def state_inquiry(self):
+        self.state = 'inquiry'
+
     def state_approved(self):
         self.state = 'approved'
     def state_on_going(self):
@@ -63,16 +66,21 @@ class VehicleBooking(models.Model):
             if rec.rent_date and rec.return_date:
                 if rec.rent_date > rec.return_date:
                     raise ValidationError("rent date cannot be greater than return date")
+            if rec.rent_date and rec.rent_date < fields.Date.today():
+                raise ValidationError("rent date cannot be in past")
 
     @api.onchange('return_date')
     def _onchange_return_date(self):
         self._onchange_rent_date()
+        for rec in self:
+            if rec.return_date and rec.return_date < fields.Date.today():
+                raise ValidationError("return date cannot be in past")
 
     @api.depends('rent_date','return_date')
     def _compute_no_of_days(self):
         for rec in self:
             if rec.rent_date and rec.return_date:
-                rec.no_of_days = (rec.return_date - rec.rent_date).days
+                rec.no_of_days = (rec.return_date - rec.rent_date).days + 1
 
     @api.depends('booking_line_ids')
     def _compute_total_kms(self):
@@ -99,6 +107,16 @@ class VehicleBooking(models.Model):
                     line.vehicle_id.status = 'booked'
                     line.driver_id.status = False
         return res
+
+    def write(self, vals):
+        res = super(VehicleBooking, self).write(vals)
+        if 'booking_line_ids' in vals:
+            for rec in self:
+                for line in rec.booking_line_ids:
+                    line.vehicle_id.status = 'booked'
+                    line.driver_id.status = False
+        return res
+
 
     def unlink(self):
         for rec in self:

@@ -8,17 +8,17 @@
             <field name="name">Booking</field>
             <field name="model">vehicle.booking</field>
             <field name="arch" type="xml">
-            <list>
-                <field name="customer_id" width="30px"/>
-                <field name="rent_date" width="15px"/>
-                <field name="return_date" width="40px"/>
-                <field name="trip_place" width="40px"/>
-                <field name="no_of_days" width="40px"/>
-                <field name="booking_line_ids" width="40px"/>
-                <field name="state" width="40px"/>
-                <field name="damage_description" width="40px" invisible="state not in ['completed','paid']"/>
-                <field name="damage_charges" width="40px" invisible="state not in ['completed','paid']"/>
-            </list>
+                <list>
+                    <field name="customer_id" width="30px"/>
+                    <field name="rent_date" width="15px"/>
+                    <field name="return_date" width="40px"/>
+                    <field name="trip_place" width="40px"/>
+                    <field name="no_of_days" width="40px"/>
+                    <field name="booking_line_ids" width="40px"/>
+                    <field name="state" width="40px"/>
+                    <field name="damage_description" width="40px" invisible="state not in ['completed','paid']"/>
+                    <field name="damage_charges" width="40px" invisible="state not in ['completed','paid']"/>
+                </list>
             </field>
         </record>
 
@@ -32,7 +32,14 @@
                                 string="Approve"
                                 type="object"
                                 class="oe_highlight"
-                                invisible="state in ['approved','on_going','completed','paid','cancelled']"
+                                invisible="state in ['draft','approved','on_going','completed','paid','cancelled']"
+                                groups="car_rental_management_jui.car_rental_group_manager"
+                        />
+                        <button name="state_inquiry"
+                                string="Inquiry"
+                                type="object"
+                                class="oe_highlight"
+                                invisible="state in ['approved','inquiry','on_going','completed','paid','cancelled']"
                                 groups="car_rental_management_jui.car_rental_group_manager"
                         />
                         <button name="state_on_going"
@@ -68,12 +75,15 @@
                                 class="oe_highlight"
                                 invisible="state in ['approved','on_going','completed','paid','cancelled']"
                         />
-                        <field name="state" widget="statusbar" statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled" default="inquiry"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled"
+                               default="inquiry"/>
                     </header>
                     <sheet>
                         <group>
                             <group>
-                                <field name="customer_id" domain="[('is_customer','=',True)]" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="customer_id" domain="[('is_customer','=',True)]"
+                                       options="{'no_open': True, 'no_create': True}"/>
                                 <field name="rent_date"/>
                                 <field name="damage_description" invisible="state not in ['completed','paid']"/>
                             </group>
@@ -88,8 +98,10 @@
                             <page name="booking_lines" string="Vehicles">
                                 <field name="booking_line_ids">
                                     <list editable="bottom">
-                                        <field name="vehicle_id" width="30px" domain="[('is_vehicle','=',True),'|',('booking_line_ids.booking_id.return_date','&lt;',booking_rent_date),('status','in',['available'])]" options="{'no_open': True, 'no_create': True}"/>
-                                        <field name="driver_id" width="15px" domain="[('is_driver','=',True),'|',('booking_line_ids.booking_id.return_date','&lt;',booking_rent_date),('status','=',True)]" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="vehicle_id" width="30px"
+                                               domain="[('id','in',available_vehicles)]" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="driver_id" width="15px"
+                                               domain="[('id','in',available_driver)]" options="{'no_open': True, 'no_create': True}"/>
                                         <field name="start_km" width="15px"/>
                                         <field name="end_km" width="15px"/>
                                         <field name="total_km" width="15px"/>
@@ -99,7 +111,8 @@
                                     </list>
                                 </field>
                                 <group name="note_group" col="6" class="mt-2 mt-md-0">
-                                    <group class="oe_subtotal_footer order-0 order-lg-1 flex-column" colspan="2" name="total_kms">
+                                    <group class="oe_subtotal_footer order-0 order-lg-1 flex-column" colspan="2"
+                                           name="total_kms">
                                         <field name="total_kms"/>
                                         <field name="total_cost"/>
                                     </group>
@@ -117,17 +130,17 @@
             <field name="name">Booking</field>
             <field name="model">vehicle.booking</field>
             <field name="arch" type="xml">
-            <list>
-                <field name="customer_id" width="30px"/>
-                <field name="rent_date" width="15px"/>
-                <field name="return_date" width="40px"/>
-                <field name="trip_place" width="40px"/>
-                <field name="no_of_days" width="40px"/>
-                <field name="booking_line_ids" width="40px"/>
-                <field name="state" width="40px"/>
-                <field name="damage_description" width="40px" invisible="state not in ['completed','paid']"/>
-                <field name="damage_charges" width="40px" invisible="state not in ['completed','paid']"/>
-            </list>
+                <list>
+                    <field name="customer_id" width="30px"/>
+                    <field name="rent_date" width="15px"/>
+                    <field name="return_date" width="40px"/>
+                    <field name="trip_place" width="40px"/>
+                    <field name="no_of_days" width="40px"/>
+                    <field name="booking_line_ids" width="40px"/>
+                    <field name="state" width="40px"/>
+                    <field name="damage_description" width="40px" invisible="state not in ['completed','paid']"/>
+                    <field name="damage_charges" width="40px" invisible="state not in ['completed','paid']"/>
+                </list>
             </field>
         </record>
 
@@ -149,12 +162,15 @@
                                 class="oe_highlight"
                                 invisible="state in ['approved','on_going','completed','paid','cancelled']"
                         />
-                        <field name="state" widget="statusbar" statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled" default="inquiry"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,inquiry,approved,on_going,completed,paid,cancelled"
+                               default="inquiry"/>
                     </header>
                     <sheet>
                         <group>
                             <group>
-                                <field name="customer_id" domain="[('user_id','=',uid)]" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="customer_id" domain="[('user_id','=',uid)]"
+                                       options="{'no_open': True, 'no_create': True}"/>
                                 <field name="rent_date"/>
                                 <field name="damage_description" invisible="state not in ['completed','paid']"/>
                             </group>
@@ -169,8 +185,10 @@
                             <page name="booking_lines" string="Vehicles">
                                 <field name="booking_line_ids">
                                     <list editable="bottom">
-                                        <field name="vehicle_id" width="30px" domain="[('is_vehicle','=',True),'|',('booking_line_ids.booking_id.return_date','&lt;',booking_rent_date),('status','in',['available'])]" options="{'no_open': True, 'no_create': True}"/>
-                                        <field name="driver_id" width="15px" domain="[('is_driver','=',True),'|',('booking_line_ids.booking_id.return_date','&lt;',booking_rent_date),('status','=',True)]" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="vehicle_id" width="30px" domain="[('id','in',available_vehicles)]"
+                                               options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="driver_id" width="15px" domain="[('id','in',available_driver)]"
+                                               options="{'no_open': True, 'no_create': True}"/>
                                         <field name="start_km" width="15px"/>
                                         <field name="end_km" width="15px"/>
                                         <field name="total_km" width="15px"/>
@@ -180,7 +198,8 @@
                                     </list>
                                 </field>
                                 <group name="note_group" col="6" class="mt-2 mt-md-0">
-                                    <group class="oe_subtotal_footer order-0 order-lg-1 flex-column" colspan="2" name="total_kms">
+                                    <group class="oe_subtotal_footer order-0 order-lg-1 flex-column" colspan="2"
+                                           name="total_kms">
                                         <field name="total_kms"/>
                                         <field name="total_cost"/>
                                     </group>
@@ -228,8 +247,11 @@
             <field name="act_window_id" ref="vehicle_booking_action"/>
         </record>
 
-        <menuitem id="vehicle_booking_menu" name="Booking" parent="car_rental_management_jui.car_rental_management_menu" action="vehicle_booking_action" groups="car_rental_management_jui.car_rental_group_manager"/>
-        <menuitem id="vehicle_booking_user_menu" name="Booking" parent="car_rental_management_jui.car_rental_management_menu" action="vehicle_booking_action_user" groups="car_rental_management_jui.car_rental_group_user"/>
+        <menuitem id="vehicle_booking_menu" name="Booking" parent="car_rental_management_jui.car_rental_management_menu"
+                  action="vehicle_booking_action" groups="car_rental_management_jui.car_rental_group_manager"/>
+        <menuitem id="vehicle_booking_user_menu" name="Booking"
+                  parent="car_rental_management_jui.car_rental_management_menu" action="vehicle_booking_action_user"
+                  groups="car_rental_management_jui.car_rental_group_user"/>
 
     </data>
 </odoo>

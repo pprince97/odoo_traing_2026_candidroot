@@ -85,6 +85,8 @@ class CarRentalManagementController(http.Controller):
                     'start_km': int(post.get('new_start_km') or 1),
                     'end_km': int(post.get('new_end_km') or 1),
                 })
+                request.env['product.product'].browse(int(post.get('new_vehicle_id'))).write({'status':'booked'})
+                request.env['res.partner'].browse(int(post.get('new_driver_id'))).write({'status':False})
 
             return request.redirect('/my/car/rental/bookings/form/')
 
