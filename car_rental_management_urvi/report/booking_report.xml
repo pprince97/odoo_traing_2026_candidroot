@@ -13,12 +13,6 @@
                     <p>Customer Email:
                         <span t-field="doc.customer_email"/>
                     </p>
-                    <p>Driver Name:
-                        <span t-field="doc.driver_id.name"/>
-                    </p>
-                    <p>Driver Per Day Cost:
-                        <span t-field="doc.driver_per_day_rate"/>
-                    </p>
                     <p>Start Date:
                         <span t-field="doc.start_date"/>
                     </p>
@@ -34,14 +28,13 @@
                     <p t-if="doc.damage_cost">Damage Cost:
                         <span t-field="doc.damage_cost"/>
                     </p>
-                    <p>Total Cost:
-                        <span t-field="doc.total_cost"/>
-                    </p>
                     <h3>Booking Vehicles:</h3>
-                    <table class="table table-sm">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Vehicle</th>
+                                <th>Driver</th>
+                                <th>Driver Rate/Day</th>
                                 <th>Cost/Day</th>
                                 <th>Start KM</th>
                                 <th>End KM</th>
@@ -54,6 +47,12 @@
                             <tr t-foreach="doc.booking_lines" t-as="line">
                                 <td>
                                     <span t-field="line.vehicle_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.driver_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.driver_per_day_rate"/>
                                 </td>
                                 <td>
                                     <span t-field="line.vehicle_per_day_cost"/>
@@ -84,7 +83,6 @@
                     <p class="text-end">Total Amount:
                         <span t-field="doc.total_cost"/>
                     </p>
-
                 </div>
             </t>
         </template>

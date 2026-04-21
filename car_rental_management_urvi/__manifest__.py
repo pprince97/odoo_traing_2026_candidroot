@@ -7,7 +7,7 @@
     """,
     'category': 'Uncategorized',
     'website': 'https://www.car_rental.com',
-    'depends': ['base', 'website','sale_management','contacts'],
+    'depends': ['base', 'mail', 'website', 'sale_management', 'contacts', 'point_of_sale'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -21,6 +21,17 @@
         'views/website_booking.xml',
 
     ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'car_rental_management_urvi/static/src/app/components/navbar/detail_navbar.xml',
+            'car_rental_management_urvi/static/src/app/components/navbar/detail_navbar.js',
+        ]},
+    # 'assets': {
+    #     'point_of_sale.assets': [
+    #         'car_rental_management_urvi/static/src/app/components/navbar/detail_navbar.xml',
+    #     ],
+    # },
+
     # 'demo': [
     #     'demo/book_demo.xml',
     #     'demo/student_demo.xml',

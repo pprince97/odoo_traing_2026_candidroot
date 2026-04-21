@@ -19,8 +19,8 @@
                             <thead>
                                 <tr>
                                     <th>Customer</th>
-                                    <th>Driver</th>
-                                    <th>Driver Rate/Day</th>
+<!--                                    <th>Driver</th>-->
+<!--                                    <th>Driver Rate/Day</th>-->
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Trip Details</th>
@@ -33,17 +33,16 @@
                                 <t t-foreach="booking_records" t-as="booking">
                                     <tr>
                                         <td>
-                                            <a href="#" data-bs-toggle="modal"
-                                               t-attf-data-bs-target="#modal_booking_#{booking.id}" class="fw-bold">
+                                            <a t-attf-href="/my/booking/#{booking.id}">
                                                 <t t-out="booking.customer_id.name"/>
                                             </a>
                                         </td>
-                                        <td>
-                                            <t t-out="booking.driver_id.name"/>
-                                        </td>
-                                        <td>
-                                            <t t-out="booking.driver_per_day_rate"/>
-                                        </td>
+<!--                                        <td>-->
+<!--                                            <t t-out="booking.driver_id.name"/>-->
+<!--                                        </td>-->
+<!--                                        <td>-->
+<!--                                            <t t-out="booking.driver_per_day_rate"/>-->
+<!--                                        </td>-->
                                         <td>
                                             <t t-out="booking.start_date"/>
                                         </td>
@@ -67,26 +66,26 @@
                                 </t>
                             </tbody>
                         </table>
-                        <t t-foreach="booking_records" t-as="booking">
-                            <div class="modal fade" t-attf-id="modal_booking_#{booking.id}" tabindex="-1">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header border-bottom-0">
-                                            <h5 class="modal-title">Details:
-                                                <t t-out="booking.customer_id.name"/>
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"/>
-                                        </div>
-                                        <div class="modal-body pt-0">
-                                            <t t-call="car_rental_management_urvi.booking_record_view_template">
-                                                <t t-set="record" t-value="booking"/>
-                                            </t>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
+                        <!--                        <t t-foreach="booking_records" t-as="booking">-->
+                        <!--                            <div class="modal fade" t-attf-id="modal_booking_#{booking.id}" tabindex="-1">-->
+                        <!--                                <div class="modal-dialog modal-lg">-->
+                        <!--                                    <div class="modal-content">-->
+                        <!--                                        <div class="modal-header border-bottom-0">-->
+                        <!--                                            <h5 class="modal-title">Details:-->
+                        <!--                                                <t t-out="booking.customer_id.name"/>-->
+                        <!--                                            </h5>-->
+                        <!--                                            <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+                        <!--                                                    aria-label="Close"/>-->
+                        <!--                                        </div>-->
+                        <!--                                        <div class="modal-body pt-0">-->
+                        <!--                                            <t t-call="car_rental_management_urvi.booking_record_view_template">-->
+                        <!--                                                <t t-set="record" t-value="booking"/>-->
+                        <!--                                            </t>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </t>-->
                     </t>
                     <t t-else="">
                         <h1>No Booking Records</h1>
@@ -98,143 +97,156 @@
 
 
     <template id="booking_record_view_template" name="Booking Record View Template">
-        <div id="wrap" class="oe_structure">
-            <div class="container">
-                <div class="row mt-4">
-                    <div class="col-md-6 mb-3">
-                        <h2 class="mt-4">Booking Details</h2>
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container">
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <h2 class="mt-4">Booking Details</h2>
+                        </div>
+                        <div class="col-md-6 mb-3 text-end">
+                            <a t-attf-href="/report/download/{{record.id }}" class="btn btn-primary">
+                                <i class="fa fa-print"/>
+                                Print Report
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-6 mb-3 text-end">
-                        <a t-attf-href="/report/download/{{record.id }}" class="btn btn-primary">
-                            <i class="fa fa-print"/>
-                            Print Report
-                        </a>
-                    </div>
-                </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Customer Name:
-                            <span t-field="record.customer_id.name"/>
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">Customer Phone</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.customer_phone"/>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Customer Name:
+                                <span t-field="record.customer_id.name"/>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">Customer Phone</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.customer_phone"/>
+                                </div>
+
+                                <div class="col-sm-3">Customer Email</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.customer_email"/>
+                                </div>
+
+<!--                                <div class="col-sm-3">Driver</div>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <span t-field="record.driver_id.name"/>-->
+<!--                                </div>-->
+
+<!--                                <div class="col-sm-3">Driver Rate/Day</div>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <span t-field="record.driver_per_day_rate"/>-->
+<!--                                </div>-->
+
+                                <div class="col-sm-3">Booking State</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.state"/>
+                                </div>
+
+                                <div t-if="record.start_date" class="col-sm-3">Start Date</div>
+                                <div t-if="record.start_date" class="col-sm-9">
+                                    <span t-field="record.start_date"/>
+                                </div>
+
+                                <div t-if="record.end_date" class="col-sm-3">End Date</div>
+                                <div t-if="record.end_date" class="col-sm-9">
+                                    <span t-field="record.end_date"/>
+                                </div>
+
+                                <div class="col-sm-3">Trip Details</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.trip_details"/>
+                                </div>
+
+                                <div t-if="record.damage_description" class="col-sm-3">Damage Description</div>
+                                <div t-if="record.damage_description" class="col-sm-9">
+                                    <span t-field="record.damage_description"/>
+                                </div>
+
+                                <div t-if="record.damage_cost" class="col-sm-3">Damage Cost</div>
+                                <div t-if="record.damage_cost" class="col-sm-9">
+                                    <span t-field="record.damage_cost"/>
+                                </div>
+
+                                <div class="col-sm-3">Total Amount</div>
+                                <div class="col-sm-9">
+                                    <span t-field="record.total_cost"/>
+                                </div>
+
                             </div>
 
-                            <div class="col-sm-3">Customer Email</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.customer_email"/>
-                            </div>
-
-                            <div class="col-sm-3">Driver</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.driver_id.name"/>
-                            </div>
-
-                            <div class="col-sm-3">Driver Rate/Day</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.driver_per_day_rate"/>
-                            </div>
-
-                            <div class="col-sm-3">Booking State</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.state"/>
-                            </div>
-
-                            <div t-if="record.start_date" class="col-sm-3">Start Date</div>
-                            <div t-if="record.start_date" class="col-sm-9">
-                                <span t-field="record.start_date"/>
-                            </div>
-
-                            <div t-if="record.end_date" class="col-sm-3">End Date</div>
-                            <div t-if="record.end_date" class="col-sm-9">
-                                <span t-field="record.end_date"/>
-                            </div>
-
-                            <div class="col-sm-3">Trip Details</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.trip_details"/>
-                            </div>
-
-                            <div t-if="record.damage_description" class="col-sm-3">Damage Description</div>
-                            <div t-if="record.damage_description" class="col-sm-9">
-                                <span t-field="record.damage_description"/>
-                            </div>
-
-                            <div t-if="record.damage_cost" class="col-sm-3">Damage Cost</div>
-                            <div t-if="record.damage_cost" class="col-sm-9">
-                                <span t-field="record.damage_cost"/>
-                            </div>
-
-                            <div class="col-sm-3">Total Amount</div>
-                            <div class="col-sm-9">
-                                <span t-field="record.total_cost"/>
-                            </div>
-
+                            <h6>Booked Vehicles:</h6>
+                            <t t-if="record.booking_lines">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Vehicle</th>
+                                            <th>Driver</th>
+                                            <th>Cost/Day</th>
+                                            <th>Start KM</th>
+                                            <th>End KM</th>
+                                            <th>KM/Day</th>
+                                            <th>Applicable KM</th>
+                                            <th class="text-end o_price_total">Total Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="record.booking_lines" t-as="line">
+                                            <tr>
+                                                <td>
+                                                    <t t-out="line.vehicle_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.driver_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.vehicle_per_day_cost"/>
+                                                </td>
+                                                <td>
+                                                    <t t-if="line.start_km">
+                                                        <span t-field="line.start_km"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="line.end_km">
+                                                        <span t-field="line.end_km"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.km_per_day"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="line.applicable_km"/>
+                                                </td>
+                                                <td class="text-end o_price_total">
+                                                    <span t-field="line.cost"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <hr style="width: 15%; margin-left: auto; margin-right: 0; display-inline"/>
+                                <p class="text-end">Total Amount:
+                                    <span t-field="record.total_cost"/>
+                                </p>
+                            </t>
+                            <t t-else="">
+                                <p>No Record for Car Rental Booking.</p>
+                            </t>
                         </div>
 
-                        <h6>Booked Vehicles:</h6>
-                        <t t-if="record.booking_lines">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Vehicle</th>
-                                        <th>Cost/Day</th>
-                                        <th>Start KM</th>
-                                        <th>End KM</th>
-                                        <th>KM/Day</th>
-                                        <th>Applicable KM</th>
-                                        <th class="text-end o_price_total">Total Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-foreach="record.booking_lines" t-as="line">
-                                        <tr>
-                                            <td>
-                                                <t t-out="line.vehicle_id.name"/>
-                                            </td>
-                                            <td>
-                                                <t t-out="line.vehicle_per_day_cost"/>
-                                            </td>
-                                            <td>
-                                                <t t-if="line.start_km">
-                                                    <span t-field="line.start_km"/>
-                                                </t>
-                                            </td>
-                                            <td>
-                                                <t t-if="line.end_km">
-                                                    <span t-field="line.end_km"/>
-                                                </t>
-                                            </td>
-                                            <td>
-                                                <t t-out="line.km_per_day"/>
-                                            </td>
-                                            <td>
-                                                <t t-out="line.applicable_km"/>
-                                            </td>
-                                            <td class="text-end o_price_total">
-                                                <span t-field="line.cost"/>
-                                            </td>
-                                        </tr>
-                                    </t>
-                                </tbody>
-                            </table>
-                            <hr style="width: 15%; margin-left: auto; margin-right: 0; display-inline"/>
-                            <p class="text-end">Total Amount:
-                                <span t-field="booking.total_cost"/>
-                            </p>
-                        </t>
-                        <t t-else="">
-                            <p>No Record for Car Rental Booking.</p>
-                        </t>
+                        <div id="chatter" class="oe_chatter mt-4">
+                            <h3>Communication history</h3>
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="record"/>
+                            </t>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </t>
     </template>
 
     <template id="create_booking_request_template" name="Create Borrow Request">
@@ -248,23 +260,23 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="/booking/submit" method="post" class="js_website_submit_form">
+                        <form action="/save/booking" method="post" class="js_website_submit_form">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                             <div class="row mb-4">
                                 <div class="col-md-6">
-                                    <div class="form-group row mb-2">
-                                        <label class="col-sm-4 col-form-label fw-bold">Driver</label>
-                                        <div class="col-sm-8">
-                                            <select name="driver_id" class="form-select" required="1">
-                                                <t t-foreach="drivers" t-as="d">
-                                                    <option t-att-value="d.id">
-                                                        <t t-esc="d.name"/>
-                                                    </option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <!--                                    <div class="form-group row mb-2">-->
+                                    <!--                                        <label class="col-sm-4 col-form-label fw-bold">Driver</label>-->
+                                    <!--                                        <div class="col-sm-8">-->
+                                    <!--                                            <select name="driver_id" class="form-select" required="1">-->
+                                    <!--                                                <t t-foreach="drivers" t-as="d">-->
+                                    <!--                                                    <option t-att-value="d.id">-->
+                                    <!--                                                        <t t-esc="d.name"/>-->
+                                    <!--                                                    </option>-->
+                                    <!--                                                </t>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
                                     <div class="form-group row mb-2">
                                         <label class="col-sm-4 col-form-label fw-bold">Start Date</label>
                                         <div class="col-sm-8">
@@ -278,10 +290,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
-                                        <label class="col-sm-4 col-form-label fw-bold text-muted">Trip Details</label>
+                                        <label class="col-sm-4 col-form-label fw-bold">Trip Details</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control-plaintext" name="trip_details"
-                                                   readonly="1"/>
+                                            <input type="text" class="form-control" name="trip_details"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -298,6 +310,7 @@
                                     <thead class="bg-light">
                                         <tr>
                                             <th style="width: 25%;">Vehicle</th>
+                                            <th style="width: 25%;">Driver</th>
                                             <th style="width: 10%;">Start KM</th>
                                             <th style="width: 15%;">End KM</th>
                                             <th style="width: 15%;">Total Cost</th>
@@ -313,6 +326,17 @@
                                                     <t t-foreach="vehicles" t-as="v">
                                                         <option t-att-value="v.id">
                                                             <t t-out="v.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="driver_id" class="form-select form-select-sm"
+                                                        required="1">
+                                                    <option value="">Select Drivers...</option>
+                                                    <t t-foreach="drivers" t-as="d">
+                                                        <option t-att-value="d.id">
+                                                            <t t-esc="d.name"/>
                                                         </option>
                                                     </t>
                                                 </select>
@@ -396,7 +420,5 @@
         <field name="track">True</field>
         <field name="website_meta_description">This is the Booking page of the website</field>
     </record>
-
-
 
 </odoo>

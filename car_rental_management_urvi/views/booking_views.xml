@@ -9,7 +9,7 @@
                 <field name="customer_id"/>
                 <field name="customer_phone"/>
                 <field name="customer_email"/>
-                <field name="driver_id"/>
+<!--                <field name="driver_id"/>-->
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="trip_details"/>
@@ -80,8 +80,6 @@
                             <field name="customer_id"/>
                             <field name="customer_phone"/>
                             <field name="customer_email"/>
-                            <field name="driver_id" domain="[('is_driver','=',True)]" context="{'default_is_driver':True}"/>
-                            <field name="driver_per_day_rate"/>
                         </group>
                         <group>
                             <field name="start_date"/>
@@ -89,22 +87,31 @@
                             <field name="trip_details"/>
                             <field name="damage_description" invisible="state not in ['completed']"/>
                             <field name="damage_cost" invisible="state not in ['completed']"/>
-                            <field name="total_cost"/>
                         </group>
                     </group>
                     <notebook>
                         <page name="booking_lines" string="Vehicle Details">
-                            <field name="booking_lines">
+                            <field name="booking_lines" readonly="not (start_date and end_date)">
                                 <list editable="bottom">
                                     <field name="vehicle_id" domain="[('id','in',available_vehicles_l)]" context="{'default_type':'vehicle'}"/>
+                                     <field name="driver_id" domain="[('id','in',available_driver_l)]" context="{'default_is_driver':True}"/>
                                     <field name="vehicle_per_day_cost" />
+                                    <field name="driver_per_day_rate" />
                                     <field name="start_km" />
-                                    <field name="end_km" />
+                                    <field name="end_km" readonly="not start_km"/>
                                     <field name="km_per_day" />
                                     <field name="applicable_km" />
                                     <field name="cost" />
                                 </list>
                             </field>
+                            <group>
+                                <group class=" oe_subtotal_footer">
+                                    <span class="o_td_label float-start">
+                                        <label class="fw-bold" for="total_cost" string="Total Cost:"/>
+                                    </span>
+                                    <field name="total_cost" widget="monetary" nolabel="1"/>
+                                </group>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
