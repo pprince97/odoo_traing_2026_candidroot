@@ -1,5 +1,7 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _, Command
 from odoo.exceptions import ValidationError
+from odoo.fields import Domain
+
 
 class RentalBooking(models.Model):
     _name = 'rental.booking'
@@ -23,6 +25,9 @@ class RentalBooking(models.Model):
     damage_charges = fields.Monetary(store=True, readonly=False,currency_field='currency_id',string='Damage Charges')
     total_cost = fields.Monetary(store=True,currency_field='currency_id',string='Total Cost',compute='_compute_total_cost')
     total_days = fields.Integer(compute='_compute_total_days',store=True)
+    vehicles = fields.Many2many(comodel_name='product.product',relation='booking_product_rel', column1='booking_id', column2='product_id', compute='_compute_vehicles')
+    drivers = fields.Many2many(comodel_name='res.partner',relation='booking_partner_rel', column1='booking_id', column2='partner_id', compute='_compute_vehicles')
+
 
     def state_inquiry(self):
         self.state = 'inquiry'
@@ -42,6 +47,25 @@ class RentalBooking(models.Model):
     def state_cancelled(self):
         self.state = 'cancelled'
 
+    @api.depends('vehicle_line_ids','start_date', 'end_date')
+    def _compute_vehicles(self):
+        domain = Domain.OR([
+            Domain([('start_date', '<=', self.start_date), ('end_date', '>=', self.start_date)]),
+            Domain([('start_date', '<=', self.end_date), ('end_date', '>=', self.end_date)]),
+            Domain([('start_date', '>=', self.start_date), ('end_date', '<=', self.end_date)])])
+        vehicles_1 = self.env['rental.booking'].search(domain)['vehicle_line_ids']['vehicle_id']
+        vehicles_2 = self.env['product.product'].search([('type', '=', 'vehicle')])
+        vehicles_3 = self.env['rental.booking'].browse(self.ids)['vehicle_line_ids']['vehicle_id']
+        self.write({
+            'vehicles': [Command.set((vehicles_2 - vehicles_1 - vehicles_3).ids)],
+        })
+        drivers_1 = self.env['rental.booking'].search(domain)['vehicle_line_ids']['driver_id']
+        drivers_2 = self.env['res.partner'].search([('is_driver', '=', True)])
+        drivers_3 = self.env['rental.booking'].browse(self.ids)['vehicle_line_ids']['driver_id']
+        self.write({
+            'drivers': [Command.set((drivers_2 - drivers_1 -drivers_3).ids)],
+        })
+
     @api.onchange('start_date', 'end_date')
     def _onchange_dates(self):
         if self.start_date and self.end_date:
@@ -55,15 +79,7 @@ class RentalBooking(models.Model):
                 rec.total_days = (rec.end_date - rec.start_date).total_seconds()/(60*60*24)
             else:
                 rec.total_days = 0
-
-    @api.onchange('vehicle_line_ids')
-    def _onchange_vehicle_line_ids(self):
-        # vehicles = self.env['product.product'].search([('type','=','vehicle')])
-        vehicle_lines_1 = self.env['vehicle.line'].search([('vehicle_id.type','=','vehicle')])['vehicle_id']
-        vehicle_lines_2 = self.env['vehicle.line'].search([('vehicle_id.type','=','vehicle'),('booking_id.end_date','<=',self.start_date)])['vehicle_id']
-        print(">>>>>>>>>>>",vehicle_lines_1)
-        print(">>>>>>>>>>>",vehicle_lines_2)
-        print(">>>>>>>>>>>",vehicle_lines_1-vehicle_lines_2)
+            self._compute_vehicles()
 
     @api.depends('vehicle_line_ids','damage_charges','total_days')
     def _compute_total_cost(self):

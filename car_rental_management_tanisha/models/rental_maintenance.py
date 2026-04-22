@@ -13,6 +13,11 @@ class RentalMaintenance(models.Model):
     currency_id = fields.Many2one(comodel_name='res.currency', string="Foreign Currency")
     total_cost = fields.Monetary(store=True,currency_field='currency_id',string='Total Cost',compute='_compute_total_cost')
 
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_id(self):
+        for rec in self:
+            rec.vehicle_id.status = 'maintenance'
+
     @api.depends('part_line_ids')
     def _compute_total_cost(self):
         for rec in self:

@@ -96,13 +96,13 @@
                         <page name="vehicle_lines" string="Vehicle Lines">
                             <field name="vehicle_line_ids">
                                 <list editable="top">
-                                    <field name="vehicle_id" domain="[('product_type','=','vehicle'),('status','!=','booked')]" context="{'form_view_ref': 'car_rental_management_tanisha.car_management_form_view'}"/>
+                                    <field name="vehicle_id" domain="[('id','in',vehicles)]" context="{'form_view_ref': 'car_rental_management_tanisha.car_management_form_view'}"/>
                                     <field name="per_km_cost"/>
                                     <field name="start_trip_km"/>
                                     <field name="end_trip_km"/>
                                     <field name="total_km"/>
                                     <field name="adjustment_km"/>
-                                    <field name="driver_id" domain="[('status','=','available')]" context="{'form_view_ref': 'car_rental_management_tanisha.driver_management_form_view'}"/>
+                                    <field name="driver_id" domain="[('id','in',drivers)]" context="{'form_view_ref': 'car_rental_management_tanisha.driver_management_form_view'}"/>
                                     <field name="sub_cost"/>
                                 </list>
                             </field>
