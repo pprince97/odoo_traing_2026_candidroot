@@ -107,7 +107,10 @@ class Booking(models.Model):
             domain = Domain.OR([Domain([('start_date', '<=', self.start_date),
                                         ('end_date', '>=', self.start_date)]),
                                 Domain([('start_date', '<=', self.end_date),
-                                        ('end_date', '>=', self.end_date)])])
+                                        ('end_date', '>=', self.end_date)]),
+                                 Domain([('start_date', '>=', self.start_date),
+                                         ('end_date', '<=', self.end_date)])
+                                 ])
             domain &= Domain([('state', 'in', ['approved', 'inquiry', 'on_going']),('id','!=',self.id)])
             id_s1 = self.env['car.rental.booking'].search(domain).booking_lines.vehicle_id.ids
             id_s2 = self.env['product.product'].search([('type','=','vehicle'),('id','not in',self.booking_lines.vehicle_id.ids)]).ids
