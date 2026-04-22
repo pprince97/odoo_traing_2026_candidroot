@@ -96,7 +96,7 @@
                         </group>
                         <notebook>
                             <page name="booking_lines" string="Vehicles">
-                                <field name="booking_line_ids">
+                                <field name="booking_line_ids" readonly="(rent_date == False) or (return_date == False)">
                                     <list editable="bottom">
                                         <field name="vehicle_id" width="30px"
                                                domain="[('id','in',available_vehicles)]" options="{'no_open': True, 'no_create': True}"/>
@@ -183,7 +183,7 @@
                         </group>
                         <notebook>
                             <page name="booking_lines" string="Vehicles">
-                                <field name="booking_line_ids">
+                                <field name="booking_line_ids" readonly="(rent_date == False) or (return_date == False)">
                                     <list editable="bottom">
                                         <field name="vehicle_id" width="30px" domain="[('id','in',available_vehicles)]"
                                                options="{'no_open': True, 'no_create': True}"/>

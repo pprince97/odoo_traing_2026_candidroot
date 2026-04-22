@@ -27,7 +27,9 @@ class VehicleBookingLine(models.Model):
             domain = Domain.OR([Domain([('rent_date', '<=', self.booking_id.rent_date),
                                         ('return_date', '>=', self.booking_id.rent_date)]),
                                 Domain([('rent_date', '<=', self.booking_id.return_date),
-                                        ('return_date', '>=', self.booking_id.return_date)])])
+                                        ('return_date', '>=', self.booking_id.return_date)]),
+                                Domain([('rent_date', '>=', self.booking_id.rent_date),
+                                         ('return_date', '<=', self.booking_id.return_date)])])
             domain &= Domain([('state', 'in', ['draft','approved', 'inquiry', 'on_going']), ('id', '!=', self.booking_id.id)])
             id_s1 = self.env['vehicle.booking'].search(domain).booking_line_ids.vehicle_id.ids
             id_s2 = self.env['product.product'].search([('is_vehicle', '=', True),('id','not in',self.booking_id.booking_line_ids.vehicle_id.ids)]).ids
@@ -44,7 +46,9 @@ class VehicleBookingLine(models.Model):
             domain = Domain.OR([Domain([('rent_date', '<=', self.booking_id.rent_date),
                                         ('return_date', '>=', self.booking_id.rent_date)]),
                                 Domain([('rent_date', '<=', self.booking_id.return_date),
-                                        ('return_date', '>=', self.booking_id.return_date)])])
+                                        ('return_date', '>=', self.booking_id.return_date)]),
+                                Domain([('rent_date', '>=', self.booking_id.rent_date),
+                                        ('return_date', '<=', self.booking_id.return_date)])])
             domain &= Domain([('state', 'in', ['draft', 'approved', 'inquiry', 'on_going']), ('id', '!=', self.booking_id.id)])
             id_s1 = self.env['vehicle.booking'].search(domain).booking_line_ids.driver_id.ids
             id_s2 = self.env['res.partner'].search([('is_driver', '=', True), ('id', 'not in', self.booking_id.booking_line_ids.driver_id.ids)]).ids

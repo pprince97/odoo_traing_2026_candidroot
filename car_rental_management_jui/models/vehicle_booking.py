@@ -26,6 +26,9 @@ class VehicleBooking(models.Model):
     def state_approved(self):
         self.state = 'approved'
     def state_on_going(self):
+        for line in self.booking_line_ids:
+            line.vehicle_id.status = 'booked'
+            line.driver_id.status = False
         self.state = 'on_going'
     def state_completed(self):
         for line in self.booking_line_ids:
@@ -97,26 +100,6 @@ class VehicleBooking(models.Model):
             if rec.booking_line_ids:
                 for line in rec.booking_line_ids:
                     rec.total_cost += line.total_cost
-
-
-    def create(self, vals):
-        res = super(VehicleBooking, self).create(vals)
-        for rec in res:
-            if rec.booking_line_ids:
-                for line in rec.booking_line_ids:
-                    line.vehicle_id.status = 'booked'
-                    line.driver_id.status = False
-        return res
-
-    def write(self, vals):
-        res = super(VehicleBooking, self).write(vals)
-        if 'booking_line_ids' in vals:
-            for rec in self:
-                for line in rec.booking_line_ids:
-                    line.vehicle_id.status = 'booked'
-                    line.driver_id.status = False
-        return res
-
 
     def unlink(self):
         for rec in self:

@@ -1,6 +1,8 @@
-from odoo import http, _,fields
+from odoo import http, _,fields, Command
 from odoo.http import request
 from odoo.exceptions import AccessError
+from odoo.fields import Domain
+
 
 class CarRentalManagementController(http.Controller):
 
@@ -85,8 +87,6 @@ class CarRentalManagementController(http.Controller):
                     'start_km': int(post.get('new_start_km') or 1),
                     'end_km': int(post.get('new_end_km') or 1),
                 })
-                request.env['product.product'].browse(int(post.get('new_vehicle_id'))).write({'status':'booked'})
-                request.env['res.partner'].browse(int(post.get('new_driver_id'))).write({'status':False})
 
             return request.redirect('/my/car/rental/bookings/form/')
 
@@ -100,3 +100,33 @@ class CarRentalManagementController(http.Controller):
         if line:
             line.unlink()
         return request.redirect('/my/car/rental/bookings/form/')
+
+    @http.route('/availability/domain/filter', type='jsonrpc', auth='user', website=True)
+    def availability_filter(self, rent_date_s,return_date_s):
+        if rent_date_s and return_date_s:
+            rent_date = fields.Date.to_date(rent_date_s)
+            return_date = fields.Date.to_date(return_date_s)
+            domain = Domain.OR([Domain([('rent_date', '<=', rent_date),
+                                        ('return_date', '>=', rent_date)]),
+                                Domain([('rent_date', '<=', return_date),
+                                        ('return_date', '>=', return_date)]),
+                                Domain([('rent_date', '>=', rent_date),
+                                        ('return_date', '<=', return_date)])])
+            domain &= Domain(
+                [('state', 'in', ['draft', 'approved', 'inquiry', 'on_going'])])
+            id_s1 = self.env['vehicle.booking'].search(domain).booking_line_ids.vehicle_id.ids
+            id_s2 = self.env['product.product'].search([('is_vehicle', '=', True)]).ids
+            data_v = list(set(id_s2) - set(id_s1))
+            available_vehicles = self.env['product.product'].search_read(
+                [('id', 'in', data_v)],
+                ['id', 'display_name']
+            )
+
+            id_s3 = self.env['vehicle.booking'].search(domain).booking_line_ids.driver_id.ids
+            id_s4 = self.env['res.partner'].search([('is_driver', '=', True)]).ids
+            data_d = list(set(id_s4) - set(id_s3))
+            available_drivers = self.env['res.partner'].search_read(
+                [('id', 'in', data_d)],
+                ['id', 'display_name']
+            )
+        return {'available_vehicles': available_vehicles, 'available_drivers':available_drivers}

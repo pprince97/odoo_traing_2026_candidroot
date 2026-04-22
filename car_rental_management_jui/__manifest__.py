@@ -29,6 +29,12 @@
     ],
 
     'assets':{
-                'point_of_sale._assets_pos': ['car_rental_management_jui/static/src/**/*'],
-            },
+        'point_of_sale._assets_pos': [
+            'car_rental_management_jui/static/src/js/pos_menu.js'
+            'car_rental_management_jui/static/src/xml/pos_menu.xml'
+        ],
+        'web.assets_frontend': [
+            'car_rental_management_jui/static/src/js/form_js.js',
+        ],
+    },
 }

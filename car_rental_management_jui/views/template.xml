@@ -259,7 +259,7 @@
 
                     <section class="body mt-5 mb-5">
                         <div class="container">
-                            <form action="/my/car/rental/bookings/form/submit" method="post">
+                            <form action="/my/car/rental/bookings/form/submit" method="post" id="car_rental_booking_form">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <input type="hidden" name="request_id" t-att-value="id"/>
 
@@ -298,8 +298,9 @@
 
                                 <div class="table-responsive mt-4">
                                     <t t-set="request_lines" t-value="requests.booking_line_ids if requests else []"/>
-                                    <t t-set="available_vehicles" t-value="request.env['product.product'].search([('is_vehicle','=',True),('status','in',['available'])])"/>
-                                    <t t-set="available_drivers" t-value="request.env['res.partner'].search([('is_driver','=',True),('status','=',True)])"/>
+                                    <t t-set="available_vehicles" t-value="requests.booking_line_ids.available_vehicles if requests else request.env['product.product'].search([('is_vehicle','=',True),('status','in',['available'])])"/>
+                                    <t t-set="available_drivers" t-value="requests.booking_line_ids.available_driver if requests else request.env['res.partner'].search([('is_driver','=',True),('status','=',True)])"/>
+                                    <div id="available_filters"/>
 
                                     <table class="table table-bordered">
                                         <thead class="bg-light">
@@ -355,12 +356,12 @@
                                                 </td>
 
                                                 <td>
-                                                    <input type="number" name="new_start_km" value="0"
+                                                    <input id="new_start_km" type="number" name="new_start_km" value="0"
                                                            class="form-control text-end"/>
                                                 </td>
 
                                                 <td>
-                                                    <input type="number" name="new_end_km" value="0"
+                                                    <input id="new_end_km" type="number" name="new_end_km" value="0"
                                                            class="form-control text-end"/>
                                                 </td>
 
@@ -376,12 +377,18 @@
 
                                         </tbody>
                                     </table>
+                                    <div t-if="errors" class="invalid-feedback">
+                                       Missing Required Fields.
+                                    </div>
                                 </div>
 
                                 <!-- FINAL SUBMIT -->
                                 <div class="mt-4">
                                     <button id="save_details" type="submit" class="btn btn-primary">
                                         Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-primary">
+                                        Reset
                                     </button>
                                 </div>
                             </form>
